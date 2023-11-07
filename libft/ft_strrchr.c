@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 17:29:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 11:57:21 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/07 15:22:08 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/07 16:02:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+// #include <stdio.h>
+// #include <string.h>
 
-int ft_isalpha(int c)
+char	*strrchr(const char *s, int c)
 {
-	if (c < 65 || (c > 90 && c < 97) || c > 122)
-	{
+	char	*str;
+
+	str = (char *)s;
+	while (*str != '\0')
+		str++;
+	while (*str != (char)c && s != str)
+		str--;
+	if (*str == (char)c)
+		return (str);
+	else
 		return (0);
-	}
-	return (c);
 }
 
-int main()
-{
-	printf("%d\n", ft_isalpha(68));
-	printf("%d\n", isalpha(68));
-}
+// int main(void)
+// {
+//     char *str = "y le y rap";
+//     printf("%s", strrchr(str, 'y'));
+// }

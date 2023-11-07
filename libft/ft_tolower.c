@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 17:29:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 11:57:21 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/07 15:16:15 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/07 15:20:38 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+// #include <stdio.h>
 
-int ft_isalpha(int c)
+int ft_tolower(int c)
 {
-	if (c < 65 || (c > 90 && c < 97) || c > 122)
-	{
-		return (0);
-	}
-	return (c);
+    if (c > 64 && c < 91)
+        return (c + 32);
+    return (c);
 }
-
-int main()
-{
-	printf("%d\n", ft_isalpha(68));
-	printf("%d\n", isalpha(68));
-}
+// int main()
+// {
+//     printf("Result: %d\n", ft_tolower('B'));
+//     return 0;
+// }

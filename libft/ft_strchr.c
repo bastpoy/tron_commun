@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 17:29:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 11:57:21 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/07 16:02:47 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/07 16:09:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 
-int ft_isalpha(int c)
+char *strchr(const char *s, int c)
 {
-	if (c < 65 || (c > 90 && c < 97) || c > 122)
-	{
-		return (0);
-	}
-	return (c);
+    char *str;
+
+    str = (char *)s;
+    while (*str != '\0')
+    {
+        if (*str == (char)c)
+        {
+            return (str);
+        }
+        str++;
+    }
+    return (0);
 }
 
-int main()
+int main(void)
 {
-	printf("%d\n", ft_isalpha(68));
-	printf("%d\n", isalpha(68));
+    char *str = "y le y rap";
+    printf("%s", strchr(str, 'o'));
 }

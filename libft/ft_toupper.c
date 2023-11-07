@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 17:29:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 11:57:21 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/07 13:37:03 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/07 14:04:34 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-int ft_isalpha(int c)
+int	ft_toupper(int c)
 {
-	if (c < 65 || (c > 90 && c < 97) || c > 122)
-	{
-		return (0);
-	}
+	if (c > 96 && c < 123)
+		return (c - 32);
 	return (c);
 }
 
-int main()
-{
-	printf("%d\n", ft_isalpha(68));
-	printf("%d\n", isalpha(68));
-}
+// int main()
+// {
+//     printf("Result: %d\n", ft_toupper('9'));
+//     return (EXIT_SUCCESS);
+// }
