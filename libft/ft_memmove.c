@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:02:54 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 17:20:53 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:50:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include <stdio.h>
 // #include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
 // #define ELEMENT_COUNT 10
 

@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:28:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/06 18:30:12 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:49:57 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isprint(int c){
+#include "libft.h"
+
+int ft_isprint(int c)
+{
     if (c > 32 && c < 127)
         return c;
     return 0;

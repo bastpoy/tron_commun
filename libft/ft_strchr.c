@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:02:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 16:09:28 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:50:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-char *strchr(const char *s, int c)
+char *ft_strchr(const char *s, int c)
 {
     char *str;
 
@@ -28,8 +28,8 @@ char *strchr(const char *s, int c)
     return (0);
 }
 
-int main(void)
-{
-    char *str = "y le y rap";
-    printf("%s", strchr(str, 'o'));
-}
+// int main(void)
+// {
+//     char *str = "y le y rap";
+//     printf("%s", strchr(str, 'o'));
+// }

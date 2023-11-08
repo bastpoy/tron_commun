@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:16:00 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/06 18:17:25 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:49:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isascii(int c){
-    if(c >= 0 && c < 128)
+#include "libft.h"
+
+int ft_isascii(int c)
+{
+    if (c >= 0 && c < 128)
         return c;
     return 0;
 }

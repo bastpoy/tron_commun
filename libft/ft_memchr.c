@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:24:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 21:01:48 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:50:05 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
-// #include <stdio.h>
-
-void	*memchr(const void *str, int c, size_t size)
+void *ft_memchr(const void *str, int c, size_t size)
 {
-	unsigned char	*ptr;
+	unsigned char *ptr;
 
 	ptr = (unsigned char *)str;
 	while (size-- > 0)

@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:03:04 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/06 18:15:31 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:49:53 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isdigit(int c){
-if (c > 47 && c < 57){
-    return (c);
-} 
+#include "libft.h"
+
+int ft_isdigit(int c)
+{
+	if (c > 47 && c < 57)
+	{
+		return (c);
+	}
 	return (0);
 }
 

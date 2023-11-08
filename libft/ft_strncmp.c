@@ -6,16 +6,16 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 20:58:43 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/08/16 15:13:59 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:52:05 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
-//#include <string.h>
+// #include <stdio.h>
+#include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, unsigned int n)
+int ft_strncmp(char *s1, char *s2, unsigned int n)
 {
-	unsigned int	i;
+	unsigned int i;
 
 	i = 0;
 	if (i == n)

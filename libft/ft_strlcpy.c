@@ -6,11 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 11:07:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 13:35:45 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:52:09 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned int ft_strlcpy(char *dest, char *src, unsigned int size)
+#include "libft.h"
+
+size_t ft_strlcpy(char *dest, char *src, size_t size)
 {
 	unsigned int j;
 	unsigned int i;

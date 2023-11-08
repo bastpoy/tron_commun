@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 21:08:46 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 21:36:49 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:50:09 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
+#include "libft.h"
 // #include <stdio.h>
 
-int	ft_memcmp(const void *ptr1, const void *ptr2, size_t size)
+int ft_memcmp(const void *ptr1, const void *ptr2, size_t size)
 {
-	char	*cpptr1;
-	char	*cpptr2;
+	char *cpptr1;
+	char *cpptr2;
 
 	cpptr1 = (char *)ptr1;
 	cpptr2 = (char *)ptr2;

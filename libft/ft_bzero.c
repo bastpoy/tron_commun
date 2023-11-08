@@ -6,17 +6,18 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 09:32:34 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 09:34:28 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:48:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
+
 void ft_bzero(void *s, size_t n)
 {
     char *ptr;
 
     ptr = s;
-    while(n-- > 0)
+    while (n-- > 0)
         *ptr++ = 0;
 }
 // int main() {
@@ -42,6 +43,6 @@ void ft_bzero(void *s, size_t n)
 //         printf( "%d ", array[ length ] );
 //     }
 //     printf( "\n" );
-    
+
 //     return 0;
 // }

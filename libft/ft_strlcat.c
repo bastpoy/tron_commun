@@ -6,31 +6,19 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:27:24 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/08/16 15:05:32 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:00:21 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <bsd/string.h>
-//#include <stdio.h>
-//#include <string.h>
+// #include <bsd/string.h>
+// #include <stdio.h>
+#include "libft.h"
 
-unsigned int	ft_strlen(char *str)
+size_t ft_strlcat(char *dest, char *src, size_t size)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
-{
-	unsigned int	i;
-	unsigned int	len_src;
-	unsigned int	len_dest;
+	unsigned int i;
+	unsigned int len_src;
+	unsigned int len_dest;
 
 	i = 0;
 	len_dest = ft_strlen(dest);

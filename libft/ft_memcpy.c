@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 10:07:51 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 13:45:42 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:50:16 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include <stdio.h>
 // #include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
 void *ft_memcpy(void *dest, const void *src, size_t size)
 {

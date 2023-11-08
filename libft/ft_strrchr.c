@@ -6,16 +6,16 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:22:08 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/07 16:02:10 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/08 17:52:20 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include <stdio.h>
-// #include <string.h>
+#include "libft.h"
 
-char	*strrchr(const char *s, int c)
+char *ft_strrchr(const char *s, int c)
 {
-	char	*str;
+	char *str;
 
 	str = (char *)s;
 	while (*str != '\0')
