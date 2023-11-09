@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:02:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:50:50 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:54:01 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char *ft_strchr(const char *s, int c)
     char *str;
 
     str = (char *)s;
-    while (*str != '\0')
+    while (*str)
     {
         if (*str == (char)c)
         {
