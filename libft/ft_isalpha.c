@@ -3,18 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:29:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:49:46 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:03:41 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdbool.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <ctype.h>
 #include "libft.h"
 
 int ft_isalpha(int c)
@@ -26,8 +21,13 @@ int ft_isalpha(int c)
 	return (c);
 }
 
-int main()
-{
-	printf("%d\n", ft_isalpha(68));
-	printf("%d\n", isalpha(68));
-}
+// #include <stdbool.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+// #include <ctype.h>
+// int main()
+// {
+// 	printf("%d\n", ft_isalpha(68));
+// 	printf("%d\n", isalpha(68));
+// }

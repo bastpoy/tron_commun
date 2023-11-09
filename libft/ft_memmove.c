@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:02:54 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:50:29 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/09 14:04:20 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include <stdio.h>
-// #include <stdlib.h>
-#include "libft.h"
 
-// #define ELEMENT_COUNT 10
+#include "libft.h"
 
 void *ft_memmove(void *dest, const void *src, size_t size)
 {
@@ -25,7 +23,6 @@ void *ft_memmove(void *dest, const void *src, size_t size)
 	ptrsrc = src;
 	if (ptrdest > ptrsrc)
 	{
-		printf("dest > source");
 		while (size-- > 0)
 			ptrdest[size] = ptrsrc[size];
 	}
@@ -36,6 +33,9 @@ void *ft_memmove(void *dest, const void *src, size_t size)
 	}
 	return (ptrdest);
 }
+
+// #include <stdio.h>
+// #define ELEMENT_COUNT 10
 // int main(void)
 // {
 // 	// char src[] = {54, 85, 20, 63, 21};
