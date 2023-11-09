@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:31:19 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:50:35 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:10:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void *ft_memset(void *dest, int val, unsigned int len)
+void *ft_memset(void *dest, int val, size_t len)
 {
 	char *ptr;
 
