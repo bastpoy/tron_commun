@@ -10,18 +10,19 @@ HEADERS = libft.h
 ${NAME} : ${OBJS} 
 	gcc ${CFLAGS} ${OBJS} -o output
 
-%.o: %.c ${HEADERS}
-	gcc ${CFLAGS} -c $< -o $@
 
 all : ${NAME}
 
+# %.o: %.c ${HEADERS}
+# 	gcc ${CFLAGS} -c $< -o $@
+
 # clean : 
-# 	rm ${OBJS}
+# 	rm -f ${OBJS}
 
 # fclean : clean
-# 	rm ${NAME}
+# 	rm -f ${NAME}
 
-#re :
+# re : fclean all
 
 # NAME	=	rush-02
 # CC	=	cc
