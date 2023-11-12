@@ -3,28 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:24:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:50:05 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/10 17:20:11 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *ft_memchr(const void *str, int c, size_t size)
+void	*ft_memchr(const void *str, int c, size_t size)
 {
-	unsigned char *ptr;
+	char	*ptr;
 
-	ptr = (unsigned char *)str;
-	while (size-- > 0)
+	ptr = (char *)str;
+	while (size > 0)
 	{
-		if (*ptr == (unsigned char)c)
+		if (*ptr == c)
 			return ((void *)str);
 		ptr++;
+		str++;
+		size--;
 	}
 	return (0);
 }
+
+// #include <stdio.h>
 // int main()
 // {
 //     char data[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};

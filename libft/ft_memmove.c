@@ -6,20 +6,18 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:02:54 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 14:04:20 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:56:14 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
-
 #include "libft.h"
 
-void *ft_memmove(void *dest, const void *src, size_t size)
+void	*ft_memmove(void *dest, const void *src, size_t size)
 {
-	char *ptrdest;
-	const char *ptrsrc;
+	char		*ptrdest;
+	const char	*ptrsrc;
 
-	ptrdest = dest;
+	ptrdest = (char *)dest;
 	ptrsrc = src;
 	if (ptrdest > ptrsrc)
 	{
@@ -31,7 +29,7 @@ void *ft_memmove(void *dest, const void *src, size_t size)
 		while (size-- > 0)
 			*ptrdest++ = *ptrsrc++;
 	}
-	return (ptrdest);
+	return (dest);
 }
 
 // #include <stdio.h>

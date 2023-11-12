@@ -15,9 +15,9 @@
 // #include <unistd.h>
 #include "libft.h"
 
-unsigned int ft_chartoint(char *str, int sign)
+unsigned int	ft_chartoint(char *str, int sign)
 {
-	unsigned int output;
+	unsigned int	output;
 
 	output = 0;
 	while (*str >= '0' && *str <= '9')
@@ -30,21 +30,23 @@ unsigned int ft_chartoint(char *str, int sign)
 	return (output);
 }
 
-char *space(char *str)
+char	*space(char *str)
 {
-	while (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\v' || *str == '\f' || *str == '\r')
+	while (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r')
 	{
 		str++;
 	}
 	return (str);
 }
 
-int ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	int sign;
+	int	sign;
 
 	sign = 0;
-	if (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\v' || *str == '\f' || *str == '\r')
+	if (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r')
 		str = space(str);
 	if (*str == '-' || *str == '+')
 	{

@@ -1,28 +1,36 @@
-SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_strjoin.c ft_substr.c ft_strtrim.c ft_split.c ft_itoa.c
-
-OBJS = ${SRCS:.c =.o}
+# SRCS = $(shell ls *.c)
+SRCSA = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_strjoin.c ft_substr.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putendl_fd.c ft_putstr_fd.c ft_putnbr_fd.c
+SRCSB = ft_lstnew.c
+OBJS = $(SRCSA:.c=.o)
+OBJSB= $(SRCSB:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra
 
 NAME = libft.a
 HEADERS = libft.h
 
-${NAME} : ${OBJS} 
-	gcc ${CFLAGS} ${OBJS} -o output
+$(NAME) : lib $(OBJS) 
+	gcc $(CFLAGS) $(OBJS) -o output -L. -lft
 
+lib : $(OBJS)
+	-@ar rc $(NAME) $(OBJS)
 
-all : ${NAME}
+bonus : $(OBJSB)
+	-@ar rc $(NAME) $(OBJSB)
 
-# %.o: %.c ${HEADERS}
-# 	gcc ${CFLAGS} -c $< -o $@
+all : $(NAME)
 
-# clean : 
-# 	rm -f ${OBJS}
+.c.o :
+# gcc $(CFLAGS) -c $< -o $(<:.c=.o)
+	gcc $(CFLAGS) -c $< -o $@
 
-# fclean : clean
-# 	rm -f ${NAME}
+clean : 
+	rm -f $(OBJS) $(OBJSB)
 
-# re : fclean all
+fclean : clean
+	rm -f $(NAME)
+
+re : fclean all
 
 # NAME	=	rush-02
 # CC	=	cc

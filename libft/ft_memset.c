@@ -6,17 +6,15 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:31:19 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 13:10:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/10 14:37:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
 
-void *ft_memset(void *dest, int val, size_t len)
+void	*ft_memset(void *dest, int val, size_t len)
 {
-	char *ptr;
+	char	*ptr;
 
 	ptr = dest;
 	while (len-- > 0)

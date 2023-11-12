@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 14:48:08 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 14:05:03 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/10 15:58:32 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/10 16:01:27 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strdup(const char *src)
+char	*ft_lstnew(void)
 {
-	int		i;
-	char	*dest;
-
-	i = ft_strlen((char *)src);
-	dest = (char *)malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	return ("re");
 }
-// #include <stdio.h>
-
-// int main(void)
-// {
-//     printf("%s\n", ft_strdup("salut"));
-//     printf("%s\n", strdup("salut"));
-// }

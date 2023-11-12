@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 14:48:08 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 14:05:03 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/13 00:24:49 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/13 00:28:14 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include <unistd.h>
 
-char	*ft_strdup(const char *src)
+void	writenbr(char c, int fd)
 {
-	int		i;
-	char	*dest;
-
-	i = ft_strlen((char *)src);
-	dest = (char *)malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	write(fd, &c, 1);
 }
-// #include <stdio.h>
 
-// int main(void)
-// {
-//     printf("%s\n", ft_strdup("salut"));
-//     printf("%s\n", strdup("salut"));
-// }
+void	ft_putnbr_fd(int n, int fd)
+{
+	unsigned int	absolut;
+
+	if (n < 0)
+	{
+		absolut = -n;
+		writenbr('-', fd);
+	}
+	else
+		absolut = n;
+	if (absolut > 9)
+	{
+		ft_putnbr_fd(absolut / 10, fd);
+	}
+	writenbr(absolut % 10 + '0', fd);
+}

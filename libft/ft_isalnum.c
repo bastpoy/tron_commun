@@ -6,16 +6,17 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:05:48 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 14:03:22 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/11 16:03:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-int ft_isalnum(int c)
+int	ft_isalnum(int c)
 {
-    if ((c > 47 && c < 57) || (c > 64 && c < 91) || (c > 96 && c < 123))
-    {
-        return (1);
-    }
-    return (c);
+	if ((c > 47 && c < 58) || (c > 64 && c < 91) || (c > 96 && c < 123))
+	{
+		return (c);
+	}
+	return (0);
 }

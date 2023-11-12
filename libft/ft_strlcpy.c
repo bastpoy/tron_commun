@@ -3,43 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 11:07:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:52:09 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/11 05:42:19 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_strlcpy(char *dest, char *src, size_t size)
+size_t	ft_strlcpy(char *dest, char *src, size_t size)
 {
-	unsigned int j;
-	unsigned int i;
+	unsigned int	j;
+	size_t			i;
 
 	j = 0;
 	i = 0;
-	//	if (src[0] == '\0' || size <= 0)
-	//	{
-	//		return (0);
-	//	}
-	while (src[j] != '\0')
-	{
+	while (src[j])
 		j++;
-	}
+	if (size == 0)
+		return (j);
 	while (i < size - 1 && src[i])
 	{
 		dest[i] = src[i];
 		i++;
 	}
-	if (i == size - 1 || src[i])
-	{
-		dest[i] = '\0';
-		dest++;
-	}
+	dest[i] = '\0';
 	return (j);
 }
 
+// #include <stdio.h>
 // int	main(void)
 // {
 // 	char source[] = "qwerqwrfwfqwef";

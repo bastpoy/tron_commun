@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 14:48:08 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 14:05:03 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/13 00:13:20 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/13 00:21:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-char	*ft_strdup(const char *src)
+void	ft_putendl_fd(char *s, int fd)
 {
-	int		i;
-	char	*dest;
-
-	i = ft_strlen((char *)src);
-	dest = (char *)malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }
-// #include <stdio.h>
-
-// int main(void)
-// {
-//     printf("%s\n", ft_strdup("salut"));
-//     printf("%s\n", strdup("salut"));
-// }
