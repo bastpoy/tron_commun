@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 15:58:32 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/13 14:37:15 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/13 23:24:44 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/14 00:15:56 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*ptr;
+	t_list	*buffer;
 
-	ptr = malloc(sizeof(t_list));
-	if (!ptr)
-		return (0);
-	ptr->content = content;
-	ptr->next = 0;
-	return (ptr);
+	if (lst)
+	{
+		while (*lst)
+		{
+			buffer = (*lst)->next;
+			del((*lst)->content);
+			free(*lst);
+			*lst = buffer;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:02:17 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/10 15:19:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/13 12:53:51 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!str)
 		return (0);
 	ft_strlcpy(str, (char *)s1, i + 1);
-	while (i + k < i + j + 1)
+	while (s2[k])
 	{
 		str[i + k] = s2[k];
 		k++;
