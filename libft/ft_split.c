@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:49 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 18:23:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/14 16:15:27 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	j = 0;
 	k = ft_countsep(s, c) + 1;
-	str = malloc((k + 1) * sizeof(char));
+	if(!(str = malloc((k + 1) * sizeof(char))))
+		return (0);
 	while (i < k)
 	{
-		printf("i vaut %d\n", i);
 		str[i] = malloc((ft_strlen((char *)s) + 1) * sizeof(char));
 		i++;
 	}
@@ -68,14 +68,14 @@ char	**ft_split(char const *s, char c)
 	return (str);
 }
 
-// int main(void)
-// {
-//     int i = 0;
+int main(void)
+{
+    int i = 0;
 
-//     char **str = ft_split("hhhallerhmechmecton",'h');
-//     while(str[i])
-//     {
-//         printf("%s\n",str[i]);
-//         i++;
-//     }
-// }
+    char **str = ft_split("0 0 0 0",' ');
+    while(str[i])
+    {
+        printf("%s\n",str[i]);
+        i++;
+    }
+}

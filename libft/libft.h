@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:17:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 00:04:15 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:42:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdlib.h>
-# include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 typedef struct s_list
 {
@@ -22,7 +23,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-int					ft_atoi(char *str);
+int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t elementCount, size_t elementSize);
 int					ft_isalnum(int c);

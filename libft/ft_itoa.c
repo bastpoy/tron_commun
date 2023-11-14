@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:37:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/13 00:37:19 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:22:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-// #include <stdlib.h>
-// #include <unistd.h>
-// #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-// void	ft_print_result(char const *s)
+void	ft_print_result(char const *s)
+{
+	int	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	write(1, s, len);
+}
+
+// int	main(int argc, const char *argv[])
 // {
-// 	int		len;
-
-// 	len = 0;
-// 	while (s[len])
-// 		len++;
-// 	write(1, s, len);
-// }
-
-// int		main(int argc, const char *argv[])
-// {
-// 	int		arg;
+// 	int arg;
 
 // 	alarm(5);
 // 	if (argc == 1)

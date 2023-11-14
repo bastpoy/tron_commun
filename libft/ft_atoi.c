@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:40:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 17:48:42 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/14 14:49:27 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,26 @@ char	*space(char *str)
 	return (str);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	sign;
-
+	char *ptr = (char*)str;
 	sign = 0;
-	if (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\v'
-		|| *str == '\f' || *str == '\r')
-		str = space(str);
-	if (*str == '-' || *str == '+')
+	if (*ptr == ' ' || *ptr == '\n' || *ptr == '\t' || *ptr == '\v'
+		|| *ptr == '\f' || *ptr == '\r')
+		ptr = space(ptr);
+	if (*ptr == '-' || *ptr == '+')
 	{
-		if (*str == '-')
+		if (*ptr == '-')
 			sign = 1;
-		str++;
+		ptr++;
 	}
-	if (*str >= '0' && *str <= '9')
-		return (ft_chartoint(str, sign));
+	if (*ptr >= '0' && *ptr <= '9')
+		return (ft_chartoint(ptr, sign));
 	return (0);
 }
 
-// int	main(void)
-// {
-// 	char	*str;
-
-// 	str = "		2147\n483648ab567";
-// 	printf("%d\n", ft_atoi(str));
-// 	printf("%d", atoi(str));
-// }
+int	main(void)
+{
+	return(0);
+}
