@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:49 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 16:15:27 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 00:37:56 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	ft_countsep(char const *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] == c && i != 0 && s[i + 1] != '\0' && s[i - 1] != c)
+		{
+			printf("i %d\n", i);
 			count++;
+		}
 		i++;
 	}
 	return (count);
@@ -34,48 +37,30 @@ char	**ft_split(char const *s, char c)
 	char	**str;
 	int		i;
 	int		j;
-	int		k;
 
 	i = 0;
-	j = 0;
-	k = ft_countsep(s, c) + 1;
-	if(!(str = malloc((k + 1) * sizeof(char))))
+	j = ft_countsep(s, c) + 1;
+	if (!(str = malloc((j + 1) * sizeof(char))))
 		return (0);
-	while (i < k)
+	j = 0;
+	while (*s)
 	{
-		str[i] = malloc((ft_strlen((char *)s) + 1) * sizeof(char));
-		i++;
+		while(str[i] == c)
+			s++;
 	}
-	i = 0;
-	k = 0;
-	while (s[i])
-	{
-		while (s[i] != c && s[i] != '\0')
-		{
-			str[k][j] = s[i];
-			i++;
-			j++;
-			if (s[i] == c || s[i] == '\0')
-			{
-				str[k][j] = '\0';
-				k++;
-				j = 0;
-			}
-		}
-		i++;
-	}
-	str[k] = NULL;
+	str[j] = NULL;
 	return (str);
 }
 
-int main(void)
+int	main(void)
 {
-    int i = 0;
+	int i = 0;
 
-    char **str = ft_split("0 0 0 0",' ');
-    while(str[i])
-    {
-        printf("%s\n",str[i]);
-        i++;
-    }
+	char **str = ft_split(" 0qwer 0re rweq  eqwr ", ' ');
+	while (str[i])
+	{
+		printf("%s\n", str[i]);
+		i++;
+	}
+	free(str);
 }

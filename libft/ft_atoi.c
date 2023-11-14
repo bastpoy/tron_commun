@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:40:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 14:49:27 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/14 22:47:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ char	*space(char *str)
 
 int	ft_atoi(const char *str)
 {
-	int	sign;
-	char *ptr = (char*)str;
+	int		sign;
+	char	*ptr;
+
+	ptr = (char *)str;
 	sign = 0;
 	if (*ptr == ' ' || *ptr == '\n' || *ptr == '\t' || *ptr == '\v'
 		|| *ptr == '\f' || *ptr == '\r')
@@ -57,9 +59,4 @@ int	ft_atoi(const char *str)
 	if (*ptr >= '0' && *ptr <= '9')
 		return (ft_chartoint(ptr, sign));
 	return (0);
-}
-
-int	main(void)
-{
-	return(0);
 }
