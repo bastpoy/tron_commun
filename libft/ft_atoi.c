@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:40:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 22:47:33 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 15:16:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <unistd.h>
 #include "libft.h"
 
 unsigned int	ft_chartoint(char *str, int sign)

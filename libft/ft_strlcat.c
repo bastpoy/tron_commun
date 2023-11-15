@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:27:24 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/08 18:00:21 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 15:16:25 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,3 @@ size_t	ft_strlcat(char *dest, char *src, size_t size)
 	dest[i + len_dest] = '\0';
 	return (len_dest + len_src);
 }
-/*
-int	main(void)
-{
-	char	*src1;
-	char	*src2;
-	int		val;
-	int		i;
-	int		res;
-
-	src1 = "salutmecert";
-	char dest1[13] = "re la fam";
-	src2 = "salutmecert";
-	char dest2[13] = "re la fam";
-	val = 11;
-	i = ft_strlcat(dest1, src1, val);
-	res = strlcat(dest2, src2, val);
-	printf("int un %d\n", i);
-	printf("int deux: %d\n", res);
-	printf("chaine1: %s\n", dest1);
-	printf("chaine2: %s", dest2);
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:02:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/11 06:17:23 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 18:00:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
+	unsigned char	*str;
 
-	str = (char *)s;
-	while (*str != c)
+	str = (unsigned char *)s;
+	while (*str != (unsigned char)c)
 	{
 		if (*str == '\0')
 			return (0);
 		str++;
 	}
-	return (str);
+	return ((char *)str);
 }
 
 // int main(void)
 // {
-//     char *str = "y le y rap";
-//     printf("%s", strchr(str, 'o'));
+//     char *str = "tripouille";
+//     printf("%s\n", strchr(str, 't' + 256));
+// 	printf("%s\n", ft_strchr(str, 't' + 256));
 // }

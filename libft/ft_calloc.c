@@ -6,12 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:17:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 15:14:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 15:16:34 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 void	*ft_calloc(size_t elementCount, size_t elementSize)
 {

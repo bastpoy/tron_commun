@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:56:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 22:54:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 19:35:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,22 @@
 char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
 	char	*cpstr;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
 	j = 0;
 	cpstr = (char *)str;
-	if (str == to_find)
+	if (str == to_find || (str && *to_find == '\0'))
 		return (cpstr);
-	while (cpstr[j] != '\0' && j < (int)len)
+	while (cpstr[j] != '\0' && j < len)
 	{
-		while (cpstr[j + i] == to_find[i] && i + j < (int)len
-			&& cpstr[i + j] != '\0')
-		{
-			i++;
-		}
-		if (to_find[i] == '\0')
-		{
-			return (cpstr + j);
-		}
 		i = 0;
+		while (cpstr[j + i] == to_find[i] && i + j < len && to_find[i] != '\0'
+			&& cpstr[i + j] != '\0')
+			i++;
+		if (i == ft_strlen(to_find))
+			return (cpstr + j);
 		j++;
 	}
 	return (0);
 }
-
-// #include <stdio.h>
-// int main(void)
-// {
-//     char *str = "lorem ipsum dolor sit amet";
-//     char *to_find = "dolor";
-//     size_t size = 0;
-//     // printf("%s\n", catin());
-//     printf("%s", ft_strnstr(str, to_find, size));
-// }

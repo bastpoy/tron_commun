@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:31:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/09 17:03:26 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/15 20:21:42 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+// #include <stdio.h>
 
 int	ft_trym_start(char const *s1, char const *set)
 {
@@ -61,5 +62,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 // int main(void)
 // {
-//     printf("-%s-",ft_strtrim("sasaut", "setaapru"));
+//     printf("-%s-",ft_strtrim("   abxfg  ", "x"));
 // }
