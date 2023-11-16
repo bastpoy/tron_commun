@@ -6,12 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:31:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/15 20:21:42 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:12:42 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-// #include <stdio.h>
 
 int	ft_trym_start(char const *s1, char const *set)
 {
@@ -31,10 +30,10 @@ int	ft_trym_end(char const *s1, char const *set)
 {
 	int	i;
 
-	i = ft_strlen((char *)s1) - 1;
+	i = ft_strlen((char *)s1);
 	while (i > 0)
 	{
-		if (ft_strchr(set, s1[i]) == 0)
+		if (ft_strchr(set, s1[i - 1]) == 0)
 			break ;
 		i--;
 	}
@@ -46,7 +45,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		indice_start;
 	int		indice_end;
 	char	*str;
+	int		i;
 
+	i = 0;
 	indice_start = ft_trym_start(s1, set);
 	indice_end = ft_trym_end(s1, set);
 	if (indice_start > indice_end)
@@ -54,7 +55,12 @@ char	*ft_strtrim(char const *s1, char const *set)
 	str = (char *)malloc((indice_end - indice_start + 1) * sizeof(char));
 	if (!str)
 		return (0);
-	str = ft_substr(s1, indice_start, indice_end - indice_start + 1);
+	while (indice_start + i < indice_end)
+	{
+		str[i] = s1[indice_start + i];
+		i++;
+	}
+	str[i] = 0;
 	return (str);
 }
 
@@ -62,5 +68,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 // int main(void)
 // {
-//     printf("-%s-",ft_strtrim("   abxfg  ", "x"));
+//     printf("-%s-",ft_strtrim("tripouille   xxx", "x"));
 // }

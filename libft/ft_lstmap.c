@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 00:03:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 14:17:35 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/16 16:22:52 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/16 16:57:15 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst || !f || !del)
 		return (0);
-	ptr = malloc(sizeof(t_list) * ft_lstsize(lst));
+	ptr = (ft_lstnew(f(lst->content)));
 	if (!ptr)
 		return (0);
-	ptr = (ft_lstnew(f(lst->content)));
 	begin = ptr;
 	lst = lst->next;
 	if (lst)
