@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:07:51 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/17 15:53:48 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/14 13:54:52 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/14 13:54:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t size)
+int	ft_memcmp(const void *ptr1, const void *ptr2, size_t size)
 {
-	char		*ptrdest;
-	const char	*ptrsrc;
+	unsigned char	*cpptr1;
+	unsigned char	*cpptr2;
 
-	ptrdest = (char *)dest;
-	ptrsrc = (char *)src;
-	if (!dest && !src)
-		return (NULL);
+	cpptr1 = (unsigned char *)ptr1;
+	cpptr2 = (unsigned char *)ptr2;
+	if (size == 0)
+		return (0);
 	while (size > 0)
 	{
-		*ptrdest++ = *ptrsrc++;
+		if (*cpptr1 != *cpptr2)
+			return (*cpptr1 - *cpptr2);
+		cpptr1++;
+		cpptr2++;
 		size--;
 	}
-	return (dest);
+	return (0);
 }

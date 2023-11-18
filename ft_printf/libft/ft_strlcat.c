@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 16:22:52 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/16 16:57:15 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/08/14 18:27:24 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/17 15:57:57 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+size_t	ft_strlcat(char *dest, char *src, size_t size)
 {
-	t_list	*ptr;
-	t_list	*begin;
+	unsigned int	i;
+	unsigned int	len_src;
+	unsigned int	len_dest;
 
-	if (!lst || !f || !del)
-		return (0);
-	ptr = (ft_lstnew(f(lst->content)));
-	if (!ptr)
-		return (0);
-	begin = ptr;
-	lst = lst->next;
-	if (lst)
+	i = 0;
+	len_dest = ft_strlen(dest);
+	len_src = ft_strlen(src);
+	if (len_dest > size)
 	{
-		while (lst != NULL)
-		{
-			ptr->next = ft_lstnew(f(lst->content));
-			ptr = ptr->next;
-			lst = lst->next;
-		}
+		return (size + len_src);
 	}
-	(*del)(lst);
-	free(lst);
-	return (begin);
+	if (size < 1)
+	{
+		return (len_src + size);
+	}
+	while (src[i] && (i + 1 + len_dest) < size)
+	{
+		dest[i + len_dest] = src[i];
+		i++;
+	}
+	dest[i + len_dest] = '\0';
+	return (len_dest + len_src);
 }

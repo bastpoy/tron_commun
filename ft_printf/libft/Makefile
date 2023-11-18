@@ -22,7 +22,7 @@ all : $(NAME)
 bonus : 
 	make BONUSS=1 all
 
-%.o : %.c libft.h
+.c.o : libft.h
 	gcc $(CFLAGS) -c $< -o $@
 
 clean : 

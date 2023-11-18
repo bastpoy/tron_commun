@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:31:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/18 17:13:33 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/17 19:21:27 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_trym_start(char const *s1, char const *set)
+int	ft_trym_start(char const *s1, char const *set)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s1[i])
@@ -26,9 +26,9 @@ static int	ft_trym_start(char const *s1, char const *set)
 	return (i);
 }
 
-static int	ft_trym_end(char const *s1, char const *set)
+int	ft_trym_end(char const *s1, char const *set)
 {
-	size_t	i;
+	int	i;
 
 	i = ft_strlen((char *)s1);
 	while (i > 0)

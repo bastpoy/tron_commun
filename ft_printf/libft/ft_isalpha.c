@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 16:35:48 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/14 12:44:56 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/08/12 17:29:15 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/17 19:17:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_lstsize(t_list *lst)
+int	ft_isalpha(int c)
 {
-	int	count;
-
-	count = 0;
-	while (lst)
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 	{
-		lst = lst->next;
-		count++;
+		return (1);
 	}
-	return (count);
+	return (0);
 }

@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 10:07:51 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/17 15:53:48 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/08 10:56:23 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/15 19:35:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t size)
+char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
-	char		*ptrdest;
-	const char	*ptrsrc;
+	char	*cpstr;
+	size_t	i;
+	size_t	j;
 
-	ptrdest = (char *)dest;
-	ptrsrc = (char *)src;
-	if (!dest && !src)
-		return (NULL);
-	while (size > 0)
+	j = 0;
+	cpstr = (char *)str;
+	if (str == to_find || (str && *to_find == '\0'))
+		return (cpstr);
+	while (cpstr[j] != '\0' && j < len)
 	{
-		*ptrdest++ = *ptrsrc++;
-		size--;
+		i = 0;
+		while (cpstr[j + i] == to_find[i] && i + j < len && to_find[i] != '\0'
+			&& cpstr[i + j] != '\0')
+			i++;
+		if (i == ft_strlen(to_find))
+			return (cpstr + j);
+		j++;
 	}
-	return (dest);
+	return (0);
 }

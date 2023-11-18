@@ -6,12 +6,10 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:27:24 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/15 15:16:25 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/17 15:57:57 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <bsd/string.h>
-// #include <stdio.h>
 #include "libft.h"
 
 size_t	ft_strlcat(char *dest, char *src, size_t size)

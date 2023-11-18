@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 17:54:00 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/13 23:54:27 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/08/11 12:32:37 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/17 19:08:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+size_t	ft_strlen(const char *str)
 {
-	t_list	*ptr;
+	size_t	i;
 
-	if (lst)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (*lst == 0)
-			*lst = new;
-		else
-		{
-			ptr = ft_lstlast(*lst);
-			ptr->next = new;
-		}
+		i++;
 	}
+	return (i);
 }
