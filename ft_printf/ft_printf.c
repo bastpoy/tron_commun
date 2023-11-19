@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:03:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/19 16:13:23 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/19 21:17:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,22 @@ static void	writenbr(char c, int fd)
 	write(fd, &c, 1);
 }
 
-void	ft_puthex_fd(int n, int fd)
+void	ft_putuint_fd(unsigned int n, int fd)
 {
-	unsigned int	absolut;
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+	}
+	writenbr(n % 10 + '0', fd);
+}
+
+void	ft_puthex_fd(unsigned long n, int fd)
+{
+	unsigned long	absolut;
     char *hexastring;
 
     hexastring = "0123456789abcdef";
-	if (n < 0)
-	{
-		absolut = -n;
-		writenbr('-', fd);
-	}
-	else
-		absolut = n;
+	absolut = n;
 	if (absolut > 15)
 	{
 		ft_puthex_fd(absolut / 16, fd);
@@ -44,6 +47,7 @@ void ft_getprintchar(va_list parameter,  const char *entry)
 {
 	char caracter;
 	char *str;
+
 	if (*entry == 'c')
 	{
 		caracter = (char)va_arg(parameter, int);
@@ -58,12 +62,28 @@ void ft_getprintchar(va_list parameter,  const char *entry)
 
 void ft_getprintptr(va_list parameter)
 {
+	unsigned long adress;
+
+	adress = va_arg(parameter, unsigned long);
+	ft_putstr_fd("0x", 1);
+	ft_puthex_fd(adress, 1);
+}
+
+void ft_getprintint(va_list parameter)
+{
 	int value;
 
 	value = va_arg(parameter, int);
-	ft_putstr_fd(&value, 1);
+	ft_putnbr_fd(value, 1);
 }
 
+void ft_getprintfuint(va_list parameter)
+{
+	unsigned int value;
+
+	value = va_arg(parameter, unsigned int);
+	ft_putuint_fd(value, 1);
+}
 int ft_printf(const char *entry, ...)
 {
 	va_list parameter;
@@ -77,6 +97,10 @@ int ft_printf(const char *entry, ...)
 				ft_getprintchar(parameter, entry);
 			if(*entry == 'p')
 				ft_getprintptr(parameter);
+			if(*entry == 'd' || *entry == 'i')
+				ft_getprintint(parameter);
+			if(*entry == 'u')
+				ft_getprintfuint(parameter);
 		}
 		else
 		{
@@ -89,9 +113,10 @@ int ft_printf(const char *entry, ...)
 
 int main(void)
 {
-	int *ptr = malloc(sizeof(int));
-	ft_printf("%c%s%p\n",'y',"putepute", ptr);
-	printf("%c%s%p\n",'y',"putepute", ptr);
+	// int *ptr = malloc(sizeof(int));
+	// ft_printf("%d\n",2147483647);
+	printf("%ld\n",sizeof(unsigned int));
+	printf("%u\n",2147483648);
 }
 
 
