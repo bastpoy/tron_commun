@@ -6,22 +6,12 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:40:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/18 18:02:08 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/19 19:06:01 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <limits.h>
-#include <stdio.h>
-
-static int	test_max(long int n)
-{
-	if (n > INT_MAX)
-		return (-1);
-	if (n < INT_MIN)
-		return (0);
-	return (n);
-}
 
 static long int	ft_chartoint(char *str, int sign)
 {
@@ -30,9 +20,14 @@ static long int	ft_chartoint(char *str, int sign)
 	output = 0;
 	while (*str >= '0' && *str <= '9')
 	{
-		if (output > LONG_MAX)
-			return (sign);
 		output = output * 10 + (*str - '0');
+		if (output < 0)
+		{
+			if (sign)
+				return (0);
+			else
+				return (-1);
+		}
 		str++;
 	}
 	if (sign)
@@ -69,10 +64,4 @@ int	ft_atoi(const char *str)
 	if (*ptr >= '0' && *ptr <= '9')
 		return (ft_chartoint(ptr, sign));
 	return (0);
-}
-
-int main(void)
-{
-	printf("%ld\n",LONG_MAX);
-	printf("%d   %d", ft_atoi("922337203685477580736"), atoi("922337203685477580736"));
 }
