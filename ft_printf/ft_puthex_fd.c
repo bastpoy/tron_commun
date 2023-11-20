@@ -3,36 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puthex_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:59:34 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/19 16:08:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:37:13 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-static void	writenbr(char c, int fd)
+void	ft_puthex_fd(unsigned long n, int fd, int lowerupper)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	unsigned int	absolut;
+	unsigned long	absolut;
     char *hexastring;
-
-    hexastring = "0123456789abcdef";
-	if (n < 0)
-	{
-		absolut = -n;
-		writenbr('-', fd);
-	}
-	else
-		absolut = n;
+	if(!lowerupper)
+   		hexastring = "0123456789abcdef";
+	if(lowerupper)
+		hexastring = "0123456789ABCDEF";
+	absolut = n;
 	if (absolut > 15)
 	{
-		ft_putnbr_fd(absolut / 16, fd);
+		ft_puthex_fd(absolut / 16, fd, lowerupper);
 	}
-	writenbr(hexastring[absolut], fd);
+	ft_putchar_fd(hexastring[absolut % 16], fd);
 }

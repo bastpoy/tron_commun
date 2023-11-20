@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_dividhex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/12 23:49:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/20 11:22:55 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/20 17:04:26 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/20 17:07:11 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+size_t ft_dividhex(unsigned long n)
 {
-	write(fd, &c, 1);
+	size_t i;
+
+	i = 0;
+	while(n > 15)
+	{
+		n /= 16;
+		i++;
+	}
+	i++;
+	return(i);
 }

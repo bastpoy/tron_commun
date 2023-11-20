@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_print.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/12 23:49:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/20 11:22:55 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/20 15:05:34 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/20 17:07:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINT_H
+# define FT_PRINT_H
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
+#include <stdio.h>
+#include <stdarg.h>
+#include <unistd.h>
+
+void	ft_puthex_fd(unsigned long n, int fd, int lowerupper);
+void	ft_putuint_fd(unsigned int n, int fd);
+size_t ft_dividhex(unsigned long n);
+
+#endif
