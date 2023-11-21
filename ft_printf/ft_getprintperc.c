@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putuint_fd.c                                    :+:      :+:    :+:   */
+/*   ft_getprintperc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 20:55:36 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 16:03:44 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/21 15:08:09 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/21 16:03:06 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "libft/libft.h"
 
-void	ft_putuint_fd(unsigned int n, int fd)
+int	ft_getprintperc(void)
 {
-	if (n > 9)
-	{
-		ft_putuint_fd(n / 10, fd);
-	}
-	ft_putchar_fd(n % 10 + '0', fd);
+	ft_putchar_fd('%', 1);
+	return (1);
 }

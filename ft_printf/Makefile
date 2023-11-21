@@ -1,34 +1,44 @@
-SRCSLIBFT = $(wildcard libft/*.c) #ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_strjoin.c ft_substr.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putendl_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstmap_bonus.c ft_lstiter_bonus.c
-SRCSPRINTF = ft_printf.c ft_puthex_fd.c ft_putuint_fd.c
+SRCSLIBFT = $(wildcard libft/*.c) 
+SRCSPRINTF = ft_printf.c ft_puthex_fd.c ft_putuint_fd.c ft_dividhex.c ft_getprintaddr.c ft_getprintint.c ft_getprintperc.c ft_getprintuint.c ft_getprintchar.c ft_chooseprint.c
 OBJSLIBFT = $(SRCSLIBFT:.c=.o)
 OBJSPRINTF= $(SRCSPRINTF:.c=.o)
-LIBFTH = $(wildcard libft/libft.h)
 
-CFLAGS = -Wall -Werror -Wextra
+LIBFTH = $(wildcard libft/libft.h) 
 
-LIB = libftprintf.a
-PRINTF = outprint
+CFLAGS = -Wall -Werror -Wextra -g
 
-$(LIB) : $(OBJSLIBFT)
-	ar rcs $(LIB) $(OBJSLIBFT) 
+NAME = libftprintf.a
 
-$(PRINTF) : $(LIB) $(OBJSPRINTF)
-		gcc $(CFLAGS) -o $(PRINTF) $(OBJSPRINTF) -L. $(LIB)
+$(NAME) : $(OBJSPRINTF) $(OBJSLIBFT)
+	$(MAKE) all bonus -C ./libft
+	cp libft/libft.a $(NAME)
+#$(CC) $(FLAGS) -o $(NAME)  $(OBJSPRINTF) $(OBJSLIBFT)
+	ar rcs $(NAME) $(OBJSPRINTF) $(OBJSLIBFT)
 
-all : $(PRINTF)
+all : $(NAME)
 
-%.o : %.c $(LIBFTH)
+%.o : %.c $(LIBFTH) ft_printf.h
 	gcc $(CFLAGS) -c $< -o $@
 
 clean : 
+	$(MAKE) clean -C ./libft
 	rm -f $(OBJSLIBFT) $(OBJSPRINTF)
 
 fclean : clean
-	rm -f $(LIB)
+	$(MAKE) fclean -C ./libft
+	rm -f $(NAME)
 
 re : fclean all
 
 .PHONY:  all clean fclean re
+
+# LIB = libftprintf.a
+
+# $(LIB) : $(OBJSLIBFT)
+# 	ar rcs $(LIB) $(OBJSLIBFT) 
+
+# $(NAME) : $(LIB) $(OBJSPRINTF)
+# 		gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) -L. $(LIB)
 
 # ifdef BONUSS
 # 	OBJECTS = $(OBJS) $(OBJSB)

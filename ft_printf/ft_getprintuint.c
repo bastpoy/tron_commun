@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putuint_fd.c                                    :+:      :+:    :+:   */
+/*   ft_getprintuint.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 20:55:36 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 16:03:44 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/21 15:08:16 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/21 15:55:59 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "ft_printf.h"
+#include "libft/libft.h"
 
-void	ft_putuint_fd(unsigned int n, int fd)
+int	ft_getprintuint(va_list parameter)
 {
-	if (n > 9)
-	{
-		ft_putuint_fd(n / 10, fd);
-	}
-	ft_putchar_fd(n % 10 + '0', fd);
+	unsigned int	value;
+	char			*length;
+
+	value = va_arg(parameter, unsigned int);
+	ft_putuint_fd(value, 1);
+	length = ft_itoa(value);
+	return ((int)ft_strlen(length));
 }
