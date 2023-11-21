@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 17:03:24 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 17:29:41 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/21 18:09:26 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 char *get_next_line(int fd)
 {
+	size_t i;
+	
 	char *buffer;
-	
-	
+	while()
 	return ("yo");
 }
 int main(void)
