@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:03:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/23 17:20:39 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/23 18:03:11 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ int	ft_printf(const char *entry, ...)
 	return (lengthoutput);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	printf("%d\n", ft_printf("%u\n", 42));
-	printf("%d\n", printf("%u\n", 42));
-	printf("%d\n", ft_printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0));
-	printf("%d\n", printf("   %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%%%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%\n", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0));
-}
+// int	main(void)
+// {
+// 	printf("%ld", LONG_MAX);
+// 	// printf("%d\n", ft_printf(" %p %p ", LONG_MIN, LONG_MAX));
+// 	// printf("%d\n", printf(" %p %p ", ULONG_MAX, -ULONG_MAX));
+// }
