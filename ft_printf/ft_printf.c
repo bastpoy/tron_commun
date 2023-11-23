@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:03:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 15:55:18 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/22 14:56:51 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,28 @@ int	ft_printf(const char *entry, ...)
 	return (lengthoutput);
 }
 
-// int	main(void)
-// {
-// 	char *ptr;
-// 	ptr = malloc(sizeof(char));
-// 	printf("%d\n", ft_printf("%x-%%-%c-%d-%s-%p-", 2147483647, '/', 38,
-// 			"salut",ptr));
-// // 	printf("%d\n", printf("%x-%%-%c-%d-%s-%p-", 2147483647, '/', 38,
-// 			"salut",ptr));
-// }
+#include <stdio.h>
+
+int	main(void)
+{
+	char *ptr = NULL;
+	// char *str = NULL;
+
+	ptr = malloc(sizeof(char) * 2147483661);
+
+	unsigned int i = 0;
+	while(i < 2147483661)
+	{
+		ptr[i] = 'q';
+		i++;
+	}
+
+	printf("%d\n", ft_printf("%s\n",ptr));
+	printf("%d\n", printf("%s\n",ptr));
+
+
+	// printf("%d\n", ft_printf("%x-%%-%c-%d-%s-%p-%s", 2147483647, '/', 38,
+	// 		"salut",ptr,str));
+	// printf("%d\n", printf("%x-%%-%c-%d-%s-%p-%s", 2147483647, '/', 38,
+	// 		"salut",ptr,str));
+}

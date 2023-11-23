@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getprintchar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:56:33 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 15:55:50 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/22 14:40:05 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	ft_getprintchar(va_list parameter, const char *entry)
 	else
 	{
 		str = va_arg(parameter, char *);
+		if(!str)
+		{
+			ft_putstr_fd("(null)", 1);
+			return(6);
+		}
 		ft_putstr_fd(str, 1);
 		return (ft_strlen(str));
 	}

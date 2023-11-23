@@ -7,13 +7,13 @@ LIBFTH = $(wildcard libft/libft.h)
 
 CFLAGS = -Wall -Werror -Wextra -g
 
-NAME = libftprintf.a
+NAME = libftprintf.out
 
 $(NAME) : $(OBJSPRINTF) $(OBJSLIBFT)
 	$(MAKE) all bonus -C ./libft
 	cp libft/libft.a $(NAME)
-#$(CC) $(FLAGS) -o $(NAME)  $(OBJSPRINTF) $(OBJSLIBFT)
-	ar rcs $(NAME) $(OBJSPRINTF) $(OBJSLIBFT)
+	$(CC) $(FLAGS) -o $(NAME)  $(OBJSPRINTF) $(OBJSLIBFT)
+# ar rcs $(NAME) $(OBJSPRINTF) $(OBJSLIBFT)
 
 all : $(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getprintaddr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:55:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 15:55:54 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/22 14:39:16 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	ft_getprintaddr(va_list parameter, const char *entry)
 	int				length;
 
 	adress = va_arg(parameter, unsigned long);
+	if(!adress)
+	{
+		ft_putstr_fd("(nil)", 1);
+		return(5);
+	}
 	length = (int)ft_dividhex(adress);
 	if (*entry == 'x')
 		ft_puthex_fd(adress, 1, 0);
