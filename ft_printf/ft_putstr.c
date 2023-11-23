@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getprintperc.c                                  :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 15:08:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 16:03:06 by bpoyet           ###   ########.fr       */
+/*   Created: 2023/11/23 13:05:26 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/23 13:52:02 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "ft_printf.h"
 
-int	ft_getprintperc(void)
+int	ft_putstr(char *s, int fd)
 {
-	ft_putchar_fd('%', 1);
-	return (1);
+	return (write(fd, s, ft_strlen(s)));
 }

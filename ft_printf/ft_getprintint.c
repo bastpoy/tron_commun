@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:53:59 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 15:55:43 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/23 16:41:51 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 int	ft_getprintint(va_list parameter)
 {
 	int		value;
-	char	*length;
+	int error;
+	int i;
 
+	i = 0;
+	error = 1;
 	value = va_arg(parameter, int);
-	ft_putnbr_fd(value, 1);
-	length = ft_itoa(value);
-	return (ft_strlen(length));
+	ft_putnbr(value, 1, &error, &i);
+	if(!error)
+		return(-1);
+	return (i);
 }

@@ -1,0 +1,3 @@
+[submodule "ft_printf/ft_printf/printfTester"]
+	path = ft_printf/ft_printf/printfTester
+	url = https://github.com/Tripouille/printfTester

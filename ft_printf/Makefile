@@ -1,5 +1,5 @@
 SRCSLIBFT = $(wildcard libft/*.c) 
-SRCSPRINTF = ft_printf.c ft_puthex_fd.c ft_putuint_fd.c ft_dividhex.c ft_getprintaddr.c ft_getprintint.c ft_getprintperc.c ft_getprintuint.c ft_getprintchar.c ft_chooseprint.c
+SRCSPRINTF = ft_printf.c ft_puthex_fd.c ft_putuint_fd.c ft_dividhex.c ft_getprintaddr.c ft_getprintint.c ft_getprintuint.c ft_getprintchar.c ft_chooseprint.c ft_putnbr.c ft_putstr.c ft_putchar.c
 OBJSLIBFT = $(SRCSLIBFT:.c=.o)
 OBJSPRINTF= $(SRCSPRINTF:.c=.o)
 
@@ -7,13 +7,13 @@ LIBFTH = $(wildcard libft/libft.h)
 
 CFLAGS = -Wall -Werror -Wextra -g
 
-NAME = libftprintf.out
+NAME = libftprintf.a
 
 $(NAME) : $(OBJSPRINTF) $(OBJSLIBFT)
 	$(MAKE) all bonus -C ./libft
 	cp libft/libft.a $(NAME)
-	$(CC) $(FLAGS) -o $(NAME)  $(OBJSPRINTF) $(OBJSLIBFT)
-# ar rcs $(NAME) $(OBJSPRINTF) $(OBJSLIBFT)
+#$(CC) $(FLAGS) -o $(NAME)  $(OBJSPRINTF) $(OBJSLIBFT)
+	ar rcs $(NAME) $(OBJSPRINTF) $(OBJSLIBFT)
 
 all : $(NAME)
 
