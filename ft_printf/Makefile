@@ -1,28 +1,26 @@
-SRCSLIBFT = $(wildcard libft/*.c) 
-SRCSPRINTF = ft_printf.c ft_puthex_fd.c ft_putuint_fd.c ft_dividhex.c ft_getprintaddr.c ft_getprintint.c ft_getprintuint.c ft_getprintchar.c ft_chooseprint.c ft_putnbr.c ft_putstr.c ft_putchar.c
-OBJSLIBFT = $(SRCSLIBFT:.c=.o)
-OBJSPRINTF= $(SRCSPRINTF:.c=.o)
+SRCSPRINTF = ft_chooseprint.c ft_dividhex.c ft_getprintaddr.c ft_getprintchar.c ft_getprintint.c ft_getprintuint.c ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c
+OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
-LIBFTH = $(wildcard libft/libft.h) 
+LIBFTH = ./libft/libft.h 
 
 CFLAGS = -Wall -Werror -Wextra -g
 
 NAME = libftprintf.a
 
-$(NAME) : $(OBJSPRINTF) $(OBJSLIBFT)
+$(NAME) : $(OBJSPRINTF)
 	$(MAKE) all bonus -C ./libft
 	cp libft/libft.a $(NAME)
-#$(CC) $(FLAGS) -o $(NAME)  $(OBJSPRINTF) $(OBJSLIBFT)
-	ar rcs $(NAME) $(OBJSPRINTF) $(OBJSLIBFT)
+	ar rcs $(NAME) $(OBJSPRINTF)
 
 all : $(NAME)
 
-%.o : %.c $(LIBFTH) ft_printf.h
+objects/%.o : %.c ft_printf.h $(LIBFTH)
+	mkdir -p $(dir $@)
 	gcc $(CFLAGS) -c $< -o $@
 
 clean : 
 	$(MAKE) clean -C ./libft
-	rm -f $(OBJSLIBFT) $(OBJSPRINTF)
+	rm -rf objects
 
 fclean : clean
 	$(MAKE) fclean -C ./libft
@@ -31,20 +29,3 @@ fclean : clean
 re : fclean all
 
 .PHONY:  all clean fclean re
-
-# LIB = libftprintf.a
-
-# $(LIB) : $(OBJSLIBFT)
-# 	ar rcs $(LIB) $(OBJSLIBFT) 
-
-# $(NAME) : $(LIB) $(OBJSPRINTF)
-# 		gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) -L. $(LIB)
-
-# ifdef BONUSS
-# 	OBJECTS = $(OBJS) $(OBJSB)
-# else
-# 	OBJECTS = $(OBJS)
-# endif
-
-# bonus : 
-# 	make BONUSS=1 all

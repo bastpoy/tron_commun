@@ -6,16 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:04:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/21 16:01:56 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/24 11:16:15 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft/libft.h"
 
-size_t	ft_dividhex(unsigned long n)
+ssize_t	ft_dividhex(unsigned long n)
 {
-	size_t	i;
+	ssize_t	i;
 
 	i = 0;
 	while (n > 15)
