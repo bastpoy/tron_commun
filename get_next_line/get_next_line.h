@@ -6,12 +6,12 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:14:29 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/23 11:19:30 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/25 10:43:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE
-#define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+#define GET_NEXT_LINE_H
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 101
