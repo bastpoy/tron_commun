@@ -5,9 +5,10 @@
             "label": "C/C++: gcc build active file",
             "command": "/usr/bin/gcc",
             "args": [
+                "${file}",
+                "${workspaceFolder}/get_next_line_utils.c",
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:03:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/24 15:49:43 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/28 15:47:46 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,3 @@ int	ft_printf(const char *entry, ...)
 	return (lengthoutput);
 }
 
-#include <stdio.h>
-
-int main(void)
-{
-	printf("hello");
-}
