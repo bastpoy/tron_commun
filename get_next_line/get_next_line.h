@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:14:29 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/28 18:53:08 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/29 16:17:15 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 #define WITH 0
 #define WITHOUT 1
 
-#define NEXTBACKN 1
-#define NONEXTBACKN 0
+#define NEXTBACKN 0
+#define NONEXTBACKN 1
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 5
 #endif
 
 #include <stdlib.h>
@@ -32,5 +32,6 @@
 size_t ft_strlen(const char *str);
 size_t ft_strlcpy(char *dest, char *src, size_t size);
 char *ft_strjoin(char const *s1, char const *s2);
+char *get_next_line(int fd);
 
 #endif
