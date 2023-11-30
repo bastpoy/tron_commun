@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandre <alexandre@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 17:03:24 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/29 15:55: by alexandre        ###   ########.fr       */
+/*   Created: 2023/11/30 15:03:14 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/11/30 15:10:51 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ char *ft_strdup(const char *src, int freesrc, int nextbackn)
 {
 	size_t i;
 	char *dest;
-
+	if(*src == '\0')
+		return(NULL);
 	i = ft_getindexbackn((char *)src, nextbackn);
 	dest = malloc((i + 1) * sizeof(char));
 	if (!dest)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (src[i] && (src[i] != '\n' || nextbackn))
 	{
@@ -54,9 +55,7 @@ char *ft_strdup(const char *src, int freesrc, int nextbackn)
 	}
 	dest[i] = '\0';
 	if (freesrc)
-	{
 		free((char *)src);
-	}
 	return (dest);
 }
 
@@ -81,6 +80,16 @@ char *ft_strchr(const char *s, int c)
 	return ((char *)str);
 }
 
+// void *ft_free(char *overflow, char *temp, int argument)
+// {
+// 	if(argument)
+// 	{
+// 		free(overflow);
+// 		overflow = NULL;
+// 		return(NULL);	
+// 	}
+// }
+
 char *get_next_line(int fd)
 {
 	int bytesread;
@@ -90,7 +99,13 @@ char *get_next_line(int fd)
 
 	buffer = NULL;
 	bytesread = BUFFER_SIZE;
-	while ((!ft_strchr(buffer, '\0') || !ft_strchr(buffer, '\n') || !(overflow)) && bytesread == BUFFER_SIZE)
+	if(fd < 0 || read(fd, 0, 0) < 0)
+	{
+		free(overflow);
+		overflow = NULL;
+		return(NULL);
+	}
+	while ((!ft_strchr(buffer, '\0') || !ft_strchr(buffer, '\n') || !(overflow)) && bytesread == BUFFER_SIZE )
 	{
 		if (overflow) // si jai du text en trop parce que jai eu un retour a la ligne
 		{
@@ -103,9 +118,9 @@ char *get_next_line(int fd)
 				overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE, NONEXTBACKN); // overflow = ft_strchr(overflow, '\n');// + 1; // javance mon overflow jusqu'au prochain \n
 				temp = ft_strdup(temp, FREE, NEXTBACKN);
 				// printf("temp -%s-\n", temp);
-				buffer = ft_strjoin(buffer, temp);
+				return ft_strjoin(buffer, temp);
 				// printf("buffer dans -%s-", buffer);
-				return (buffer);
+				// return (buffer);
 			}
 			else // si jen ai pas je peux le passer dans temp et le free
 			{
@@ -114,7 +129,7 @@ char *get_next_line(int fd)
 				// printf("temp dans overflow -%s-", temp);
 				overflow = NULL;
 				buffer = ft_strjoin(buffer, temp);
-				// printf("buffer: %s et i %p\n", buffer, overflow);
+				// printf("buffer: %p et i %p\n", buffer, overflow);
 			}
 		}
 		if (!overflow)
@@ -123,53 +138,60 @@ char *get_next_line(int fd)
 			bytesread = read(fd, temp, BUFFER_SIZE);
 			temp[bytesread] = '\0';
 			// printf("temp -%s-\n",temp);
-			// printf("bytesread %d", bytesread);
-			if (bytesread != 0 && bytesread == BUFFER_SIZE && (!(ft_strchr(temp, '\n')))) // si j'ai pas trouve de \n et jai size max
+			// printf("bytesread %d\n", bytesread);
+			if (bytesread != 0 && bytesread == BUFFER_SIZE && (!(ft_strchr(temp, '\n')))) // si j'ai pas trouve de \n et jai size max byteread different de 0 dans le cas ou je lis un caratcere par un caractere
 			{
 				// printf("temp1 -%s-\n", temp);
 				buffer = ft_strjoin(buffer, temp);
 			}
-			else if (ft_strchr(temp, '\n')) // si jai un bytes read inferieur ou egale et j'ai trouve un \n ou \0
+			else if ((ft_strchr(temp, '\n') || ft_strchr(temp, '\0')) && bytesread != 0) // si j'ai trouve un \n ou \0 // le \0 dans le cas ou je suis a la gfin du fichier et au milieu du buffer
 			{
-				printf("temp2-%s-\n", temp);
-				// printf("avant overflow %s\n",ft_strchr(temp, '\n') + 1);
-				overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE, NONEXTBACKN); // je stocke ce quil y a apres dans overflow + 1 pour etre un caracterre apres le retour a la ligne de temp
-				// printf("overflowok -%s-", overflow);
+				// printf("temp2-%s-\n", temp);
+				// printf("avant overflow -%s-\n",ft_strchr(temp, '\n') + 1);
+				if(ft_strchr(temp, '\n'))
+					overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE, NONEXTBACKN); // je stocke ce quil y a apres dans overflow + 1 pour etre un caracterre apres le retour a la ligne de temp
+				// printf("overflowok -%s-\n", overflow);
 				temp = ft_strdup(temp, FREE, NEXTBACKN);
-				buffer = ft_strjoin(buffer, temp);
-				return (buffer);
+				return ft_strjoin(buffer, temp);
+				// return (buffer);
 			}
 		}
 		if ((!bytesread && !buffer) || (bytesread == -1)) // boucle qui indique la fin du fichier
 		{
 			free(temp);
+			temp = NULL;
 			return (NULL);
 		}
 	}
 	free(temp);
+	temp = NULL;
 	return (buffer);
 }
 
-int main(void)
-{
-	int fd;
-	char *str;
-	// int i = 0;
 
-	fd = open("text.a", O_RDONLY);
-	str = get_next_line(fd);
-	// printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	// printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	// printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	// printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-}
+// int main(void)
+// {
+// 	int fd;
+// 	char *str;
+
+// 	fd = open("text.a", O_RDONLY);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+//  	close(fd);
+// 	fd = open("text.a", O_RDONLY);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	close(fd);
+// 	// while(str)
+// 	// {
+// 	// 	printf("%s", str);
+// 	// 	free(str);
+// 	// 	str = get_next_line(fd);
+// 	// }
+// 	// free(str);
+// }

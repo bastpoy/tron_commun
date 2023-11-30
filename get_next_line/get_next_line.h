@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:14:29 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/29 16:17:15 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/11/30 14:16:34 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,11 @@
 #define NO_FREE 0
 #define FREE 1
 
-#define WITH 0
-#define WITHOUT 1
-
 #define NEXTBACKN 0
 #define NONEXTBACKN 1
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 10
 #endif
 
 #include <stdlib.h>
