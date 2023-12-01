@@ -6,39 +6,38 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:03:14 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/30 15:10:51 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:08:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
 #include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 
-size_t ft_getindexbackn(char *temp, int nextbackn)
+// size_t	ft_getindexbackn(char *temp, int nextbackn)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while ((temp[i] != '\n' || nextbackn) && temp[i] != '\0')
+// 	{
+// 		i++;
+// 	}
+// 	if (temp[i] == '\n')
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
+
+char	*ft_strdup(const char *src, int freesrc, int nextbackn)
 {
-	int i;
+	size_t	i;
+	char	*dest;
 
-	i = 0;
-	while ((temp[i] != '\n' || nextbackn) && temp[i] != '\0')
-	{
-		// printf("%c\n",temp[i]);
-		i++;
-	}
-	if (temp[i] == '\n')
-	{
-		// printf("dans le backslah n\n");
-		i++;
-	}
-	return (i);
-}
-
-char *ft_strdup(const char *src, int freesrc, int nextbackn)
-{
-	size_t i;
-	char *dest;
-	if(*src == '\0')
-		return(NULL);
-	i = ft_getindexbackn((char *)src, nextbackn);
+	if (!src || *src == '\0')
+		return (NULL);
+	i = ft_strlen((char *)src, nextbackn);
 	dest = malloc((i + 1) * sizeof(char));
 	if (!dest)
 		return (NULL);
@@ -59,9 +58,9 @@ char *ft_strdup(const char *src, int freesrc, int nextbackn)
 	return (dest);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	unsigned char *str;
+	unsigned char	*str;
 
 	str = (unsigned char *)s;
 	if (!s)
@@ -70,7 +69,6 @@ char *ft_strchr(const char *s, int c)
 	}
 	while (*str != (unsigned char)c)
 	{
-		// printf("str %c\n",*str);
 		if (*str == '\0')
 			return (NULL);
 		str++;
@@ -80,118 +78,156 @@ char *ft_strchr(const char *s, int c)
 	return ((char *)str);
 }
 
-// void *ft_free(char *overflow, char *temp, int argument)
-// {
-// 	if(argument)
-// 	{
-// 		free(overflow);
-// 		overflow = NULL;
-// 		return(NULL);	
-// 	}
-// }
-
-char *get_next_line(int fd)
+char	*ft_free(char *overflow, char *temp, int argument)
 {
-	int bytesread;
-	char *buffer;
-	char *temp;
-	static char *overflow = NULL;
-
-	buffer = NULL;
-	bytesread = BUFFER_SIZE;
-	if(fd < 0 || read(fd, 0, 0) < 0)
+	if (argument == 1)
 	{
 		free(overflow);
 		overflow = NULL;
-		return(NULL);
 	}
-	while ((!ft_strchr(buffer, '\0') || !ft_strchr(buffer, '\n') || !(overflow)) && bytesread == BUFFER_SIZE )
+	if (argument == 2)
 	{
-		if (overflow) // si jai du text en trop parce que jai eu un retour a la ligne
+		free(temp);
+		temp = NULL;
+	}
+	return (NULL);
+}
+char *ft_checkoverflow(char* overflow, char* buffer)
+{
+	char *temp;
+
+	temp = NULL;
+	if(overflow)
+	{
+		if(ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n') + 1) != '\0')
 		{
-			if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n') + 1) != '\0') // si dans cette overflow jai un retour a la ligne et que le caractere dapres n'est pas un \0
-			{
-				// printf("overflow -%s-\n", overflow);
-				temp = ft_strdup(overflow, FREE, NONEXTBACKN); // je passe mon overflow jusquau retour a la ligne
-				// printf("tempover -%s-", temp);
-				// printf("avant -%s-", ft_strchr(overflow, '\n'));
-				overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE, NONEXTBACKN); // overflow = ft_strchr(overflow, '\n');// + 1; // javance mon overflow jusqu'au prochain \n
-				temp = ft_strdup(temp, FREE, NEXTBACKN);
-				// printf("temp -%s-\n", temp);
-				return ft_strjoin(buffer, temp);
-				// printf("buffer dans -%s-", buffer);
-				// return (buffer);
-			}
-			else // si jen ai pas je peux le passer dans temp et le free
-			{
-				// printf("overflow dans else -%s-\n", overflow);
-				temp = ft_strdup(overflow, FREE, NONEXTBACKN);
-				// printf("temp dans overflow -%s-", temp);
-				overflow = NULL;
-				buffer = ft_strjoin(buffer, temp);
-				// printf("buffer: %p et i %p\n", buffer, overflow);
-			}
+			temp = ft_strdup(overflow, NO_FREE, NEXTBACKN);
+			buffer = ft_strjoin(buffer, temp, FREE);
 		}
-		if (!overflow)
+		else
 		{
-			temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-			bytesread = read(fd, temp, BUFFER_SIZE);
-			temp[bytesread] = '\0';
-			// printf("temp -%s-\n",temp);
-			// printf("bytesread %d\n", bytesread);
-			if (bytesread != 0 && bytesread == BUFFER_SIZE && (!(ft_strchr(temp, '\n')))) // si j'ai pas trouve de \n et jai size max byteread different de 0 dans le cas ou je lis un caratcere par un caractere
-			{
-				// printf("temp1 -%s-\n", temp);
-				buffer = ft_strjoin(buffer, temp);
-			}
-			else if ((ft_strchr(temp, '\n') || ft_strchr(temp, '\0')) && bytesread != 0) // si j'ai trouve un \n ou \0 // le \0 dans le cas ou je suis a la gfin du fichier et au milieu du buffer
-			{
-				// printf("temp2-%s-\n", temp);
-				// printf("avant overflow -%s-\n",ft_strchr(temp, '\n') + 1);
-				if(ft_strchr(temp, '\n'))
-					overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE, NONEXTBACKN); // je stocke ce quil y a apres dans overflow + 1 pour etre un caracterre apres le retour a la ligne de temp
-				// printf("overflowok -%s-\n", overflow);
-				temp = ft_strdup(temp, FREE, NEXTBACKN);
-				return ft_strjoin(buffer, temp);
-				// return (buffer);
-			}
-		}
-		if ((!bytesread && !buffer) || (bytesread == -1)) // boucle qui indique la fin du fichier
-		{
-			free(temp);
-			temp = NULL;
-			return (NULL);
+			buffer = ft_strjoin(buffer, overflow, NO_FREE);
 		}
 	}
-	free(temp);
-	temp = NULL;
 	return (buffer);
 }
 
+char *ft_nextoverflow(char *overflow)
+{
+	if(overflow)
+	{
+		if(ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n') + 1) != '\0')
+		{
+			overflow = ft_strdup(ft_strchr(overflow, '\n') + 1, NO_FREE,NONEXTBACKN);
+			return (overflow);
+		}
+		else
+		{
+			free(overflow);
+			return(NULL);
+		}
+	}
+	return (NULL);
+}
 
-// int main(void)
-// {
-// 	int fd;
-// 	char *str;
+char *ft_readline(char *buffer, int fd)
+{
+	int byteread;
+	char *temp;
 
-// 	fd = open("text.a", O_RDONLY);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	free(str);
-//  	close(fd);
-// 	fd = open("text.a", O_RDONLY);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	free(str);
-// 	close(fd);
-// 	// while(str)
-// 	// {
-// 	// 	printf("%s", str);
-// 	// 	free(str);
-// 	// 	str = get_next_line(fd);
-// 	// }
-// 	// free(str);
-// }
+	byteread = BUFFER_SIZE;
+	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	// printf("re");
+	while(!ft_strchr(buffer, '\n') && byteread != 0)
+	{
+		// printf("pouet");
+		byteread = read(fd, temp, BUFFER_SIZE);
+		if(byteread == -1)
+		{
+			free(temp);
+			return NULL;
+		}
+		if(byteread != 0)// si il vaut 0 jecris pas dans mon buffer;
+		{
+			temp[byteread] = '\0';
+			// printf("temp -%s-\n",temp);
+			buffer = ft_strjoin(buffer, temp, NO_FREE);
+		}
+	}
+	// printf("la");
+	free(temp);
+	return (buffer);
+}
+
+char *ft_modifyoverflow(char *buffer, char *overflow)
+{
+	if(ft_strchr(buffer, '\n') && *(ft_strchr(buffer, '\n') + 1) != '\0')
+	{
+		overflow = ft_strdup(ft_strchr(buffer, '\n') + 1, NO_FREE, NONEXTBACKN);
+		return (overflow);
+	}
+	else
+	{
+		free(overflow);
+		return (NULL);
+	}
+
+}
+char	*get_next_line(int fd)
+{
+	char		*buffer;
+	static char	*overflow = NULL;
+
+	buffer = NULL;
+	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
+		return (overflow = ft_free(overflow, NULL, 1));
+	//si jai overflow je le mets avant buffer et je return buffer	 entree: buffer/over     sortie: buffer => return buffer avec nouveau over sinon rien si presence \n fin de fonctions 
+	// printf("\noverflowok -%s-", overflow);
+	buffer = ft_checkoverflow(overflow, buffer);
+	// printf("buffer apres over -%s-\n", buffer);
+	//modification overflow et attribution de nouvelle valeur		 entree: overflow 		sortie: overflow => null si dans buffer overflow si presence dun \n
+	overflow = ft_nextoverflow(overflow);
+	// printf("overflow change -%s-\n", overflow);
+	//je lis tant que j'ai pas un retour a la ligne ou de fin     	 entree: buffer 		sortie: buffer => buffer avec des elements du texte
+	if(!overflow && !buffer)
+	{
+		buffer = ft_readline(buffer, fd);
+		// printf("buffer1 -%s-\n",buffer);
+		//je stocke la valeur en trop si il y en a une dans mon over	 entree: buffer/over 	sortie: over => null si pas over sinon over
+		overflow = ft_modifyoverflow(buffer, overflow);
+		printf("%d\n",(int)ft_strlen((char*)overflow,NONEXTBACKN));
+		// printf("overflow -%s-", overflow);
+		buffer = ft_strdup(buffer, FREE, NEXTBACKN);
+		// printf("buffer2 -%s-\n",buffer);
+	}
+	// printf("fin buffer -%s-\n", buffer);
+	return (buffer);
+}
+
+int main(void)
+{
+	int fd;
+	char *str;
+
+	fd = open("text.a", O_RDONLY);
+	str = get_next_line(fd);
+	// printf("%s", str);
+	// free(str);
+	// str = get_next_line(fd);
+	// printf("%s", str);
+	// free(str);
+	// close(fd);
+	// str = get_next_line(fd);
+	// printf("%s", str);
+	// free(str);
+ 	// close(fd);
+	// fd = open("text.a", O_RDONLY);
+	while(str)
+	{
+		printf("%s", str);
+		free(str);
+		str = get_next_line(fd);
+	}
+	close(fd);
+	free(str);
+}
