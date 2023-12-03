@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:19:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/03 22:25:57 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/03 22:59:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,56 +126,56 @@ char *ft_strjoin(char const *s1, char const *s2, int freearg)
 		free((char *)s2);
 	return (str);
 }
-
-// 	while ((!ft_strchr(buffer, '\0') || !ft_strchr(buffer, '\n') || !(overflow))
-// NO_FREE,NONEXTBACKN);
-// 				temp = ft_strdup(temp, FREE, NEXTBACKN);
-// 				return (ft_strjoin(buffer, temp));
-// 			}
-// 		}
-// 		if ((!bytesread && !buffer) || (bytesread == -1))
-// 			return (temp = ft_free(NULL, temp, 2));
-// 	}
-// 	temp = ft_free(NULL, temp, 2);
-// 	return (buffer);
-// }// && bytesread == BUFFER_SIZE)
-// 	{
-// 		if (overflow)
-// 		{
-// 			if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n')
-// + 1) != '\0')
-// 			{
-// 				temp = ft_strdup(overflow, FREE, NONEXTBACKN);
-// 				overflow = ft_strdup(ft_strchr(temp, '\n') + 1,
-// NO_FREE,NONEXTBACKN);
-// 				temp = ft_strdup(temp, FREE, NEXTBACKN);
-// 				return (ft_strjoin(buffer, temp));
-// 			}
-// 			temp = ft_strdup(overflow, FREE, NONEXTBACKN);
-// 			overflow = NULL;
-// 			buffer = ft_strjoin(buffer, temp);
-// 		}
-// 		if (!overflow)
-// 		{
-// 			temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-// 			bytesread = read(fd, temp, BUFFER_SIZE);
-// 			temp[bytesread] = '\0';
-// 			if (bytesread != 0 && bytesread == BUFFER_SIZE
-// && (!(ft_strchr(temp,'\n'))))
-// 				buffer = ft_strjoin(buffer, temp);
-// 			else if ((ft_strchr(temp, '\n') || ft_strchr(temp,
-// '\0'))&& bytesread != 0)
-// 			{
-// 				if (ft_strchr(temp, '\n'))
-// 					overflow = ft_strdup(ft_strchr(temp, '\n') + 1,
-// NO_FREE,NONEXTBACKN);
-// 				temp = ft_strdup(temp, FREE, NEXTBACKN);
-// 				return (ft_strjoin(buffer, temp));
-// 			}
-// 		}
-// 		if ((!bytesread && !buffer) || (bytesread == -1))
-// 			return (temp = ft_free(NULL, temp, 2));
-// 	}
-// 	temp = ft_free(NULL, temp, 2);
-// 	return (buffer);
-// }
+// re les mecs
+//  	while ((!ft_strchr(buffer, '\0') || !ft_strchr(buffer, '\n') || !(overflow))
+//  NO_FREE,NONEXTBACKN);
+//  				temp = ft_strdup(temp, FREE, NEXTBACKN);
+//  				return (ft_strjoin(buffer, temp));
+//  			}
+//  		}
+//  		if ((!bytesread && !buffer) || (bytesread == -1))
+//  			return (temp = ft_free(NULL, temp, 2));
+//  	}
+//  	temp = ft_free(NULL, temp, 2);
+//  	return (buffer);
+//  }// && bytesread == BUFFER_SIZE)
+//  	{
+//  		if (overflow)
+//  		{
+//  			if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n')
+//  + 1) != '\0')
+//  			{
+//  				temp = ft_strdup(overflow, FREE, NONEXTBACKN);
+//  				overflow = ft_strdup(ft_strchr(temp, '\n') + 1,
+//  NO_FREE,NONEXTBACKN);
+//  				temp = ft_strdup(temp, FREE, NEXTBACKN);
+//  				return (ft_strjoin(buffer, temp));
+//  			}
+//  			temp = ft_strdup(overflow, FREE, NONEXTBACKN);
+//  			overflow = NULL;
+//  			buffer = ft_strjoin(buffer, temp);
+//  		}
+//  		if (!overflow)
+//  		{
+//  			temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+//  			bytesread = read(fd, temp, BUFFER_SIZE);
+//  			temp[bytesread] = '\0';
+//  			if (bytesread != 0 && bytesread == BUFFER_SIZE
+//  && (!(ft_strchr(temp,'\n'))))
+//  				buffer = ft_strjoin(buffer, temp);
+//  			else if ((ft_strchr(temp, '\n') || ft_strchr(temp,
+//  '\0'))&& bytesread != 0)
+//  			{
+//  				if (ft_strchr(temp, '\n'))
+//  					overflow = ft_strdup(ft_strchr(temp, '\n') + 1,
+//  NO_FREE,NONEXTBACKN);
+//  				temp = ft_strdup(temp, FREE, NEXTBACKN);
+//  				return (ft_strjoin(buffer, temp));
+//  			}
+//  		}
+//  		if ((!bytesread && !buffer) || (bytesread == -1))
+//  			return (temp = ft_free(NULL, temp, 2));
+//  	}
+//  	temp = ft_free(NULL, temp, 2);
+//  	return (buffer);
+//  }
