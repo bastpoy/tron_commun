@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:04:33 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 13:21:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 14:51:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,19 @@ ssize_t	ft_chooseprint(ssize_t lengthoutput, va_list parameter,
 	lengthbuf = 0;
 	if (*entry == 'c' || *entry == 's')
 		lengthbuf = ft_getprintchar(parameter, entry);
-	if (*entry == 'p' || *entry == 'x' || *entry == 'X')
+	else if (*entry == 'p' || *entry == 'x' || *entry == 'X')
 		lengthbuf = ft_getprintaddr(parameter, entry);
-	if (*entry == 'd' || *entry == 'i')
+	else if (*entry == 'd' || *entry == 'i')
 		lengthbuf = ft_getprintint(parameter);
-	if (*entry == 'u')
+	else if (*entry == 'u')
 		lengthbuf = ft_getprintuint(parameter);
-	if (*entry == '%')
+	else if (*entry == '%')
 		lengthbuf = ft_putchar('%', 1);
+	else
+	{
+		lengthbuf = ft_putchar('%', 1);
+		lengthbuf += ft_putchar(*entry, 1);
+	}
 	if (lengthbuf < 0)
 		return (-1);
 	lengthoutput += lengthbuf;

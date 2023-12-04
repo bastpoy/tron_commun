@@ -16,7 +16,7 @@ all : $(NAME)
 
 objects/%.o : %.c ft_printf.h $(LIBFTH)
 	mkdir -p $(dir $@)
-	gcc $(CFLAGS) -c $< -o $@
+	gcc -c $< -o $@
 
 clean : 
 	$(MAKE) clean -C ./libft

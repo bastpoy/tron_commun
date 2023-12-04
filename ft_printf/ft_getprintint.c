@@ -6,12 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:53:59 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/24 11:17:07 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 14:34:34 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 ssize_t	ft_getprintint(va_list parameter)
 {

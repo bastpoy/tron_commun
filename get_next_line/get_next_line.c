@@ -6,11 +6,12 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:03:14 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 15:33:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 16:19:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 char	*ft_checkoverflow(char *overflow, char *buffer)
 {
@@ -51,6 +52,8 @@ char	*ft_readline(char *buffer, int fd)
 
 	byteread = BUFFER_SIZE;
 	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if(!temp)
+		return(NULL);
 	while (!ft_strchr(buffer, '\n') && byteread != 0)
 	{
 		byteread = read(fd, temp, BUFFER_SIZE);
@@ -108,3 +111,22 @@ char	*get_next_line(int fd)
 	}
 	return (buffer);
 }
+
+// int main()
+// {
+// 	char *str;
+// 	int fd = open("text.a",O_RDONLY);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	close(fd);
+// }

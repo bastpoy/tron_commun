@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:14:29 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 13:59:19 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 15:57:54 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define NONEXTBACKN 1
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 1
 # endif
 
 # include <fcntl.h>

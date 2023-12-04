@@ -6,12 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:56:33 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/24 11:15:46 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 17:55:35 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 ssize_t	ft_getprintchar(va_list parameter, const char *entry)
 {
@@ -30,7 +29,8 @@ ssize_t	ft_getprintchar(va_list parameter, const char *entry)
 		str = va_arg(parameter, char *);
 		if (!str)
 		{
-			ft_putstr("(null)", 1);
+			if(ft_putstr("(null)", 1) < 0)
+				return(-1);
 			return (6);
 		}
 		if (ft_strlen(str) > INT_MAX || ft_putstr(str, 1) < 0)

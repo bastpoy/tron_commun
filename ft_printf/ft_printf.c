@@ -6,11 +6,12 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:03:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 13:37:23 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 14:58:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	ft_printf(const char *entry, ...)
 {
@@ -19,7 +20,7 @@ int	ft_printf(const char *entry, ...)
 
 	va_start(parameter, entry);
 	lengthoutput = 0;
-	if (!entry && write(1, 0, 0) == -1)
+	if (!entry || write(1, 0, 0) == -1)
 		return (-1);
 	while (*entry)
 	{

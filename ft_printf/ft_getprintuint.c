@@ -6,12 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:08:16 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/24 11:17:20 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 14:34:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 void	ft_putuint_fd(unsigned int n, int fd, int *error, ssize_t *i)
 {
