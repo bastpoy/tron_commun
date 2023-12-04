@@ -1,4 +1,4 @@
-SRCSPRINTF = ft_chooseprint.c ft_dividhex.c ft_getprintaddr.c ft_getprintchar.c ft_getprintint.c ft_getprintuint.c ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c
+SRCSPRINTF = ft_chooseprint.c ft_dividhex.c ft_getprintaddr.c ft_getprintchar.c ft_getprintint.c ft_getprintuint.c ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c ft_printcara.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 LIBFTH = ./libft/libft.h 

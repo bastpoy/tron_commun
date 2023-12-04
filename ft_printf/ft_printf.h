@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 15:05:34 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/24 11:22:56 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/04 13:35:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	ft_putnbr(int n, int fd, int *error, ssize_t *i);
 int		ft_putstr(char *s, int fd);
 ssize_t	ft_dividhex(unsigned long n);
 int		ft_printf(const char *entry, ...);
+int		ft_printcara(char c, int fd, ssize_t lengthoutput);
 
 #endif
