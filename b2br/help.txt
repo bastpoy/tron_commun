@@ -16,4 +16,7 @@ apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qu
 
 secret phrase : kyolis
 
+ssh: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de conmmande
+	- echange de clés de chiffrement au début de connexion
+	
 
