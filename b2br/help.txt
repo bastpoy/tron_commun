@@ -1,1 +1,19 @@
-:
+home: contient tous mes fichiers perso
+boot: contient tous les fichiers permettant de bot le systeme, le bootloeader
+swap: espace utilise quand on a toute notre memoir d'utilise
+
+sda est une partition
+
+apt et aptitude sont deux outils aui peuvent nous aider a gerer nos packages
+apt est installe par default sur linux et permet dinstaller un package et ses dependances
+	- avec cette commande on peut donc ajouter, supprimer ou modifier des packages
+aptitude est similaire mais il a une interface graphique et n'est pas installe par defaut
+	- reserver aux personnes novices
+
+selinux: cest une architecture de securite et permet a l'administrateur de mieux controler ses acces systemes.
+apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
+	- apparmor est plus simle a mettre en place que selinux
+
+secret phrase : kyolis
+
+
