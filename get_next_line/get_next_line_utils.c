@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:19:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 10:39:15 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/05 10:48:41 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *src, int freesrc, int nextbackn)
 	i = ft_strlen((char *)src, nextbackn);
 	dest = malloc((i + 1) * sizeof(char));
 	if (!dest)
-		return (NULL);
+		return (ft_free(src, src, 0));
 	i = 0;
 	while (src[i] && (src[i] != '\n' || nextbackn))
 	{
@@ -112,7 +112,7 @@ char	*ft_strjoin(char const *s1, char const *s2, int freearg)
 	j = (int)ft_strlen((char *)s2, 1);
 	str = (char *)malloc((i + j + 1) * sizeof(char));
 	if (!str)
-		return (NULL);
+		return (ft_free(s1, s2, freearg));
 	ft_strlcpy(str, (char *)s1, i + 1);
 	while (s2[k])
 	{

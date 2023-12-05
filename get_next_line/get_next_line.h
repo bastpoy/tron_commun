@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:14:29 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 15:57:54 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/05 11:05:32 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@
 # define NONEXTBACKN 1
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10
 # endif
 
-# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -33,5 +32,9 @@ char	*ft_strjoin(char const *s1, char const *s2, int freearg);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *src, int freesrc, int nextbackn);
 char	*get_next_line(int fd);
+void	*ft_free(const char *a, const char *b, int freearg);
+char	*ft_modifyoverflow(char *buffer, char *overflow);
+char	*ft_readline(char *buffer, int fd);
+char	*ft_nextoverflow(char *overflow);
 
 #endif
