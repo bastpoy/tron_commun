@@ -35,6 +35,7 @@ lsblk: liste les partitions
 su: permet de passer en root 
 su - <username> permet de changer d'utilisateur
 sudo reboot : reboot le systeme
+sudo visudo : permet d'acceder au fichier de configuration de sudo
 
 ----------SSH------------
 
@@ -69,6 +70,7 @@ usermod -a -G examplegroup exampleusername : ajouter un utilisateur dans un grou
 sudo adduser <username> : permet d'ajouter un utilisateur
 sudo deluser <username>: permet de supprimer un utilisateur
 sudo deluser --remove-all-files <username> : ceci est aussi disponible
-
+awk -F: '{ print $1}' /etc/passwd : voir tous les utilisateurs et afficher seulement le nom
+sudo visudo : rentrer dans les parametres de sudo
 
 ip address: 10.0.2.15
