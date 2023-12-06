@@ -10,13 +10,65 @@ apt est installe par default sur linux et permet dinstaller un package et ses de
 aptitude est similaire mais il a une interface graphique et n'est pas installe par defaut
 	- reserver aux personnes novices
 
+	tous les deux sont des controles d'acces obligatoire (MAC) => mandatory acces control
+	Il permettent donc de restreindre et d'ajouter des droits aux utilisateurs.
+	
 selinux: cest une architecture de securite et permet a l'administrateur de mieux controler ses acces systemes.
+	DAC: controle d'acces discretionnaire qui permet de conotroler l'acces des fichiers et repertoires aux utilisateurs. Controle de lecture/ ecriture
 apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
 	- apparmor est plus simle a mettre en place que selinux
 
-secret phrase : kyolis
+MAC: MANDATORY ACCES CONTROL, methode de droits d'utilisateurs pour gerer un system d'information. il contient le DAC et RBAC (controle d'acces a base de role)
+RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaque descicion est lie au role associe a chaque utilisateur
 
-ssh: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de conmmande
+
+secret phrase : 
+
+SSH: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de conmmande
 	- echange de clés de chiffrement au début de connexion
+	- il permet a l'utilisateur d'acceder et controler un system a distance en ligne de commande. l'utilisateur peut donc executer des commandes, gerer les fichiers,
+	et faire d'autre tache sur sa machine distante.
 	
+--------GENERAL----------
 
+lsblk: liste les partitions
+su: permet de passer en root 
+su - <username> permet de changer d'utilisateur
+sudo reboot : reboot le systeme
+
+----------SSH------------
+
+etc/ssh/sshf_config pour changer le port ssh sur lequel ecoute et enlever la connexion avec l'utilisateur root en SSH
+sudo service ssh restart : relancer le serveur ssh
+
+--------PARE FEU---------
+
+sudo ufw allow ssh : autoriser SSH
+sudo ufw allow 4242/tcp : afin d'autoriser un port personnalise
+sudo ufw enable : activer notre pare feu
+sudo ufw delete 2 : permet de supprimer une regle par exemple ici je supprime la regle 2
+sudo ufw status numbered: lister les regles UFW
+
+--------PASSWORD---------
+
+sudo vim /etc/login.defs : permet de voir le temps de duree d'un password, 30 j, de configurer le temps mini pour modifier un mdp et l'avertissement de 7j quand il expire
+sudo vim /etc/pam.d/common-password : fichier de configuration du mdp pour la politiaue de mdp fort
+/etc/pam.d/sudo : j'ai inclu un autre document ou il y a les specifites pour le mdp de l'utilisateur root
+
+--------USERGROUP--------
+
+sudo groupadd <nomdugroupeaajouter>
+gpasswd --delete user group : supprimer un utilisateur d'un groupe
+whoami : permet de savoir quel utilisateur on est
+groups : permet de savoir dans quelle groupe l'utilisateur est
+groups <username> : voir dans quelle groupe est l'utilisateur
+usermod -a -G examplegroup exampleusername : ajouter un utilisateur dans un groupe sans modifier les groupes auquels il appartient (-a) et specifie ou il veut etre ajouter (-G)
+
+--------UTILISATEUR------
+
+sudo adduser <username> : permet d'ajouter un utilisateur
+sudo deluser <username>: permet de supprimer un utilisateur
+sudo deluser --remove-all-files <username> : ceci est aussi disponible
+
+
+ip address: 10.0.2.15
