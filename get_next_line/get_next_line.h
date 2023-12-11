@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:14:29 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/05 11:05:32 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:51:05 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@
 #  define BUFFER_SIZE 10
 # endif
 
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 
 size_t	ft_strlen(const char *str, int nextbackn);
 size_t	ft_strlcpy(char *dest, char *src, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2, int freearg);
+char	*ft_strjoin(char const *s1, char const *s2, int pi);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *src, int freesrc, int nextbackn);
+char	*ft_strdup(const char *src, int freesrc, int nextbackn, int pi);
 char	*get_next_line(int fd);
-void	*ft_free(const char *a, const char *b, int freearg);
-char	*ft_modifyoverflow(char *buffer, char *overflow);
+void	*ft_free(const char *a, int pi);
+char	*ft_modifyoverflow(char *buffer, char *overflow, char **ptrbuffer);
 char	*ft_readline(char *buffer, int fd);
 char	*ft_nextoverflow(char *overflow);
 

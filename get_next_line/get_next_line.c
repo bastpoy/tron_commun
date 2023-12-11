@@ -6,18 +6,16 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:03:14 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/05 10:55:13 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:50:36 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_free(const char *a, const char *b, int freearg)
+void	*ft_free(const char *a, int pi)
 {
 	if (a)
-		free((char *)a);
-	if (b && freearg == 1)
-		free((char *)b);
+		free((char *)a - pi);
 	return (NULL);
 }
 
@@ -25,23 +23,23 @@ char	*ft_nextoverflow(char *overflow)
 {
 	char	*temp;
 
-	if (overflow)
+	if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n') + 1) != '\0')
 	{
-		if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n')
-				+ 1) != '\0')
-		{
-			temp = ft_strdup(overflow, FREE, NONEXTBACKN);
-			overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE,
-					NONEXTBACKN);
-			free(temp);
-			return (overflow);
-		}
-		else
-		{
-			free(overflow);
-			overflow = NULL;
+		temp = ft_strdup(overflow, FREE, NONEXTBACKN, 0);
+		if (!temp)
 			return (NULL);
-		}
+		overflow = ft_strdup(ft_strchr(temp, '\n') + 1, NO_FREE, NONEXTBACKN,
+				1);
+		free(temp);
+		if (!overflow)
+			return (NULL);
+		return (overflow);
+	}
+	else
+	{
+		free(overflow);
+		overflow = NULL;
+		return (NULL);
 	}
 	return (NULL);
 }
@@ -54,7 +52,7 @@ char	*ft_readline(char *buffer, int fd)
 	byteread = BUFFER_SIZE;
 	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!temp)
-		return (ft_free(buffer, buffer, 0));
+		return (ft_free(buffer, 0));
 	while (!ft_strchr(buffer, '\n') && byteread != 0)
 	{
 		byteread = read(fd, temp, BUFFER_SIZE);
@@ -66,21 +64,23 @@ char	*ft_readline(char *buffer, int fd)
 		if (byteread != 0)
 		{
 			temp[byteread] = '\0';
-			buffer = ft_strjoin(buffer, temp, NO_FREE);
+			buffer = ft_strjoin(buffer, temp, 0);
 		}
 	}
 	free(temp);
 	return (buffer);
 }
 
-char	*ft_modifyoverflow(char *buffer, char *overflow)
+char	*ft_modifyoverflow(char *buffer, char *overflow, char **ptrbuffer)
 {
-	char	*temp;
-
 	if (ft_strchr(buffer, '\n') && *(ft_strchr(buffer, '\n') + 1) != '\0')
 	{
-		temp = ft_strchr(buffer, '\n') + 1;
-		overflow = ft_strdup(temp, NO_FREE, NONEXTBACKN);
+		overflow = ft_strdup(ft_strchr(buffer, '\n') + 1, NO_FREE, NONEXTBACKN,
+				1);
+		if (!overflow)
+		{
+			*ptrbuffer = NULL;
+		}
 		return (overflow);
 	}
 	else
@@ -103,13 +103,19 @@ char	*get_next_line(int fd)
 		return (overflow = NULL);
 	}
 	if (overflow)
-		buffer = ft_strdup(overflow, NO_FREE, NEXTBACKN);
-	overflow = ft_nextoverflow(overflow);
+	{
+		buffer = ft_strdup(overflow, NO_FREE, NEXTBACKN, 0);
+		if (!buffer)
+			return (NULL);
+		overflow = ft_nextoverflow(overflow);
+	}
 	if (!overflow || !buffer)
 	{
 		buffer = ft_readline(buffer, fd);
-		overflow = ft_modifyoverflow(buffer, overflow);
-		buffer = ft_strdup(buffer, FREE, NEXTBACKN);
+		if (!buffer)
+			return (NULL);
+		overflow = ft_modifyoverflow(buffer, overflow, &buffer);
+		buffer = ft_strdup(buffer, FREE, NEXTBACKN, 0);
 	}
 	return (buffer);
 }
