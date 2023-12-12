@@ -9,6 +9,7 @@ apt est installe par default sur linux et permet dinstaller un package et ses de
 	- avec cette commande on peut donc ajouter, supprimer ou modifier des packages
 aptitude est similaire mais il a une interface graphique et n'est pas installe par defaut
 	- reserver aux personnes novices
+	- il va permettre de jouer le role de gestionnaire de paquets
 
 	tous les deux sont des controles d'acces obligatoire (MAC) => mandatory acces control
 	Il permettent donc de restreindre et d'ajouter des droits aux utilisateurs.
@@ -17,6 +18,7 @@ selinux: cest une architecture de securite et permet a l'administrateur de mieux
 	DAC: controle d'acces discretionnaire qui permet de conotroler l'acces des fichiers et repertoires aux utilisateurs. Controle de lecture/ ecriture
 apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
 	- apparmor est plus simle a mettre en place que selinux
+- sudo apparmor_status
 
 MAC: MANDATORY ACCES CONTROL, methode de droits d'utilisateurs pour gerer un system d'information. il contient le DAC et RBAC (controle d'acces a base de role)
 RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaque descicion est lie au role associe a chaque utilisateur
@@ -24,23 +26,25 @@ RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaqu
 
 secret phrase : 
 
-SSH: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de conmmande
+- SSH: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de commande
 	- echange de clés de chiffrement au début de connexion
 	- il permet a l'utilisateur d'acceder et controler un system a distance en ligne de commande. l'utilisateur peut donc executer des commandes, gerer les fichiers,
 	et faire d'autre tache sur sa machine distante.
 
-TTY:
+- TTY:
 	il se refere a un teminal physique ou a distance dans le systeme UNIX qui permet a l'utilisateur d'interagir aver le systeme d'exploitation.
 
-SOCKET:
+- SOCKET:
 	Le nombre de processeurs physique
 
-CORES PER SOCKET
+-CORES PER SOCKET
 	le nombre de noyaux CPU qu'il ya dans un processeur physique
 
-THREADS CPU
+- THREADS CPU
 	CORE est present sur la puce electronique physiquement. les thread sont logique, c'est une suite logique d'instruction que doit effectuer le processeur.
 
+- UFW 
+	firewall par defaut pour ubuntu. Par defaut il est desactive
 --------GENERAL----------
 
 lsblk: liste les partitions
@@ -50,6 +54,7 @@ sudo reboot : reboot le systeme
 sudo visudo : permet d'acceder au fichier de configuration de sudo
 Defaults logfile: il permet de specifier le repertoire ou mettre tous les logs
 systemctl enable getty@tty1.service : permet d'activer TTY
+sudo reboot now : reboot le systeme
 
 ----------SSH------------
 
@@ -63,6 +68,7 @@ sudo ufw allow 4242/tcp : afin d'autoriser un port personnalise
 sudo ufw enable : activer notre pare feu
 sudo ufw delete 2 : permet de supprimer une regle par exemple ici je supprime la regle 2
 sudo ufw status numbered: lister les regles UFW
+sudo ufw status : check si l'UFW est actif
 
 --------PASSWORD---------
 
@@ -82,12 +88,49 @@ usermod -a -G examplegroup exampleusername : ajouter un utilisateur dans un grou
 --------UTILISATEUR------
 
 sudo adduser <username> : permet d'ajouter un utilisateur
-sudo deluser <username>: permet de supprimer un utilisateur
+sudo deluser <username> : permet de supprimer un utilisateur
 sudo deluser --remove-all-files <username> : ceci est aussi disponible
 awk -F: '{ print $1}' /etc/passwd : voir tous les utilisateurs et afficher seulement le nom
 sudo visudo : rentrer dans les parametres de sudo
+sudo hostnamectl set-hostname <newhostname> : permet de changer le nom de l'hostname
+hostnamectl : permet de voir l'hostname actuel
+users : permet de lister les utilisateurs
+
+----------SUDO----------
+
+sudo usermod -aG sudo username : permet d'ajouter un utilisateur
+sudo pkill -KILL -u bpoyet42 : permet de kill les process sur bpoyet42
+sudo ps -aux | grep bpoyet42 : permet de voir si il ya des process en cours sur bpoyet42
+
 
 ------MONITORING.SH------
+
+echo "	#Architecure: $(uname -a)" 
+		=====> liste l'architecture de linux affiche les informations systemes de la machine. -a affiche toutes les infos
+echo "	#CPU physical : $(lscpu | awk 'NR==15'| awk -F ' ' '{print $2}')" 
+		====>  affiche les infos sur l'architecture du processeur, 
+echo "	#vCPU : $(cat /proc/cpuinfo | grep processor | awk -F ' ' '{print $3}')" 
+		====> il nous donne les infos processeurs
+echo "	#Memory Usage: $(free | grep Mem | awk '{print $3}' | cut -c1-3)/$(free | grep Mem | awk '{print $2}' | cut -c1-3)MB ($(free | grep Mem | awk '{print $3/$2 * 100}' | cut -c1-4)%)"
+		====> je print les 3 memory ou je vais faire un divise et un pourcentage
+echo "	#Disk Usage: $(df | awk 'NR==4' | awk '{print $3}' | cut -c1-4)/$(df -h | awk 'NR==4' | awk '{print $2}') ($(df | awk 'NR==4' | awk '{print $5}'))"
+		====> ici a chaque fois je print un endroit de la ligne 4 en utilisant df qui affiche la taille en disk disponible
+echo "	#CPU load: $(top -n 1| awk '{print $10}' | awk 'NR > 7 { print }' | awk '{Total=Total+$1} END{print Total}')%"
+		====> top permet d'afficher en continu les informations sur l'activite du systeme
+echo "	#Last boot : $(who -b | xargs | cut -d ' ' -f 3-5)"
+		====> who permet d'afficher les informations sur les utilisateurs connectes et -b donne la date du boot
+echo "	#LVM use: $(if [ "$(lsblk | grep "lvm" | wc -l)" -ne 0 ]; then echo "yes"; else echo "no";fi)"
+		====> lsblk liste les partitions et je dis que si les lignes qui valent lvm sont egales a 0 je renvoie no
+echo "	#Connexions TCP : $(who -u | wc -l)"
+		====> who -u montre le temps d'inoccupation des utilisateurs et je liste en comptant les lignes
+echo "	#User log: $(users | wc -w)"
+		====> users permet de lister tous les utilisateurs connectes. ils sont afficher les uns a la suite des autres je compte donc les colonnes
+echo "	#Network: IP $(hostname -I) ($(ip link show | grep "link/ether" | awk '{print $2}'))"
+		====> hostanme use to have the dns name -I permet d'avoir toutes les adresses ip. IP LINK SHOW : montre l'interface network
+echo "	#Sudo : $(cat /var/log/sudo/sudo.log | grep "COMMAND" | wc -l) cmd"
+		===> j'ouvre le fichier avec toutes les commandes de log et je liste les listes pour savoir combien de commande ont ete tapees
+		
+--------CRONTAB---------
 
 crontab -e : acceder aux parametres de crontab
 

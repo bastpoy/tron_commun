@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:03:14 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/11 16:50:36 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/12 09:18:40 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*ft_nextoverflow(char *overflow)
 {
 	char	*temp;
 
-	if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n') + 1) != '\0')
+	if (ft_strchr(overflow, '\n')
+		&& *(ft_strchr(overflow, '\n') + 1) != '\0')
 	{
 		temp = ft_strdup(overflow, FREE, NONEXTBACKN, 0);
 		if (!temp)
