@@ -1,30 +1,33 @@
 home: contient tous mes fichiers perso
 boot: contient tous les fichiers permettant de bot le systeme, le bootloeader
 swap: espace utilise quand on a toute notre memoir d'utilise
-
 sda est une partition
 
-apt et aptitude sont deux outils aui peuvent nous aider a gerer nos packages
-apt est installe par default sur linux et permet dinstaller un package et ses dependances
+- machine virtuelle : 
+	
+
+- Debian : environnement de bureau gnome. Plutot utilise sur des ordinateurs personneles jusqu'au serveur. gestion des paquets apt ou aptitude. Meilleur communaute de support
+- Rocky Linux : Plus recent et concus principalement pour les serveurs et les environnements d'entreprise. gestion des paquets yum.
+
+- apt et aptitude sont deux outils aui peuvent nous aider a gerer nos packages
+	apt est installe par default sur linux et permet dinstaller un package et ses dependances
 	- avec cette commande on peut donc ajouter, supprimer ou modifier des packages
-aptitude est similaire mais il a une interface graphique et n'est pas installe par defaut
+- aptitude est similaire mais il a une interface graphique et n'est pas installe par defaut
 	- reserver aux personnes novices
 	- il va permettre de jouer le role de gestionnaire de paquets
 
 	tous les deux sont des controles d'acces obligatoire (MAC) => mandatory acces control
 	Il permettent donc de restreindre et d'ajouter des droits aux utilisateurs.
-	
+
+MAC: MANDATORY ACCES CONTROL, methode de droits d'utilisateurs pour gerer un system d'information. il contient le DAC et RBAC (controle d'acces a base de role)
+RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaque descicion est lie au role associe a chaque utilisateur
+	 
 selinux: cest une architecture de securite et permet a l'administrateur de mieux controler ses acces systemes.
 	DAC: controle d'acces discretionnaire qui permet de conotroler l'acces des fichiers et repertoires aux utilisateurs. Controle de lecture/ ecriture
 apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
 	- apparmor est plus simle a mettre en place que selinux
-- sudo apparmor_status
-
-MAC: MANDATORY ACCES CONTROL, methode de droits d'utilisateurs pour gerer un system d'information. il contient le DAC et RBAC (controle d'acces a base de role)
-RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaque descicion est lie au role associe a chaque utilisateur
 
 
-secret phrase : 
 
 - SSH: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de commande
 	- echange de clés de chiffrement au début de connexion
@@ -55,11 +58,13 @@ sudo visudo : permet d'acceder au fichier de configuration de sudo
 Defaults logfile: il permet de specifier le repertoire ou mettre tous les logs
 systemctl enable getty@tty1.service : permet d'activer TTY
 sudo reboot now : reboot le systeme
+ctrl + d : permet de quitter ssh
 
 ----------SSH------------
 
 etc/ssh/sshf_config pour changer le port ssh sur lequel ecoute et enlever la connexion avec l'utilisateur root en SSH
 sudo service ssh restart : relancer le serveur ssh
+sudo systemctl status sshd : check que le service SSH est bien actif
 
 --------PARE FEU---------
 
@@ -69,11 +74,12 @@ sudo ufw enable : activer notre pare feu
 sudo ufw delete 2 : permet de supprimer une regle par exemple ici je supprime la regle 2
 sudo ufw status numbered: lister les regles UFW
 sudo ufw status : check si l'UFW est actif
+sudo apparmor_status
 
 --------PASSWORD---------
 
 sudo vim /etc/login.defs : permet de voir le temps de duree d'un password, 30 j, de configurer le temps mini pour modifier un mdp et l'avertissement de 7j quand il expire
-sudo vim /etc/pam.d/common-password : fichier de configuration du mdp pour la politiaue de mdp fort
+sudo vim /etc/pam.d/common-password : fichier de configuration du mdp pour la politique de mdp fort
 /etc/pam.d/sudo : j'ai inclu un autre document ou il y a les specifites pour le mdp de l'utilisateur root
 
 --------USERGROUP--------
@@ -84,6 +90,7 @@ whoami : permet de savoir quel utilisateur on est
 groups : permet de savoir dans quelle groupe l'utilisateur est
 groups <username> : voir dans quelle groupe est l'utilisateur
 usermod -a -G examplegroup exampleusername : ajouter un utilisateur dans un groupe sans modifier les groupes auquels il appartient (-a) et specifie ou il veut etre ajouter (-G)
+sudo usermod -aG sudo username : permet d'ajouter un utilisateur a un groupe. En premier le nom du groupe et en deuxieme le nom d'utilisateur
 
 --------UTILISATEUR------
 
@@ -95,10 +102,10 @@ sudo visudo : rentrer dans les parametres de sudo
 sudo hostnamectl set-hostname <newhostname> : permet de changer le nom de l'hostname
 hostnamectl : permet de voir l'hostname actuel
 users : permet de lister les utilisateurs
+vim etc/passwd : pour lister les utilisateurs
 
 ----------SUDO----------
 
-sudo usermod -aG sudo username : permet d'ajouter un utilisateur
 sudo pkill -KILL -u bpoyet42 : permet de kill les process sur bpoyet42
 sudo ps -aux | grep bpoyet42 : permet de voir si il ya des process en cours sur bpoyet42
 
@@ -136,3 +143,9 @@ crontab -e : acceder aux parametres de crontab
 
 
 ip address: 10.0.2.15
+
+
+-----TRUC A GERER-----
+
+- que le retry de password soit bien implemente
+- 
