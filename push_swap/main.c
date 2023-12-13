@@ -39,7 +39,13 @@ int ft_check_args(int argc, char **argv)
 }
 t_stacka ft_fill_tab(int argc, char **argv)
 {
-}
+
+
+
+        
+        
+        
+        }
 
 int main(int argc, char **argv)
 {
