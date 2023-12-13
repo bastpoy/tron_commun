@@ -3,15 +3,19 @@ boot: contient tous les fichiers permettant de bot le systeme, le bootloeader
 swap: espace utilise quand on a toute notre memoir d'utilise
 sda est une partition
 
-- machine virtuelle : 
+- machine virtuelle : C'est un environnement virtualise qui fonctionne sur une machine physique. L'avantage c'est qu'on peut emuller un OS sans avoir a l'installer physiquement sur la machine.
+		- Ceci permet de tester des choses dans un environnement sur.
+		- Tout ce qui se trouve a l'interieur evite d'infecter l'ordinateur hote de l'utilisateur (malware)
+- LVM : gestionnaire logique de volume pour linux
+	- il permet par exemple d'agrandir ou reduire des partitions, ou meme en creer
+	- Creer une partition de type LVM qui correspond a un disque. on puet donc modifier et creer des volumes logiques a volonte
 	
-
 - Debian : environnement de bureau gnome. Plutot utilise sur des ordinateurs personneles jusqu'au serveur. gestion des paquets apt ou aptitude. Meilleur communaute de support
 - Rocky Linux : Plus recent et concus principalement pour les serveurs et les environnements d'entreprise. gestion des paquets yum.
 
 - apt et aptitude sont deux outils aui peuvent nous aider a gerer nos packages
 	apt est installe par default sur linux et permet dinstaller un package et ses dependances
-	- avec cette commande on peut donc ajouter, supprimer ou modifier des packages
+	Avec cette commande on peut donc ajouter, supprimer ou modifier des packages
 - aptitude est similaire mais il a une interface graphique et n'est pas installe par defaut
 	- reserver aux personnes novices
 	- il va permettre de jouer le role de gestionnaire de paquets
@@ -24,10 +28,8 @@ RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaqu
 	 
 selinux: cest une architecture de securite et permet a l'administrateur de mieux controler ses acces systemes.
 	DAC: controle d'acces discretionnaire qui permet de conotroler l'acces des fichiers et repertoires aux utilisateurs. Controle de lecture/ ecriture
-apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
+- Apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
 	- apparmor est plus simle a mettre en place que selinux
-
-
 
 - SSH: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de commande
 	- echange de clés de chiffrement au début de connexion
@@ -47,7 +49,9 @@ apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qu
 	CORE est present sur la puce electronique physiquement. les thread sont logique, c'est une suite logique d'instruction que doit effectuer le processeur.
 
 - UFW 
-	firewall par defaut pour ubuntu. Par defaut il est desactive
+	Outil de configuration de firewall par defaut pour ubuntu. Par defaut il est desactive
+	Cet outil va nous permettre de configurer iptables.(configuration de regles et chaines dans l'espace noyau)
+	
 --------GENERAL----------
 
 lsblk: liste les partitions
@@ -59,17 +63,18 @@ Defaults logfile: il permet de specifier le repertoire ou mettre tous les logs
 systemctl enable getty@tty1.service : permet d'activer TTY
 sudo reboot now : reboot le systeme
 ctrl + d : permet de quitter ssh
-
+Default reauiretty exige qu'un terminal soit ouvert pour excuter les commandes sudo. ce qui limite sudo aux utilissateurs connectes
 ----------SSH------------
 
 etc/ssh/sshf_config pour changer le port ssh sur lequel ecoute et enlever la connexion avec l'utilisateur root en SSH
 sudo service ssh restart : relancer le serveur ssh
-sudo systemctl status sshd : check que le service SSH est bien actif
+sudo systemctl status ssh : check que le service SSH est bien actif et verifier le port
 
 --------PARE FEU---------
 
 sudo ufw allow ssh : autoriser SSH
 sudo ufw allow 4242/tcp : afin d'autoriser un port personnalise
+sudo ufw delete allow 8080 : supprime le port 8080
 sudo ufw enable : activer notre pare feu
 sudo ufw delete 2 : permet de supprimer une regle par exemple ici je supprime la regle 2
 sudo ufw status numbered: lister les regles UFW
@@ -84,13 +89,15 @@ sudo vim /etc/pam.d/common-password : fichier de configuration du mdp pour la po
 
 --------USERGROUP--------
 
-sudo groupadd <nomdugroupeaajouter>
+sudo groupadd <nomdugroupeaajouter> : permet de creer un groupe
 gpasswd --delete user group : supprimer un utilisateur d'un groupe
 whoami : permet de savoir quel utilisateur on est
 groups : permet de savoir dans quelle groupe l'utilisateur est
 groups <username> : voir dans quelle groupe est l'utilisateur
-usermod -a -G examplegroup exampleusername : ajouter un utilisateur dans un groupe sans modifier les groupes auquels il appartient (-a) et specifie ou il veut etre ajouter (-G)
+sudo usermod -a -G examplegroup exampleusername : ajouter un utilisateur dans un groupe sans modifier les groupes auquels il appartient (-a) et specifie ou il veut etre ajouter (-G)
 sudo usermod -aG sudo username : permet d'ajouter un utilisateur a un groupe. En premier le nom du groupe et en deuxieme le nom d'utilisateur
+getent group : lister les groupes
+sudo gpasswd -d bpoyet users: enlever bpoyet du groupe users
 
 --------UTILISATEUR------
 
@@ -108,6 +115,9 @@ vim etc/passwd : pour lister les utilisateurs
 
 sudo pkill -KILL -u bpoyet42 : permet de kill les process sur bpoyet42
 sudo ps -aux | grep bpoyet42 : permet de voir si il ya des process en cours sur bpoyet42
+sudo -V : verifier l'installation de sudo
+sudo : est une commande superutilisateur qui permet de lancer des commandes superutilisateur.
+	- elle permet de donner des droits a d'autres utilisateurs
 
 
 ------MONITORING.SH------
@@ -148,4 +158,5 @@ ip address: 10.0.2.15
 -----TRUC A GERER-----
 
 - que le retry de password soit bien implemente
-- 
+- changer le nom de la VM
+- mon monitoring ne s'affiche pas
