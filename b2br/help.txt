@@ -149,6 +149,8 @@ echo "	#Sudo : $(cat /var/log/sudo/sudo.log | grep "COMMAND" | wc -l) cmd"
 		
 --------CRONTAB---------
 
+Cron permet de répéter des taches. il permet de planifie rune tache. Cron est plutôt utilisé pour des machines à fonctionnement permanent comme les serveurs.
+	Il lance des tqches a des moments predetermines, donc si la machine n'est pas allume elle ne se lance pas.
 crontab -e : acceder aux parametres de crontab
 
 
@@ -158,5 +160,25 @@ ip address: 10.0.2.15
 -----TRUC A GERER-----
 
 - que le retry de password soit bien implemente
-- changer le nom de la VM
-- mon monitoring ne s'affiche pas
+
+------COMMANDES IMPERATIVES-------
+
+- sudo ufw status : Verifier l'installation de ufw
+- sudo systemctl status ssh : Verfication de l'installation de SSH 
+- sudo adduser : creer un utilisateur
+- sudo vim /etc/pam.d/common-password : Voir les regles du mot de passe dans
+- sudo groupadd <nomdugroupeaajouter> : permet de creer un groupe
+- groups : pour savoir dans quelle groupe on est
+- hostnamectl : verifier l'hostname
+- sudo hostnamectl set-hostname <newhostname> : change l'hostname
+- sudo reboot : permet de reboot
+- lsblk : pour afficher les partitions de la machine
+- sudo -V : version de sudo
+- sudo usermod -aG sudo username : permet d'ajouter username qu groupe sudo
+- sudo vim /etc/login.defs : permet de voir ou se situe les regles de de sudo mot de passe
+- sudo ufw status : permet de voir l'etat de ufw
+- sudo ufw status numbered : lister les règles UFW
+- sudo ufw allow 4242 : autoriser une regles pour ouvrir le port 4242
+- sudo ufw delete allow 8080 : supprimer une regle UFW
+- sudo systemctl status ssh : tester que le SSH marche correctement
+- ssh -p 4243 bpoyet@127.0.0.1 : pour se connecter en ssh
