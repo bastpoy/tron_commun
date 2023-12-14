@@ -10,8 +10,11 @@ sda est une partition
 	- il permet par exemple d'agrandir ou reduire des partitions, ou meme en creer
 	- Creer une partition de type LVM qui correspond a un disque. on puet donc modifier et creer des volumes logiques a volonte
 	
-- Debian : environnement de bureau gnome. Plutot utilise sur des ordinateurs personneles jusqu'au serveur. gestion des paquets apt ou aptitude. Meilleur communaute de support
+- Debian : environnement de bureau gnome. Plutot utilise sur des ordinateurs personneles jusqu'au serveur. gestion des paquets apt ou aptitude. 
+		- Meilleur communaute de support
+		- 
 - Rocky Linux : Plus recent et concus principalement pour les serveurs et les environnements d'entreprise. gestion des paquets yum.
+		- Plus stable
 
 - apt et aptitude sont deux outils aui peuvent nous aider a gerer nos packages
 	apt est installe par default sur linux et permet dinstaller un package et ses dependances
@@ -24,12 +27,14 @@ sda est une partition
 	Il permettent donc de restreindre et d'ajouter des droits aux utilisateurs.
 
 MAC: MANDATORY ACCES CONTROL, methode de droits d'utilisateurs pour gerer un system d'information. il contient le DAC et RBAC (controle d'acces a base de role)
-RBAC: modele de controle d'acces pou run systeme d'information dans lequel chaque descicion est lie au role associe a chaque utilisateur
+RBAC: modele de controle d'acces pour un systeme d'information dans lequel chaque descicion est lie au role associe a chaque utilisateur
 	 
 selinux: cest une architecture de securite et permet a l'administrateur de mieux controler ses acces systemes.
 	DAC: controle d'acces discretionnaire qui permet de conotroler l'acces des fichiers et repertoires aux utilisateurs. Controle de lecture/ ecriture
 - Apparmor: permet a l'administrateur d'associer a chaque utilisateur un profil qui restreint ses droits.
-	- apparmor est plus simle a mettre en place que selinux
+	- ce ci permet de restreindre chaque persoonne a un niveau de ressource, et maintenir une hyerarchie.
+	- instsalle par defaut sur linux
+	- apparmor est plus simple a mettre en place que selinux
 
 - SSH: protocole de communication et permet de se connecter a distance sur une machine afin d'obtenir un shell ou une ligne de commande
 	- echange de clés de chiffrement au début de connexion
@@ -38,7 +43,8 @@ selinux: cest une architecture de securite et permet a l'administrateur de mieux
 
 - TTY:
 	il se refere a un teminal physique ou a distance dans le systeme UNIX qui permet a l'utilisateur d'interagir aver le systeme d'exploitation.
-
+	tty est une commande Unix qui affiche sur la sortie standard le nom du fichier connecté sur l'entrée standard
+	
 - SOCKET:
 	Le nombre de processeurs physique
 
@@ -51,7 +57,12 @@ selinux: cest une architecture de securite et permet a l'administrateur de mieux
 - UFW 
 	Outil de configuration de firewall par defaut pour ubuntu. Par defaut il est desactive
 	Cet outil va nous permettre de configurer iptables.(configuration de regles et chaines dans l'espace noyau)
-	
+	Proteger un reseau local des intrusions exterieures.
+
+- qui utilise le plus le CPU :
+	https://www.cyberciti.biz/tips/how-do-i-find-out-linux-cpu-utilization.html
+
+
 --------GENERAL----------
 
 lsblk: liste les partitions
@@ -64,6 +75,8 @@ systemctl enable getty@tty1.service : permet d'activer TTY
 sudo reboot now : reboot le systeme
 ctrl + d : permet de quitter ssh
 Default reauiretty exige qu'un terminal soit ouvert pour excuter les commandes sudo. ce qui limite sudo aux utilissateurs connectes
+Sha1 permet de chiffrer une chaine de caratere sous la forme de 40 caracteres hexa
+
 ----------SSH------------
 
 etc/ssh/sshf_config pour changer le port ssh sur lequel ecoute et enlever la connexion avec l'utilisateur root en SSH
@@ -110,6 +123,7 @@ sudo hostnamectl set-hostname <newhostname> : permet de changer le nom de l'host
 hostnamectl : permet de voir l'hostname actuel
 users : permet de lister les utilisateurs
 vim etc/passwd : pour lister les utilisateurs
+chage -l <root> : changer les proprietes du mdp
 
 ----------SUDO----------
 
@@ -122,6 +136,8 @@ sudo : est une commande superutilisateur qui permet de lancer des commandes supe
 
 ------MONITORING.SH------
 
+ou le trouver: /usr/local/bin/monitoring.sh
+
 echo "	#Architecure: $(uname -a)" 
 		=====> liste l'architecture de linux affiche les informations systemes de la machine. -a affiche toutes les infos
 echo "	#CPU physical : $(lscpu | awk 'NR==15'| awk -F ' ' '{print $2}')" 
@@ -129,17 +145,17 @@ echo "	#CPU physical : $(lscpu | awk 'NR==15'| awk -F ' ' '{print $2}')"
 echo "	#vCPU : $(cat /proc/cpuinfo | grep processor | awk -F ' ' '{print $3}')" 
 		====> il nous donne les infos processeurs
 echo "	#Memory Usage: $(free | grep Mem | awk '{print $3}' | cut -c1-3)/$(free | grep Mem | awk '{print $2}' | cut -c1-3)MB ($(free | grep Mem | awk '{print $3/$2 * 100}' | cut -c1-4)%)"
-		====> je print les 3 memory ou je vais faire un divise et un pourcentage
+		====> je print les 3 memory ou je vais faire un divise et un pourcentage. performance memoire
 echo "	#Disk Usage: $(df | awk 'NR==4' | awk '{print $3}' | cut -c1-4)/$(df -h | awk 'NR==4' | awk '{print $2}') ($(df | awk 'NR==4' | awk '{print $5}'))"
 		====> ici a chaque fois je print un endroit de la ligne 4 en utilisant df qui affiche la taille en disk disponible
-echo "	#CPU load: $(top -n 1| awk '{print $10}' | awk 'NR > 7 { print }' | awk '{Total=Total+$1} END{print Total}')%"
-		====> top permet d'afficher en continu les informations sur l'activite du systeme
+echo "	#CPU load: $(top -bn1 | awk '{print $10}' | awk 'NR > 7 { print }' | awk '{Total=Total+$1} END{print Total}')%"
+		====> top permet d'afficher en continu les informations sur l'activite du systeme. bn1 permet d'afficher le resultat au lieu de lancer un script
 echo "	#Last boot : $(who -b | xargs | cut -d ' ' -f 3-5)"
 		====> who permet d'afficher les informations sur les utilisateurs connectes et -b donne la date du boot
 echo "	#LVM use: $(if [ "$(lsblk | grep "lvm" | wc -l)" -ne 0 ]; then echo "yes"; else echo "no";fi)"
 		====> lsblk liste les partitions et je dis que si les lignes qui valent lvm sont egales a 0 je renvoie no
-echo "	#Connexions TCP : $(who -u | wc -l)"
-		====> who -u montre le temps d'inoccupation des utilisateurs et je liste en comptant les lignes
+echo "	#Connexions TCP : $(($(ss -t | wc -l) - 1))
+		====> ss -t montre les connexions tcp et sauf qu il print une ligne de titre que jenleve dou les double parenthesese pour faire des operations arythmetiques
 echo "	#User log: $(users | wc -w)"
 		====> users permet de lister tous les utilisateurs connectes. ils sont afficher les uns a la suite des autres je compte donc les colonnes
 echo "	#Network: IP $(hostname -I) ($(ip link show | grep "link/ether" | awk '{print $2}'))"
@@ -168,17 +184,24 @@ ip address: 10.0.2.15
 - sudo adduser : creer un utilisateur
 - sudo vim /etc/pam.d/common-password : Voir les regles du mot de passe dans
 - sudo groupadd <nomdugroupeaajouter> : permet de creer un groupe
+- sudo groupdel <nomdugroupeasupprimer> : permet de supprimer un groupe
+- sudo usermod -aG sudo username ou sudo gpasswd --add atresal evaluating : permet d'ajouter username qu groupe sudo
 - groups : pour savoir dans quelle groupe on est
+- sudo gpasswd -d bpoyet users ou sudo gpasswd --delete atresal evaluating : supprimer un utilisateur d'un groupe
 - hostnamectl : verifier l'hostname
 - sudo hostnamectl set-hostname <newhostname> : change l'hostname
 - sudo reboot : permet de reboot
 - lsblk : pour afficher les partitions de la machine
 - sudo -V : version de sudo
-- sudo usermod -aG sudo username : permet d'ajouter username qu groupe sudo
 - sudo vim /etc/login.defs : permet de voir ou se situe les regles de de sudo mot de passe
+- sudo /etc/passwd : pour voir tous les utilisateurs
+- getent group : pour voir tous les groupes
 - sudo ufw status : permet de voir l'etat de ufw
 - sudo ufw status numbered : lister les règles UFW
 - sudo ufw allow 4242 : autoriser une regles pour ouvrir le port 4242
 - sudo ufw delete allow 8080 : supprimer une regle UFW
 - sudo systemctl status ssh : tester que le SSH marche correctement
+- /usr/local/bin : lieu ou se trouve le monitoring.sh.
 - ssh -p 4243 bpoyet@127.0.0.1 : pour se connecter en ssh
+- sudo timedatectl set-timezone Europe/Paris : ceci permet de changer le fuseau horaire
+
