@@ -10,11 +10,14 @@ sda est une partition
 	- il permet par exemple d'agrandir ou reduire des partitions, ou meme en creer
 	- Creer une partition de type LVM qui correspond a un disque. on puet donc modifier et creer des volumes logiques a volonte
 	
-- Debian : environnement de bureau gnome. Plutot utilise sur des ordinateurs personneles jusqu'au serveur. gestion des paquets apt ou aptitude. 
+- Debian : Distribution liniux. systeme d'exploitation libre.
+		- Environnement de bureau gnome. Plutot utilise sur des ordinateurs personneles jusqu'au serveur. gestion des paquets apt ou aptitude. 
 		- Meilleur communaute de support
-		- 
-- Rocky Linux : Plus recent et concus principalement pour les serveurs et les environnements d'entreprise. gestion des paquets yum.
+		
+- Rocky Linux : Distribution linux. base sur redhat
+		- Plus recent et concus principalement pour les serveurs et les environnements d'entreprise. gestion des paquets yum.
 		- Plus stable
+		- Rocky entreprise
 
 - apt et aptitude sont deux outils aui peuvent nous aider a gerer nos packages
 	apt est installe par default sur linux et permet dinstaller un package et ses dependances
@@ -166,7 +169,7 @@ echo "	#Sudo : $(cat /var/log/sudo/sudo.log | grep "COMMAND" | wc -l) cmd"
 --------CRONTAB---------
 
 Cron permet de répéter des taches. il permet de planifie rune tache. Cron est plutôt utilisé pour des machines à fonctionnement permanent comme les serveurs.
-	Il lance des tqches a des moments predetermines, donc si la machine n'est pas allume elle ne se lance pas.
+	Il lance des taches a des moments predetermines, donc si la machine n'est pas allume elle ne se lance pas.
 crontab -e : acceder aux parametres de crontab
 
 
