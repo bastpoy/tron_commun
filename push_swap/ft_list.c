@@ -1,0 +1,123 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/18 18:36:41 by bpoyet            #+#    #+#             */
+/*   Updated: 2023/12/19 13:53:55 by bpoyet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+t_listx *ft_init_listx()
+{
+    t_listx *lista;
+
+    lista = malloc(sizeof(t_listx));
+    lista->ptrbegin = NULL;
+    return (lista);
+}
+
+void ft_insert_front(t_listx *listx, int nb)
+{
+    t_stack *stackx;
+
+    stackx = malloc(sizeof(t_stack));
+    stackx->number = nb;
+    stackx->next = listx->ptrbegin;
+    listx->ptrbegin = stackx;
+}
+
+void ft_insert_back(t_listx *listx, int nb)
+{
+    t_stack *stackx;
+
+    stackx = ft_get_last(listx);
+    stackx->next = malloc(sizeof(t_stack));
+    stackx->next->number = nb;
+    stackx->next->next = NULL;
+}
+
+void ft_del_front(t_listx *listx)
+{
+    t_stack *el;
+
+    if (!listx)
+        ft_printf("cant free NULL ptr");
+    el = listx->ptrbegin;
+    listx->ptrbegin = listx->ptrbegin->next;
+    free(el);
+}
+
+void ft_del_back(t_listx *listx)
+{
+    t_stack *current;
+    t_stack *previous;
+
+    current = listx->ptrbegin;
+    previous = NULL;
+    if (listx == NULL || listx->ptrbegin == NULL || listx->ptrbegin->next == NULL)
+    {
+        // Empty list or list with only one element
+        printf("je ne peux pas avoir l'avant dernier\n");
+    }
+    while (current->next != NULL)
+    {
+        previous = current;
+        current = current->next;
+    }
+    previous->next = NULL;
+    free(current);
+}
+
+int ft_free_lista(t_listx *lista)
+{
+    t_stack *stacka;
+    t_stack *tmp;
+
+    stacka = lista->ptrbegin;
+    if (!lista)
+        return (0);
+    while (stacka != NULL)
+    {
+        tmp = stacka;
+        stacka = stacka->next;
+        free(tmp);
+    }
+    return (1);
+}
+
+int ft_free_listb(t_listx *listb)
+{
+    t_stack *stackb;
+    t_stack *tmp;
+
+    stackb = listb->ptrbegin;
+    if (!listb)
+        return (0);
+    while (stackb != NULL)
+    {
+        tmp = stackb;
+        stackb = stackb->next;
+        free(tmp);
+    }
+    return (1);
+}
+
+t_stack *ft_get_last(t_listx *listx)
+{
+    t_stack *stackx;
+
+    stackx = listx->ptrbegin;
+    while (stackx)
+    {
+        if (stackx->next == NULL)
+            return (stackx);
+        else
+            stackx = stackx->next;
+    }
+    return (stackx);
+}

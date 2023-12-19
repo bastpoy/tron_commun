@@ -1,4 +1,4 @@
-SRCSPRINTF = main.c ft_sort.c
+SRCSPRINTF = main.c ft_sort.c ft_list.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 PRINTF = ./ft_printf/ft_printf.h 

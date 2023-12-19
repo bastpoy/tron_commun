@@ -3,25 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:24:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/18 13:29:41 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/19 16:07:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
 #include "push_swap.h"
 
-// fonction qui va trier mes nombres
-// je check si ce sont tous des nombres
-int ft_check_args(int argc, char **argv)
+int ft_check_if_num(int argc, char **argv)
 {
     int i;
     int j;
 
     i = argc - 1;
-    printf("i vaut %d\n", i);
     j = 0;
     while (i > 0)
     {
@@ -37,72 +33,69 @@ int ft_check_args(int argc, char **argv)
     return (1);
 }
 
-t_lista *ft_init_list()
-{
-    t_lista *lista;
-    t_stacka *stacka;
-
-    lista = malloc(sizeof(t_lista));
-    stacka = malloc(sizeof(t_stacka));
-    if(!lista || !stacka)
-        return (NULL);
-    stacka->number = 0;
-    stacka->next = NULL;
-    lista->ptrbegin = stacka;
-    return(lista);
-}
-
-void ft_insert_front(t_lista *lista, int nb)
-{
-    t_stacka *stacka;
-
-    stacka = malloc(sizeof(t_stacka));
-    stacka->number = nb;
-    stacka->next = lista->ptrbegin;
-    lista->ptrbegin = stacka;
-}
-
-void ft_fill_tab(int argc, char **argv, t_lista *lista)
+void ft_fill_tab(int argc, char **argv, t_listx *lista)
 {
     int i;
 
     i = argc - 1;
-    while(i > 0)
+    while (i > 0)
     {
         ft_insert_front(lista, ft_atoi(argv[i]));
-        ft_printf("le numero vaut %d et le pointeur vaut %p et lista %p\n",lista->ptrbegin->number, lista->ptrbegin, lista);
+        ft_printf("le numero vaut %d et le pointeur vaut %p\n", lista->ptrbegin->number, lista->ptrbegin);
         i--;
     }
 }
 
-int print_list(t_lista *list)
+int print_listx(t_listx *list)
 {
-    if(!list)
+    if (!list)
         return (0);
-    t_stacka *el;
-    
+    t_stack *el;
+
     el = list->ptrbegin;
-    printf("el vaut %p\n", el);
-    while(!el)
+    while (el)
     {
-        ft_printf("l'element %d et son adresse %p\n", el->number, el);
+        ft_printf("valeur %d adresse %p\n", el->number, el);
         el = el->next;
     }
-    return(1);
+    printf("\n\n");
+    return (1);
 }
 
 int main(int argc, char **argv)
 {
+    // t_listx *lista;
+    // t_listx *listb;
+
     if (argc == 1)
         return (0);
-    if (!ft_check_args(argc, argv))
+    if (!ft_check_if_num(argc, argv))
+    {
+        printf("pas bon\n");
         return (0);
-    t_lista *lista;
-    lista = ft_init_list();
-    ft_fill_tab(argc, argv, lista);
-    print_list(lista);
-    ft_sa(lista);
-    ft_printf("la\n");
-    print_list(lista);
-    return(0);
+    }
+    // lista = ft_init_listx();
+    // listb = ft_init_listx();
+    // ft_fill_tab(argc, argv, lista);
+    // ft_fill_tab(argc, argv, listb);
+    // print_listx(lista);
+    // print_listx(listb);
+
+    // ft_rrr(lista, listb);
+    // printf("---lista---\n");
+    // print_listx(lista);
+    // printf("---listb---\n");
+    // print_listx(listb);
+
+    // ft_rrr(lista, listb);
+    // printf("---lista---\n");
+    // print_listx(lista);
+    // printf("---listb---\n");
+    // print_listx(listb);
+
+    // ft_free_lista(lista);
+    // ft_free_listb(listb);
+    // free(lista);
+    // free(listb);
+    return (0);
 }
