@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 18:36:41 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/19 13:53:55 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/20 14:23:45 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,37 @@ t_listx *ft_init_listx()
     lista = malloc(sizeof(t_listx));
     lista->ptrbegin = NULL;
     return (lista);
+}
+
+int ft_print_listx(t_listx *list)
+{
+    if (!list)
+        return (0);
+    t_stack *el;
+
+    el = list->ptrbegin;
+    while (el)
+    {
+        ft_printf("valeur %d adresse %p\n", el->number, el);
+        el = el->next;
+    }
+    printf("\n");
+    return (1);
+}
+
+int ft_size_listx(t_listx *listx)
+{
+    t_stack *stackx;
+    int count;
+
+    count = 0;
+    stackx = listx->ptrbegin;
+    while (stackx != NULL)
+    {
+        stackx = stackx->next;
+        count++;
+    }
+    return (count);
 }
 
 void ft_insert_front(t_listx *listx, int nb)

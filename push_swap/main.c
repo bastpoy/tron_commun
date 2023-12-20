@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:24:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/19 16:07:28 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/20 15:41:35 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,15 @@ void ft_fill_tab(int argc, char **argv, t_listx *lista)
     while (i > 0)
     {
         ft_insert_front(lista, ft_atoi(argv[i]));
-        ft_printf("le numero vaut %d et le pointeur vaut %p\n", lista->ptrbegin->number, lista->ptrbegin);
         i--;
     }
 }
 
-int print_listx(t_listx *list)
-{
-    if (!list)
-        return (0);
-    t_stack *el;
-
-    el = list->ptrbegin;
-    while (el)
-    {
-        ft_printf("valeur %d adresse %p\n", el->number, el);
-        el = el->next;
-    }
-    printf("\n\n");
-    return (1);
-}
-
 int main(int argc, char **argv)
 {
-    // t_listx *lista;
-    // t_listx *listb;
+    t_listx *lista;
+    t_listx *listb;
+    int count;
 
     if (argc == 1)
         return (0);
@@ -74,28 +58,24 @@ int main(int argc, char **argv)
         printf("pas bon\n");
         return (0);
     }
-    // lista = ft_init_listx();
-    // listb = ft_init_listx();
-    // ft_fill_tab(argc, argv, lista);
-    // ft_fill_tab(argc, argv, listb);
-    // print_listx(lista);
-    // print_listx(listb);
+    lista = ft_init_listx();
+    listb = ft_init_listx();
+    ft_fill_tab(argc, argv, lista);
 
-    // ft_rrr(lista, listb);
-    // printf("---lista---\n");
-    // print_listx(lista);
-    // printf("---listb---\n");
-    // print_listx(listb);
+    ft_first_insert_listb(lista, listb);
+    ft_second_insert_listb(lista, listb);
 
-    // ft_rrr(lista, listb);
-    // printf("---lista---\n");
-    // print_listx(lista);
-    // printf("---listb---\n");
-    // print_listx(listb);
-
-    // ft_free_lista(lista);
-    // ft_free_listb(listb);
-    // free(lista);
-    // free(listb);
+    while (lista->ptrbegin)
+    {
+        if (!ft_put_minmax_stacka(lista, listb))
+        {
+            count = ft_count_rrb(lista, listb);
+            ft_rrb_or_rb(count, lista, listb);
+        }
+    }
+    while (listb->ptrbegin)
+    {
+        ft_pa(lista, listb);
+    }
     return (0);
 }

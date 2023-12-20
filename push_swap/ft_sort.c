@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:07:28 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/19 15:58:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2023/12/20 10:38:01 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int ft_rb(t_listx *listb)
 		ft_insert_back(listb, listb->ptrbegin->number);
 		ft_del_front(listb);
 		ft_printf("rb\n");
+		return (1);
 	}
 	else
 	{

@@ -24,25 +24,4 @@ ALGORYTHMES
 
 -   INSERTION SORT : https://en.wikipedia.org/wiki/File:Insertion-sort-example-300px.gif
 
-// int ft_check_sup_duplic(int argc, char **argv)
-// {
-//     int i;
-//     int j;
-
-//     i = 1;
-//     while (i <= argc - 1)
-//     {
-//         j = i + 1;
-//         // if ((size_t)ft_atoi(argv[i]) > 2147483647 || (size_t)ft_atoi(argv[i]) < -2147483648)
-//         //     return (0);
-//         while (j <= argc - 1)
-//         {
-//             printf("i %s j %s\n", argv[i], argv[j]);
-//             if (argv[i] == argv[j])
-//                 return (0);
-//             j++;
-//         }
-//         i++;
-//     }
-//     return (1);
-// }
+Developpement de l'algo d'insertiton
