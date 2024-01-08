@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/20 14:24:20 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/02 15:43:36 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void ft_del_front(t_listx *listx);
 void ft_del_back(t_listx *listx);
 int ft_free_lista(t_listx *lista);
 int ft_free_listb(t_listx *listb);
+void ft_entry_three(t_listx *lista);
+int ft_check_if_sort(t_listx *lista);
 
 void ft_first_insert_listb(t_listx *lista, t_listx *listb);
 void ft_second_insert_listb(t_listx *lista, t_listx *listb);
@@ -58,26 +60,3 @@ int ft_rrb(t_listx *listb);
 int ft_rrr(t_listx *lista, t_listx *listb);
 
 #endif
-
-// int ft_check_sup_duplic(int argc, char **argv)
-// {
-//     int i;
-//     int j;
-
-//     i = 1;
-//     while (i <= argc - 1)
-//     {
-//         j = i + 1;
-//         // if ((size_t)ft_atoi(argv[i]) > 2147483647 || (size_t)ft_atoi(argv[i]) < -2147483648)
-//         //     return (0);
-//         while (j <= argc - 1)
-//         {
-//             printf("i %s j %s\n", argv[i], argv[j]);
-//             if (argv[i] == argv[j])
-//                 return (0);
-//             j++;
-//         }
-//         i++;
-//     }
-//     return (1);
-// }
