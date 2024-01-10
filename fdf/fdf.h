@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/06 20:36:31 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/10 16:24:23 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,13 @@ typedef struct s_data
     int line_length;
     int endian;
 } t_data;
+
+typedef struct s_line
+{
+    double xa;
+    double xb;
+    double ya;
+    double yb;
+} t_line;
 
 #endif

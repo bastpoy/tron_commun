@@ -1,0 +1,7 @@
+coeff droite longueur : 5/8
+coeff droite largeur : 0.875
+
+
+suivant l'entree agrandir en gardant les memes angles.
+Prendre un min x et min y en haut a gauche.
+et Prendre un max x et max y en bas a droite.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/08 23:26:55 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/10 18:52:48 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,16 @@ int *ft_get_length_width()
     return (lengthxy);
 }
 
+t_line ft_create_point(double xa, double xb, double ya, double yb)
+{
+    t_line point;
+    point.xa = xa;
+    point.xb = xb;
+    point.ya = ya;
+    point.yb = yb;
+
+    return (point);
+}
 // void ft_grid(void *mlx_ptr, void *mlx_win, t_data img)
 // {
 // }
@@ -130,23 +140,26 @@ void ft_circle(void *mlx_ptr, void *mlx_win, t_data img)
     }
 }
 
-void ft_line(void *mlx_ptr, void *mlx_win, t_data img, double *value)
+void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_line point)
 {
-    double coef = (value[3] - value[2]) / (value[1] - value[0]);
-    double yzero = value[2] - (coef * value[0]);
-    printf("yzero %f\n", yzero);
+    double coef = (point.yb - point.ya) / (point.xb - point.xa);
+    double yzero = point.ya - (coef * point.xa);
+    printf("yzero %f et coef %f\n", yzero, coef);
     int x;
     int y;
     int incr;
 
     incr = 1;
-    while (value[0] <= value[1])
+    while (point.xa != point.xb)
     {
-        x = value[0];
-        y = (value[0] * coef) + yzero;
+        x = point.xa;
+        y = (point.xa * coef) + yzero;
         ft_mlx_pixel_put(&img, x, y, 0x00ff0000);
         mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
-        value[0] = value[0] + incr;
+        if(coef > 0)
+            point.xa = point.xa + incr;
+        else
+            point.xa = point.xa - incr;
     }
 }
 
@@ -169,8 +182,12 @@ int main(void)
 {
     void *mlx_ptr;
     void *mlx_win;
-    double tab[4] = {1200, 1750, 50, 600};
-    double tab1[4] = {150, 1250, 350, 850};
+
+    t_line line1 = ft_create_point(800, 1600, 100, 600); //segment haut long
+    t_line line2 = ft_create_point(380, 1250, 467.5, 1011.25); // segment bas long
+    t_line line3 = ft_create_point(800, 380, 100, 467.5); //segment gauche larg
+    t_line line4 = ft_create_point(1600, 1250, 600, 1011.25); //segment droite larg
+
     int lengthx;
     int lengthy;
     int *lengthxy = malloc(sizeof(int) * 2);
@@ -182,12 +199,14 @@ int main(void)
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
     lengthxy = ft_get_length_width();
-    lengthx = lengthxy[0];
-    lengthy = lengthxy[1];
+    lengthx = lengthxy[0]; // recupere le nombre de nombre en x
+    lengthy = lengthxy[1]; // recupere le nombrede nombre en y
     printf("%d et %d\n", lengthx, lengthy);
 
-    ft_line(mlx_ptr, mlx_win, img, tab);
-    ft_line(mlx_ptr, mlx_win, img, tab1);
+    ft_line(mlx_ptr, mlx_win, img, line1);
+    ft_line(mlx_ptr, mlx_win, img, line2);
+    ft_line(mlx_ptr, mlx_win, img, line3);
+    ft_line(mlx_ptr, mlx_win, img, line4);
 
     mlx_loop(mlx_ptr);
 }
