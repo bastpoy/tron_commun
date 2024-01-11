@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/11 11:55:01 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/11 12:02:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void ft_mlx_pixel_put(t_data *data, int x, int y, int color)
     dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     *(unsigned int *)dst = color;
 }
-char ft_get_entry_num(char **str)
+char ft_get_entry_num(char *str)
 {
     char c;
 
-    c = **str;
-    *str = *str + 1;
+    c = *str;
+    str = str + 1;
     return(c);
 }
 
@@ -113,11 +113,11 @@ int main(void)
     // void *mlx_win;
     // t_input input;
     // int i = 1;
-    char **str = NULL;
+    char *str = NULL;
     int fd = open("entry.fdf", O_RDONLY);
-    *str = get_next_line(fd);
+    str = get_next_line(fd);
     
-   while(**str != '\0')
+   while(*str != '\0')
    {
         printf("%c\n", ft_get_entry_num(str));
    }
