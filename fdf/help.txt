@@ -1,7 +1,27 @@
-coeff droite longueur : 5/8
-coeff droite largeur : 0.875
-
+coeff droite longueur : 5/8 ou 0.625
+taille droite longueur : 943
+coeff droite largeur : -0.875
+taille droite largeur : 558
 
 suivant l'entree agrandir en gardant les memes angles.
 Prendre un min x et min y en haut a gauche.
 et Prendre un max x et max y en bas a droite.
+
+
+Pour le trace deux choix:
+- Soit la case detectee vaut 0 dans ce cas je fais un trace avec le coef directeur normal
+- soit different de 0 et j'adapte mon trace suivant la hauteur de ma case et ses cases adjacentes
+- Il faut prendre en compte la taille de notre grille aussi
+
+J'ai donc un quadrillage. je dois trace case par case.
+Trace ma case suivant les cases adjacentes.
+
+
+coef des droites liees a une hauteur de case :
+- haut : coef positive
+- droite : coef positif
+- bas : coef negatif
+- gauche : coef negatif
+
+Arriver a prendre une equation qui prend en compte le coeef directeur et adpate notre droite en fonction.
+Adapter notre coefficient directeur en fonction

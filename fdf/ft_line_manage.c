@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_line_manage.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 00:28:37 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/11 02:07:21 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/11 10:45:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,19 @@ t_line ft_create_line(t_line line, double length, t_line line2, double length2)
 
     coef = (line.yb - line.ya) / (line.xb - line.xa);
     yzero = line.ya - (coef * line.xa);
-    xa = line.xa + (length / sqrt(1 + pow(coef, 2)));
+    if(coef < 0)
+        xa = line.xa - (length / sqrt(1 + pow(coef, 2)));
+    else
+        xa = line.xa + (length / sqrt(1 + pow(coef, 2)));
     ya = coef * xa + yzero;
     printf("coef %f length %f coef %f et yzero %f xa %f et ya %f\n", pow(coef, 2), length, coef, yzero, xa, ya);
 
     coef = (line2.yb - line2.ya) / (line2.xb - line2.xa);
-    yzero = line2.ya - (coef * line2.xa);
-    xb = line2.xa + (length2 / sqrt(1 + pow(coef, 2)));
+    yzero = ya - (coef * xa);
+    if(coef < 0)
+        xb = xa - (length2 / sqrt(1 + pow(coef, 2)));
+    else
+        xb = xa + (length2 / sqrt(1 + pow(coef, 2)));
     yb = coef * xb + yzero;
 
     printf("coef %f et yzero %f xb %f et yb %f\n", coef, yzero, xb, yb);

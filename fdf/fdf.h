@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/11 01:12:51 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/11 11:39:32 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF
 #define FDF
+#define COEFX 0.625
+#define COEFY -0.875
 
 #include "minilibx-linux/mlx.h"
 #include "get_next_line.h"
