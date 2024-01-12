@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/11 12:02:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/12 19:07:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,54 +18,6 @@ void ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 
     dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     *(unsigned int *)dst = color;
-}
-char ft_get_entry_num(char *str)
-{
-    char c;
-
-    c = *str;
-    str = str + 1;
-    return(c);
-}
-
-size_t ft_strlen_space_backn(const char *str)
-{
-    size_t i;
-    size_t j;
-
-    i = 0;
-    j = 0;
-    if (!str)
-        return (0);
-    while (str[i] != '\0')
-    {
-        if (str[i] != ' ' && str[i] != '\n')
-        {
-            j++;
-        }
-        i++;
-    }
-    return (j);
-}
-
-t_input ft_get_length_width()
-{
-    int fd;
-    char *str;
-    t_input input;
-
-    fd = open("entry.fdf", O_RDONLY);
-    str = get_next_line(fd);
-    input.abs = ft_strlen_space_backn(str);
-    input.ord = 0;
-    while (str)
-    {
-        input.ord++;
-        str = get_next_line(fd);
-    }
-    printf("lengthstr %d et widthstr %d \n", input.abs, input.ord);
-    close(fd);
-    return (input);
 }
 
 int ft_get_abs(char *str)
@@ -111,16 +63,9 @@ int main(void)
 {
     // void *mlx_ptr;
     // void *mlx_win;
-    // t_input input;
+    t_input input;
+    int ***arrinput;
     // int i = 1;
-    char *str = NULL;
-    int fd = open("entry.fdf", O_RDONLY);
-    str = get_next_line(fd);
-    
-   while(*str != '\0')
-   {
-        printf("%c\n", ft_get_entry_num(str));
-   }
 
     // t_line line1 = ft_create_tline(800, 1600, 100, 600);     // segment haut long
     // // t_line line2 = ft_create_tline(380, 1180, 467.5, 967.5); // segment bas long
@@ -135,8 +80,10 @@ int main(void)
     // img.img = mlx_new_image(mlx_ptr, 1920, 1080);
     // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-    // input = ft_get_length_width();
-
+    input = ft_get_length_width();
+    arrinput = ft_malloc_array(input);
+    (void)arrinput;
+    ft_input_str_space();
     // printf("input abs %d et input ord %d\n", input.abs, input.ord);
 
     // ft_line(mlx_ptr, mlx_win, img, line1);
