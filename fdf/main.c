@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/12 19:07:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/12 22:55:36 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(void)
     // void *mlx_ptr;
     // void *mlx_win;
     t_input input;
-    int ***arrinput;
+    char **str;
     // int i = 1;
 
     // t_line line1 = ft_create_tline(800, 1600, 100, 600);     // segment haut long
@@ -81,9 +81,14 @@ int main(void)
     // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
     input = ft_get_length_width();
-    arrinput = ft_malloc_array(input);
-    (void)arrinput;
-    ft_input_str_space();
+    (void)input;
+    str = ft_input_str_space();
+    (void)str;
+    while (*str != NULL)
+    {
+        printf("str -%s-\n", *str);
+        str++;
+    }
     // printf("input abs %d et input ord %d\n", input.abs, input.ord);
 
     // ft_line(mlx_ptr, mlx_win, img, line1);

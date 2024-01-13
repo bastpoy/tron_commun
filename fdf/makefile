@@ -9,7 +9,7 @@ NAME = fdf
 
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all -C ./minilibx-linux
-	gcc $(CFLAGS) -o fdf $(OBJSPRINTF) ./minilibx-linux/libmlx.a -lX11 -lXext -lm
+	gcc $(CFLAGS) -o fdf $(OBJSPRINTF) ./minilibx-linux/libmlx.a -lX11 -lXext -lm -fsanitize=address
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)
 

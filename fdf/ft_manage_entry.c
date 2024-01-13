@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_entry.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/12 19:12:29 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/12 23:12:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,25 @@ int ***ft_malloc_array(t_input input)
 
     i = 0;
     j = 0;
-    tab = (int***)malloc(sizeof(int) * input.ord);
-    if(!tab)
-        return(NULL);
-    while(i < input.ord)
+    tab = (int ***)malloc(sizeof(int) * input.ord);
+    if (!tab)
+        return (NULL);
+    while (i < input.ord)
     {
-        *tab = (int**)malloc(sizeof(int) * input.abs);
-        if(!*tab)
+        *tab = (int **)malloc(sizeof(int) * input.abs);
+        if (!*tab)
             return (NULL);
-        while(j < input.abs)
+        while (j < input.abs)
         {
-            **tab = (int*)malloc(sizeof(int) * 2);
-            if(!**tab)
+            **tab = (int *)malloc(sizeof(int) * 2);
+            if (!**tab)
                 return (NULL);
             j++;
         }
         j = 0;
         i++;
     }
-    return(tab);
+    return (tab);
 }
 
 size_t ft_strlen_space_backn(const char *str)
@@ -82,20 +82,30 @@ t_input ft_get_length_width()
 
 char **ft_input_str_space()
 {
-	int fd;
-	char *str;
-	char **strsplit;
+    int fd;
+    int i;
+    int j;
+    char *str;
+    char **strsplit;
 
-	fd = open("entry.fdf", O_RDONLY);
-	str = get_next_line(fd);
-	strsplit = ft_split(str, ' ');
+    i = 0;
+    fd = open("entry.fdf", O_RDONLY);
+    str = get_next_line(fd);
+    strsplit = ft_split(str, ' ');
 
-	printf("strr %s-\n", str);
-	while(*strsplit != NULL)
-	{
-		printf("str %s\n", *strsplit);
-		strsplit++;
-	}
-	return (strsplit);
+    while (strsplit[i] != NULL)
+    {
+        j = 0;
+        while (strsplit[i][j] != '\0')
+        {
+            if (strsplit[i][0] == '\n')
+                strsplit[i] = NULL;
+            else if (strsplit[i][j] == '\n')
+                strsplit[i][j] = '\0';
+            j++;
+        }
+        printf("str -%s-\n", strsplit[i]);
+        i++;
+    }
+    return (strsplit);
 }
-
