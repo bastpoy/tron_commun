@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/12 22:55:36 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/13 14:35:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_line point)
     {
         x = point.xa;
         y = (point.xa * coef) + yzero;
-        ft_mlx_pixel_put(&img, x, y, 0x00ff0000);
+        ft_mlx_pixel_put(&img, x, y, 16777215);
         mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
         if (coef > 0)
         {
@@ -59,12 +59,27 @@ void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_line point)
     }
 }
 
+void ft_free_entrystr(char **str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        free(str[i]);
+        i++;
+    }
+    free(str[i]);
+    free(str);
+}
 int main(void)
 {
     // void *mlx_ptr;
     // void *mlx_win;
     t_input input;
+    t_coeffcolor point;
     char **str;
+    int i = 0;
     // int i = 1;
 
     // t_line line1 = ft_create_tline(800, 1600, 100, 600);     // segment haut long
@@ -82,19 +97,21 @@ int main(void)
 
     input = ft_get_length_width();
     (void)input;
-    str = ft_input_str_space();
-    (void)str;
-    while (*str != NULL)
+    str = ft_input_str_space(); // je lis une ligne en separant par les espaces
+    while (str[i] != NULL)
     {
-        printf("str -%s-\n", *str);
-        str++;
+        printf("str -%s-\n", str[i]);
+        point = ft_parameter_point(str[i]);
+        printf("coeff %d color %x\n", point.coeffdir, point.color);
+        i++;
     }
+    ft_free_entrystr(str);
     // printf("input abs %d et input ord %d\n", input.abs, input.ord);
 
     // ft_line(mlx_ptr, mlx_win, img, line1);
     // // ft_line(mlx_ptr, mlx_win, img, line2);
     // ft_line(mlx_ptr, mlx_win, img, line3);
-    // // ft_line(mlx_ptr, mlx_win, img, line4);
+    // ft_line(mlx_ptr, mlx_win, img, line4);
 
     // while(i <= input.ord)
     // {

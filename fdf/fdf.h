@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/12 19:06:20 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/13 13:36:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define FDF
 #define COEFX 0.625
 #define COEFY -0.875
+#define whitecolor 0xffffff
 
 #include "minilibx-linux/mlx.h"
 #include "get_next_line.h"
@@ -21,6 +22,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include <limits.h>
 
 typedef struct s_data
 {
@@ -45,6 +47,12 @@ typedef struct s_input
     int ord;
 } t_input;
 
+typedef struct s_coefcolor
+{
+    int coeffdir;
+    int color;
+} t_coeffcolor;
+
 t_line ft_create_tline(double xa, double xb, double ya, double yb);
 double ft_line_length(t_line line);
 t_line ft_create_line(t_line line, double length, t_line line2, double length2);
@@ -55,5 +63,7 @@ int **ft_fill_entry_num(t_input input);
 int ***ft_malloc_array(t_input input);
 char	**ft_split(char const *s, char c);
 char **ft_input_str_space();
+t_coeffcolor ft_parameter_point(char *str);
+int	ft_atoi(const char *str);
 
 #endif

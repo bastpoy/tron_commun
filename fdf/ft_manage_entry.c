@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_entry.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/12 23:12:55 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/13 15:00:09 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,38 +74,112 @@ t_input ft_get_length_width()
     while (str)
     {
         input.ord++;
+        free(str);
         str = get_next_line(fd);
     }
     close(fd);
     return (input);
 }
 
-char **ft_input_str_space()
+char **ft_entry_backn(char **strsplit)
 {
-    int fd;
     int i;
     int j;
-    char *str;
-    char **strsplit;
 
     i = 0;
-    fd = open("entry.fdf", O_RDONLY);
-    str = get_next_line(fd);
-    strsplit = ft_split(str, ' ');
-
+    j = 0;
     while (strsplit[i] != NULL)
     {
         j = 0;
         while (strsplit[i][j] != '\0')
         {
             if (strsplit[i][0] == '\n')
+            {
                 strsplit[i] = NULL;
+                break;
+            }
             else if (strsplit[i][j] == '\n')
                 strsplit[i][j] = '\0';
             j++;
         }
-        printf("str -%s-\n", strsplit[i]);
         i++;
     }
+    return(strsplit);
+}
+
+char **ft_input_str_space()
+{
+    int fd;
+    char *strentry;
+
+    fd = 0;
+    char **strsplit;
+    fd = open("entry.fdf", O_RDONLY);
+    strentry = get_next_line(fd);
+    strsplit = ft_split(strentry, ' ');
+    strsplit = ft_entry_backn(strsplit);
+    free(strentry);
     return (strsplit);
+}
+
+int ft_hextodc(char hex){
+   int dec;
+
+    dec = 0;
+    if(hex >= '0' && hex <='9')
+        dec = hex - '0';
+    else
+        dec = hex - 'A' + 10;
+   return dec;
+}
+
+int ft_hex_to_int(char *str)
+{
+    int output;
+    int i;
+    int x;
+
+    i = ft_strlen(str, 1) - 1;
+    output = 0;
+    while(i >= 2)
+    {
+        if(str[i] >= '0' && str[i] <='9')
+            x = (str[i] - '0');
+        else if (str[i] >= 'A' && str[i] <='F')
+        {
+            x = (str[i] - 'A' + 10);
+            printf("x %d\n", x);
+        }
+        else
+            x = (str[i] - 'a' + 10);
+        output = output + x * pow(16, i);
+        printf("i %d output %d et str[i] %c\n", i, output, str[i]);
+        i--;
+    }
+    printf("int %d\n", output);
+    return (output);
+}
+
+t_coeffcolor ft_parameter_point(char *str)
+{
+    int i;
+    t_coeffcolor point;
+    char **strsplit;
+
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] == ',')
+        {
+            strsplit = ft_split(str, ',');
+            printf("%s\n", strsplit[1]);
+            point.coeffdir = ft_atoi(strsplit[0]);
+            point.color = ft_hex_to_int(strsplit[1]);
+            return(point);
+        }
+        i++;
+    }
+    point.coeffdir = ft_atoi(str);
+    point. color = 0xffffff;
+    return (point);
 }
