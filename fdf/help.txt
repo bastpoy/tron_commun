@@ -1,7 +1,9 @@
 coeff droite longueur : 5/8 ou 0.625
-taille droite longueur : 943
 coeff droite largeur : -0.875
+taille droite longueur : 943
 taille droite largeur : 558
+droite longueur: (800, 1600, 100, 600)
+droite largeur:(800, 380, 100, 467.5)
 
 suivant l'entree agrandir en gardant les memes angles.
 Prendre un min x et min y en haut a gauche.
@@ -25,3 +27,22 @@ coef des droites liees a une hauteur de case :
 
 Arriver a prendre une equation qui prend en compte le coeef directeur et adpate notre droite en fonction.
 Adapter notre coefficient directeur en fonction
+
+tracer de droite 4 cas possible:
+
+- si coef < 1 et > 0 j'increment x;
+- si coef > -1 et < 0 j'increment x;
+
+- si coef > 1 j'incremente y;
+- si coef < -1 j'incremente y
+
+il a xo yo x1 y1:
+
+-si deltay inferieur a delta x => coef entre -1 et 1
+    si x0 > x1
+        cest une ligne low
+    si x1 > x0
+        cest une ligne low
+else
+    si yo > y1
+        ligne high 

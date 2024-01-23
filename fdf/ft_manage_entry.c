@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_entry.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/13 15:00:09 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:45:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int ***ft_malloc_array(t_input input)
-{
-    int i;
-    int j;
-    int ***tab;
-
-    i = 0;
-    j = 0;
-    tab = (int ***)malloc(sizeof(int) * input.ord);
-    if (!tab)
-        return (NULL);
-    while (i < input.ord)
-    {
-        *tab = (int **)malloc(sizeof(int) * input.abs);
-        if (!*tab)
-            return (NULL);
-        while (j < input.abs)
-        {
-            **tab = (int *)malloc(sizeof(int) * 2);
-            if (!**tab)
-                return (NULL);
-            j++;
-        }
-        j = 0;
-        i++;
-    }
-    return (tab);
-}
 
 size_t ft_strlen_space_backn(const char *str)
 {
@@ -67,7 +38,7 @@ t_input ft_get_length_width()
     char *str;
     t_input input;
 
-    fd = open("entry.fdf", O_RDONLY);
+    fd = open("maps/test_maps/pyramide.fdf", O_RDONLY);
     str = get_next_line(fd);
     input.abs = ft_strlen_space_backn(str);
     input.ord = 0;
@@ -104,33 +75,7 @@ char **ft_entry_backn(char **strsplit)
         }
         i++;
     }
-    return(strsplit);
-}
-
-char **ft_input_str_space()
-{
-    int fd;
-    char *strentry;
-
-    fd = 0;
-    char **strsplit;
-    fd = open("entry.fdf", O_RDONLY);
-    strentry = get_next_line(fd);
-    strsplit = ft_split(strentry, ' ');
-    strsplit = ft_entry_backn(strsplit);
-    free(strentry);
     return (strsplit);
-}
-
-int ft_hextodc(char hex){
-   int dec;
-
-    dec = 0;
-    if(hex >= '0' && hex <='9')
-        dec = hex - '0';
-    else
-        dec = hex - 'A' + 10;
-   return dec;
 }
 
 int ft_hex_to_int(char *str)
@@ -139,47 +84,96 @@ int ft_hex_to_int(char *str)
     int i;
     int x;
 
-    i = ft_strlen(str, 1) - 1;
+    i = 7;
     output = 0;
-    while(i >= 2)
+    while (i >= 2)
     {
-        if(str[i] >= '0' && str[i] <='9')
+        if (str[i] >= '0' && str[i] <= '9')
             x = (str[i] - '0');
-        else if (str[i] >= 'A' && str[i] <='F')
-        {
+        else if (str[i] >= 'A' && str[i] <= 'F')
             x = (str[i] - 'A' + 10);
-            printf("x %d\n", x);
-        }
         else
             x = (str[i] - 'a' + 10);
-        output = output + x * pow(16, i);
-        printf("i %d output %d et str[i] %c\n", i, output, str[i]);
+        output = output + x * pow(16, i - 2);
         i--;
     }
-    printf("int %d\n", output);
     return (output);
 }
 
-t_coeffcolor ft_parameter_point(char *str)
+char **ft_input_str_space()
+{
+    char *strentry;
+    char **strsplit;
+    static int fd = 0;
+
+    if (fd == 0)
+        fd = open("maps/test_maps/pyramide.fdf", O_RDONLY);
+    strentry = get_next_line(fd);
+    if (strentry == NULL)
+        return (NULL);
+    strsplit = ft_split(strentry, ' ');
+    strsplit = ft_entry_backn(strsplit);
+    free(strentry);
+    return (strsplit);
+}
+
+t_line *ft_input_str_coma(char *str, t_line *line)
 {
     int i;
-    t_coeffcolor point;
     char **strsplit;
 
     i = 0;
-    while(str[i])
+    while (str[i])
     {
-        if(str[i] == ',')
+        if (str[i] == ',')
         {
             strsplit = ft_split(str, ',');
-            printf("%s\n", strsplit[1]);
-            point.coeffdir = ft_atoi(strsplit[0]);
-            point.color = ft_hex_to_int(strsplit[1]);
-            return(point);
+            line->coeffdir = ft_atoi(strsplit[0]);
+            line->color = ft_hex_to_int(strsplit[1]);
+            ft_free_entrystr(strsplit);
+            return (line);
         }
         i++;
     }
-    point.coeffdir = ft_atoi(str);
-    point. color = 0xffffff;
-    return (point);
+    line->coeffdir = ft_atoi(str);
+    line->color = WHITECOLOR;
+    return (line);
+}
+
+t_list *ft_fill_struct(t_list *list, t_input input, int fd)
+{
+    int i;
+    int j;
+    char **str;
+    t_line *line;
+
+    (void)fd;
+    j = 1;
+    str = ft_input_str_space(); // je lis une ligne en separant par les espaces
+    printf("str[i] %s\n", str[0]);
+    line = ft_init_tline();
+    while (str != NULL)
+    {
+        i = 0;
+        while (str[i] != NULL)
+        { // je lis chaque case et je regarde si il ya une couleur en plus du coef directeur
+            line = ft_input_str_coma(str[i], line);
+            if (j == 1)
+            {
+                list->ptrbegin = line;
+            }
+            line->index = j;
+            ft_search_top(list, input, line);
+            ft_search_behind(list, input, line);
+            line->next = ft_init_tline();
+            line = line->next;
+            i++;
+            j++;
+        }
+        ft_free_entrystr(str);
+        str = ft_input_str_space();
+    }
+    ft_search_x1y1(list, input);
+    ft_read_tline(list);
+    return (list);
 }

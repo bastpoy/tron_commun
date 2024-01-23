@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/13 13:36:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:28:47 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 #define FDF
 #define COEFX 0.625
 #define COEFY -0.875
-#define whitecolor 0xffffff
+#define XLEFTTOP 800
+#define YLEFTTOP 100
+#define XRIGHTTOP 1600
+#define YRIGHTTOP 600
+#define XLEFTBOT 380
+#define YLEFTBOT 467.5
+#define LONGUEUR sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2))
+#define WHITECOLOR 0xffffff
 
 #include "minilibx-linux/mlx.h"
 #include "get_next_line.h"
@@ -33,13 +40,23 @@ typedef struct s_data
     int endian;
 } t_data;
 
-typedef struct s_line
+typedef struct s_extremities
 {
-    double xa;
-    double xb;
-    double ya;
-    double yb;
-} t_line;
+    int xa;
+    int xb;
+    int ya;
+    int yb;
+} t_extremities;
+
+typedef struct s_parameter
+{
+    int dx;
+    int dy;
+    int x;
+    int y;
+    int d;
+    float coef;
+} t_parameter;
 
 typedef struct s_input
 {
@@ -47,23 +64,42 @@ typedef struct s_input
     int ord;
 } t_input;
 
-typedef struct s_coefcolor
+typedef struct s_line
 {
-    int coeffdir;
-    int color;
-} t_coeffcolor;
+    double x1;
+    double y1;
+    double coeffdir;
+    double color;
+    int index;
+    double distance;
+    struct s_line *top;
+    struct s_line *behind;
+    struct s_line *next;
+} t_line;
 
-t_line ft_create_tline(double xa, double xb, double ya, double yb);
-double ft_line_length(t_line line);
-t_line ft_create_line(t_line line, double length, t_line line2, double length2);
-void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_line point);
-size_t ft_strlen_space_backn(const char *str);
+typedef struct s_list
+{
+    t_line *ptrbegin;
+} t_list;
+
+t_extremities ft_create_tline(double xa, double xb, double ya, double yb);
+t_extremities ft_create_line(t_extremities line, double length, t_extremities line2, double length2);
+t_list *ft_init_pointbegin();
+t_list *ft_fill_struct(t_list *line, t_input input, int fd);
 t_input ft_get_length_width();
+t_line *ft_input_str_coma(char *str, t_line *line);
+t_line *ft_init_tline();
+size_t ft_strlen_space_backn(const char *str);
+double ft_line_length(t_extremities line);
+void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_extremities point);
+void ft_free_entrystr(char **str);
+void ft_read_tline(t_list *list);
+void ft_search_x1y1(t_list *list, t_input input);
+int ft_search_top(t_list *ptbegin, t_input input, t_line *entry);
+int ft_search_behind(t_list *list, t_input input, t_line *entry);
 int **ft_fill_entry_num(t_input input);
-int ***ft_malloc_array(t_input input);
-char	**ft_split(char const *s, char c);
+int ft_atoi(const char *str);
+int ft_free_list(t_list *lista);
+char **ft_split(char const *s, char c);
 char **ft_input_str_space();
-t_coeffcolor ft_parameter_point(char *str);
-int	ft_atoi(const char *str);
-
 #endif

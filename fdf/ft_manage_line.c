@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_line_manage.c                                   :+:      :+:    :+:   */
+/*   ft_manage_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 00:28:37 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/11 10:45:24 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:09:00 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_line ft_create_tline(double xa, double xb, double ya, double yb)
+double ft_line_length(t_extremities line)
 {
-    t_line point;
+    double length;
+
+    length = sqrt(pow(line.xb - line.xa, 2) + pow(line.yb - line.ya, 2));
+    return (length);
+}
+
+t_extremities ft_create_tline(double xa, double xb, double ya, double yb)
+{
+    t_extremities point;
     point.xa = xa;
     point.xb = xb;
     point.ya = ya;
@@ -23,15 +31,7 @@ t_line ft_create_tline(double xa, double xb, double ya, double yb)
     return (point);
 }
 
-double ft_line_length(t_line line)
-{
-    int length;
-
-    length = sqrt(pow(line.xb - line.xa, 2) + pow(line.yb - line.ya, 2));
-    return (length);
-}
-
-t_line ft_create_line(t_line line, double length, t_line line2, double length2)
+t_extremities ft_create_line(t_extremities line, double length, t_extremities line2, double length2)
 {
     double xa;
     double ya;
@@ -39,11 +39,11 @@ t_line ft_create_line(t_line line, double length, t_line line2, double length2)
     double yb;
     double coef;
     double yzero;
-    t_line finalline;
+    t_extremities finalline;
 
     coef = (line.yb - line.ya) / (line.xb - line.xa);
     yzero = line.ya - (coef * line.xa);
-    if(coef < 0)
+    if (coef < 0)
         xa = line.xa - (length / sqrt(1 + pow(coef, 2)));
     else
         xa = line.xa + (length / sqrt(1 + pow(coef, 2)));
@@ -52,7 +52,7 @@ t_line ft_create_line(t_line line, double length, t_line line2, double length2)
 
     coef = (line2.yb - line2.ya) / (line2.xb - line2.xa);
     yzero = ya - (coef * xa);
-    if(coef < 0)
+    if (coef < 0)
         xb = xa - (length2 / sqrt(1 + pow(coef, 2)));
     else
         xb = xa + (length2 / sqrt(1 + pow(coef, 2)));
