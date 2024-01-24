@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/24 17:48:35 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:58:13 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int ft_search_top(t_list *list, t_input input, t_line *entry)
         if (line->index == entry->index - input.abs)
         {
             entry->top = line;
-            printf(line)
             return (1);
         }
         line = line->next;
@@ -128,6 +127,7 @@ void ft_x1y1topbeh(t_line *line, t_input input, int j)
     float length;
 
     length = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / input.ord;
+    printf("length %f\n", length);
     if (line->top == NULL && j == 1) // je remplis ma premiere valeur
     {
         line->x1 = XLEFTTOP;
@@ -138,7 +138,6 @@ void ft_x1y1topbeh(t_line *line, t_input input, int j)
     {
         line->x1 = line->behind->x1 + (XRIGHTTOP - XLEFTTOP) / input.abs;
         line->y1 = line->behind->y1 + (YRIGHTTOP - YLEFTTOP) / input.abs;
-        printf("index %d et behind %d\n", line->index, line->behind->index);
         line = ft_x1y1proj(line);
     }
     else if(!line->behind && line->top) // je remplis ma colonne
