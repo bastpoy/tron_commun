@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/23 14:28:47 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:21:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,17 @@ typedef struct s_parameter
 
 typedef struct s_input
 {
-    int abs;
-    int ord;
+    float abs;
+    float ord;
 } t_input;
 
 typedef struct s_line
 {
-    double x1;
-    double y1;
-    double coeffdir;
-    double color;
+    float x1;
+    float y1;
+    float z1;
+    float coeffdir;
+    int color;
     int index;
     double distance;
     struct s_line *top;
@@ -89,12 +90,14 @@ t_list *ft_fill_struct(t_list *line, t_input input, int fd);
 t_input ft_get_length_width();
 t_line *ft_input_str_coma(char *str, t_line *line);
 t_line *ft_init_tline();
+t_line *ft_x1y1proj(t_line *line);
 size_t ft_strlen_space_backn(const char *str);
 double ft_line_length(t_extremities line);
 void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_extremities point);
 void ft_free_entrystr(char **str);
 void ft_read_tline(t_list *list);
 void ft_search_x1y1(t_list *list, t_input input);
+void ft_x1y1topbeh(t_line *line, t_input input, int j);
 int ft_search_top(t_list *ptbegin, t_input input, t_line *entry);
 int ft_search_behind(t_list *list, t_input input, t_line *entry);
 int **ft_fill_entry_num(t_input input);

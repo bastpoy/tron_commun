@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/19 16:44:05 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:48:35 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void ft_read_tline(t_list *list)
     t_line *line;
 
     line = list->ptrbegin;
-    while (line->next != NULL)
+    while (line != NULL)
     {
-        if (line->x1 != 0 && line->behind != NULL)
-            printf("index %d x1 %f y1 %f x1 behind %f y1behind %f\n", line->index, line->x1, line->y1, line->behind->x1, line->behind->y1);
+        if(line->top)
+            printf("index %d et x1 %f et x1->top %f\n",line->index, line->x1, line->top->x1);
         line = line->next;
     }
 }
@@ -95,6 +95,7 @@ int ft_search_top(t_list *list, t_input input, t_line *entry)
         if (line->index == entry->index - input.abs)
         {
             entry->top = line;
+            printf(line)
             return (1);
         }
         line = line->next;
@@ -111,7 +112,8 @@ int ft_search_behind(t_list *list, t_input input, t_line *entry)
     line = list->ptrbegin;
     while (line != NULL)
     {
-        if (line->index == entry->index - 1 && (entry->index % (input.abs + 1) != 0))
+        if (line->index == entry->index - 1 &&
+            ((entry->index - 1) % ((int)input.abs) != 0))
         {
             entry->behind = line;
             return (1);
@@ -121,38 +123,44 @@ int ft_search_behind(t_list *list, t_input input, t_line *entry)
     return (0);
 }
 
-void ft_search_x1y1(t_list *list, t_input input)
+void ft_x1y1topbeh(t_line *line, t_input input, int j)
 {
-    t_line *line;
-    int j;
+    float length;
 
-    j = 0;
-    line = list->ptrbegin;
-    while (line)
+    length = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / input.ord;
+    if (line->top == NULL && j == 1) // je remplis ma premiere valeur
     {
-        if (line->top == NULL && j == 0)
-        {
-            line->x1 = XLEFTTOP;
-            line->y1 = YLEFTTOP;
-            printf("dans j == 0 j %d\n", j);
-        }
-        if (line->top == NULL && j != 0 && j < input.abs)
-        {
-            printf("j %d\n", j);
-            line->x1 = line->behind->x1 + ((LONGUEUR / input.abs) / (sqrt(1 + pow(COEFX, 2))));
-            line->y1 = line->behind->y1 + (LONGUEUR / input.abs) * (COEFX / (1 + COEFX));
-        }
-        j++;
-        line = line->next;
+        line->x1 = XLEFTTOP;
+        line->y1 = YLEFTTOP;
+        line = ft_x1y1proj(line);
+    }
+    else if (line->top == NULL && j != 1 && j <= input.abs) // je remplis ma premiere ligne
+    {
+        line->x1 = line->behind->x1 + (XRIGHTTOP - XLEFTTOP) / input.abs;
+        line->y1 = line->behind->y1 + (YRIGHTTOP - YLEFTTOP) / input.abs;
+        printf("index %d et behind %d\n", line->index, line->behind->index);
+        line = ft_x1y1proj(line);
+    }
+    else if(!line->behind && line->top) // je remplis ma colonne
+    {
+        line->x1 = line->top->x1 - fabs((float)(XLEFTTOP - XLEFTBOT)) / input.ord;
+        line->y1 = line->top->y1 + fabs(YLEFTTOP - YLEFTBOT) / input.ord;
+        line = ft_x1y1proj(line);
+    }
+    else
+    {
+        line->x1 = line->top->x1 + ((length) / sqrt(1 + pow(COEFY, 2)));
+        line->y1 = line->top->y1 + ((length) * COEFY) / (1 + COEFY);
+        line = ft_x1y1proj(line);
     }
 }
 
-// t_line *ft_insert_back(t_pointbegin *ptbegin, int nb)
-// {
-//     t_line *line;
-
-//     line = ft_get_last(ptbegin);
-//     line->next = malloc(sizeof(t_line));
-//     line->next->next = NULL;
-//     return (line->next);
-// }
+t_line *ft_x1y1proj(t_line *line) 
+{
+    if(line->coeffdir != 0)
+    {
+        line->x1 = line->x1 / line->coeffdir;
+        line->y1 = line->y1 /line->coeffdir;
+    }
+    return (line);
+}

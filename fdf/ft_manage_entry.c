@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_entry.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/19 15:45:24 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:25:26 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ t_list *ft_fill_struct(t_list *list, t_input input, int fd)
     (void)fd;
     j = 1;
     str = ft_input_str_space(); // je lis une ligne en separant par les espaces
-    printf("str[i] %s\n", str[0]);
     line = ft_init_tline();
     while (str != NULL)
     {
@@ -163,9 +162,10 @@ t_list *ft_fill_struct(t_list *list, t_input input, int fd)
                 list->ptrbegin = line;
             }
             line->index = j;
-            ft_search_top(list, input, line);
             ft_search_behind(list, input, line);
-            line->next = ft_init_tline();
+            ft_search_top(list, input, line);
+            ft_x1y1topbeh(line, input, j);
+            line->next = ft_init_tline();// apres les fonctions sinon je demarre a lindice -1
             line = line->next;
             i++;
             j++;
@@ -173,7 +173,6 @@ t_list *ft_fill_struct(t_list *list, t_input input, int fd)
         ft_free_entrystr(str);
         str = ft_input_str_space();
     }
-    ft_search_x1y1(list, input);
-    ft_read_tline(list);
+    // ft_read_tline(list);
     return (list);
 }
