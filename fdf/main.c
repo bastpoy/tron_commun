@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/25 12:45:22 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/25 20:57:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ void ft_high_coefxyproj(t_data img, t_line *line, t_parameter param)
     if (param.dx < 0)
         param.dx = -param.dx;
     param.d = (2 * param.dx) - param.dy;
-    while ((param.y <= line->top->y1 && line->top->y1 - line->y1 > 0) ||
-           (param.y >= line->top->y1 && line->top->y1 - line->y1 < 0))
+    while ((param.y <= line->next->y1 && line->next->y1 - line->y1 > 0) ||
+           (param.y >= line->next->y1 && line->next->y1 - line->y1 < 0))
     {
         // printf("pointy %d et x %d et j %d\n", param.y, param.x, line->index);
         if (param.d > 0)
@@ -134,7 +134,7 @@ void ft_high_coefxyproj(t_data img, t_line *line, t_parameter param)
         else
             param.d = param.d + (2 * param.dx);
         ft_mlx_pixel_put(&img, param.x, param.y, line->color);
-        if (line->top->y1 - line->y1 < 0)
+        if (line->next->y1 - line->y1 < 0)
             param.y = param.y - 1;
         else
             param.y = param.y + 1;
@@ -142,6 +142,38 @@ void ft_high_coefxyproj(t_data img, t_line *line, t_parameter param)
 }
 
 void ft_low_coefxyproj(t_data img, t_line *line, t_parameter param)
+{
+    (void)img;
+    if (param.dx < 0)
+        param.dx = -param.dx;
+    if (param.dy < 0)
+        param.dy = -param.dy;
+    param.d = (2 * param.dy) - (param.dx);
+    while ((param.x <= line->behind->x1 && line->behind->x1 - line->x1 > 0) ||
+           (param.x >= line->behind->x1 && line->behind->x1 - line->x1 < 0))
+    {
+        if (param.d > 0)
+        {
+            param.d = param.d + 2 * (param.dy - param.dx);
+            if (param.dy < 0)
+                param.y = param.y - 1;
+            else
+                param.y = param.y + 1;
+        }
+        else
+            param.d = param.d + 2 * (param.dy);
+        // printf("dans low paramx %d et behind x1 %f paramy %d soustraction %f j %d\n", param.x, line->behind->x1, param.y, line->behind->x1 - line->x1, line->index);
+        ft_mlx_pixel_put(&img, param.x, param.y, line->color);
+        if (line->behind->x1 - line->x1 < 0)
+        {
+            param.x = param.x - 1;
+        }
+        else
+            param.x = param.x + 1;
+    }
+}
+
+void ft_low_coefxyproj1(t_data img, t_line *line, t_parameter param)
 {
     (void)img;
     if (param.dx < 0)
@@ -162,7 +194,7 @@ void ft_low_coefxyproj(t_data img, t_line *line, t_parameter param)
         }
         else
             param.d = param.d + 2 * (param.dy);
-        // printf("dans low paramx %d et top x1 %f paramy %d soustraction %f j %d\n", param.x, line->top->x1, param.y, line->top->x1 - line->x1, line->index);
+        // printf("dans low paramx %d et behind x1 %f paramy %d soustraction %f j %d\n", param.x, line->behind->x1, param.y, line->behind->x1 - line->x1, line->index);
         ft_mlx_pixel_put(&img, param.x, param.y, line->color);
         if (line->top->x1 - line->x1 < 0)
         {
@@ -179,21 +211,53 @@ void ft_line_xyproj(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
     t_parameter param;
 
     line = list->ptrbegin;
-    while(line->next)
+    while (line->index < 326)
     {
         printf("%d %f\n", line->index, line->next->x1);
-        if(line->top)
+        if (line->behind)
+        {
+            param.dx = roundf(line->behind->x1 - line->x1);
+            param.dy = roundf(line->behind->y1 - line->y1);
+
+            param.coef = ((float)(param.dy) / (float)(param.dx));
+            param.x = roundf(line->x1);
+            param.y = roundf(line->y1);
+            // printf("%d %d\n", param.x, param.y);
+            if ((param.coef <= 1 && param.coef > 0) ||
+                (param.coef >= -1 && param.coef < 0))
+                ft_low_coefxyproj(img, line, param);
+            else
+                ft_high_coefxyproj(img, line, param);
+        }
+        line = line->next;
+    }
+    mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
+}
+
+void ft_line_xyproj1(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
+{
+    t_line *line;
+    t_parameter param;
+
+    line = list->ptrbegin;
+    while (line->index < 271)
+    {
+        printf("%d %f\n", line->index, line->x1);
+        if (line->top)
         {
             param.dx = roundf(line->top->x1 - line->x1);
             param.dy = roundf(line->top->y1 - line->y1);
+
+            param.coef = ((float)(param.dy) / (float)(param.dx));
+            param.x = roundf(line->x1);
+            param.y = roundf(line->y1);
+            // printf("%d %d\n", param.x, param.y);
+            if ((param.coef <= 1 && param.coef > 0) ||
+                (param.coef >= -1 && param.coef < 0))
+                ft_low_coefxyproj1(img, line, param);
+            else
+                ft_high_coefxyproj(img, line, param);
         }
-        param.coef = ((float)(param.dy) / (float)(param.dx));
-        param.x = roundf(line->x1);
-        param.y = roundf(line->y1);
-        if ((param.coef <= 1 && param.coef > 0) || (param.coef >= -1 && param.coef < 0))
-            ft_low_coefxyproj(img, line, param);
-        else
-            ft_high_coefxyproj(img, line, param);
         line = line->next;
     }
     mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
@@ -218,9 +282,9 @@ void ft_free_entrystr(char **str)
 
 int main(void)
 {
-    void *mlx_ptr;
-    void *mlx_win;
-    t_data img;
+    // void *mlx_ptr;
+    // void *mlx_win;
+    // t_data img;
     t_input input;
     t_list *list;
     int fd;
@@ -229,14 +293,16 @@ int main(void)
     list = ft_init_pointbegin();
     input = ft_get_length_width();
     printf("input abs %f input ord %f et total %f\n", input.abs, input.ord, input.abs * input.ord);
-   
-    mlx_ptr = mlx_init();
-    mlx_win = mlx_new_window(mlx_ptr, 1920, 1080, "Hello world");
-    img.img = mlx_new_image(mlx_ptr, 1920, 1080);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    // printf("de/ ltaabs %f deltaord %f", )
+
+    // mlx_ptr = mlx_init();
+    // mlx_win = mlx_new_window(mlx_ptr, 1920, 1080, "Hello world");
+    // img.img = mlx_new_image(mlx_ptr, 1920, 1080);
+    // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
     ft_fill_struct(list, input, fd);
-    ft_line_xyproj(mlx_ptr, mlx_win, img, list);
+    // ft_line_xyproj(mlx_ptr, mlx_win, img, list);
+    // ft_line_xyproj1(mlx_ptr, mlx_win, img, list);
     ft_free_list(list);
 
     // int i = 1;
@@ -249,7 +315,6 @@ int main(void)
 
     // printf("longueur %f et  largeur %f\n", ft_line_length(line1), ft_line_length(line3));
     // t_data img;
-
 
     // ft_line(mlx_ptr, mlx_win, img, line1);
     // ft_line(mlx_ptr, mlx_win, img, line2);
@@ -269,5 +334,5 @@ int main(void)
     //     i++;
     // }
 
-    mlx_loop(mlx_ptr);
+    // mlx_loo  p(mlx_ptr);
 }
