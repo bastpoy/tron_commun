@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/24 17:58:13 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/25 11:22:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void ft_read_tline(t_list *list)
     t_line *line;
 
     line = list->ptrbegin;
-    while (line != NULL)
+    while (line)
     {
-        if(line->top)
-            printf("index %d et x1 %f et x1->top %f\n",line->index, line->x1, line->top->x1);
+        if(line->next)
+            printf("index %d x %f nextx %f\n", line->index, line->x1, line->next->x1);
         line = line->next;
     }
 }
@@ -124,33 +124,34 @@ int ft_search_behind(t_list *list, t_input input, t_line *entry)
 
 void ft_x1y1topbeh(t_line *line, t_input input, int j)
 {
-    float length;
+    // float length;
 
-    length = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / input.ord;
-    printf("length %f\n", length);
-    if (line->top == NULL && j == 1) // je remplis ma premiere valeur
+    // length = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / input.ord;
+    // printf("length %f\n", length);
+    if  (j == 1) // je remplis ma premiere valeur
     {
         line->x1 = XLEFTTOP;
         line->y1 = YLEFTTOP;
-        line = ft_x1y1proj(line);
+        // line = ft_x1y1proj(line);
     }
-    else if (line->top == NULL && j != 1 && j <= input.abs) // je remplis ma premiere ligne
+    else if (j != 1 && j <= input.abs) // je remplis ma premiere ligne
     {
         line->x1 = line->behind->x1 + (XRIGHTTOP - XLEFTTOP) / input.abs;
         line->y1 = line->behind->y1 + (YRIGHTTOP - YLEFTTOP) / input.abs;
-        line = ft_x1y1proj(line);
+        // line = ft_x1y1proj(line);
     }
     else if(!line->behind && line->top) // je remplis ma colonne
     {
         line->x1 = line->top->x1 - fabs((float)(XLEFTTOP - XLEFTBOT)) / input.ord;
         line->y1 = line->top->y1 + fabs(YLEFTTOP - YLEFTBOT) / input.ord;
-        line = ft_x1y1proj(line);
+        // line = ft_x1y1proj(line);
     }
     else
     {
-        line->x1 = line->top->x1 + ((length) / sqrt(1 + pow(COEFY, 2)));
-        line->y1 = line->top->y1 + ((length) * COEFY) / (1 + COEFY);
-        line = ft_x1y1proj(line);
+        line->x1 = line->top->x1 - fabs((float)(XLEFTBOT - XLEFTTOP)) / input.ord;
+        line->y1 = line->top->y1 + fabs(YLEFTTOP - YLEFTBOT) / input.ord;
+        // printf("index %d line->x1 %f et line->top->x1 %f\n",line->index, line->y1, line->top->y1);
+        // line = ft_x1y1proj(line);
     }
 }
 

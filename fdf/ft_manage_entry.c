@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/24 17:25:26 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/25 11:35:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ t_list *ft_fill_struct(t_list *list, t_input input, int fd)
             ft_search_behind(list, input, line);
             ft_search_top(list, input, line);
             ft_x1y1topbeh(line, input, j);
-            line->next = ft_init_tline();// apres les fonctions sinon je demarre a lindice -1
+            if(j < (input.abs * input.ord))
+                line->next = ft_init_tline();// apres les fonctions sinon je demarre a lindice -1
             line = line->next;
             i++;
             j++;
