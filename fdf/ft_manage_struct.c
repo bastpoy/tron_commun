@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/25 21:00:41 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/26 16:36:53 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ t_line *ft_init_tline()
     line = malloc(sizeof(t_line));
     line->x1 = 0;
     line->y1 = 0;
-    line->coeffdir = 0;
+    line->x1proj = 0;
+    line->y1proj = 0;
+    line->z1 = 0;
     line->color = 0;
-    line->distance = 0;
     line->index = -1;
     line->next = NULL;
     line->top = NULL;
@@ -127,41 +128,46 @@ void ft_x1y1topbeh(t_line *line, t_input input, int j)
     float lengthx;
     float lengthy;
 
-    lengthx = sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2)) / input.abs;
-    lengthy = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / input.ord;
-    // printf("lengthx %f lengthy %f \n", lengthx, lengthy);
+    //je fais -1 car sinon j'arrive pas au bout et je rate le derniere element
+    lengthx = sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2)) / (input.abs - 1);
+    lengthy = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / (input.ord - 1);
     if (j == 1) // je remplis ma premiere valeur
     {
         line->x1 = XLEFTTOP;
         line->y1 = YLEFTTOP;
+        ft_x1y1proj(line);
     }
     else if (j != 1 && j <= input.abs) // je remplis ma premiere ligne
     {
         line->x1 = line->behind->x1 + lengthx / (sqrt(1 + pow(COEFX, 2)));
         line->y1 = line->behind->y1 + (lengthx * COEFX) / sqrt(1 + pow(COEFX, 2));
-        printf("line x1 %f y1 %f\n", line->x1, line->y1);
+        ft_x1y1proj(line);
     }
-    else if (!line->behind && line->top) // je remplis ma colonne
+    else if (!line->behind && line->top) // je remplis ma colonne je sais pas pourquoi c'est un -
     {
-        line->x1 = line->top->x1 + lengthy / (sqrt(1 + pow(COEFY, 2)));
-        line->y1 = line->top->y1 + (lengthy * COEFY) / (sqrt(1 + pow(COEFY, 2)));
+        line->x1 = line->top->x1 - lengthy / (sqrt(1 + pow(COEFY, 2)));
+        line->y1 = line->top->y1 - (lengthy * COEFY) / (sqrt(1 + pow(COEFY, 2)));
+        ft_x1y1proj(line);
     }
     else
     {
-        if (j < 55)
-            printf("%f %f index %d \n", line->top->x1, line->top->x1);
         line->x1 = line->top->x1 - lengthy / (sqrt(1 + pow(COEFY, 2)));
         line->y1 = line->top->y1 - (lengthy * COEFY) / (sqrt(1 + pow(COEFY, 2)));
-        // printf("index %d line->x1 %f et line->top->x1 %f\n",line->index, line->y1, line->top->y1);
+        ft_x1y1proj(line);
     }
 }
 
 t_line *ft_x1y1proj(t_line *line)
 {
-    if (line->coeffdir != 0)
+    if (line->z1 != 0)
     {
-        line->x1 = line->x1 / line->coeffdir;
-        line->y1 = line->y1 / line->coeffdir;
+        line->x1proj = line->x1 - 30 * line->z1;
+        line->y1proj = line->y1 - 30 * line->z1;
+    }
+    else
+    {
+        line->x1proj = line->x1;
+        line->y1proj = line->y1;
     }
     return (line);
 }

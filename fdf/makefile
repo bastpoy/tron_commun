@@ -3,13 +3,13 @@ OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 MINILIBX = ./minilibx-linux/mlx.h
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g3
 
-NAME = fdf
+NAME = fdf.out
 
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all -C ./minilibx-linux
-	gcc $(CFLAGS) -o fdf $(OBJSPRINTF) ./minilibx-linux/libmlx.a -lX11 -lXext -lm -fsanitize=address
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a -lX11 -lXext -lm -fsanitize=address
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)
 
@@ -24,7 +24,6 @@ clean :
 	rm -rf objects
 
 fclean : clean
-	$(MAKE) fclean -C ./minilibx-linux
 	rm -f $(NAME)
 
 re : fclean all

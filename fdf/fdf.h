@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/24 16:21:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:11:13 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #define XLEFTBOT 380
 #define YLEFTBOT 467.5
 #define LONGUEUR sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2))
+#define LONGUEUR2 sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2))
 #define WHITECOLOR 0xffffff
 
 #include "minilibx-linux/mlx.h"
@@ -50,8 +51,8 @@ typedef struct s_extremities
 
 typedef struct s_parameter
 {
-    int dx;
-    int dy;
+    float dx;
+    float dy;
     int x;
     int y;
     int d;
@@ -69,10 +70,10 @@ typedef struct s_line
     float x1;
     float y1;
     float z1;
-    float coeffdir;
+    float x1proj;
+    float y1proj;
     int color;
     int index;
-    double distance;
     struct s_line *top;
     struct s_line *behind;
     struct s_line *next;

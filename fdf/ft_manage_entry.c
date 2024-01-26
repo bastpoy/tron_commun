@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/25 11:35:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:22:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,15 @@ t_line *ft_input_str_coma(char *str, t_line *line)
         if (str[i] == ',')
         {
             strsplit = ft_split(str, ',');
-            line->coeffdir = ft_atoi(strsplit[0]);
+            line->z1 = ft_atoi(strsplit[0]);
             line->color = ft_hex_to_int(strsplit[1]);
             ft_free_entrystr(strsplit);
             return (line);
         }
         i++;
     }
-    line->coeffdir = ft_atoi(str);
+    line->z1 = ft_atoi(str);
+    // printf("line z1 %f\n",line->z1);
     line->color = WHITECOLOR;
     return (line);
 }
