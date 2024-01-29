@@ -1,0 +1,27 @@
+https://github.com/o-reo/push_swap_visualizer
+https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a
+
+-   void push_swap(integer) => je recois une liste d'entier (premier parametre vaut le plus en haut de la pile)
+-   Je retourne la pile trie que je print apres chaque action effectuee
+-   
+-   Si pas d'entree je retourne rien et rend l'invite de commande
+
+
+ETAPE DE PROGRAMME
+
+-   Recuperer la donnee et la stocker correctement
+-   Faire toutes les fonctions de traitement de la donnee
+-   Je mets dans un tableau de int mon entre de nombre
+-   Je commence par en faire 5 max
+-   Faire la forme de ma structure
+    - Deux listes chainees
+    - Une pour la pile A et une autre pour la pile B
+    - Je stocke chaque valeur et leur indice respectif
+-   Fonctions de manipulation de nombre
+
+
+ALGORYTHMES
+
+-   INSERTION SORT : https://en.wikipedia.org/wiki/File:Insertion-sort-example-300px.gif
+
+Developpement de l'algo d'insertiton
