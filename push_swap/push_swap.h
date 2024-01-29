@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/02 15:43:36 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/29 23:04:53 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,19 @@ void ft_del_front(t_listx *listx);
 void ft_del_back(t_listx *listx);
 int ft_free_lista(t_listx *lista);
 int ft_free_listb(t_listx *listb);
-void ft_entry_three(t_listx *lista);
 int ft_check_if_sort(t_listx *lista);
+void ft_entry_three(t_listx *lista);
+void ft_entry_five(t_listx *lista, t_listx *listb);
 
 void ft_first_insert_listb(t_listx *lista, t_listx *listb);
 void ft_second_insert_listb(t_listx *lista, t_listx *listb);
 void ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb);
+void ft_rrb_or_rb1(int count, t_listx *listb, t_listx *lista);
+void ft_sort_threenbr(t_listx *list);
 int ft_count_rrb(t_listx *lista, t_listx *listb);
-int ft_put_minmax_stacka(t_listx *lista, t_listx *listb);
+int ft_count_rrb1(t_listx *listb, t_listx *lista);
+int ft_put_minmax_stack(t_listx *list1, t_listx *list2);
+int ft_put_minmax_stack1(t_listx *listb, t_listx *lista);
 
 int ft_sa(t_listx *lista);
 int ft_sb(t_listx *listb);

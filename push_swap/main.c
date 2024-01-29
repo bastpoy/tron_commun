@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:24:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/02 15:49:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/29 23:37:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ int main(int argc, char **argv)
     {
         ft_pa(lista, listb);
     }
+    ft_print_listx(lista);
     return (0);
 }
