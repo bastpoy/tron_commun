@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/30 19:16:08 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/30 23:58:46 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void ft_high_coefxyproj(t_data img, t_line *line, t_parameter param)
     while ((param.y <= line->y1proj && line->y1proj - line->behind->y1proj > 0) ||
            (param.y >= line->y1proj && line->y1proj - line->behind->y1proj < 0))
     {
-        // printf(" highbeh pointy %d et x %d et j %d\n", param.y, param.x, line->index);
+        printf(" highbeh pointy %d et x %d et j %d\n", param.y, param.x, line->index);
         if (param.d > 0)
         {
             param.d = param.d + 2 * (param.dx - param.dy);
@@ -165,8 +165,8 @@ void ft_high_coefxyproj1(t_data img, t_line *line, t_parameter param)
     if (param.dx < 0)
         param.dx = -param.dx;
     param.d = (2 * param.dx) - param.dy;
-    while ((param.y <= line->y1proj && line->y1proj -line->top->y1proj > 0) ||
-           (param.y >= line->y1proj && line->y1proj -line->top->y1proj < 0))
+    while ((param.y <= line->y1proj && line->y1proj - line->top->y1proj > 0) ||
+           (param.y >= line->y1proj && line->y1proj - line->top->y1proj < 0))
     {
         if (param.d > 0)
         {
@@ -260,7 +260,7 @@ void ft_line_xyproj(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
     {
         if (line->behind)
         {
-            printf("behind %d x1 %f y1 %f et coef %f\n", line->index, line->behind->x1proj, line->behind->y1proj, line->z1);
+            // printf("behind %d x1 %f y1 %f et coef %f\n", line->index, line->behind->x1proj, line->behind->y1proj, line->z1);
             param.dx = line->x1proj - line->behind->x1proj;
             param.dy = line->y1proj - line->behind->y1proj;
 
@@ -288,7 +288,7 @@ void ft_line_xyproj1(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
     {
         if (line->top)
         {
-            printf("top %d x1 %f y1 %f et coef %f\n", line->index, line->top->x1proj, line->top->y1proj, line->z1);
+            // printf("top %d x1 %f y1 %f et coef %f\n", line->index, line->top->x1proj, line->top->y1proj, line->z1);
             param.dx = line->x1proj - line->top->x1proj;
             param.dy = line->y1proj - line->top->y1proj;
 
@@ -314,25 +314,25 @@ void ft_line_xyproj2(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
     int yzero;
     int x;
     int y;
-    
+
     line = list->ptrbegin;
-    while(line)
+    while (line)
     {
         // printf("index %d\n", line->index);
-        if(line->top)
+        if (line->top)
         {
             printf("dans top %d\n", line->index);
             coef = (line->top->y1 / line->y1) / (line->top->x1 - line->x1);
-            yzero = line-> y1 - (line->x1 * coef);
+            yzero = line->y1 - (line->x1 * coef);
             x = line->x1;
             // printf("coef %f x %d", coef, x);
-            while((x < line->top->x1 && coef > 0) ||
-                (x > line->top->x1 && coef < 0))
-            { //y = ax + b
+            while ((x < line->top->x1 && coef > 0) ||
+                   (x > line->top->x1 && coef < 0))
+            { // y = ax + b
                 // printf("x %d", x);
-                y = roundf(coef * x) + yzero ;
+                y = roundf(coef * x) + yzero;
                 ft_mlx_pixel_put(&img, x, y, line->color);
-                if(coef < 0)
+                if (coef < 0)
                     x--;
                 else
                     x++;

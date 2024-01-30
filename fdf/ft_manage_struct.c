@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/30 19:48:39 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/31 00:15:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void ft_x1y1topbeh(t_line *line, t_input input, int j)
     float lengthx;
     float lengthy;
 
-    //je fais -1 car sinon j'arrive pas au bout et je rate le derniere element
+    // je fais -1 car sinon j'arrive pas au bout et je rate le derniere element
     lengthx = sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2)) / (input.abs - 1);
     lengthy = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / (input.ord - 1);
     if (j == 1) // je remplis ma premiere valeur
@@ -170,8 +170,10 @@ void ft_x1y1proj(t_line *line)
     // }
     // else
     // {
-        line->x1proj = (sqrt(2) / 2) * (line->x1 - line->y1)+ 200;
-        line->y1proj = (sqrt(2)/sqrt(3) * (-5 * line->z1)) - (1 / sqrt(6)) * (line->x1 + line->y1) + 800;
-        // printf("%f\n",line->y1proj);
+    line->x1proj = (sqrt(2) / 2) * (line->x1 - line->y1) + 200;
+    line->y1proj = (sqrt(2) / sqrt(3) * (-5 * line->z1)) - (1 / sqrt(6)) * (line->x1 + line->y1) + 800;
+    // printf("%f\n",line->y1proj);
     // }
+    // line->x1proj = -0.71 * (line->x1 - line->y1) + 800;
+    // line->y1proj = 0.41 * (line->x1 + line->y1) + 0.82 * line->z1 + 100;
 }
