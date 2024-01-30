@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/26 16:36:53 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:48:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,17 +157,21 @@ void ft_x1y1topbeh(t_line *line, t_input input, int j)
     }
 }
 
-t_line *ft_x1y1proj(t_line *line)
+void ft_x1y1proj(t_line *line)
 {
-    if (line->z1 != 0)
-    {
-        line->x1proj = line->x1 - 30 * line->z1;
-        line->y1proj = line->y1 - 30 * line->z1;
-    }
-    else
-    {
-        line->x1proj = line->x1;
-        line->y1proj = line->y1;
-    }
-    return (line);
+    // else
+    // {
+    // }
+    // if(line->z1 == 0)
+    // {
+    //     line->x1proj = line->x1;
+    //     line->y1proj = line->y1;
+    //     // line->z1 = 1;
+    // }
+    // else
+    // {
+        line->x1proj = (sqrt(2) / 2) * (line->x1 - line->y1)+ 200;
+        line->y1proj = (sqrt(2)/sqrt(3) * (-5 * line->z1)) - (1 / sqrt(6)) * (line->x1 + line->y1) + 800;
+        // printf("%f\n",line->y1proj);
+    // }
 }

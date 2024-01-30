@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/26 14:22:29 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:15:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_input ft_get_length_width()
     char *str;
     t_input input;
 
-    fd = open("maps/test_maps/pyramide.fdf", O_RDONLY);
+    fd = open("maps/test_maps/42.fdf", O_RDONLY);
     str = get_next_line(fd);
     input.abs = ft_strlen_space_backn(str);
     input.ord = 0;
@@ -107,7 +107,7 @@ char **ft_input_str_space()
     static int fd = 0;
 
     if (fd == 0)
-        fd = open("maps/test_maps/pyramide.fdf", O_RDONLY);
+        fd = open("maps/test_maps/42.fdf", O_RDONLY);
     strentry = get_next_line(fd);
     if (strentry == NULL)
         return (NULL);

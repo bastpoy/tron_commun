@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/26 16:56:10 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:16:08 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ void ft_high_coefxyproj(t_data img, t_line *line, t_parameter param)
 
 void ft_high_coefxyproj1(t_data img, t_line *line, t_parameter param)
 {
-    printf("hightop\n");
     if (param.dy < 0)
         param.dy = -param.dy;
     if (param.dx < 0)
@@ -169,7 +168,6 @@ void ft_high_coefxyproj1(t_data img, t_line *line, t_parameter param)
     while ((param.y <= line->y1proj && line->y1proj -line->top->y1proj > 0) ||
            (param.y >= line->y1proj && line->y1proj -line->top->y1proj < 0))
     {
-        printf("pointy %d et x %d et j %d\n", param.y, param.x, line->index);
         if (param.d > 0)
         {
             param.d = param.d + 2 * (param.dx - param.dy);
@@ -258,11 +256,11 @@ void ft_line_xyproj(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
     t_parameter param;
 
     line = list->ptrbegin;
-    while (line->index < 917)
+    while (line->index < 209)
     {
         if (line->behind)
         {
-            printf("behind %d %f\n", line->index, line->behind->x1proj);
+            printf("behind %d x1 %f y1 %f et coef %f\n", line->index, line->behind->x1proj, line->behind->y1proj, line->z1);
             param.dx = line->x1proj - line->behind->x1proj;
             param.dy = line->y1proj - line->behind->y1proj;
 
@@ -286,11 +284,11 @@ void ft_line_xyproj1(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
     t_parameter param;
 
     line = list->ptrbegin;
-    while (line->index < 917)
+    while (line->index < 209)
     {
         if (line->top)
         {
-            printf("top %d %f\n", line->index, line->top->x1proj);
+            printf("top %d x1 %f y1 %f et coef %f\n", line->index, line->top->x1proj, line->top->y1proj, line->z1);
             param.dx = line->x1proj - line->top->x1proj;
             param.dy = line->y1proj - line->top->y1proj;
 
@@ -354,7 +352,7 @@ int main(void)
     t_list *list;
     int fd;
 
-    fd = open("maps/test_maps/pyramide.fdf", O_RDONLY);
+    fd = open("maps/test_maps/42.fdf", O_RDONLY);
     list = ft_init_pointbegin();
     input = ft_get_length_width();
     printf("input abs %f input ord %f et total %f\n", input.abs, input.ord, input.abs * input.ord);

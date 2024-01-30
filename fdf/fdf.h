@@ -6,22 +6,23 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/26 14:11:13 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:56:08 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF
 #define FDF
-#define COEFX 0.625
-#define COEFY -0.875
+#define COEFX 0.5774
+#define COEFY -0.5774
 #define XLEFTTOP 800
 #define YLEFTTOP 100
-#define XRIGHTTOP 1600
-#define YRIGHTTOP 600
+#define XRIGHTTOP 1226
+#define YRIGHTTOP 343
 #define XLEFTBOT 380
-#define YLEFTBOT 467.5
+#define YLEFTBOT 343
 #define LONGUEUR sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2))
 #define LONGUEUR2 sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2))
+#define ANGLE 0.8
 #define WHITECOLOR 0xffffff
 
 #include "minilibx-linux/mlx.h"
@@ -91,7 +92,7 @@ t_list *ft_fill_struct(t_list *line, t_input input, int fd);
 t_input ft_get_length_width();
 t_line *ft_input_str_coma(char *str, t_line *line);
 t_line *ft_init_tline();
-t_line *ft_x1y1proj(t_line *line);
+void ft_x1y1proj(t_line *line);
 size_t ft_strlen_space_backn(const char *str);
 double ft_line_length(t_extremities line);
 void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_extremities point);
