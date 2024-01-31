@@ -6,23 +6,26 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/30 17:56:08 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/01/31 17:59:07 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF
 #define FDF
-#define COEFX 0.5774
-#define COEFY -0.5774
-#define XLEFTTOP 800
-#define YLEFTTOP 100
-#define XRIGHTTOP 1226
-#define YRIGHTTOP 343
-#define XLEFTBOT 380
-#define YLEFTBOT 343
+#define COEFX 0
+#define COEFY 0
+#define PI 3.1416
+#define HORIANGLE PI / 2
+#define VERTANGLE 0
+#define XLEFTTOP 0
+#define YLEFTTOP 0
+#define XRIGHTTOP 426
+#define YRIGHTTOP 0
+#define XLEFTBOT 0
+#define YLEFTBOT 243
 #define LONGUEUR sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2))
 #define LONGUEUR2 sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2))
-#define ANGLE 0.8
+#define ANGLE 0.5236
 #define WHITECOLOR 0xffffff
 
 #include "minilibx-linux/mlx.h"
