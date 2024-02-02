@@ -3,32 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/02 01:03:05 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/02 17:17:08 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF
 #define FDF
-#define COEFX 0
-#define COEFY 0
 #define PI 3.1416
-#define HORIANGLE PI / 2
-#define VERTANGLE 0
-#define XLEFTTOP 0
-#define YLEFTTOP 0
-#define XRIGHTTOP 426
-#define YRIGHTTOP 0
-#define XLEFTBOT 0
-#define YLEFTBOT 243
-#define LONGUEUR sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2))
-#define LONGUEUR2 sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2))
-#define ANGLE 0.5236
+#define TETA PI / 6
 #define WHITECOLOR 0xffffff
 
 #include "minilibx-linux/mlx.h"
+#include "minilibx-linux/mlx_int.h"
 #include "get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,6 +32,7 @@ typedef struct s_env
     void *img;
     float angle;
     float height;
+    float zoom;
 } t_env;
 
 typedef struct s_parameter
@@ -58,6 +48,7 @@ typedef struct s_input
 {
     int abs;
     int ord;
+    int total;
 } t_input;
 
 typedef struct s_line
@@ -78,26 +69,25 @@ typedef struct s_list
 {
     t_line *ptrbegin;
     t_env *data;
+    t_input input;
 } t_list;
 
 t_list *ft_init_pointbegin();
-t_list *ft_fill_struct(t_list *line, t_input input);
-t_input ft_get_length_width();
+t_list *ft_fill_struct(t_list *line, t_input input, char *entry);
+t_input ft_get_length_width(char *entry);
 t_line *ft_input_str_coma(char *str, t_line *line);
 t_line *ft_init_tline();
-void ft_x1y1proj(t_line *line);
 size_t ft_strlen_space_backn(const char *str);
 void ft_free_entrystr(char **str);
 void ft_read_tline(t_list *list);
-void ft_search_x1y1(t_list *list, t_input input);
-void ft_x1y1topbeh(t_line *line, t_input input, int j);
-void ft_indicexyz(t_line *line, t_input input, int j);
-void change_height(t_list *list, t_env *data);
+void ft_indicexyz(t_list *list, t_line *line, t_input input, int j);
+void elevation(t_list *list, t_env *data);
+void rotationz(t_list *list, t_env *data);
+void zoom(t_list *list, t_env *data);
 int ft_search_top(t_list *ptbegin, t_input input, t_line *entry);
 int ft_search_behind(t_list *list, t_input input, t_line *entry);
-int **ft_fill_entry_num(t_input input);
 int ft_atoi(const char *str);
 int ft_free_list(t_list *lista);
 char **ft_split(char const *s, char c);
-char **ft_input_str_space();
+char **ft_input_str_space(char *entry);
 #endif

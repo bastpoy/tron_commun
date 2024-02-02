@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/02 01:04:18 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/02 19:05:05 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ void ft_free_entrystr(char **str)
         free(str[i]);
         free(str);
     }
+}
+
+t_list *init_data(t_list *list, t_input input)
+{
+    t_env *data;
+
+    data = malloc(sizeof(t_env));
+    data->angle = 0;
+    data->height = 1;
+    data->zoom = 1;
+    data->mlx_ptr = mlx_init();
+    data->mlx_win = mlx_new_window(data->mlx_ptr, 1920, 1080, "Hello world");
+    list->data = data;
+    list->input = input;
+    return(list);
 }
 
 void ft_bresenham(t_line *line, t_parameter param, t_env *data)
@@ -58,105 +73,108 @@ void ft_bresenham(t_line *line, t_parameter param, t_env *data)
     mlx_pixel_put(data->mlx_ptr, data->mlx_win, param.x, param.y, line->color);
 }
 
-void ft_line_xyprojtop1(t_list *list, t_env *data)
+void ft_line_xyprojtop1(t_list *list, t_env *data, t_input input)
 {
-    t_line *line;
+    t_line *point;
     t_parameter param;
+    (void)input;
 
-    line = list->ptrbegin;
-    printf("line %p\n", list);
-    while (line->index < 209)
+    point = list->ptrbegin;
+    while (point->index < input.abs * input.ord)
     {
-        if (line->top)
+        // printf("indice %d\n", point->index);
+        if (point->top)
         {
-            // printf("top index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", line->index, line->x1proj, line->top->x1proj, line->y1proj, line->top->y1proj, line->z1);
-            param.dx = fabs(roundf(line->x1proj) - roundf(line->top->x1proj));
-            param.dy = fabs(roundf(line->y1proj) - roundf(line->top->y1proj));
-            param.x = roundf(line->top->x1proj);
-            param.y = roundf(line->top->y1proj);
-            ft_bresenham(line, param, data);
+            // printf("top index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", point->index, point->x1proj, point->top->x1proj, point->y1proj, point->top->y1proj, point->z1);
+            param.dx = fabs(roundf(point->x1proj) - roundf(point->top->x1proj));
+            param.dy = fabs(roundf(point->y1proj) - roundf(point->top->y1proj));
+            param.x = roundf(point->top->x1proj);
+            param.y = roundf(point->top->y1proj);
+            ft_bresenham(point, param, data);
         }
-        if (line->behind)
+        if (point->behind)
         {
-            // printf("behind index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", line->index, line->x1proj, line->behind->x1proj, line->y1proj, line->behind->y1proj, line->z1);
-            param.dx = fabs(roundf(line->x1proj) - roundf(line->behind->x1proj));
-            param.dy = fabs(roundf(line->y1proj) - roundf(line->behind->y1proj));
-            param.x = roundf(line->behind->x1proj);
-            param.y = roundf(line->behind->y1proj);
-            ft_bresenham(line, param, data);
+            // printf("behind index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", point->index, point->x1proj, point->behind->x1proj, point->y1proj, point->behind->y1proj, point->z1);
+            param.dx = fabs(roundf(point->x1proj) - roundf(point->behind->x1proj));
+            param.dy = fabs(roundf(point->y1proj) - roundf(point->behind->y1proj));
+            param.x = roundf(point->behind->x1proj);
+            param.y = roundf(point->behind->y1proj);
+            ft_bresenham(point, param, data);
         }
-        line = line->next;
+        point = point->next;
     }
 }
 
-// void ft_line_xyprojbeh1(t_list *list, t_win data)
-// {
-//     t_line *line;
-//     t_parameter param;
-
-//     line = list->ptrbegin;
-//     while (line->index < 209)
-//     {
-//         if (line->behind)
-//         {
-//             printf("behind index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", line->index, line->x1proj, line->behind->x1proj, line->y1proj, line->behind->y1proj, line->z1);
-//             param.dx = fabs(roundf(line->x1proj) - roundf(line->behind->x1proj));
-//             param.dy = fabs(roundf(line->y1proj) - roundf(line->behind->y1proj));
-//             param.x = roundf(line->behind->x1proj);
-//             param.y = roundf(line->behind->y1proj);
-//             ft_bresenham(line, param, data);
-//         }
-//         line = line->next;
-//     }
-// }
-
 int key_hook(int keycode, t_list *list)
 {
-    printf("%d\n", keycode);
-    printf("re");
+    // printf("%d\n", keycode);
     if (keycode == 65307)
     {
-        printf("je quitte la fenetre\n");
         mlx_destroy_window(list->data->mlx_ptr, list->data->mlx_win);
         exit(0);
     }
-    if (keycode == 122) // fleche haut
+    if (keycode == 119) // top arrow heigh++
     {
         list->data->height += 0.05;
         mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
-        change_height(list, list->data);
-        ft_line_xyprojtop1(list, list->data);
+        elevation(list, list->data);
+        ft_line_xyprojtop1(list, list->data, list->input);
     }
-    if (keycode == 115) // fleche bas
+    if (keycode == 115) // bot arrow height --
     {
         list->data->height -= 0.05;
         mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
-        change_height(list, list->data);
-        ft_line_xyprojtop1(list, list->data);
+        elevation(list, list->data);
+        ft_line_xyprojtop1(list, list->data, list->input);
+    }
+    if (keycode == 100) // left arrow z rotation anti horaire
+    {
+        list->data->angle = PI / 100;
+        mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
+        rotationz(list, list->data);
+        ft_line_xyprojtop1(list, list->data, list->input);
+    }
+    if (keycode == 97) // right arrow z rotation horaire
+    {
+        list->data->angle = -PI / 100;
+        mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
+        rotationz(list, list->data);
+        ft_line_xyprojtop1(list, list->data, list->input);
+    }
+    if ( keycode == 114) // zoom +
+    {
+        list->data->zoom /= 0.99;
+        mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
+        zoom(list, list->data);
+        ft_line_xyprojtop1(list, list->data, list->input);
+    }
+    if (keycode == 102) // zoom -
+    {
+        list->data->zoom *= 0.99;
+        mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
+        zoom(list, list->data);
+        ft_line_xyprojtop1(list, list->data, list->input);
     }
     return (0);
 }
 
-int main(void)
+int main(int argc, char ** argv)
 {
-    t_env *data;
     t_input input;
     t_list *list;
 
-    list = ft_init_pointbegin();
-    input = ft_get_length_width();
-    printf("input abs %d input ord %d et total %d\n", input.abs, input.ord, input.abs * input.ord);
+    if (argc == 2)
+    {
+        input = ft_get_length_width(argv[1]);
+        list = ft_init_pointbegin();
+        list = init_data(list, input);
 
-    data = malloc(sizeof(t_env));
-    data->angle = 0;
-    data->height = 1;
-    data->mlx_ptr = mlx_init();
-    data->mlx_win = mlx_new_window(data->mlx_ptr, 1920, 1080, "Hello world");
-    list->data = data;
-
-    ft_fill_struct(list, input);
-    ft_line_xyprojtop1(list, data);
-    mlx_key_hook(data->mlx_win, key_hook, list);
-    mlx_loop(data->mlx_ptr);
-    ft_free_list(list);
+        printf("input abs %d input ord %d et total %d\n", input.abs, input.ord, input.total);
+        ft_fill_struct(list, input, argv[1]);
+        ft_line_xyprojtop1(list, list->data, input);
+        mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook, (void*)list);    
+        mlx_loop(list->data->mlx_ptr);
+        ft_free_list(list);
+    }
+    return (0);
 }
