@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/31 19:36:38 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/02 01:04:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void ft_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-    char *dst;
-    // if (x > 0 && y > 0 )
-    // {     
-        dst = data->addr + ((y+500) * data->line_length + (x+500) * (data->bits_per_pixel / 8));
-        *(unsigned int *)dst = color;
-    // }
-}
-
-int ft_get_abs(char *str)
-{
-    int count;
-
-    count = 0;
-    while (str)
-    {
-        if (*str == ' ')
-            count++;
-        str++;
-    }
-    count++;
-    return (count);
-}
 
 void ft_free_entrystr(char **str)
 {
@@ -54,324 +29,134 @@ void ft_free_entrystr(char **str)
     }
 }
 
-void ft_high_coef(t_data img, t_extremities point, t_parameter param)
+void ft_bresenham(t_line *line, t_parameter param, t_env *data)
 {
-    if (param.dy < 0)
-        param.dy = -param.dy;
-    if (param.dx < 0)
-        param.dx = -param.dx;
-    param.d = (2 * param.dx) - param.dy;
-    while ((param.y <= point.yb && point.yb - point.ya > 0) ||
-           (param.y >= point.yb && point.yb - point.ya < 0))
+    int sx;
+    int sy;
+    int err;
+    int e2;
+
+    sx = param.x < line->x1proj ? 1 : -1;
+    sy = param.y < line->y1proj ? 1 : -1;
+    err = param.dx - param.dy;
+    while ((int)roundf(line->x1proj) != param.x || (int)roundf(line->y1proj) != param.y)
     {
-        printf("pointy %d et x %d et d %d\n", param.y, param.x, param.d);
-        if (param.d > 0)
+        mlx_pixel_put(data->mlx_ptr, data->mlx_win, param.x, param.y, line->color);
+        e2 = 2 * err;
+        if (e2 > -param.dy)
         {
-            param.d = param.d + 2 * (param.dx - param.dy);
-            if (param.dx < 0)
-                param.x = param.x - 1;
-            else
-                param.x = param.x + 1;
+            err -= param.dy;
+            param.x += sx;
         }
-        else
-            param.d = param.d + (2 * param.dx);
-        ft_mlx_pixel_put(&img, param.x, param.y, 16777215);
-        if (point.yb - point.ya < 0)
-            param.y = param.y - 1;
-        else
-            param.y = param.y + 1;
+        if (e2 < param.dx)
+        {
+            err += param.dx;
+            param.y += sy;
+        }
+        // printf("param.x %d, line->x1 %d, param.y %d line->y1 %d \n", param.x, (int)roundf(line->x1proj), param.y, (int)roundf(line->y1proj));
     }
+    mlx_pixel_put(data->mlx_ptr, data->mlx_win, param.x, param.y, line->color);
 }
 
-void ft_low_coef(t_data img, t_extremities point, t_parameter param)
-{
-    if (param.dx < 0)
-        param.dx = -param.dx;
-    if (param.dy < 0)
-        param.dy = -param.dy;
-    param.d = (2 * param.dy) - (param.dx);
-    while ((param.x <= point.xb && point.xb - point.xa > 0) ||
-           (param.x >= point.xb && point.xb - point.xa < 0))
-    {
-        printf("pointx %d pointy %d et d %d\n", param.x, param.y, param.d);
-        if (param.d > 0)
-        {
-            param.d = param.d + 2 * (param.dy - param.dx);
-            if (param.dy < 0)
-                param.y = param.y - 1;
-            else
-                param.y = param.y + 1;
-        }
-        else
-            param.d = param.d + 2 * (param.dy);
-        ft_mlx_pixel_put(&img, param.x, param.y, 16777215);
-        if (point.xb - point.xa < 0)
-        {
-            param.x = param.x - 1;
-        }
-        else
-            param.x = param.x + 1;
-    }
-}
-
-void ft_line(void *mlx_ptr, void *mlx_win, t_data img, t_extremities point)
-{
-    t_parameter param;
-
-    param.dx = point.xb - point.xa;
-    param.dy = point.yb - point.ya;
-    param.coef = ((float)(param.dy) / (float)(param.dx));
-    param.x = point.xa;
-    param.y = point.ya;
-    printf("coef %f et x %d et xb %d\n", param.coef, param.x, point.xb);
-    if ((param.coef <= 1 && param.coef > 0) || (param.coef >= -1 && param.coef < 0))
-        ft_low_coef(img, point, param);
-    else
-        ft_high_coef(img, point, param);
-    mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
-}
-
-void ft_high_coefxyprojbeh(t_data img, t_line *line, t_parameter param)
-{
-    if (param.dy < 0)
-        param.dy = -param.dy;
-    if (param.dx < 0)
-        param.dx = -param.dx;
-    param.d = (2 * param.dx) - param.dy;
-    while ((param.y <= line->y1proj && line->y1proj - line->behind->y1proj > 0) ||
-           (param.y >= line->y1proj && line->y1proj - line->behind->y1proj < 0))
-    {
-        // printf(" highbeh pointy %d et x %d et j %d\n", param.y, param.x, line->index);
-        if (param.d > 0)
-        {
-            param.d = param.d + 2 * (param.dx - param.dy);
-            if (param.dx < 0)
-                param.x = param.x - 1;
-            else
-                param.x = param.x + 1;
-        }
-        else
-            param.d = param.d + (2 * param.dx);
-        ft_mlx_pixel_put(&img, param.x, param.y, line->color);
-        if (line->y1proj - line->behind->y1proj < 0)
-            param.y = param.y - 1;
-        else
-            param.y = param.y + 1;
-    }
-}
-
-void ft_high_coefxyprojtop(t_data img, t_line *line, t_parameter param)
-{
-    if (param.dy < 0)
-        param.dy = -param.dy;
-    if (param.dx < 0)
-        param.dx = -param.dx;
-    param.d = (2 * param.dx) - param.dy;
-    while ((param.y <= line->y1proj && line->y1proj - line->top->y1proj > 0) ||
-           (param.y >= line->y1proj && line->y1proj - line->top->y1proj < 0))
-    {
-        if (param.d > 0)
-        {
-            param.d = param.d + 2 * (param.dx - param.dy);
-            if (param.dx < 0)
-                param.x = param.x - 1;
-            else
-                param.x = param.x + 1;
-        }
-        else
-            param.d = param.d + (2 * param.dx);
-        ft_mlx_pixel_put(&img, param.x, param.y, line->color);
-        if (line->y1proj - line->top->y1proj < 0)
-            param.y = param.y - 1;
-        else
-            param.y = param.y + 1;
-    }
-}
-
-void ft_low_coefxyprojbeh(t_data img, t_line *line, t_parameter param)
-{
-    (void)img;
-    if (param.dx < 0)
-        param.dx = -param.dx;
-    if (param.dy < 0)
-        param.dy = -param.dy;
-    param.d = (2 * param.dy) - (param.dx);
-    while ((param.x <= line->x1proj && line->x1proj - line->behind->x1proj > 0) ||
-           (param.x >= line->x1proj && line->x1proj - line->behind->x1proj < 0))
-    {
-        // printf("behind low param x %d et proj %f\n", param.x, line->x1proj);
-        if (param.d > 0)
-        {
-            param.d = param.d + 2 * (param.dy - param.dx);
-            if (param.dy < 0)
-                param.y = param.y - 1;
-            else
-                param.y = param.y + 1;
-        }
-        else
-            param.d = param.d + 2 * (param.dy);
-        ft_mlx_pixel_put(&img, param.x, param.y, line->color);
-        if (line->x1proj - line->behind->x1proj < 0)
-        {
-            param.x = param.x - 1;
-        }
-        else
-            param.x = param.x + 1;
-    }
-}
-
-void ft_low_coefxyprojtop(t_data img, t_line *line, t_parameter param)
-{
-    (void)img;
-    if (param.dx < 0)
-        param.dx = -param.dx;
-    if (param.dy < 0)
-        param.dy = -param.dy;
-    param.d = (2 * param.dy) - (param.dx);
-    while ((param.x <= line->x1proj && line->x1proj - line->top->x1proj > 0) ||
-           (param.x >= line->x1proj && line->x1proj - line->top->x1proj < 0))
-    {
-        if (param.d > 0)
-        {
-            param.d = param.d + 2 * (param.dy - param.dx);
-            if (param.dy < 0)
-                param.y = param.y - 1;
-            else
-                param.y = param.y + 1;
-        }
-        else
-            param.d = param.d + 2 * (param.dy);
-        // printf("dans low paramx %d et behind x1proj %f paramy %d soustraction %f j %d\n", param.x, line->behind->x1proj, param.y, line->behind->x1proj - line->x1proj, line->index);
-        ft_mlx_pixel_put(&img, param.x, param.y, line->color);
-        if (line->x1proj - line->top->x1proj < 0)
-        {
-            param.x = param.x - 1;
-        }
-        else
-            param.x = param.x + 1;
-    }
-}
-
-void ft_line_xyprojbeh(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
-{
-    t_line *line;
-    t_parameter param;
-    (void)mlx_ptr;
-    (void)mlx_win;
-
-    line = list->ptrbegin;
-    while (line->index < 209)
-    {
-        if (line->behind)
-        {
-            printf("behind %d x1 %f y1 %f et coef %f\n", line->index, line->behind->x1proj, line->behind->y1proj, line->z1);
-            param.dx = line->x1proj - line->behind->x1proj;
-            param.dy = line->y1proj - line->behind->y1proj;
-
-            param.coef = ((float)(param.dy) / (float)(param.dx));
-            param.x = roundf(line->behind->x1proj);
-            param.y = roundf(line->behind->y1proj);
-            if ((param.coef <= 1 && param.coef > 0) ||
-                (param.coef >= -1 && param.coef <= 0))
-                ft_low_coefxyprojbeh(img, line, param);
-            else
-                ft_high_coefxyprojbeh(img, line, param);
-        }
-        line = line->next;
-    }
-}
-
-void ft_line_xyprojtop(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
+void ft_line_xyprojtop1(t_list *list, t_env *data)
 {
     t_line *line;
     t_parameter param;
 
-    (void)mlx_ptr;
-    (void)mlx_win;
     line = list->ptrbegin;
+    printf("line %p\n", list);
     while (line->index < 209)
     {
         if (line->top)
         {
-            printf("behind %d x1 %f y1 %f et coef %f\n", line->index, line->top->x1proj, line->top->y1proj, line->z1);
-            param.dx = line->x1proj - line->top->x1proj;
-            param.dy = line->y1proj - line->top->y1proj;
-
-            param.coef = ((float)(param.dy) / (float)(param.dx));
+            // printf("top index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", line->index, line->x1proj, line->top->x1proj, line->y1proj, line->top->y1proj, line->z1);
+            param.dx = fabs(roundf(line->x1proj) - roundf(line->top->x1proj));
+            param.dy = fabs(roundf(line->y1proj) - roundf(line->top->y1proj));
             param.x = roundf(line->top->x1proj);
             param.y = roundf(line->top->y1proj);
-            // printf("top %d et topindex %d y1top %d y1 %f et coef %f\n", line->index,  line->top->index, param.y, line->y1proj, line->z1);
-            // printf("%d %d\n", param.x, param.y);
-            if ((param.coef <= 1 && param.coef > 0) ||
-                (param.coef >= -1 && param.coef < 0))
-                ft_low_coefxyprojtop(img, line, param);
-            else
-                ft_high_coefxyprojtop(img, line, param);
+            ft_bresenham(line, param, data);
+        }
+        if (line->behind)
+        {
+            // printf("behind index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", line->index, line->x1proj, line->behind->x1proj, line->y1proj, line->behind->y1proj, line->z1);
+            param.dx = fabs(roundf(line->x1proj) - roundf(line->behind->x1proj));
+            param.dy = fabs(roundf(line->y1proj) - roundf(line->behind->y1proj));
+            param.x = roundf(line->behind->x1proj);
+            param.y = roundf(line->behind->y1proj);
+            ft_bresenham(line, param, data);
         }
         line = line->next;
     }
 }
 
-void ft_line_xyproj2(void *mlx_ptr, void *mlx_win, t_data img, t_list *list)
-{
-    t_line *line;
-    float coef;
-    int yzero;
-    int x;
-    int y;
+// void ft_line_xyprojbeh1(t_list *list, t_win data)
+// {
+//     t_line *line;
+//     t_parameter param;
 
-    line = list->ptrbegin;
-    while (line)
+//     line = list->ptrbegin;
+//     while (line->index < 209)
+//     {
+//         if (line->behind)
+//         {
+//             printf("behind index %d x1 %f x1top %f y1 %f y1top %f et coef %f\n", line->index, line->x1proj, line->behind->x1proj, line->y1proj, line->behind->y1proj, line->z1);
+//             param.dx = fabs(roundf(line->x1proj) - roundf(line->behind->x1proj));
+//             param.dy = fabs(roundf(line->y1proj) - roundf(line->behind->y1proj));
+//             param.x = roundf(line->behind->x1proj);
+//             param.y = roundf(line->behind->y1proj);
+//             ft_bresenham(line, param, data);
+//         }
+//         line = line->next;
+//     }
+// }
+
+int key_hook(int keycode, t_list *list)
+{
+    printf("%d\n", keycode);
+    printf("re");
+    if (keycode == 65307)
     {
-        // printf("index %d\n", line->index);
-        if (line->top)
-        {
-            printf("dans top %d\n", line->index);
-            coef = (line->top->y1 / line->y1) / (line->top->x1 - line->x1);
-            yzero = line->y1 - (line->x1 * coef);
-            x = line->x1;
-            // printf("coef %f x %d", coef, x);
-            while ((x < line->top->x1 && coef > 0) ||
-                   (x > line->top->x1 && coef < 0))
-            { // y = ax + b
-                // printf("x %d", x);
-                y = roundf(coef * x) + yzero;
-                ft_mlx_pixel_put(&img, x, y, line->color);
-                if (coef < 0)
-                    x--;
-                else
-                    x++;
-            }
-        }
-        line = line->next;
+        printf("je quitte la fenetre\n");
+        mlx_destroy_window(list->data->mlx_ptr, list->data->mlx_win);
+        exit(0);
     }
-    mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
+    if (keycode == 122) // fleche haut
+    {
+        list->data->height += 0.05;
+        mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
+        change_height(list, list->data);
+        ft_line_xyprojtop1(list, list->data);
+    }
+    if (keycode == 115) // fleche bas
+    {
+        list->data->height -= 0.05;
+        mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
+        change_height(list, list->data);
+        ft_line_xyprojtop1(list, list->data);
+    }
+    return (0);
 }
 
 int main(void)
 {
-    void *mlx_ptr;
-    void *mlx_win;
-    t_data img;
+    t_env *data;
     t_input input;
     t_list *list;
-    int fd;
 
-    fd = open("maps/test_maps/42.fdf", O_RDONLY);
     list = ft_init_pointbegin();
     input = ft_get_length_width();
-    printf("input abs %f input ord %f et total %f\n", input.abs, input.ord, input.abs * input.ord);
+    printf("input abs %d input ord %d et total %d\n", input.abs, input.ord, input.abs * input.ord);
 
-    mlx_ptr = mlx_init();
-    mlx_win = mlx_new_window(mlx_ptr, 1920, 1080, "Hello world");
-    img.img = mlx_new_image(mlx_ptr, 1920, 1080);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    data = malloc(sizeof(t_env));
+    data->angle = 0;
+    data->height = 1;
+    data->mlx_ptr = mlx_init();
+    data->mlx_win = mlx_new_window(data->mlx_ptr, 1920, 1080, "Hello world");
+    list->data = data;
 
-    ft_fill_struct(list, input, fd);
-    ft_line_xyprojbeh(mlx_ptr, mlx_win, img, list);
-    ft_line_xyprojtop(mlx_ptr, mlx_win, img, list);
-    mlx_put_image_to_window(mlx_ptr, mlx_win, img.img, 0, 0);
+    ft_fill_struct(list, input);
+    ft_line_xyprojtop1(list, data);
+    mlx_key_hook(data->mlx_win, key_hook, list);
+    mlx_loop(data->mlx_ptr);
     ft_free_list(list);
-
-    mlx_loop(mlx_ptr);
 }

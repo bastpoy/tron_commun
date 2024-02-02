@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_entry.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/31 15:30:42 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/01 21:54:20 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,46 +128,45 @@ t_line *ft_input_str_coma(char *str, t_line *line)
         if (str[i] == ',')
         {
             strsplit = ft_split(str, ',');
-            line->z1 = 2 * ft_atoi(strsplit[0]);
+            line->z1 = 3 * ft_atoi(strsplit[0]);
             line->color = ft_hex_to_int(strsplit[1]);
             ft_free_entrystr(strsplit);
             return (line);
         }
         i++;
     }
-    line->z1 = 2 * ft_atoi(str);
+    line->z1 = 3 * ft_atoi(str);
     // printf("line z1 %f\n",line->z1);
     line->color = WHITECOLOR;
     return (line);
 }
 
-t_list *ft_fill_struct(t_list *list, t_input input, int fd)
+t_list *ft_fill_struct(t_list *list, t_input input)
 {
     int i;
     int j;
     char **str;
     t_line *line;
 
-    (void)fd;
     j = 1;
     str = ft_input_str_space(); // je lis une ligne en separant par les espaces
     line = ft_init_tline();
+    list->ptrbegin = line;
     while (str != NULL)
     {
         i = 0;
         while (str[i] != NULL)
         { // je lis chaque case et je regarde si il ya une couleur en plus du coef directeur
             line = ft_input_str_coma(str[i], line);
-            if (j == 1)
-            {
-                list->ptrbegin = line;
-            }
+            // if (j == 1)
+            //     list->ptrbegin = line;
             line->index = j;
             ft_search_behind(list, input, line);
             ft_search_top(list, input, line);
-            ft_x1y1topbeh(line, input, j);
-            if(j < (input.abs * input.ord))
-                line->next = ft_init_tline();// apres les fonctions sinon je demarre a lindice -1
+            // ft_x1y1topbeh(line, input, j);
+            ft_indicexyz(line, input, j);
+            if (j < (input.abs * input.ord))
+                line->next = ft_init_tline(); // apres les fonctions sinon je demarre a lindice -1
             line = line->next;
             i++;
             j++;
@@ -175,6 +174,5 @@ t_list *ft_fill_struct(t_list *list, t_input input, int fd)
         ft_free_entrystr(str);
         str = ft_input_str_space();
     }
-    // ft_read_tline(list);
     return (list);
 }

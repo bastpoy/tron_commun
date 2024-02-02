@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/31 19:34:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/02 01:00:31 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 t_list *ft_init_pointbegin()
 {
-    t_list *lista;
+    t_list *list;
 
-    lista = malloc(sizeof(t_list));
-    lista->ptrbegin = NULL;
-    return (lista);
+    list = malloc(sizeof(t_list));
+    list->ptrbegin = NULL;
+    list->data = NULL;
+    return (list);
 }
 
 t_line *ft_init_tline()
@@ -55,21 +56,6 @@ int ft_free_list(t_list *lista)
     }
     free(lista);
     return (1);
-}
-
-t_line *ft_get_last(t_list *ptbegin)
-{
-    t_line *line;
-
-    line = ptbegin->ptrbegin;
-    while (line)
-    {
-        if (line->next == NULL)
-            return (line);
-        else
-            line = line->next;
-    }
-    return (line);
 }
 
 void ft_read_tline(t_list *list)
@@ -123,100 +109,54 @@ int ft_search_behind(t_list *list, t_input input, t_line *entry)
     return (0);
 }
 
-void ft_x1y1topbeh(t_line *line, t_input input, int j)
+void ft_indicexyz(t_line *line, t_input input, int j)
 {
-    float lengthx;
-    float lengthy;
-    float deltaxhori;
-    float deltayhori;
-    float deltaxverti;
-    float deltayverti;
+    // int gapx;
+    // int gapy;
 
-    // printf("horiangle %f\n", HORIANGLE);
-    // je fais -1 car sinon j'arrive pas au bout et je rate le derniere element
-    lengthx = sqrt(pow(XRIGHTTOP - XLEFTTOP, 2) + pow(YRIGHTTOP - YLEFTTOP, 2)) / (input.abs - 1);
-    lengthy = sqrt(pow(XLEFTBOT - XLEFTTOP, 2) + pow(YLEFTBOT - YLEFTTOP, 2)) / (input.ord - 1);
-    deltaxhori = lengthx * cos(HORIANGLE);
-    deltayhori = lengthy * sin(HORIANGLE);
-    deltaxverti = lengthx * cos(VERTANGLE);
-    deltayverti = lengthy * sin(VERTANGLE);
-
-    // printf("%f et %f \n", lengthx, lengthy);
-    if (j == 1) // je remplis ma premiere valeur
-    {
-        line->x1 = XLEFTTOP;
-        line->y1 = YLEFTTOP;
-        ft_x1y1proj(line);
-    }
-    else if(j != 1 && j <= input.abs)
-    {
-        line->x1 = line->behind->x1 + deltaxverti;
-        line->y1 = line->behind->y1 + deltayverti;
-        ft_x1y1proj(line);
-    }
+    // je donne un indice x et y en partan de l'origine (0,0,0)
+    if (j % input.abs != 0)
+        line->x1 = (j % input.abs) - 1;
     else
-    {
-        line->x1 = line->top->x1 + deltaxhori;
-        line->y1 = line->top->y1 + deltayhori;
-        ft_x1y1proj(line);   
-    }
-    // else if (j != 1 && j <= input.abs) // je remplis ma premiere ligne
-    // {
-    //     if(COEFY != 0)
-    //     {
-    //         line->x1 = line->behind->x1 + lengthx / (sqrt(1 + pow(COEFX, 2)));
-    //         line->y1 = line->behind->y1 + (lengthx * COEFX) / sqrt(1 + pow(COEFX, 2));
-    //     }
-    //     else
-    //     {
-                
-    //         line->y1 = line->behind->y1 + lengthx;
-    //     }
-    //     ft_x1y1proj(line);
-    //     printf("x1 %f y1 %f et index %d\n", line->x1proj, line->y1proj, line->index);
-    // }
-    // else // je remplis le reste
-    // {
-    //     line->x1 = line->top->x1 - lengthy / (sqrt(1 + pow(COEFY, 2)));
-    //     if(COEFY != 0)
-    //         line->y1 = line->top->y1 - (lengthy * COEFY) / (sqrt(1 + pow(COEFY, 2)));
-    //     else
-    //         line->y1 = line->top->y1 + lengthx;
-    //     ft_x1y1proj(line);
-    // }
+        line->x1 = input.abs - 1;
+    line->y1 = (j - 1) / input.abs;
 
+    // je centre tous mes points autour de l'origine (0,0,0)
+    // gapx = input.abs / 2;
+    // gapy = input.ord / 2;
+    // line->x1 = line->x1 - gapx;
+    // line->y1 = line->y1 - gapy;
+
+    line->x1 = line->x1 * cos(PI / 10) - line->y1 * sin(PI / 10);
+    line->y1 = line->x1 * sin(PI / 10) + line->y1 * cos(PI / 10);
+
+    // line->x1 = line->x1 + gapx;
+    // line->y1 = line->y1 + gapy;
+
+    // line->x1proj = line->x1 * 15 + 500;
+    // line->y1proj = line->y1 * 20 + 500;
+
+    if (line->z1 == 0)
+        line->z1 = 1;
+    // line->x1proj = (sqrt(2) / 2) * (line->x1 - line->y1);
+    // line->y1proj = (sqrt(2) / sqrt(3) * (line->y1)) - (1 / sqrt(6)) * (line->x1 + line->y1);
+    line->x1proj = (50 + line->x1 - 0.5 * line->z1 * sqrt(3) / 2) * 20;
+    line->y1proj = (20 + line->y1 - 0.5 * line->z1 * sqrt(3) / 2) * 20;
+    // line->x1proj = (((1.03 * line->x1 / line->z1) + 1)) * 100 / 2 + 300;
+    // line->y1proj = (((1.83 * line->y1 / line->z1) + 1)) * 50 / 2;
+
+    // printf("x %f y %f z %f et index %d \n", line->x1, line->y1, line->z1, line->index);
 }
 
-void ft_x1y1proj(t_line *line)
+void change_height(t_list *list, t_env *data)
 {
+    t_line *point;
 
-    if(line->z1 == 0)
-        line->z1 = 1;
-    // {
-    line->x1proj = line->x1;
-    line->y1proj = line->y1;
-    // }
-    // else
-    // {
-    // line->x1proj = (sqrt(2) / 2) * (line->x1 + 2 * line->z1);
-    // line->y1proj = -(sqrt(2) / sqrt(3) * (line->y1)) + (1 / sqrt(6)) * (line->x1 + line->z1) + 500;
-    // line->x1proj = line->x1 - line->z1 * sqrt(3)/2 + 100;
-    // line->y1proj = line->y1 - line->z1 * sqrt(3)/2 + 200;
-
-    // line->x1proj = line->x1 * cos(0.75) - line->y1 * sin(0.75);
-    // line->y1proj = line->x1 * cos(0.75) + line->y1 * sin(0.75) - line->z1 -300;
-
-    //rotation x
-    // line->y1proj = line->y1proj * cos(0.5236) - line->z1 * sin(0.5236);
-    
-    // rotation y
-    // line->x1proj = line->x1proj * cos(1.1) + line->z1 * sin (1.1);
-    
-    // rotation le long de l'origine autour de x
-    // line->x1 = line->x1proj * cos(PI/6) - line->y1proj * sin(PI/6) ;
-    // line->y1proj = line->x1proj * sin(PI/6) + line->y1proj * cos(PI/6) ;
-    
-    //test avec la video
-    // line->x1proj = ((2.1 * line->x1 / (10 *line->y1)) + 1) / 2 * 1920;
-    // line->y1proj = ((2 * line->z1 / line->y1) + 1) / 2 * 1080 ;
+    point = list->ptrbegin;
+    while (point)
+    {
+        point->x1proj = (50 + point->x1 - 0.5 * data->height * point->z1 * sqrt(3) / 2) * 20;
+        point->y1proj = (20 + point->y1 - 0.5 * data->height * point->z1 * sqrt(3) / 2) * 20;
+        point = point->next;
+    }
 }
