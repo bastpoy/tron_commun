@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_manage_entry.c                                  :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/02 19:08:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/04 23:41:16 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t ft_strlen_space_backn(const char *str)
     while (str[i] != '\0')
     {
         if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\n') &&
-             str[i] != '\n')
+            str[i] != '\n')
         {
             j++;
         }
@@ -131,21 +131,29 @@ t_line *ft_input_str_coma(char *str, t_line *line)
         if (str[i] == ',')
         {
             strsplit = ft_split(str, ',');
-            line->z1 = 3 * ft_atoi(strsplit[0]);
+            line->z1 = ft_atoi(strsplit[0]);
             line->color = ft_hex_to_int(strsplit[1]);
             ft_free_entrystr(strsplit);
             return (line);
         }
         i++;
     }
-    line->z1 = 3 * ft_atoi(str);
-    // printf("line z1 %f\n",line->z1);
-    line->color = WHITECOLOR;
+    line->z1 = ft_atoi(str);
+    line->color = MINCOLOR;
+    return (line);
+}
+
+t_line *fill_tline(t_list *list, t_input input, t_line *line, int j)
+{
+    line->index = j;
+    ft_search_top(list, input, line);
+    get_max_z(list, line);
+    ft_indicexyz(list, input, line);
     return (line);
 }
 
 t_list *ft_fill_struct(t_list *list, t_input input, char *entry)
-{ 
+{
     int i;
     int j;
     char **str;
@@ -161,12 +169,8 @@ t_list *ft_fill_struct(t_list *list, t_input input, char *entry)
         while (str[i] != NULL)
         { // je lis chaque case et je regarde si il ya une couleur en plus du coef directeur
             line = ft_input_str_coma(str[i], line);
-            line->index = j;
-            ft_search_behind(list, input, line);
-            ft_search_top(list, input, line);
-            ft_indicexyz(list, line, input, j);
-            if (j < input.total)
-                line->next = ft_init_tline(); // apres les fonctions sinon je demarre a lindice -1
+            line->next = ft_init_tline();
+            line = fill_tline(list, input, line, j);
             line = line->next;
             i++;
             j++;

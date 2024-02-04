@@ -1,4 +1,4 @@
-SRCSPRINTF = main.c get_next_line.c get_next_line_utils.c ft_manage_line.c ft_manage_entry.c ft_split.c ft_atoi.c ft_manage_struct.c
+SRCSPRINTF = main.c get_next_line.c get_next_line_utils.c parse.c ft_split.c ft_atoi.c manage_struct.c movement.c init.c hook.c draw.c color.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 MINILIBX = ./minilibx-linux/mlx.h
