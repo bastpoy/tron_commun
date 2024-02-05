@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:19:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/11 16:49:14 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/05 15:16:43 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../include/get_next_line.h"
 
 char	*ft_strdup(const char *src, int freesrc, int nextbackn, int pi)
 {

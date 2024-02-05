@@ -6,11 +6,11 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:49 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/12 17:56:46 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/05 15:14:53 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 static int	ft_countsep(char const *s, char c)
 {

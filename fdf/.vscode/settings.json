@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.ejs": "html",
-        "cmath": "c"
+        "cmath": "c",
+        "mlx.h": "c"
     }
 }

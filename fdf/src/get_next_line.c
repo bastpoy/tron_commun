@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:03:14 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/12 09:18:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/05 15:16:47 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../include/get_next_line.h"
 
 void	*ft_free(const char *a, int pi)
 {
@@ -23,8 +23,7 @@ char	*ft_nextoverflow(char *overflow)
 {
 	char	*temp;
 
-	if (ft_strchr(overflow, '\n')
-		&& *(ft_strchr(overflow, '\n') + 1) != '\0')
+	if (ft_strchr(overflow, '\n') && *(ft_strchr(overflow, '\n') + 1) != '\0')
 	{
 		temp = ft_strdup(overflow, FREE, NONEXTBACKN, 0);
 		if (!temp)

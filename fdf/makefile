@@ -1,4 +1,8 @@
-SRCSPRINTF = main.c get_next_line.c get_next_line_utils.c parse.c ft_split.c ft_atoi.c manage_struct.c movement.c init.c hook.c draw.c color.c
+SRCSPRINTF = src/main.c src/get_next_line.c src/get_next_line_utils.c\
+			src/parse.c src/ft_split.c \
+			src/ft_atoi.c src/manage_struct.c src/movement.c \
+			src/init.c src/hook.c src/draw.c src/color.c\
+			src/apply_move1.c src/apply_move2.c src/free.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 MINILIBX = ./minilibx-linux/mlx.h
@@ -15,7 +19,7 @@ $(NAME) : $(OBJSPRINTF)
 
 all : $(NAME)
 
-objects/%.o : %.c fdf.h $(MINILIBX) 
+objects/%.o : %.c include/fdf.h include/struct.h $(MINILIBX) 
 	mkdir -p $(dir $@)
 	gcc $(CFLAGS) -c $< -o $@
 
