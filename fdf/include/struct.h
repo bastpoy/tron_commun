@@ -63,7 +63,7 @@ typedef struct s_list
 	t_input			input;
 	t_env			*data;
 	int				zmax;
-    int             err;
+	int				err;
 }					t_list;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_algo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:04:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/29 23:10:53 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 16:44:38 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,14 @@ void ft_entry_five(t_listx *lista, t_listx *listb)
     ft_pb(lista, listb);
     ft_pb(lista, listb);
     ft_sort_threenbr(lista);
-    ft_print_listx(lista);
-    ft_print_listx(listb);
-    while (listb->ptrbegin)
+
+    while(listb->ptrbegin)
     {
         if (!ft_put_minmax_stack1(listb, lista))
         {
-            count = ft_count_rrb1(listb, lista);
+            count = ft_count_rrb(listb, lista);
             ft_rrb_or_rb1(count, lista, listb);
         }
-        ft_print_listx(lista);
     }
 }
 
@@ -80,9 +78,3 @@ int ft_check_if_sort(t_listx *lista)
     }
     return (1);
 }
-
-// void ft_entry_supfive(t_listx *lista, t_listx *listb)
-// {
-//     // diviser les nombres selon la quantite
-//     // je divise par 5 a chaque fois
-// }

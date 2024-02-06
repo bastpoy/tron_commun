@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 18:56:51 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 17:32:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 static t_list	*init_data(t_list *list, t_input input)
 {
-	t_env	*data;
-
-	data = malloc(sizeof(t_env));
-	if (!data)
+	list->data = malloc(sizeof(t_env));
+	if (!list->data)
 		return (0);
-	data->angle = 0;
-	data->height = 0.25;
-	data->zoom = 1;
-	data->offsetx = 1000;
-	data->offsety = 500;
-	data->mlx_ptr = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx_ptr, 1920, 1080, "Hello world");
-	list->data = data;
+	list->data->angle = 0;
+	list->data->height = 0.25;
+	list->data->zoom = 1;
+	list->data->offsetx = 1000;
+	list->data->offsety = 500;
+	list->data->mlx_ptr = mlx_init();
+	list->data->mlx_win = mlx_new_window(list->data->mlx_ptr, 1920, 1080,
+			"FDF");
 	list->input = input;
 	return (list);
 }

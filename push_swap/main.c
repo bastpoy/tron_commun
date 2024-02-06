@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:24:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/29 23:37:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 16:45:57 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,20 @@ int main(int argc, char **argv)
         return (0);
     }
 
+    if(argc == 6)
+    {
+        ft_entry_five(lista, listb);
+        ft_print_listx(lista);
+        ft_free_lista(lista);
+        ft_free_listb(listb);
+        return(0);
+    }
     ft_first_insert_listb(lista, listb);
     ft_second_insert_listb(lista, listb);
 
     while (lista->ptrbegin)
     {
-        if (!ft_put_minmax_stacka(lista, listb))
+        if (!ft_put_minmax_stack(lista, listb))
         {
             count = ft_count_rrb(lista, listb);
             ft_rrb_or_rb(count, lista, listb);

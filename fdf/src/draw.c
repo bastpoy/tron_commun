@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:38 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 18:53:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 17:25:40 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	*fill_array(t_list *list, t_line *line, t_parameter param)
 	return (s);
 }
 
-static void	ft_bresenham(t_list * list, t_line *line, t_parameter param, t_env *data)
+static void	ft_bresenham(t_list *list, t_line *line, t_parameter param,
+		t_env *data)
 {
 	int	*s;
 	int	err;
@@ -42,7 +43,7 @@ static void	ft_bresenham(t_list * list, t_line *line, t_parameter param, t_env *
 	s = fill_array(list, line, param);
 	err = param.dx - param.dy;
 	while (((int)roundf(line->x1proj) != param.x
-		|| (int)roundf(line->y1proj) != param.y) && s)
+			|| (int)roundf(line->y1proj) != param.y) && s)
 	{
 		mlx_pixel_put(data->mlx_ptr, data->mlx_win, param.x, param.y,
 			grad_color(line, param));
@@ -94,7 +95,7 @@ void	ft_line_xyprojtop1(t_list *list, t_env *data)
 	t_parameter	param;
 
 	point = list->ptrbegin;
-	while (point  && list->err)
+	while (point && list->err)
 	{
 		if (point->top)
 		{

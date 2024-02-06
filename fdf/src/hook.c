@@ -3,25 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 22:57:14 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:41:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int close_window(t_list *list)
+int	close_window(t_list *list)
 {
+	mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
 	mlx_destroy_window(list->data->mlx_ptr, list->data->mlx_win);
+	mlx_destroy_display(list->data->mlx_ptr);
+	free(list->data->mlx_ptr);
 	free(list->data);
 	ft_free_list(list);
 	exit(0);
 	return (0);
 }
 
-int key_hook(int keycode, t_list *list)
+int	key_hook(int keycode, t_list *list)
 {
 	if (keycode == 65307)
 		close_window(list);

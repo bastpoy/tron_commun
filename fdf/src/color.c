@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:06:45 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 17:16:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:06:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	color_to_point(t_list *list)
 	point = list->ptrbegin;
 	while (point)
 	{
-		if (point->z1 != 0)
+		if (point->z1 != 0 && point->color == MINCOLOR)
 		{
 			percentage = (float)point->z1 / (float)list->zmax;
 			point->color = interpolate_color(MINCOLOR, MAXCOLOR, percentage);

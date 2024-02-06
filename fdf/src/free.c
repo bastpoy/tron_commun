@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:05 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 18:24:45 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:41:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ void	free_float(float *q, float *p)
 	free(p);
 }
 
-int	ft_free_list(t_list *lista)
+int	ft_free_list(t_list *list)
 {
 	t_line	*stacka;
 	t_line	*tmp;
 
-	stacka = lista->ptrbegin;
-	if (!lista)
+	stacka = list->ptrbegin;
+	if (!list)
 		return (0);
-	while (stacka != NULL)
+	while (stacka)
 	{
 		tmp = stacka;
 		stacka = stacka->next;
 		free(tmp);
 	}
-	free(lista);
+	list->ptrbegin = NULL;
+	list->data = NULL;
+	free(list);
 	return (1);
 }

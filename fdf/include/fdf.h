@@ -6,14 +6,13 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 18:57:16 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:14:31 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define PI 3.1416
-# define TETA (PI / 6)
 # define WHITECOLOR 0xffffff
 # define MAXCOLOR 0x523A37
 # define MINCOLOR 0x3E5622
@@ -31,8 +30,8 @@
 t_list	*ft_init_pointbegin(t_input input);
 t_line	*ft_init_tline(t_list *list);
 void	ft_free_entrystr(char **str);
-int		ft_free_list(t_list *lista);
-void free_float(float *q, float *p);
+int		ft_free_list(t_list *list);
+void	free_float(float *q, float *p);
 t_list	*ft_fill_struct(t_list *line, t_input input, char *entry);
 t_line	*fill_tline(t_list *list, t_input input, t_line *line, int j);
 

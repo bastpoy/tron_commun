@@ -9,7 +9,7 @@ NAME = push_swap
 
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all  -C ./ft_printf
-	gcc $(CFLAGS) -o push_swap $(OBJSPRINTF) ./ft_printf/libftprintf.a
+	gcc $(CFLAGS) -o push_swap $(OBJSPRINTF) ./ft_printf/libftprintf.a -fsanitize=address
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)
 

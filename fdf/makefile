@@ -9,13 +9,11 @@ MINILIBX = ./minilibx-linux/mlx.h
 
 CFLAGS = -Wall -Werror -Wextra -g3
 
-NAME = fdf.out
+NAME = fdf
 
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all -C ./minilibx-linux
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a -lX11 -lXext -lm -fsanitize=address
-# cp ft_printf/libftprintf.a $(NAME)
-# ar rcs $(NAME) $(OBJSPRINTF)
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a -lX11 -lXext -lm 
 
 all : $(NAME)
 

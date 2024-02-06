@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/01/29 23:04:53 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 15:41:00 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void ft_second_insert_listb(t_listx *lista, t_listx *listb);
 void ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb);
 void ft_rrb_or_rb1(int count, t_listx *listb, t_listx *lista);
 void ft_sort_threenbr(t_listx *list);
-int ft_count_rrb(t_listx *lista, t_listx *listb);
-int ft_count_rrb1(t_listx *listb, t_listx *lista);
-int ft_put_minmax_stack(t_listx *list1, t_listx *list2);
+int ft_count_rra(t_listx *lista, t_listx *listb);
+int ft_count_rrb(t_listx *listb, t_listx *lista);
+int ft_put_minmax_stack(t_listx *lista, t_listx *listb);
 int ft_put_minmax_stack1(t_listx *listb, t_listx *lista);
 
 int ft_sa(t_listx *lista);

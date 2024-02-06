@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:07:28 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/20 10:38:01 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 15:45:40 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int ft_ra(t_listx *lista)
 	}
 	else
 	{
-		printf("error on ra\n");
+		// printf("error on ra\n");
 		return (0);
 	}
 }
