@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:38 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 17:25:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 18:44:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static int	*fill_array(t_list *list, t_line *line, t_parameter param)
 	return (s);
 }
 
-static void	ft_bresenham(t_list *list, t_line *line, t_parameter param,
-		t_env *data)
+static void	ft_bresenham(t_list *list, t_line *line, t_parameter param, t_data *img)
 {
 	int	*s;
 	int	err;
@@ -45,8 +44,7 @@ static void	ft_bresenham(t_list *list, t_line *line, t_parameter param,
 	while (((int)roundf(line->x1proj) != param.x
 			|| (int)roundf(line->y1proj) != param.y) && s)
 	{
-		mlx_pixel_put(data->mlx_ptr, data->mlx_win, param.x, param.y,
-			grad_color(line, param));
+		my_mlx_pixel_put(img, param.x, param.y, grad_color(line, param));
 		e2 = 2 * err;
 		if (e2 > -param.dy)
 		{
@@ -59,7 +57,7 @@ static void	ft_bresenham(t_list *list, t_line *line, t_parameter param,
 			param.y += s[1];
 		}
 	}
-	mlx_pixel_put(data->mlx_ptr, data->mlx_win, param.x, param.y, line->color);
+	my_mlx_pixel_put(img, param.x, param.y, line->color);
 	free(s);
 }
 
@@ -89,23 +87,24 @@ static t_parameter	fill_param_next(t_line *point, t_parameter param)
 	return (param);
 }
 
-void	ft_line_xyprojtop1(t_list *list, t_env *data)
+void	ft_line_xyprojtop1(t_list *list, t_env *data, t_data *img)
 {
 	t_line		*point;
 	t_parameter	param;
 
+	(void)data;
 	point = list->ptrbegin;
 	while (point && list->err)
 	{
 		if (point->top)
 		{
 			param = fill_param_top(point, param);
-			ft_bresenham(list, point, param, data);
+			ft_bresenham(list, point, param, img);
 		}
 		if (point->index % list->input.abs != 0 && point->next)
 		{
 			param = fill_param_next(point, param);
-			ft_bresenham(list, point, param, data);
+			ft_bresenham(list, point, param, img);
 		}
 		point = point->next;
 	}

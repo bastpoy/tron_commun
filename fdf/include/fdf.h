@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 12:14:31 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 18:40:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 t_list	*ft_init_pointbegin(t_input input);
 t_line	*ft_init_tline(t_list *list);
+t_data *init_img(t_list *list);
 void	ft_free_entrystr(char **str);
 int		ft_free_list(t_list *list);
 void	free_float(float *q, float *p);
@@ -36,7 +37,8 @@ t_list	*ft_fill_struct(t_list *line, t_input input, char *entry);
 t_line	*fill_tline(t_list *list, t_input input, t_line *line, int j);
 
 void	ft_indicexyz(t_list *list, t_input input, t_line *line);
-void	ft_line_xyprojtop1(t_list *list, t_env *data);
+void	ft_line_xyprojtop1(t_list *list, t_env *data, t_data *img);
+void	my_mlx_pixel_put(t_data *im, int x, int y, int color);
 void	get_max_z(t_list *list, t_line *line);
 int		ft_search_top(t_list *ptbegin, t_input input, t_line *entry);
 int		ft_atoi(const char *str);

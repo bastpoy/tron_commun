@@ -6,12 +6,20 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:09:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 18:20:27 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 18:49:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct s_env
 {
@@ -62,6 +70,7 @@ typedef struct s_list
 	t_line			*ptrbegin;
 	t_input			input;
 	t_env			*data;
+	t_data *img;
 	int				zmax;
 	int				err;
 }					t_list;

@@ -6,11 +6,19 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 13:39:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 18:59:49 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 static size_t	ft_strlen_space_backn(const char *str)
 {
@@ -59,6 +67,7 @@ int	main(int argc, char **argv)
 {
 	t_input	input;
 	t_list	*list;
+	t_data *img;
 
 	if (argc == 2)
 	{
@@ -66,13 +75,14 @@ int	main(int argc, char **argv)
 		if (!input.total)
 			return (0);
 		list = ft_init_pointbegin(input);
-		if (!list)
+		if (!list || !img)
 			close_window(list);
 		ft_fill_struct(list, input, argv[1]);
 		if (!list->err)
 			close_window(list);
 		color_to_point(list);
-		ft_line_xyprojtop1(list, list->data);
+		ft_line_xyprojtop1(list, list->data, img);
+		mlx_put_image_to_window(list->data->mlx_ptr, list->data->mlx_win, img->img, 0, 0);
 		mlx_hook(list->data->mlx_win, 17, 0, close_window, (void *)list);
 		mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook,
 			(void *)list);

@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 17:32:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/06 19:04:13 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,30 @@ static t_list	*init_data(t_list *list, t_input input)
 	return (list);
 }
 
+t_data *init_img(t_list *list)
+{
+	t_data *img;
+
+	img = malloc(sizeof(t_data));
+	if(!img)
+	{
+		list->err = 0;
+		return(0);
+	}
+	img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
+								&img->endian);
+	return(img);
+}
+
 t_list	*ft_init_pointbegin(t_input input)
 {
 	t_list	*list;
-
+	t_data *img;
+	
 	list = malloc(sizeof(t_list));
-	if (!list)
+	img = malloc(sizeof(t_data));
+	if (!list || !img)
 		return (0);
 	list->ptrbegin = NULL;
 	list->data = NULL;
