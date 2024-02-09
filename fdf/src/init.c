@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 19:04:13 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/08 18:24:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static t_list	*init_data(t_list *list, t_input input)
 {
 	list->data = malloc(sizeof(t_env));
 	if (!list->data)
-		return (0);
+	{
+		free(list);
+		ft_return_error("cannot malloc");
+	}
 	list->data->angle = 0;
 	list->data->height = 0.25;
 	list->data->zoom = 1;
@@ -29,36 +32,31 @@ static t_list	*init_data(t_list *list, t_input input)
 	return (list);
 }
 
-t_data *init_img(t_list *list)
-{
-	t_data *img;
-
-	img = malloc(sizeof(t_data));
-	if(!img)
-	{
-		list->err = 0;
-		return(0);
-	}
-	img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
-								&img->endian);
-	return(img);
-}
-
 t_list	*ft_init_pointbegin(t_input input)
 {
 	t_list	*list;
-	t_data *img;
-	
+	t_data	*img;
+
 	list = malloc(sizeof(t_list));
 	img = malloc(sizeof(t_data));
-	if (!list || !img)
-		return (0);
+	if (!img)
+	{
+		free(list);
+		ft_return_error("cannot malloc");
+	}
+	if (!list)
+	{
+		free(img);
+		ft_return_error("cannot malloc");
+	}
 	list->ptrbegin = NULL;
 	list->data = NULL;
 	list->zmax = 0;
-	list->err = 1;
 	list = init_data(list, input);
+	img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
+	list->img = img;
 	return (list);
 }
 
@@ -69,7 +67,8 @@ t_line	*ft_init_tline(t_list *list)
 	line = malloc(sizeof(t_line));
 	if (!line)
 	{
-		list->err = 0;
+		close_window(list);
+		ft_return_error("cannot malloc");
 	}
 	line->x1 = 0;
 	line->y1 = 0;
@@ -89,7 +88,7 @@ float	*f_rot(float param1, float param2, float param3, float param4)
 
 	elem = malloc(4 * sizeof(float));
 	if (!elem)
-		return (0);
+		ft_return_error("cannot malloc");
 	elem[0] = param1;
 	elem[1] = param2;
 	elem[2] = param3;

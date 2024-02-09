@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:38 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 18:44:30 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/07 12:38:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static int	*fill_array(t_list *list, t_line *line, t_parameter param)
+static int	*fill_array(t_line *line, t_parameter param)
 {
 	int	*s;
 
 	s = malloc(sizeof(int) * 2);
 	if (!s)
-	{
-		list->err = 0;
-		return (0);
-	}
+		ft_return_error("error during malloc");
 	if (param.x < line->x1proj)
 		s[0] = 1;
 	else
@@ -33,18 +30,18 @@ static int	*fill_array(t_list *list, t_line *line, t_parameter param)
 	return (s);
 }
 
-static void	ft_bresenham(t_list *list, t_line *line, t_parameter param, t_data *img)
+static void	ft_bresenham(t_list *list, t_line *line, t_parameter param)
 {
 	int	*s;
 	int	err;
 	int	e2;
 
-	s = fill_array(list, line, param);
+	s = fill_array(line, param);
 	err = param.dx - param.dy;
 	while (((int)roundf(line->x1proj) != param.x
 			|| (int)roundf(line->y1proj) != param.y) && s)
 	{
-		my_mlx_pixel_put(img, param.x, param.y, grad_color(line, param));
+		my_mlx_pixel_put(list->img, param.x, param.y, grad_color(line, param));
 		e2 = 2 * err;
 		if (e2 > -param.dy)
 		{
@@ -57,7 +54,7 @@ static void	ft_bresenham(t_list *list, t_line *line, t_parameter param, t_data *
 			param.y += s[1];
 		}
 	}
-	my_mlx_pixel_put(img, param.x, param.y, line->color);
+	my_mlx_pixel_put(list->img, param.x, param.y, line->color);
 	free(s);
 }
 
@@ -87,25 +84,26 @@ static t_parameter	fill_param_next(t_line *point, t_parameter param)
 	return (param);
 }
 
-void	ft_line_xyprojtop1(t_list *list, t_env *data, t_data *img)
+void	ft_line_xyprojtop1(t_list *list)
 {
 	t_line		*point;
 	t_parameter	param;
 
-	(void)data;
 	point = list->ptrbegin;
-	while (point && list->err)
+	while (point)
 	{
 		if (point->top)
 		{
 			param = fill_param_top(point, param);
-			ft_bresenham(list, point, param, img);
+			ft_bresenham(list, point, param);
 		}
 		if (point->index % list->input.abs != 0 && point->next)
 		{
 			param = fill_param_next(point, param);
-			ft_bresenham(list, point, param, img);
+			ft_bresenham(list, point, param);
 		}
 		point = point->next;
 	}
+	mlx_put_image_to_window(list->data->mlx_ptr, list->data->mlx_win,
+		list->img->img, 0, 0);
 }

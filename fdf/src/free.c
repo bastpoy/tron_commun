@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:05 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 12:41:39 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/08 18:39:14 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	ft_free_entrystr(char **str)
 			free(str[i]);
 			i++;
 		}
-		free(str[i]);
-		free(str);
 	}
+	free(str);
 }
 
 void	free_float(float *q, float *p)

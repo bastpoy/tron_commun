@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 18:59:49 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/07 15:35:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 static size_t	ft_strlen_space_backn(const char *str)
@@ -48,6 +48,8 @@ static t_input	ft_get_length_width(char *entry)
 	t_input	input;
 
 	fd = open(entry, O_RDONLY);
+	if (fd < 0)
+		ft_return_error("cannot open file");
 	str = get_next_line(fd);
 	input.abs = ft_strlen_space_backn(str);
 	input.total = input.abs;
@@ -67,7 +69,6 @@ int	main(int argc, char **argv)
 {
 	t_input	input;
 	t_list	*list;
-	t_data *img;
 
 	if (argc == 2)
 	{
@@ -75,19 +76,14 @@ int	main(int argc, char **argv)
 		if (!input.total)
 			return (0);
 		list = ft_init_pointbegin(input);
-		if (!list || !img)
+		if (!list)
 			close_window(list);
 		ft_fill_struct(list, input, argv[1]);
-		if (!list->err)
-			close_window(list);
 		color_to_point(list);
-		ft_line_xyprojtop1(list, list->data, img);
-		mlx_put_image_to_window(list->data->mlx_ptr, list->data->mlx_win, img->img, 0, 0);
+		ft_line_xyprojtop1(list);
 		mlx_hook(list->data->mlx_win, 17, 0, close_window, (void *)list);
 		mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook,
 			(void *)list);
-		if (!list->err)
-			close_window(list);
 		mlx_loop(list->data->mlx_ptr);
 	}
 	return (0);

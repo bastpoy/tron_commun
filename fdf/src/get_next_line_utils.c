@@ -3,23 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:19:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 15:16:43 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:29:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/get_next_line.h"
 
-char	*ft_strdup(const char *src, int freesrc, int nextbackn, int pi)
+static size_t	ft_strlen1(const char *str, int nextbackn)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] != '\0' && (str[i] != '\n' || nextbackn))
+	{
+		i++;
+	}
+	if (str[i] == '\n' && nextbackn == 0)
+	{
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strdup1(const char *src, int freesrc, int nextbackn, int pi)
 {
 	size_t	i;
 	char	*dest;
 
 	if (!src || *src == '\0')
 		return (NULL);
-	i = ft_strlen((char *)src, nextbackn);
+	i = ft_strlen1((char *)src, nextbackn);
 	dest = (char *)malloc((i + 1) * sizeof(char));
 	if (!dest)
 		return (ft_free(src, pi));
@@ -40,7 +58,7 @@ char	*ft_strdup(const char *src, int freesrc, int nextbackn, int pi)
 	return (dest);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr1(const char *s, int c)
 {
 	unsigned char	*str;
 
@@ -58,24 +76,6 @@ char	*ft_strchr(const char *s, int c)
 	if (*str == '\n')
 		return ((char *)str);
 	return ((char *)str);
-}
-
-size_t	ft_strlen(const char *str, int nextbackn)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0' && (str[i] != '\n' || nextbackn))
-	{
-		i++;
-	}
-	if (str[i] == '\n' && nextbackn == 0)
-	{
-		i++;
-	}
-	return (i);
 }
 
 size_t	ft_strlcpy(char *dest, char *src, size_t size)
@@ -100,7 +100,7 @@ size_t	ft_strlcpy(char *dest, char *src, size_t size)
 	return (j);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2, int pi)
+char	*ft_strjoin1(char const *s1, char const *s2, int pi)
 {
 	char	*str;
 	size_t	i;
@@ -108,8 +108,8 @@ char	*ft_strjoin(char const *s1, char const *s2, int pi)
 	size_t	k;
 
 	k = 0;
-	i = (int)ft_strlen((char *)s1, 1);
-	j = (int)ft_strlen((char *)s2, 1);
+	i = (int)ft_strlen1((char *)s1, 1);
+	j = (int)ft_strlen1((char *)s2, 1);
 	str = NULL;
 	str = (char *)malloc((i + j + 1) * sizeof(char));
 	if (!str)

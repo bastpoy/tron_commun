@@ -3,46 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:34:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 13:42:22 by bpoyet           ###   ########.fr       */
+/*   Created: 2024/02/06 22:11:04 by bpoyet            #+#    #+#             */
+/*   Updated: 2024/02/08 19:17:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static char	**ft_entry_backn(char **strsplit)
+static char *checkbackn(char *str)
 {
-	int	i;
-	int	j;
+	int i;
 
 	i = 0;
-	j = 0;
-	while (strsplit[i] != NULL)
+	if (str == NULL)
 	{
-		j = 0;
-		while (strsplit[i][j] != '\0')
+		return (0);
+	}
+	while (str[i] != '\0')
+	{
+		if (str[0] == '\n')
 		{
-			if (strsplit[i][0] == '\n')
-			{
-				strsplit[i] = NULL;
-				break ;
-			}
-			else if (strsplit[i][j] == '\n')
-				strsplit[i][j] = '\0';
-			j++;
+			str = NULL;
+			break;
+		}
+		if (str[i] == '\n' && str[i - 1] == ' ')
+		{
+			str[i - 1] = '\0';
+		}
+		if (str[i] == '\n')
+		{
+			str[i] = '\0';
 		}
 		i++;
 	}
-	return (strsplit);
+	return (str);
 }
 
-static int	ft_hex_to_int(char *str)
+static int ft_hex_to_int(char *str)
 {
-	int	output;
-	int	i;
-	int	x;
+	int output;
+	int i;
+	int x;
 
 	i = 7;
 	output = 0;
@@ -60,29 +63,34 @@ static int	ft_hex_to_int(char *str)
 	return (output);
 }
 
-static char	**ft_input_str_space(t_list *list, char *entry)
+static char **ft_input_str_space(char *entry)
 {
-	char		*strentry;
-	char		**strsplit;
-	static int	fd = 0;
+	char *strentry;
+	char **strsplit;
+	static int fd = 0;
 
 	if (fd == 0)
+	{
 		fd = open(entry, O_RDONLY);
+		if (fd < 0)
+			ft_return_error("cannot open file");
+	}
 	strentry = get_next_line(fd);
+	strentry = checkbackn(strentry);
 	if (strentry == NULL)
+	{
+		free(strentry);
 		return (NULL);
+	}
 	strsplit = ft_split(strentry, ' ');
-	strsplit = ft_entry_backn(strsplit);
 	free(strentry);
-	if (!strsplit)
-		list->err = 0;
 	return (strsplit);
 }
 
-static t_line	*ft_input_str_coma(char *str, t_line *point)
+static t_line *ft_input_str_coma(char *str, t_line *point)
 {
-	int		i;
-	char	**strsplit;
+	int i;
+	char **strsplit;
 
 	i = 0;
 	while (str[i])
@@ -102,15 +110,15 @@ static t_line	*ft_input_str_coma(char *str, t_line *point)
 	return (point);
 }
 
-t_list	*ft_fill_struct(t_list *list, t_input input, char *entry)
+t_list *ft_fill_struct(t_list *list, t_input input, char *entry)
 {
-	int		i;
-	int		j;
-	char	**str;
-	t_line	*line;
+	int i;
+	int j;
+	char **str;
+	t_line *line;
 
 	j = 1;
-	str = ft_input_str_space(list, entry);
+	str = ft_input_str_space(entry);
 	line = ft_init_tline(list);
 	list->ptrbegin = line;
 	while (str != NULL && line)
@@ -126,7 +134,7 @@ t_list	*ft_fill_struct(t_list *list, t_input input, char *entry)
 			j++;
 		}
 		ft_free_entrystr(str);
-		str = ft_input_str_space(list, entry);
+		str = ft_input_str_space(entry);
 	}
 	return (list);
 }

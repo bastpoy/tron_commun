@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:49 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/05 15:14:53 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:50:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
+#include <stdio.h>
 
-static int	ft_countsep(char const *s, char c)
+static int ft_countsep(char const *s, char c)
 {
-	size_t	count;
-	int		state;
+	size_t count;
+	int state;
 
 	state = 0;
 	count = 0;
@@ -33,11 +34,12 @@ static int	ft_countsep(char const *s, char c)
 	return (count);
 }
 
-static int	ft_addword(char **str, const char *s, size_t *i, size_t *j)
+static int ft_addword(char **str, const char *s, size_t *i, size_t *j)
 {
-	size_t		l;
-	size_t		k;
-	const char	*ptr;
+	size_t l;
+	size_t k;
+	const char *ptr;
+	static int v = 1;
 
 	k = *j;
 	ptr = s - *i;
@@ -50,15 +52,16 @@ static int	ft_addword(char **str, const char *s, size_t *i, size_t *j)
 		str[k][l] = ptr[l];
 		l++;
 	}
+	v++;
 	str[k][l] = 0;
 	*i = 0;
 	*j = *j + 1;
 	return (1);
 }
 
-static void	*ft_testmalloc(char **str, size_t j)
+static void *ft_testmalloc(char **str, size_t j)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < j)
@@ -71,17 +74,17 @@ static void	*ft_testmalloc(char **str, size_t j)
 	return (0);
 }
 
-static void	ft_init(size_t *i, size_t *j)
+static void ft_init(size_t *i, size_t *j)
 {
 	*i = 0;
 	*j = 0;
 }
 
-char	**ft_split(char const *s, char c)
+char **ft_split(char const *s, char c)
 {
-	char	**str;
-	size_t	i;
-	size_t	j;
+	char **str;
+	size_t i;
+	size_t j;
 
 	ft_init(&i, &j);
 	str = malloc((ft_countsep(s, c) + 1) * sizeof(char *));
