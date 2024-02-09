@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:07:28 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 15:45:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 11:21:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int ft_rra(t_listx *lista)
 	}
 	else
 	{
-		printf("error on rra\n");
+		// printf("error on rra\n");
 		return (0);
 	}
 }

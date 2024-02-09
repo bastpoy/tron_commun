@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/08 18:24:50 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 18:03:38 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static t_list	*init_data(t_list *list, t_input input)
+static t_list *init_data(t_list *list, t_input input)
 {
 	list->data = malloc(sizeof(t_env));
 	if (!list->data)
@@ -21,21 +21,21 @@ static t_list	*init_data(t_list *list, t_input input)
 		ft_return_error("cannot malloc");
 	}
 	list->data->angle = 0;
-	list->data->height = 0.25;
-	list->data->zoom = 1;
+	list->data->height = 0.15;
+	list->data->zoom = 2;
 	list->data->offsetx = 1000;
 	list->data->offsety = 500;
 	list->data->mlx_ptr = mlx_init();
 	list->data->mlx_win = mlx_new_window(list->data->mlx_ptr, 1920, 1080,
-			"FDF");
+										 "FDF");
 	list->input = input;
 	return (list);
 }
 
-t_list	*ft_init_pointbegin(t_input input)
+t_list *ft_init_pointbegin(t_input input)
 {
-	t_list	*list;
-	t_data	*img;
+	t_list *list;
+	t_data *img;
 
 	list = malloc(sizeof(t_list));
 	img = malloc(sizeof(t_data));
@@ -53,16 +53,16 @@ t_list	*ft_init_pointbegin(t_input input)
 	list->data = NULL;
 	list->zmax = 0;
 	list = init_data(list, input);
-	img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
+	img->img = mlx_new_image(list->data->mlx_ptr, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-			&img->line_length, &img->endian);
+								  &img->line_length, &img->endian);
 	list->img = img;
 	return (list);
 }
 
-t_line	*ft_init_tline(t_list *list)
+t_line *ft_init_tline(t_list *list)
 {
-	t_line	*line;
+	t_line *line;
 
 	line = malloc(sizeof(t_line));
 	if (!line)
@@ -78,13 +78,13 @@ t_line	*ft_init_tline(t_list *list)
 	line->color = 0;
 	line->index = -1;
 	line->next = NULL;
-	line->top = NULL;
+	// line->top = NULL;
 	return (line);
 }
 
-float	*f_rot(float param1, float param2, float param3, float param4)
+float *f_rot(float param1, float param2, float param3, float param4)
 {
-	float	*elem;
+	float *elem;
 
 	elem = malloc(4 * sizeof(float));
 	if (!elem)

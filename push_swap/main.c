@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:24:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 16:45:57 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 19:57:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
         return (0);
     if (!ft_check_if_num(argc, argv))
     {
-        printf("pas bon\n");
+        printf("Error\n");
         return (0);
     }
     lista = ft_init_listx();
@@ -63,23 +63,16 @@ int main(int argc, char **argv)
     ft_fill_tab(argc, argv, lista);
     if (ft_check_if_sort(lista))
         return (0);
-    if (argc == 4)
-    {
-        ft_entry_three(lista);
-        return (0);
-    }
+    // else if (argc == 2)
+    // {
+    // }
+    else if (argc == 4)
+        return ft_entry_three(lista);
+    else if (argc == 6)
+        return (ft_entry_five(lista, listb));
 
-    if(argc == 6)
-    {
-        ft_entry_five(lista, listb);
-        ft_print_listx(lista);
-        ft_free_lista(lista);
-        ft_free_listb(listb);
-        return(0);
-    }
     ft_first_insert_listb(lista, listb);
     ft_second_insert_listb(lista, listb);
-
     while (lista->ptrbegin)
     {
         if (!ft_put_minmax_stack(lista, listb))

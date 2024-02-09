@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:05 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/08 18:39:14 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 17:46:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	ft_free_entrystr(char **str)
+void ft_free_entrystr(char **str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (str)
@@ -28,16 +28,16 @@ void	ft_free_entrystr(char **str)
 	free(str);
 }
 
-void	free_float(float *q, float *p)
+void free_float(float *q, float *p)
 {
 	free(q);
 	free(p);
 }
 
-int	ft_free_list(t_list *list)
+int ft_free_list(t_list *list)
 {
-	t_line	*stacka;
-	t_line	*tmp;
+	t_line *stacka;
+	t_line *tmp;
 
 	stacka = list->ptrbegin;
 	if (!list)
@@ -52,4 +52,28 @@ int	ft_free_list(t_list *list)
 	list->data = NULL;
 	free(list);
 	return (1);
+}
+
+void free_ptrptrptr(char ***str)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			j = 0;
+			while (str[i][j])
+			{
+				free(str[i][j]);
+				j++;
+			}
+			free(str[i]);
+			i++;
+		}
+		free(str);
+	}
 }

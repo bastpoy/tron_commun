@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_algo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:04:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 16:44:38 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 19:57:27 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_entry_three(t_listx *lista)
+// int ft_entry_two(t_listx lista, t_listx listb, char *str)
+// {
+
+//     return (0);
+// }
+
+int ft_entry_three(t_listx *lista)
 {
     t_stack *stacka = lista->ptrbegin;
     t_stack *stackanext = stacka->next;
@@ -38,13 +44,10 @@ void ft_entry_three(t_listx *lista)
     else if (stackanext->number > stacka->number &&
              stacka->number > stackanext->next->number)
         ft_rra(lista);
+    return (0);
 }
 
-// Je cree un algo qui trie si l'entree fait 5 nombres.
-// je passe deux nombre dans b
-// je trie les trois nombres de a
-// je repasse les deux nombre de b dans a en optimisant rra et ra
-void ft_entry_five(t_listx *lista, t_listx *listb)
+int ft_entry_five(t_listx *lista, t_listx *listb)
 {
     int count;
 
@@ -52,14 +55,19 @@ void ft_entry_five(t_listx *lista, t_listx *listb)
     ft_pb(lista, listb);
     ft_sort_threenbr(lista);
 
-    while(listb->ptrbegin)
+    if (!ft_put_minmax_stack1(listb, lista))
     {
-        if (!ft_put_minmax_stack1(listb, lista))
-        {
-            count = ft_count_rrb(listb, lista);
-            ft_rrb_or_rb1(count, lista, listb);
-        }
+        count = ft_count_rrb(listb, lista);
+        ft_rrb_or_rb1(count, listb, lista);
     }
+    if (!ft_put_minmax_stack1(listb, lista))
+    {
+        count = ft_count_rrb(listb, lista);
+        ft_rrb_or_rb1(count, listb, lista);
+    }
+    ft_free_lista(lista);
+    ft_free_listb(listb);
+    return (0);
 }
 
 int ft_check_if_sort(t_listx *lista)

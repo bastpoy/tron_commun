@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/07 13:16:12 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 18:15:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	close_window(t_list *list)
+int close_window(t_list *list)
 {
 	mlx_destroy_image(list->data->mlx_ptr, list->img->img);
 	mlx_clear_window(list->data->mlx_ptr, list->data->mlx_win);
@@ -26,7 +26,7 @@ int	close_window(t_list *list)
 	return (0);
 }
 
-int	key_hook(int keycode, t_list *list)
+int key_hook(int keycode, t_list *list)
 {
 	if (keycode == 65307)
 		close_window(list);

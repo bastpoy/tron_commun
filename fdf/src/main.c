@@ -6,24 +6,27 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/07 15:35:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 18:13:40 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
-	char	*dst;
+	char *dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	{
+		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
-static size_t	ft_strlen_space_backn(const char *str)
+static size_t ft_strlen_space_backn(const char *str)
 {
-	size_t	i;
-	size_t	j;
+	size_t i;
+	size_t j;
 
 	i = 0;
 	j = 0;
@@ -31,8 +34,7 @@ static size_t	ft_strlen_space_backn(const char *str)
 		return (0);
 	while (str[i] != '\0')
 	{
-		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\n')
-			&& str[i] != '\n')
+		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\n') && str[i] != '\n')
 		{
 			j++;
 		}
@@ -41,11 +43,11 @@ static size_t	ft_strlen_space_backn(const char *str)
 	return (j);
 }
 
-static t_input	ft_get_length_width(char *entry)
+static t_input ft_get_length_width(char *entry)
 {
-	int		fd;
-	char	*str;
-	t_input	input;
+	int fd;
+	char *str;
+	t_input input;
 
 	fd = open(entry, O_RDONLY);
 	if (fd < 0)
@@ -65,10 +67,10 @@ static t_input	ft_get_length_width(char *entry)
 	return (input);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_input	input;
-	t_list	*list;
+	t_input input;
+	t_list *list;
 
 	if (argc == 2)
 	{
@@ -79,11 +81,11 @@ int	main(int argc, char **argv)
 		if (!list)
 			close_window(list);
 		ft_fill_struct(list, input, argv[1]);
-		color_to_point(list);
-		ft_line_xyprojtop1(list);
-		mlx_hook(list->data->mlx_win, 17, 0, close_window, (void *)list);
-		mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook,
-			(void *)list);
+		// color_to_point(list);
+		// ft_line_xyprojtop1(list);
+		// mlx_hook(list->data->mlx_win, 17, 0, close_window, (void *)list);
+		// mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook,
+		// 		 (void *)list);
 		mlx_loop(list->data->mlx_ptr);
 	}
 	return (0);

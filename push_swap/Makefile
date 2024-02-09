@@ -9,18 +9,19 @@ NAME = push_swap
 
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all  -C ./ft_printf
-	gcc $(CFLAGS) -o push_swap $(OBJSPRINTF) ./ft_printf/libftprintf.a -fsanitize=address
+	gcc $(CFLAGS) -o push_swap $(OBJSPRINTF) ./ft_printf/libftprintf.a ./libft/libft.a -fsanitize=address
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)
 
 all : $(NAME)
 
-objects/%.o : %.c push_swap.h $(PRINTF)
+objects/%.o : %.c push_swap.h libft/libft.h $(PRINTF)
 	mkdir -p $(dir $@)
 	gcc $(CFLAGS) -c $< -o $@
 
 clean : 
 	$(MAKE) clean -C ./ft_printf
+	$(MAKE) clean -C ./libft
 	rm -rf objects
 
 fclean : clean

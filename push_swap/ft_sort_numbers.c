@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_numbers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:08:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 16:42:12 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 19:31:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int ft_count_rra(t_listx *lista, t_listx *listb)
         if (stacka->number < stackb->number &&
             stacka->number > stackb->next->number)
         {
-            printf("count %d\n", count);
             return (count);
         }
         count++;
@@ -79,7 +78,6 @@ int ft_count_rrb(t_listx *listb, t_listx *lista)
         if (stackb->number > stacka->number &&
             stackb->number < stacka->next->number)
         {
-            printf("count %d\n", count);
             return (count);
         }
         count++;
@@ -140,19 +138,14 @@ void ft_rrb_or_rb1(int count, t_listx *listb, t_listx *lista)
 
     i = 0;
     sizea = ft_size_listx(lista);
-    // si mon count rrb est superieur a la moitie de mes sizea
     if (count <= (sizea) / 2)
     {
-        // je decalle de rb du nombre sizea - 1 - count
         while (i != count)
         {
             ft_ra(lista);
-            ft_print_listx(lista);
             i++;
         }
-        // je passe l'indice dedans
         ft_pa(lista, listb);
-        // je me recalle du nombre de rb
         while (i != 0)
         {
             ft_rra(lista);
@@ -202,7 +195,6 @@ int ft_put_minmax_stack(t_listx *lista, t_listx *listb)
     }
     else
     {
-        printf("la\n");
         return (0);
     }
 }
@@ -216,7 +208,6 @@ int ft_put_minmax_stack1(t_listx *listb, t_listx *lista)
     stackb = listb->ptrbegin;
     stacka = lista->ptrbegin;
     temp = ft_get_last(lista);
-    printf("stackb number %d\n", stackb->number);
     if (stackb->number < stacka->number)
     {
         ft_pa(lista, listb);

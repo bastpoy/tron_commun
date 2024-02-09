@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:38 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/07 12:38:24 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 18:13:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static int	*fill_array(t_line *line, t_parameter param)
+static int *fill_array(t_line *line, t_parameter param)
 {
-	int	*s;
+	int *s;
 
 	s = malloc(sizeof(int) * 2);
 	if (!s)
@@ -30,16 +30,15 @@ static int	*fill_array(t_line *line, t_parameter param)
 	return (s);
 }
 
-static void	ft_bresenham(t_list *list, t_line *line, t_parameter param)
+static void ft_bresenham(t_list *list, t_line *line, t_parameter param)
 {
-	int	*s;
-	int	err;
-	int	e2;
+	int *s;
+	int err;
+	int e2;
 
 	s = fill_array(line, param);
 	err = param.dx - param.dy;
-	while (((int)roundf(line->x1proj) != param.x
-			|| (int)roundf(line->y1proj) != param.y) && s)
+	while (((int)roundf(line->x1proj) != param.x || (int)roundf(line->y1proj) != param.y) && s)
 	{
 		my_mlx_pixel_put(list->img, param.x, param.y, grad_color(line, param));
 		e2 = 2 * err;
@@ -58,7 +57,7 @@ static void	ft_bresenham(t_list *list, t_line *line, t_parameter param)
 	free(s);
 }
 
-static t_parameter	fill_param_top(t_line *point, t_parameter param)
+static t_parameter fill_param_top(t_line *point, t_parameter param)
 {
 	param.dx = fabs(roundf(point->x1proj) - roundf(point->top->x1proj));
 	param.dy = fabs(roundf(point->y1proj) - roundf(point->top->y1proj));
@@ -71,7 +70,7 @@ static t_parameter	fill_param_top(t_line *point, t_parameter param)
 	return (param);
 }
 
-static t_parameter	fill_param_next(t_line *point, t_parameter param)
+static t_parameter fill_param_next(t_line *point, t_parameter param)
 {
 	param.dx = fabs(roundf(point->x1proj) - roundf(point->next->x1proj));
 	param.dy = fabs(roundf(point->y1proj) - roundf(point->next->y1proj));
@@ -84,10 +83,10 @@ static t_parameter	fill_param_next(t_line *point, t_parameter param)
 	return (param);
 }
 
-void	ft_line_xyprojtop1(t_list *list)
+void ft_line_xyprojtop1(t_list *list)
 {
-	t_line		*point;
-	t_parameter	param;
+	t_line *point;
+	t_parameter param;
 
 	point = list->ptrbegin;
 	while (point)
@@ -105,5 +104,5 @@ void	ft_line_xyprojtop1(t_list *list)
 		point = point->next;
 	}
 	mlx_put_image_to_window(list->data->mlx_ptr, list->data->mlx_win,
-		list->img->img, 0, 0);
+							list->img->img, 0, 0);
 }

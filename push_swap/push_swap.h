@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 15:41:00 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 19:47:14 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void ft_del_back(t_listx *listx);
 int ft_free_lista(t_listx *lista);
 int ft_free_listb(t_listx *listb);
 int ft_check_if_sort(t_listx *lista);
-void ft_entry_three(t_listx *lista);
-void ft_entry_five(t_listx *lista, t_listx *listb);
+int ft_entry_three(t_listx *lista);
+int ft_entry_five(t_listx *lista, t_listx *listb);
 
 void ft_first_insert_listb(t_listx *lista, t_listx *listb);
 void ft_second_insert_listb(t_listx *lista, t_listx *listb);

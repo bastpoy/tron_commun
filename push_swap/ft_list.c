@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 18:36:41 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/06 16:28:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/09 19:45:58 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int ft_free_lista(t_listx *lista)
         stacka = stacka->next;
         free(tmp);
     }
+    free(lista);
     return (1);
 }
 
@@ -135,6 +136,7 @@ int ft_free_listb(t_listx *listb)
         stackb = stackb->next;
         free(tmp);
     }
+    free(listb);
     return (1);
 }
 
