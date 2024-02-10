@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 18:03:38 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 18:25:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,15 @@ float *f_rot(float param1, float param2, float param3, float param4)
 	elem[2] = param3;
 	elem[3] = param4;
 	return (elem);
+}
+
+t_mov *init_mov()
+{
+	t_mov *mov;
+	mov = malloc(sizeof(t_mov));
+	if (!mov)
+		ft_return_error("Malloc Error");
+	mov->height = 2;
+	mov->zoom = 1;
+	mov->rotz = 1;
 }

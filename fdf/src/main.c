@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 18:13:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 18:22:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,12 @@ static t_input ft_get_length_width(char *entry)
 		ft_return_error("cannot open file");
 	str = get_next_line(fd);
 	input.abs = ft_strlen_space_backn(str);
-	input.total = input.abs;
 	input.ord = 0;
 	while (str)
 	{
 		input.ord++;
 		free(str);
 		str = get_next_line(fd);
-		input.total += ft_strlen_space_backn(str);
 	}
 	close(fd);
 	return (input);
@@ -70,23 +68,23 @@ static t_input ft_get_length_width(char *entry)
 int main(int argc, char **argv)
 {
 	t_input input;
-	t_list *list;
+	t_map ***map;
+	t_mov *mov;
 
+	(void)map;
 	if (argc == 2)
 	{
+		mov = init_mov();
 		input = ft_get_length_width(argv[1]);
-		if (!input.total)
-			return (0);
-		list = ft_init_pointbegin(input);
-		if (!list)
-			close_window(list);
-		ft_fill_struct(list, input, argv[1]);
+		printf("input abs %d ord %d\n", input.abs, input.ord);
+		map = ft_fill_struct(input, argv[1]);
+		free_map(map);
 		// color_to_point(list);
 		// ft_line_xyprojtop1(list);
 		// mlx_hook(list->data->mlx_win, 17, 0, close_window, (void *)list);
 		// mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook,
 		// 		 (void *)list);
-		mlx_loop(list->data->mlx_ptr);
+		// mlx_loop(list->data->mlx_ptr);
 	}
 	return (0);
 }

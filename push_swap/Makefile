@@ -1,4 +1,4 @@
-SRCSPRINTF = main.c ft_sort.c ft_list.c ft_sort_numbers.c ft_algo.c
+SRCSPRINTF = main.c ft_sort.c ft_list.c ft_sort_numbers.c ft_algo.c error.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 PRINTF = ./ft_printf/ft_printf.h 
@@ -9,6 +9,7 @@ NAME = push_swap
 
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all  -C ./ft_printf
+	$(MAKE) all  -C ./libft
 	gcc $(CFLAGS) -o push_swap $(OBJSPRINTF) ./ft_printf/libftprintf.a ./libft/libft.a -fsanitize=address
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)

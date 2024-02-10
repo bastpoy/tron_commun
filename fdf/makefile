@@ -14,11 +14,11 @@ NAME = fdf
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all -C ./minilibx-linux
 	$(MAKE) all -C ./libft
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a ./libft/libft.a -fsanitize=address -lX11 -lXext -lm -g
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a ./libft/libft.a -lX11 -lXext -lm 
 
 all : $(NAME)
 
-objects/%.o : %.c include/fdf.h include/struct.h include/struct.h libft/libft.h $(MINILIBX) 
+objects/%.o : %.c include/fdf.h include/struct.h libft/libft.h $(MINILIBX) 
 	mkdir -p $(dir $@)
 	gcc $(CFLAGS) -c $< -o $@
 

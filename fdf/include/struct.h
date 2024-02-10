@@ -6,12 +6,39 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:09:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 18:24:20 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 18:19:20 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
+
+typedef struct s_map
+{
+	int x;
+	int y;
+	int z;
+	int color;
+} t_map;
+
+typedef struct s_point
+{
+	int dx;
+	int dy;
+	int x1;
+	int y1;
+	int x2;
+	int y2;
+	int z;
+	int color;
+} t_point;
+
+typedef struct s_mov
+{
+	int height;
+	int zoom;
+	int rotz;
+} t_mov;
 
 typedef struct s_data
 {
@@ -21,14 +48,6 @@ typedef struct s_data
 	int line_length;
 	int endian;
 } t_data;
-
-typedef struct s_map
-{
-	int x;
-	int y;
-	int z;
-	int color;
-} t_map;
 
 typedef struct s_env
 {
@@ -45,10 +64,10 @@ typedef struct s_parameter
 {
 	int dx;
 	int dy;
-	int x;
-	int y;
-	int x0;
-	int y0;
+	int x1;
+	int y1;
+	int x2;
+	int y2;
 	int z;
 	int color;
 } t_parameter;
@@ -57,7 +76,6 @@ typedef struct s_input
 {
 	int abs;
 	int ord;
-	int total;
 } t_input;
 
 typedef struct s_line

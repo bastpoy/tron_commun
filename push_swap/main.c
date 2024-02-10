@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:24:21 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 19:57:29 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 18:52:46 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,18 @@ int main(int argc, char **argv)
         printf("Error\n");
         return (0);
     }
+    if (argc == 2)
+    {
+    }
     lista = ft_init_listx();
     listb = ft_init_listx();
     ft_fill_tab(argc, argv, lista);
     if (ft_check_if_sort(lista))
         return (0);
-    // else if (argc == 2)
-    // {
-    // }
     else if (argc == 4)
         return ft_entry_three(lista);
     else if (argc == 6)
         return (ft_entry_five(lista, listb));
-
     ft_first_insert_listb(lista, listb);
     ft_second_insert_listb(lista, listb);
     while (lista->ptrbegin)

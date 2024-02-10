@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:05 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 17:46:10 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 15:19:39 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,29 @@ void free_ptrptrptr(char ***str)
 			i++;
 		}
 		free(str);
+	}
+}
+
+void free_map(t_map ***map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (map)
+	{
+		while (map[i])
+		{
+			j = 0;
+			while (map[i][j])
+			{
+				free(map[i][j]);
+				j++;
+			}
+			free(map[i]);
+			i++;
+		}
+		free(map);
 	}
 }
