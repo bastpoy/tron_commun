@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 20:42:10 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 18:45:32 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 23:55:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,35 @@ void ft_indicexyz(t_list ***map, t_input input, t_line *point)
 // mes fonctions
 // mes fonctions
 
-static void ft_bresenham(t_list *list, t_line *line, t_parameter param)
+static int *fill_array(t_point point)
+{
+	int *s;
+
+	s = malloc(sizeof(int) * 2);
+	if (!s)
+		ft_return_error("error during malloc");
+	if (point.x2 < point.x1)
+		s[0] = 1;
+	else
+		s[0] = -1;
+	if (point.y2 < point.y1)
+		s[1] = 1;
+	else
+		s[1] = -1;
+	return (s);
+}
+
+static void bresenham(t_point point)
 {
 	int *s;
 	int err;
 	int e2;
 
-	s = fill_array(line, param);
-	err = param.dx - param.dy;
-	while (((int)roundf(line->x1proj) != param.x || (int)roundf(line->y1proj) != param.y) && s)
+	s = fill_array(point);
+	err = point.dx - point.dy;
+	while ((point.x2 != point.x1 || point.y2 != point.y1) && s)
 	{
-		my_mlx_pixel_put(list->img, param.x, param.y, grad_color(line, param));
+		my_mlx_pixel_put(list->img, point.x1, point.y1, 0x3E5622);
 		e2 = 2 * err;
 		if (e2 > -param.dy)
 		{
@@ -115,19 +133,6 @@ static void ft_bresenham(t_list *list, t_line *line, t_parameter param)
 	}
 	my_mlx_pixel_put(list->img, param.x, param.y, line->color);
 	free(s);
-}
-
-void draw_line(t_point point)
-{
-	ft_bresenham()
-}
-
-void point_bot(t_map ***map, , int i, int j)
-{
-}
-
-void point_right(t_map ***map)
-{
 }
 
 void ft_indicexyz(t_map ***map, t_input input, t_mov *mov)
@@ -152,9 +157,22 @@ void ft_indicexyz(t_map ***map, t_input input, t_mov *mov)
 			point.y1 = map[i][j]->x * sin(PI / 6) - map[i][j]->y * cos(PI / 6);
 			point.x1 = tr[0] + (point.x1 - mov->height * map[i][j]->z * sqrt(3) / 2) * mov->zoom;
 			point.y1 = tr[1] + (point.y1 - mov->height * map[i][j]->z * sqrt(3) / 2) * mov->zoom;
-			point.dx =
-				j++;
-			draw_line()
+			if (i + 1 < input.ord)
+			{
+				point.x2 = map[i + 1][j]->x * cos(PI / 6) - map[i + 1][j]->y * sin(PI / 6);
+				point.y2 = map[i + 1][j]->x * sin(PI / 6) - map[i + 1][j]->y * cos(PI / 6);
+				point.dx = point.x2 - point.x1;
+				point.dy = point.y2 - point.y1;
+				ft_bresenham()
+			}
+			if (j + 1 < input.abs)
+			{
+				point.x2 = map[i][j + 1]->x * cos(PI / 6) - map[i][j + 1]->y * sin(PI / 6);
+				point.y2 = map[i][j + 1]->x * sin(PI / 6) - map[i][j + 1]->y * cos(PI / 6);
+				point.dx = point.x2 - point.x1;
+				point.dy = point.y2 - point.y1;
+			}
+			j++;
 		}
 		i++;
 	}

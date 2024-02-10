@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:09:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 18:19:20 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/10 23:58:43 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,20 @@ typedef struct s_mov
 	int height;
 	int zoom;
 	int rotz;
+	int offsetx;
+	int offsety;
 } t_mov;
 
 typedef struct s_data
 {
 	void *img;
 	char *addr;
+	void *mlx_ptr;
+	void *mlx_win;
 	int bits_per_pixel;
 	int line_length;
 	int endian;
+	t_mov *mov;
 } t_data;
 
 typedef struct s_env
