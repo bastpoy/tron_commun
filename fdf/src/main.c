@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 18:22:50 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 17:05:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,23 @@ int main(int argc, char **argv)
 {
 	t_input input;
 	t_map ***map;
-	t_mov *mov;
+	t_data *data;
 
 	(void)map;
 	if (argc == 2)
 	{
-		mov = init_mov();
 		input = ft_get_length_width(argv[1]);
-		printf("input abs %d ord %d\n", input.abs, input.ord);
 		map = ft_fill_struct(input, argv[1]);
-		free_map(map);
+		data = init_data(map, input);
+		// printf("input abs %d ord %d\n", input.abs, input.ord);
+		ft_indicexyz(map, input, data);
 		// color_to_point(list);
 		// ft_line_xyprojtop1(list);
-		// mlx_hook(list->data->mlx_win, 17, 0, close_window, (void *)list);
-		// mlx_hook(list->data->mlx_win, KeyPress, KeyPressMask, key_hook,
-		// 		 (void *)list);
-		// mlx_loop(list->data->mlx_ptr);
+		mlx_hook(data->mlx_win, 17, 0, close_window, (void *)data);
+		mlx_hook(data->mlx_win, KeyPress, KeyPressMask, key_hook, (void *)data);
+		// mlx_hook(data->mlx_win, 65307, 0, close_window, (void *)data);
+		mlx_loop(data->mlx_ptr);
+		free_map(map);
 	}
 	return (0);
 }

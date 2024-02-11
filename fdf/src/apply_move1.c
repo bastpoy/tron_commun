@@ -6,53 +6,68 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:17 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 18:14:56 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 19:16:31 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void height_increase(t_list *list)
+void height_increase(t_data *data)
 {
-	list->data->height += 0.025;
-	// mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-	list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-	elevation(list);
-	ft_line_xyprojtop1(list);
+	data->mov->height += 0.05;
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	ft_indicexyz(data->map, data->input, data);
 }
 
-void height_decrease(t_list *list)
+void height_decrease(t_data *data)
 {
-	list->data->height -= 0.025;
-	// mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-	list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-	elevation(list);
-	ft_line_xyprojtop1(list);
+	data->mov->height -= 0.05;
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	ft_indicexyz(data->map, data->input, data);
 }
 
-void rot_anti(t_list *list)
+void zoom_increase(t_data *data)
 {
-	list->data->angle = PI / 100;
-	mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-	list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-	rotationz(list);
-	ft_line_xyprojtop1(list);
+	data->mov->zoom /= 0.9;
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	ft_indicexyz(data->map, data->input, data);
 }
 
-void rot_hor(t_list *list)
+void zoom_decrease(t_data *data)
 {
-	list->data->angle = -PI / 100;
-	mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-	list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-	rotationz(list);
-	ft_line_xyprojtop1(list);
+	data->mov->zoom *= 0.9;
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	ft_indicexyz(data->map, data->input, data);
 }
 
-void zoom_increase(t_list *list)
+void rot_anti(t_data *data)
 {
-	list->data->zoom /= 0.99;
-	mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-	list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-	zoom(list);
-	ft_line_xyprojtop1(list);
+	data->mov->rotz += PI / 50;
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	data->img = mlx_new_image(data->mlx_ptr, 1920, 1080);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	ft_indicexyz(data->map, data->input, data);
+}
+
+void rot_hor(t_data *data)
+{
+	data->mov->rotz -= PI / 50;
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	data->img = mlx_new_image(data->mlx_ptr, 1920, 1080);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	ft_indicexyz(data->map, data->input, data);
 }

@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 18:25:18 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 17:27:23 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static t_list *init_data(t_list *list, t_input input)
+static t_list *init_dat(t_list *list, t_input input)
 {
 	list->data = malloc(sizeof(t_env));
 	if (!list->data)
@@ -52,34 +52,12 @@ t_list *ft_init_pointbegin(t_input input)
 	list->ptrbegin = NULL;
 	list->data = NULL;
 	list->zmax = 0;
-	list = init_data(list, input);
+	list = init_dat(list, input);
 	img->img = mlx_new_image(list->data->mlx_ptr, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 								  &img->line_length, &img->endian);
 	list->img = img;
 	return (list);
-}
-
-t_line *ft_init_tline(t_list *list)
-{
-	t_line *line;
-
-	line = malloc(sizeof(t_line));
-	if (!line)
-	{
-		close_window(list);
-		ft_return_error("cannot malloc");
-	}
-	line->x1 = 0;
-	line->y1 = 0;
-	line->x1proj = 0;
-	line->y1proj = 0;
-	line->z1 = 0;
-	line->color = 0;
-	line->index = -1;
-	line->next = NULL;
-	// line->top = NULL;
-	return (line);
 }
 
 float *f_rot(float param1, float param2, float param3, float param4)
@@ -96,13 +74,36 @@ float *f_rot(float param1, float param2, float param3, float param4)
 	return (elem);
 }
 
-t_mov *init_mov()
+static t_mov *init_mov()
 {
 	t_mov *mov;
 	mov = malloc(sizeof(t_mov));
 	if (!mov)
 		ft_return_error("Malloc Error");
-	mov->height = 2;
-	mov->zoom = 1;
-	mov->rotz = 1;
+	mov->height = 0.1;
+	mov->zoom = 25;
+	mov->rotz = 0;
+	mov->offsetx = WIDTH / 2;
+	mov->offsety = HEIGHT / 2;
+	return (mov);
+}
+
+t_data *init_data(t_map ***map, t_input input)
+{
+	t_data *data;
+	t_mov *mov;
+
+	mov = init_mov();
+	data = malloc(sizeof(t_data));
+	if (!data)
+		ft_return_error("Malloc Error");
+	data->mlx_ptr = mlx_init();
+	data->mlx_win = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+								   &data->line_length, &data->endian);
+	data->mov = mov;
+	data->map = map;
+	data->input = input;
+	return (data);
 }

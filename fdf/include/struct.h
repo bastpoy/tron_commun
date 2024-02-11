@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:09:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 23:58:43 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 19:03:54 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct s_map
 	int z;
 	int color;
 } t_map;
+
+typedef struct s_input
+{
+	int abs;
+	int ord;
+} t_input;
 
 typedef struct s_point
 {
@@ -35,9 +41,9 @@ typedef struct s_point
 
 typedef struct s_mov
 {
-	int height;
-	int zoom;
-	int rotz;
+	float height;
+	float zoom;
+	float rotz;
 	int offsetx;
 	int offsety;
 } t_mov;
@@ -52,6 +58,8 @@ typedef struct s_data
 	int line_length;
 	int endian;
 	t_mov *mov;
+	t_map ***map;
+	t_input input;
 } t_data;
 
 typedef struct s_env
@@ -76,12 +84,6 @@ typedef struct s_parameter
 	int z;
 	int color;
 } t_parameter;
-
-typedef struct s_input
-{
-	int abs;
-	int ord;
-} t_input;
 
 typedef struct s_line
 {

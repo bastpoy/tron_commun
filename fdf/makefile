@@ -1,8 +1,8 @@
 SRCSPRINTF = src/main.c src/get_next_line.c src/get_next_line_utils.c\
-			src/parse.c src/manage_struct.c src/movement.c \
-			src/init.c src/hook.c src/draw.c src/color.c\
-			src/apply_move1.c src/apply_move2.c src/free.c\
-			src/error.c
+			src/parse.c src/movement.c \
+			src/init.c  src/color.c src/free.c\
+			src/error.c src/hook.c src/apply_move1.c src/apply_move2.c\
+			src/draw.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 MINILIBX = ./minilibx-linux/mlx.h
@@ -14,7 +14,7 @@ NAME = fdf
 $(NAME) : $(OBJSPRINTF)
 	$(MAKE) all -C ./minilibx-linux
 	$(MAKE) all -C ./libft
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a ./libft/libft.a -lX11 -lXext -lm 
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a ./libft/libft.a -lX11 -lXext -lm -fsanitize=address
 
 all : $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 22:11:04 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 17:14:57 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 12:22:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ static t_map ***ft_input_str_coma(char ***str, t_map ***point, t_input input, in
 		point[i][j] = (t_map *)malloc(sizeof(t_map));
 		if (!point[i][j])
 			error_point("Malloc error", point, i);
-		point[i][j]->x = i;
-		point[i][j]->y = j;
+		point[i][j]->x = j;
+		point[i][j]->y = i;
 		strsplit = ft_split(str[i][j], ',');
 		point[i][j]->z = ft_atoi(strsplit[0]);
 		if (strsplit[1])

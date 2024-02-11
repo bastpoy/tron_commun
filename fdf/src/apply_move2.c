@@ -6,53 +6,48 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:07:41 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 18:15:05 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 17:42:05 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void zoom_decrease(t_list *list)
+void translate_right(t_data *data)
 {
-    list->data->zoom *= 0.99;
-    mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-    list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-    zoom(list);
-    ft_line_xyprojtop1(list);
+    data->mov->offsetx += 10;
+    mlx_destroy_image(data->mlx_ptr, data->img);
+    data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+                                   &data->line_length, &data->endian);
+    ft_indicexyz(data->map, data->input, data);
 }
 
-void translate_right(t_list *list)
+void translate_left(t_data *data)
 {
-    list->data->offsetx += 2;
-    mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-    list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-    translatex(list);
-    ft_line_xyprojtop1(list);
+    data->mov->offsetx -= 10;
+    mlx_destroy_image(data->mlx_ptr, data->img);
+    data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+                                   &data->line_length, &data->endian);
+    ft_indicexyz(data->map, data->input, data);
 }
 
-void translate_left(t_list *list)
+void translate_bot(t_data *data)
 {
-    list->data->offsetx -= 2;
-    mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-    list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-    translatex(list);
-    ft_line_xyprojtop1(list);
+    data->mov->offsety += 10;
+    mlx_destroy_image(data->mlx_ptr, data->img);
+    data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+                                   &data->line_length, &data->endian);
+    ft_indicexyz(data->map, data->input, data);
 }
 
-void translate_bot(t_list *list)
+void translate_top(t_data *data)
 {
-    list->data->offsety += 2;
-    mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-    list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-    translatey(list);
-    ft_line_xyprojtop1(list);
-}
-
-void translate_top(t_list *list)
-{
-    list->data->offsety -= 2;
-    mlx_destroy_image(list->data->mlx_ptr, list->img->img);
-    list->img->img = mlx_new_image(list->data->mlx_ptr, 1920, 1080);
-    translatey(list);
-    ft_line_xyprojtop1(list);
+    data->mov->offsety -= 10;
+    mlx_destroy_image(data->mlx_ptr, data->img);
+    data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+    data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+                                   &data->line_length, &data->endian);
+    ft_indicexyz(data->map, data->input, data);
 }

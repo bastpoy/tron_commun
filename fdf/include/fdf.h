@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 18:22:10 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/11 19:05:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,15 @@
 
 t_list *ft_init_pointbegin(t_input input);
 t_line *ft_init_tline(t_list *list);
-t_mov *init_mov();
+t_data *init_data(t_map ***map, t_input input);
 void ft_free_entrystr(char **str);
 int ft_free_list(t_list *list);
 void free_ptrptrptr(char ***str);
 void free_map(t_map ***str);
 void free_float(float *q, float *p);
 t_map ***ft_fill_struct(t_input input, char *entry);
-t_line *fill_tline(t_list *list, t_input input, t_line *line, int j);
 
-void ft_indicexyz(t_map ***map, t_input input, t_line *line);
-void ft_line_xyprojtop1(t_list *list);
+void ft_indicexyz(t_map ***map, t_input input, t_data *data);
 void my_mlx_pixel_put(t_data *im, int x, int y, int color);
 void get_max_z(t_list *list, t_line *line);
 int ft_search_top(t_list *ptbegin, t_input input, t_line *entry);
@@ -52,8 +50,8 @@ float *f_rot(float param1, float param2, float param3, float param4);
 int grad_color(t_line *p, t_parameter param);
 void color_to_point(t_list *list);
 
-int close_window(t_list *list);
-int key_hook(int keycode, t_list *list);
+int close_window(t_data *data);
+int key_hook(int keycode, t_data *data);
 
 void error_map(char *err_msg, t_map ***map);
 void ft_return_error(char *err_msg);
@@ -66,15 +64,15 @@ void zoom(t_list *list);
 void translatex(t_list *list);
 void translatey(t_list *list);
 
-void height_increase(t_list *list);
-void height_decrease(t_list *list);
-void rot_anti(t_list *list);
-void rot_hor(t_list *list);
-void zoom_increase(t_list *list);
-void zoom_decrease(t_list *list);
-void translate_right(t_list *list);
-void translate_left(t_list *list);
-void translate_bot(t_list *list);
-void translate_top(t_list *list);
+void height_increase(t_data *data);
+void height_decrease(t_data *data);
+void zoom_increase(t_data *data);
+void zoom_decrease(t_data *data);
+void rot_anti(t_data *data);
+void rot_hor(t_data *data);
+void translate_right(t_data *data);
+void translate_left(t_data *data);
+void translate_bot(t_data *data);
+void translate_top(t_data *data);
 
 #endif
