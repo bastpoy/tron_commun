@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:09:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/11 19:03:54 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/12 11:46:34 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ typedef struct s_point
 	int y1;
 	int x2;
 	int y2;
-	int z;
+	int z1;
+	int z2;
 	int color;
 } t_point;
 
 typedef struct s_mov
 {
 	float height;
-	float zoom;
-	float rotz;
+	int zoom;
+	int rotz;
 	int offsetx;
 	int offsety;
 } t_mov;

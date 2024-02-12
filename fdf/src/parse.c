@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 22:11:04 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/11 12:22:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/12 11:51:58 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ static t_map ***ft_input_str_coma(char ***str, t_map ***point, t_input input, in
 		if (strsplit[1])
 			point[i][j]->color = ft_hex_to_int(strsplit[1]);
 		else
-			point[i][j]->color = MINCOLOR;
+			point[i][j]->color = 0xffffff;
 		ft_free_entrystr(strsplit);
 		j++;
 	}

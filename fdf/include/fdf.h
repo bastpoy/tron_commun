@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/11 19:05:28 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:06:09 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ int ft_search_top(t_list *ptbegin, t_input input, t_line *entry);
 
 float *f_rot(float param1, float param2, float param3, float param4);
 
-int grad_color(t_line *p, t_parameter param);
-void color_to_point(t_list *list);
-
 int close_window(t_data *data);
 int key_hook(int keycode, t_data *data);
 
@@ -57,12 +54,6 @@ void error_map(char *err_msg, t_map ***map);
 void ft_return_error(char *err_msg);
 void error_point(char *err_msg, t_map ***map, int max);
 void print_map(t_map ***map);
-
-void elevation(t_list *list);
-void rotationz(t_list *list);
-void zoom(t_list *list);
-void translatex(t_list *list);
-void translatey(t_list *list);
 
 void height_increase(t_data *data);
 void height_decrease(t_data *data);

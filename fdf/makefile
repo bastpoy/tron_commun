@@ -1,7 +1,7 @@
 SRCSPRINTF = src/main.c src/get_next_line.c src/get_next_line_utils.c\
 			src/parse.c src/movement.c \
-			src/init.c  src/color.c src/free.c\
-			src/error.c src/hook.c src/apply_move1.c src/apply_move2.c\
+			src/init.c  src/free.c src/error.c src/hook.c\
+			src/apply_move1.c src/apply_move2.c\
 			src/draw.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 

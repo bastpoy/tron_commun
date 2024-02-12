@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:30:40 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/11 17:27:23 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:32:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static t_mov *init_mov()
 	if (!mov)
 		ft_return_error("Malloc Error");
 	mov->height = 0.1;
-	mov->zoom = 25;
-	mov->rotz = 0;
+	mov->zoom = 5;
+	mov->rotz = 20;
 	mov->offsetx = WIDTH / 2;
 	mov->offsety = HEIGHT / 2;
 	return (mov);
