@@ -6,16 +6,17 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 19:47:14 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/13 18:14:14 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP
 #define PUSH_SWAP
 
+#include "ft_printf/ft_printf.h"
+#include "libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "ft_printf/ft_printf.h"
 
 typedef struct s_stack
 {
@@ -27,6 +28,8 @@ typedef struct s_listx
 {
     t_stack *ptrbegin;
 } t_listx;
+
+int check_input(char *str);
 
 t_listx *ft_init_listx();
 t_stack *ft_get_last(t_listx *listx);

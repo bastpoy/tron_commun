@@ -6,25 +6,26 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:04:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 19:03:48 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:41:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ft_entry_two(t_listx lista, t_listx listb, char *str)
-{
-    char **tab;
-    int i = 0;
+// int ft_entry_two(t_listx lista, char *str)
+// {
+//     char **tab;
+//     int i = 0;
 
-    tab = ft_split(str, ' ');
-    while (tab[i])
-    {
-        if (atoi(tab[i]))
-            return ()
-    }
-    return (0);
-}
+//     tab = ft_split(str, ' ');
+//     while (tab[i])
+//     {
+//         if (!atoi(tab[i]))
+//             return (0);
+//         i++;
+//     }
+//     return (1);
+// }
 
 int ft_entry_three(t_listx *lista)
 {
