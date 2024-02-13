@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:13:05 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/10 15:19:39 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/13 15:08:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void ft_free_entrystr(char **str)
+void	ft_free_entrystr(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str)
@@ -28,36 +28,16 @@ void ft_free_entrystr(char **str)
 	free(str);
 }
 
-void free_float(float *q, float *p)
+void	free_float(float *q, float *p)
 {
 	free(q);
 	free(p);
 }
 
-int ft_free_list(t_list *list)
+void	free_ptrptrptr(char ***str)
 {
-	t_line *stacka;
-	t_line *tmp;
-
-	stacka = list->ptrbegin;
-	if (!list)
-		return (0);
-	while (stacka)
-	{
-		tmp = stacka;
-		stacka = stacka->next;
-		free(tmp);
-	}
-	list->ptrbegin = NULL;
-	list->data = NULL;
-	free(list);
-	return (1);
-}
-
-void free_ptrptrptr(char ***str)
-{
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -78,10 +58,10 @@ void free_ptrptrptr(char ***str)
 	}
 }
 
-void free_map(t_map ***map)
+void	free_map(t_map ***map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

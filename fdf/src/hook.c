@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/12 10:59:11 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:21:19 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int close_window(t_data *data)
+int	close_window(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
@@ -23,7 +23,7 @@ int close_window(t_data *data)
 	return (0);
 }
 
-int key_hook(int keycode, t_data *data)
+int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		close_window(data);
@@ -39,9 +39,9 @@ int key_hook(int keycode, t_data *data)
 		translate_right(data);
 	if (keycode == 65361)
 		translate_left(data);
-	if (keycode == 65362)
-		translate_bot(data);
 	if (keycode == 65364)
+		translate_bot(data);
+	if (keycode == 65362)
 		translate_top(data);
 	if (keycode == 100)
 		rot_anti(data);

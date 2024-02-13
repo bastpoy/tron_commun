@@ -6,22 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:19:58 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/12 12:34:04 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/13 19:39:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-void my_mlx_pixel_put(t_data *img, int x, int y, int color)
-{
-	char *dst;
-
-	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
-	{
-		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
-}
 
 static size_t ft_strlen_space_backn(const char *str)
 {
@@ -50,8 +39,9 @@ static t_input ft_get_length_width(char *entry)
 	t_input input;
 
 	fd = open(entry, O_RDONLY);
-	if (fd < 0)
-		ft_return_error("cannot open file");
+	error_openfile(entry);
+	if (fd < 0 || !(error_openfile(entry)))
+		ft_return_error("cannot open file\n");
 	str = get_next_line(fd);
 	input.abs = ft_strlen_space_backn(str);
 	input.ord = 0;
@@ -61,6 +51,8 @@ static t_input ft_get_length_width(char *entry)
 		free(str);
 		str = get_next_line(fd);
 	}
+	input.abs2 = input.abs / 2;
+	input.ord2 = input.ord / 2;
 	close(fd);
 	return (input);
 }
@@ -71,20 +63,15 @@ int main(int argc, char **argv)
 	t_map ***map;
 	t_data *data;
 
-	(void)map;
 	if (argc == 2)
 	{
 		input = ft_get_length_width(argv[1]);
 		map = ft_fill_struct(input, argv[1]);
 		data = init_data(map, input);
-		// printf("input abs %d ord %d\n", input.abs, input.ord);
-
-		ft_indicexyz(map, input, data);
+		autofocus(map, input, data);
 		mlx_hook(data->mlx_win, 17, 0, close_window, (void *)data);
 		mlx_hook(data->mlx_win, KeyPress, KeyPressMask, key_hook, (void *)data);
-
 		mlx_loop(data->mlx_ptr);
-		// free_map(map);
 	}
 	return (0);
 }
