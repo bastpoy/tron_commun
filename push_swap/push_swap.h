@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/13 18:14:14 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/14 18:13:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ typedef struct s_listx
     t_stack *ptrbegin;
 } t_listx;
 
-int check_input(char *str);
+int free_twodim(char **str);
+int check_twoarg(char *str);
+int check_max_int(char *arg);
+int checkparam(int argc, char **argv);
+int check(int argc, char **argv);
 
 t_listx *ft_init_listx();
 t_stack *ft_get_last(t_listx *listx);
@@ -41,15 +45,21 @@ void ft_del_front(t_listx *listx);
 void ft_del_back(t_listx *listx);
 int ft_free_lista(t_listx *lista);
 int ft_free_listb(t_listx *listb);
+int ft_max_listx(t_listx *listx);
+int ft_min_listx(t_listx *listx);
+t_stack *ft_getnumber_list(t_stack *stackx, int min, int max);
+
 int ft_check_if_sort(t_listx *lista);
-int ft_entry_three(t_listx *lista);
-int ft_entry_five(t_listx *lista, t_listx *listb);
+void algo_two(t_listx *lista);
+void algo_three(t_listx *lista);
+void algo_five(t_listx *lista);
+void algo_cent(t_listx *lista);
+void algo_cent1(t_listx *lista);
 
 void ft_first_insert_listb(t_listx *lista, t_listx *listb);
 void ft_second_insert_listb(t_listx *lista, t_listx *listb);
 void ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb);
 void ft_rrb_or_rb1(int count, t_listx *listb, t_listx *lista);
-void ft_sort_threenbr(t_listx *list);
 int ft_count_rra(t_listx *lista, t_listx *listb);
 int ft_count_rrb(t_listx *listb, t_listx *lista);
 int ft_put_minmax_stack(t_listx *lista, t_listx *listb);

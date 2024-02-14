@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 18:36:41 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 19:45:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/14 18:24:43 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,4 +153,51 @@ t_stack *ft_get_last(t_listx *listx)
             stackx = stackx->next;
     }
     return (stackx);
+}
+
+int ft_max_listx(t_listx *listx)
+{
+    t_stack *stackx;
+    int temp;
+
+    stackx = listx->ptrbegin;
+    temp = stackx->number;
+    while (stackx)
+    {
+        if (stackx->number > temp)
+            temp = stackx->number;
+        stackx = stackx->next;
+    }
+    return (temp);
+}
+
+int ft_min_listx(t_listx *listx)
+{
+    t_stack *stackx;
+    int temp;
+
+    stackx = listx->ptrbegin;
+    temp = stackx->number;
+    while (stackx)
+    {
+        if (stackx->number < temp)
+            temp = stackx->number;
+        stackx = stackx->next;
+    }
+    return (temp);
+}
+
+t_stack *ft_getnumber_list(t_stack *stackx, int min, int max)
+{
+    int count;
+
+    count = 0;
+    while (stackx->number < min && stackx->number > max)
+    {
+        count++;
+        stackx = stackx->next;
+    }
+    if (stackx->number > min && stackx->number < max)
+        return (stackx);
+    return (0);
 }

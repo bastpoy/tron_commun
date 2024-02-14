@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:08:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 19:31:28 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/14 17:40:54 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,6 @@ int ft_count_rrb(t_listx *listb, t_listx *lista)
     return (1);
 }
 
-// je calcule combien de fois je dois faire de rrb pour arriver caller mon nombre
-// Suivant le nombre de fois je fais rrb ou rb
-// Je calle mon nombre
-// Je refais le meme nombre de rb ou rrb pour recaller ma pile
 void ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb)
 {
     int i;
@@ -122,6 +118,7 @@ void ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb)
             ft_rrb(listb);
             i++;
         }
+        i++;
         ft_pb(lista, listb);
         while (i != 0)
         {
@@ -169,10 +166,6 @@ void ft_rrb_or_rb1(int count, t_listx *listb, t_listx *lista)
     }
 }
 
-// fonction qui prend le max de b et le compare avec a
-// le met dans la stack si a > maxb
-// fonction qui prend le min de b et le compare avec a
-// le met dans la stack si a < minb
 int ft_put_minmax_stack(t_listx *lista, t_listx *listb)
 {
     t_stack *stacka;
@@ -223,32 +216,4 @@ int ft_put_minmax_stack1(t_listx *listb, t_listx *lista)
     {
         return (0);
     }
-}
-
-// je trie avec un stack de 3 nombres
-void ft_sort_threenbr(t_listx *list)
-{
-    t_stack *first;
-    int second;
-    int third;
-
-    first = list->ptrbegin;
-    second = first->next->number;
-    third = first->next->next->number;
-    if (first->number > second && second > third)
-    {
-        ft_sa(list);
-        ft_rra(list);
-    }
-    else if (second > third && third > first->number)
-    {
-        ft_sa(list);
-        ft_ra(list);
-    }
-    else if (first->number > third && third > second)
-        ft_ra(list);
-    else if (third > first->number && first->number > second)
-        ft_sa(list);
-    else if (second > first->number && first->number > third)
-        ft_rra(list);
 }
