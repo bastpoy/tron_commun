@@ -6,22 +6,22 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:16:18 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/14 10:33:47 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/15 18:51:22 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
-int free_twodim(char **str)
+int	free_twodim(char **str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
-    return (1);
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	return (1);
 }
