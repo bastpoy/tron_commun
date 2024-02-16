@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 22:29:49 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/16 10:16:34 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #define PUSH_SWAP_H
 
 #include "../ft_printf/ft_printf.h"
-#include "../libft/libft.h"
-#include <stdio.h>
+// #include "../libft/libft.h"
 #include <stdlib.h>
 
 typedef struct s_stack

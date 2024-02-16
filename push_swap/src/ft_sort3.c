@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:47:34 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 17:48:08 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/16 10:14:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	ft_pa(t_listx *lista, t_listx *listb)
+int ft_pa(t_listx *lista, t_listx *listb)
 {
-	int	tmp;
+	int tmp;
 
 	if (listb->ptrbegin)
 	{
@@ -26,14 +26,14 @@ int	ft_pa(t_listx *lista, t_listx *listb)
 	}
 	else
 	{
-		printf("error on pa\n");
+		ft_printf("error on pa\n");
 		return (0);
 	}
 }
 
-int	ft_pb(t_listx *lista, t_listx *listb)
+int ft_pb(t_listx *lista, t_listx *listb)
 {
-	int	tmp;
+	int tmp;
 
 	if (lista->ptrbegin)
 	{
@@ -45,12 +45,12 @@ int	ft_pb(t_listx *lista, t_listx *listb)
 	}
 	else
 	{
-		printf("error on pb\n");
+		ft_printf("error on pb\n");
 		return (0);
 	}
 }
 
-int	ft_ra(t_listx *lista)
+int ft_ra(t_listx *lista)
 {
 	if (lista->ptrbegin && lista->ptrbegin->next)
 	{
@@ -61,12 +61,12 @@ int	ft_ra(t_listx *lista)
 	}
 	else
 	{
-		printf("error on ra\n");
+		ft_printf("error on ra\n");
 		return (0);
 	}
 }
 
-int	ft_rb(t_listx *listb)
+int ft_rb(t_listx *listb)
 {
 	if (listb->ptrbegin && listb->ptrbegin->next)
 	{
@@ -77,7 +77,7 @@ int	ft_rb(t_listx *listb)
 	}
 	else
 	{
-		printf("error on rb\n");
+		ft_printf("error on rb\n");
 		return (0);
 	}
 }

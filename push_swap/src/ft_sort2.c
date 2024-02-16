@@ -6,16 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:46:28 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 18:50:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/16 10:14:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	ft_rr(t_listx *lista, t_listx *listb)
+int ft_rr(t_listx *lista, t_listx *listb)
 {
-	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin
-		&& listb->ptrbegin->next)
+	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin && listb->ptrbegin->next)
 	{
 		ft_insert_back(lista, lista->ptrbegin->number);
 		ft_del_front(lista);
@@ -26,14 +25,14 @@ int	ft_rr(t_listx *lista, t_listx *listb)
 	}
 	else
 	{
-		printf("error on rr\n");
+		ft_printf("error on rr\n");
 		return (0);
 	}
 }
 
-int	ft_rra(t_listx *lista)
+int ft_rra(t_listx *lista)
 {
-	t_stack	*stacka;
+	t_stack *stacka;
 
 	if (lista->ptrbegin && lista->ptrbegin->next)
 	{
@@ -45,14 +44,14 @@ int	ft_rra(t_listx *lista)
 	}
 	else
 	{
-		printf("error on rra\n");
+		ft_printf("error on rra\n");
 		return (0);
 	}
 }
 
-int	ft_rrb(t_listx *listb)
+int ft_rrb(t_listx *listb)
 {
-	t_stack	*stackb;
+	t_stack *stackb;
 
 	if (listb->ptrbegin && listb->ptrbegin->next)
 	{
@@ -64,18 +63,17 @@ int	ft_rrb(t_listx *listb)
 	}
 	else
 	{
-		printf("error on rrb\n");
+		ft_printf("error on rrb\n");
 		return (0);
 	}
 }
 
-int	ft_rrr(t_listx *lista, t_listx *listb)
+int ft_rrr(t_listx *lista, t_listx *listb)
 {
-	t_stack	*stacka;
-	t_stack	*stackb;
+	t_stack *stacka;
+	t_stack *stackb;
 
-	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin
-		&& listb->ptrbegin->next)
+	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin && listb->ptrbegin->next)
 	{
 		stacka = ft_get_last(lista);
 		stackb = ft_get_last(listb);
@@ -88,7 +86,7 @@ int	ft_rrr(t_listx *lista, t_listx *listb)
 	}
 	else
 	{
-		printf("error on rrr\n");
+		ft_printf("error on rrr\n");
 		return (0);
 	}
 }

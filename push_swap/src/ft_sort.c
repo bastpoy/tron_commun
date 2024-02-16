@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:07:28 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 17:47:12 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/16 10:13:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	ft_sa(t_listx *lista)
+int ft_sa(t_listx *lista)
 {
-	int	tmp;
+	int tmp;
 
 	if (lista->ptrbegin && lista->ptrbegin->next)
 	{
@@ -26,14 +26,14 @@ int	ft_sa(t_listx *lista)
 	}
 	else
 	{
-		printf("error on sa\n");
+		ft_printf("error on sa\n");
 		return (0);
 	}
 }
 
-int	ft_sb(t_listx *listb)
+int ft_sb(t_listx *listb)
 {
-	int	tmp;
+	int tmp;
 
 	if (listb->ptrbegin && listb->ptrbegin->next)
 	{
@@ -45,18 +45,17 @@ int	ft_sb(t_listx *listb)
 	}
 	else
 	{
-		printf("error on sb\n");
+		ft_printf("error on sb\n");
 		return (0);
 	}
 }
 
-int	ft_ss(t_listx *lista, t_listx *listb)
+int ft_ss(t_listx *lista, t_listx *listb)
 {
-	int	tmp1;
-	int	tmp2;
+	int tmp1;
+	int tmp2;
 
-	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin
-		&& listb->ptrbegin->next)
+	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin && listb->ptrbegin->next)
 	{
 		tmp1 = lista->ptrbegin->number;
 		lista->ptrbegin->number = lista->ptrbegin->next->number;
@@ -69,7 +68,7 @@ int	ft_ss(t_listx *lista, t_listx *listb)
 	}
 	else
 	{
-		printf("error on ss\n");
+		ft_printf("error on ss\n");
 		return (0);
 	}
 }
