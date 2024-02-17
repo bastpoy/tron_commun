@@ -6,13 +6,13 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 16:12:30 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 18:50:49 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 16:57:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	do_rb_rrb(t_listx *lista, t_listx *listb, int count, int i)
+int do_rb_rrb(t_listx *lista, t_listx *listb, int count, int i)
 {
 	while (i != count)
 	{
@@ -20,17 +20,17 @@ int	do_rb_rrb(t_listx *lista, t_listx *listb, int count, int i)
 		i++;
 	}
 	ft_pb(lista, listb);
-	while (i != 0)
-	{
-		ft_rrb(listb);
-		i--;
-	}
+	// while (i != 0)
+	// {
+	// 	ft_rrb(listb);
+	// 	i--;
+	// }
 	return (i);
 }
 
-void	do_rrb_rb(t_listx *lista, t_listx *listb, int count, int i)
+void do_rrb_rb(t_listx *lista, t_listx *listb, int count, int i)
 {
-	int	sizeb;
+	int sizeb;
 
 	sizeb = ft_size_listx(listb);
 	while (i != (sizeb)-count)
@@ -40,14 +40,14 @@ void	do_rrb_rb(t_listx *lista, t_listx *listb, int count, int i)
 	}
 	i++;
 	ft_pb(lista, listb);
-	while (i != 0)
-	{
-		ft_rb(listb);
-		i--;
-	}
+	// while (i != 0)
+	// {
+	// 	ft_rb(listb);
+	// 	i--;
+	// }
 }
 
-int	do_ra_rra(t_listx *lista, t_listx *listb, int count, int i)
+int do_ra_rra(t_listx *lista, t_listx *listb, int count, int i)
 {
 	while (i != count)
 	{
@@ -63,9 +63,9 @@ int	do_ra_rra(t_listx *lista, t_listx *listb, int count, int i)
 	return (i);
 }
 
-void	do_rra_ra(t_listx *lista, t_listx *listb, int count, int i)
+void do_rra_ra(t_listx *lista, t_listx *listb, int count, int i)
 {
-	int	sizea;
+	int sizea;
 
 	sizea = ft_size_listx(lista);
 	while (i != (sizea)-count)

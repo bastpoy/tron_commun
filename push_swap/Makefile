@@ -11,13 +11,15 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 NAME = push_swap
 
-$(NAME) : $(OBJSPRINTF)
-	$(MAKE) all -C ./ft_printf
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./ft_printf/libftprintf.a 
+$(NAME) : ft_printf/libftprintf.a $(OBJSPRINTF)
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./ft_printf/libftprintf.a -fsanitize=address
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)
 
 all : $(NAME)
+
+ft_printf/libftprintf.a: FORCE
+	$(MAKE) all -C ./ft_printf
 
 objects/%.o : %.c include/push_swap.h ft_printf/ft_printf.h $(PRINTF)
 	mkdir -p $(dir $@)
@@ -32,5 +34,7 @@ fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
+
+FORCE:
 
 .PHONY:  all clean fclean re

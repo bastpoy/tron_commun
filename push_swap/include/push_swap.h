@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 18:46:03 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/16 10:16:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 17:18:17 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 #define PUSH_SWAP_H
 
 #include "../ft_printf/ft_printf.h"
-// #include "../libft/libft.h"
 #include <stdlib.h>
+#include "stdio.h"
 
 typedef struct s_stack
 {
 	int number;
 	struct s_stack *next;
+	struct s_stack *prev;
 } t_stack;
 
 typedef struct s_listx
@@ -60,6 +61,7 @@ void algo_two(t_listx *lista);
 void algo_three(t_listx *lista);
 void algo_five(t_listx *lista);
 void algo_cent(t_listx *lista);
+void algo_cinqcent(t_listx *lista);
 
 void ft_first_insert_listb(t_listx *lista, t_listx *listb);
 void ft_second_insert_listb(t_listx *lista, t_listx *listb);
@@ -94,5 +96,8 @@ int ft_rr(t_listx *lista, t_listx *listb);
 int ft_rra(t_listx *lista);
 int ft_rrb(t_listx *listb);
 int ft_rrr(t_listx *lista, t_listx *listb);
+
+int ft_max_listx1(t_listx *listx, int *count);
+int ft_min_listx1(t_listx *listx, int *count);
 
 #endif

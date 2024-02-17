@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:04:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/16 09:58:19 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 16:57:59 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	ft_check_if_sort(t_listx *lista)
+int ft_check_if_sort(t_listx *lista)
 {
-	t_stack	*stacka;
+	t_stack *stacka;
 
 	stacka = lista->ptrbegin;
 	while (stacka != NULL)
@@ -29,20 +29,20 @@ int	ft_check_if_sort(t_listx *lista)
 	return (1);
 }
 
-void	algo_two(t_listx *lista)
+void algo_two(t_listx *lista)
 {
-	t_stack	*stacka;
+	t_stack *stacka;
 
 	stacka = lista->ptrbegin;
 	if (stacka->number > stacka->next->number)
 		ft_ra(lista);
 }
 
-void	algo_three(t_listx *lista)
+void algo_three(t_listx *lista)
 {
-	t_stack	*first;
-	int		second;
-	int		third;
+	t_stack *first;
+	int second;
+	int third;
 
 	first = lista->ptrbegin;
 	second = first->next->number;
@@ -65,44 +65,78 @@ void	algo_three(t_listx *lista)
 		ft_rra(lista);
 }
 
-void	algo_five(t_listx *lista)
+void algo_five(t_listx *lista)
 {
-	int		count;
-	t_listx	*listb;
+	int count;
+	t_listx *listb;
 
 	listb = ft_init_listx();
 	ft_pb(lista, listb);
-	ft_pb(lista, listb);
+	if (ft_size_listx(lista) == 4)
+		ft_pb(lista, listb);
 	algo_three(lista);
-	if (!ft_put_minmax_stack1(listb, lista))
+	while (listb->ptrbegin)
 	{
-		count = ft_count_rrb(listb, lista);
-		ft_rra_or_ra(count, listb, lista);
-	}
-	if (!ft_put_minmax_stack1(listb, lista))
-	{
-		count = ft_count_rrb(listb, lista);
-		ft_rra_or_ra(count, listb, lista);
+		if (!ft_put_minmax_stack1(listb, lista))
+		{
+			count = ft_count_rrb(listb, lista);
+			ft_rra_or_ra(count, listb, lista);
+		}
 	}
 	ft_free_list(listb);
 }
 
-void	algo_cent(t_listx *lista)
+void algo_cent(t_listx *lista)
 {
-	t_listx	*listb;
-	t_env	data;
-	int		count;
+	t_listx *listb;
+	t_env data;
+	int count;
 
 	data.maxlista = ft_max_listx(lista);
 	data.minlista = ft_min_listx(lista);
-	data.gap = ((data.maxlista - data.minlista) / 5) + 1;
+	data.gap = ((data.maxlista - data.minlista) / 10) + 1;
+	// printf("data.gap %d\n", data.gap);
 	data.mul = 0;
 	count = -1;
 	listb = ft_init_listx();
-	while (data.mul <= 4)
+	while (data.mul <= 10)
 	{
 		count = ft_getnumber_list(lista, data.minlista + (data.gap * data.mul),
-				(data.mul * data.gap) + data.gap + data.minlista);
+								  (data.mul * data.gap) + data.gap + data.minlista);
+		ft_print_listx(lista);
+		printf("count vaut %d\n", count);
+		if (count != -1)
+		{
+			ft_rra_ra_pb(count, listb, lista);
+			ft_print_listx(lista);
+			ft_print_listx(listb);
+			count = -1;
+		}
+		else
+			data.mul++;
+	}
+	while (listb->ptrbegin)
+		ft_pa(lista, listb);
+	ft_free_list(listb);
+}
+
+void algo_cinqcent(t_listx *lista)
+{
+	t_listx *listb;
+	t_env data;
+	int count;
+
+	data.maxlista = ft_max_listx(lista);
+	data.minlista = ft_min_listx(lista);
+	data.gap = ((data.maxlista - data.minlista) / 20) + 1;
+	data.mul = 0;
+	count = -1;
+	listb = ft_init_listx();
+	while (data.mul <= 20)
+	{
+		count = ft_getnumber_list(lista, data.minlista + (data.gap * data.mul),
+								  (data.mul * data.gap) + data.gap + data.minlista);
+		// ft_print_listx(lista);
 		if (count != -1)
 		{
 			ft_rra_ra_pb(count, listb, lista);

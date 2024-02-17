@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:08:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 18:58:39 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 11:40:56 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	ft_first_insert_listb(t_listx *lista, t_listx *listb)
+void ft_first_insert_listb(t_listx *lista, t_listx *listb)
 {
-	t_stack	*stackb;
+	t_stack *stackb;
 
 	stackb = listb->ptrbegin;
 	if (!stackb)
@@ -23,9 +23,9 @@ void	ft_first_insert_listb(t_listx *lista, t_listx *listb)
 	}
 }
 
-void	ft_second_insert_listb(t_listx *lista, t_listx *listb)
+void ft_second_insert_listb(t_listx *lista, t_listx *listb)
 {
-	t_stack	*stackb;
+	t_stack *stackb;
 
 	stackb = listb->ptrbegin;
 	if (!stackb->next)
@@ -37,10 +37,10 @@ void	ft_second_insert_listb(t_listx *lista, t_listx *listb)
 	}
 }
 
-void	ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb)
+void ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb)
 {
-	int	i;
-	int	sizeb;
+	int i;
+	int sizeb;
 
 	i = 0;
 	sizeb = ft_size_listx(listb);
@@ -54,10 +54,10 @@ void	ft_rrb_or_rb(int count, t_listx *lista, t_listx *listb)
 	}
 }
 
-void	ft_rra_or_ra(int count, t_listx *listb, t_listx *lista)
+void ft_rra_or_ra(int count, t_listx *listb, t_listx *lista)
 {
-	int	i;
-	int	sizea;
+	int i;
+	int sizea;
 
 	i = 0;
 	sizea = ft_size_listx(lista);
@@ -71,10 +71,10 @@ void	ft_rra_or_ra(int count, t_listx *listb, t_listx *lista)
 	}
 }
 
-void	ft_rra_ra_pb(int count, t_listx *listb, t_listx *lista)
+void ft_rra_ra_pb(int count, t_listx *listb, t_listx *lista)
 {
-	int	i;
-	int	sizea;
+	int i;
+	int sizea;
 
 	i = 0;
 	sizea = ft_size_listx(lista);

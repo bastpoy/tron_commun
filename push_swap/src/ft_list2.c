@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:54:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/16 10:15:32 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 13:24:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void ft_insert_front(t_listx *listx, int nb)
 	}
 	stackx->number = nb;
 	stackx->next = listx->ptrbegin;
+	stackx->prev = NULL;
+	if (stackx->next)
+		stackx->next->prev = stackx;
 	listx->ptrbegin = stackx;
 }
 
@@ -81,5 +84,6 @@ void ft_insert_back(t_listx *listx, int nb)
 	}
 	stackx->next = malloc(sizeof(t_stack));
 	stackx->next->number = nb;
+	stackx->next->prev = stackx;
 	stackx->next->next = NULL;
 }

@@ -6,25 +6,24 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:57:42 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 18:59:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 14:44:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	ft_count_rrb(t_listx *listb, t_listx *lista)
+int ft_count_rrb(t_listx *listb, t_listx *lista)
 {
-	t_stack	*stackb;
-	t_stack	*stacka;
-	int		count;
+	t_stack *stackb;
+	t_stack *stacka;
+	int count;
 
 	stackb = listb->ptrbegin;
 	stacka = lista->ptrbegin;
 	count = 1;
 	while (stacka && stacka->next)
 	{
-		if (stackb->number > stacka->number
-			&& stackb->number < stacka->next->number)
+		if (stackb->number > stacka->number && stackb->number < stacka->next->number)
 		{
 			return (count);
 		}
@@ -34,11 +33,11 @@ int	ft_count_rrb(t_listx *listb, t_listx *lista)
 	return (1);
 }
 
-int	ft_put_minmax_stack(t_listx *lista, t_listx *listb)
+int ft_put_minmax_stack(t_listx *lista, t_listx *listb)
 {
-	t_stack	*stacka;
-	t_stack	*stackb;
-	t_stack	*temp;
+	t_stack *stacka;
+	t_stack *stackb;
+	t_stack *temp;
 
 	stacka = lista->ptrbegin;
 	stackb = listb->ptrbegin;
@@ -60,11 +59,11 @@ int	ft_put_minmax_stack(t_listx *lista, t_listx *listb)
 	}
 }
 
-int	ft_put_minmax_stack1(t_listx *listb, t_listx *lista)
+int ft_put_minmax_stack1(t_listx *listb, t_listx *lista)
 {
-	t_stack	*stackb;
-	t_stack	*stacka;
-	t_stack	*temp;
+	t_stack *stackb;
+	t_stack *stacka;
+	t_stack *temp;
 
 	stackb = listb->ptrbegin;
 	stacka = lista->ptrbegin;
@@ -86,20 +85,20 @@ int	ft_put_minmax_stack1(t_listx *listb, t_listx *lista)
 	}
 }
 
-int	pb_filter(t_listx *lista, t_listx *listb)
+int pb_filter(t_listx *lista, t_listx *listb)
 {
-	t_stack	*stacka;
-	t_stack	*stackb;
-	int		minmax;
+	t_stack *stacka;
+	t_stack *stackb;
+	int minmax;
 
 	stacka = lista->ptrbegin;
 	stackb = listb->ptrbegin;
 	minmax = num_max_min(lista, listb);
 	if (stackb)
 	{
-		if (minmax == 1)
-			return (ft_pb(lista, listb), ft_rb(listb), 1);
 		if (minmax == 0)
+			return (ft_pb(lista, listb), ft_rb(listb), 1);
+		if (minmax == 1)
 			return (ft_pb(lista, listb), 1);
 		return (min_max(stacka, stackb, lista, listb));
 	}
