@@ -1,8 +1,6 @@
 SRCSPRINTF = src/main.c src/ft_sort.c src/ft_sort2.c src/ft_sort3.c\
-			 src/ft_list.c src/ft_list2.c src/ft_list3.c \
-			 src/ft_sort_numbers.c src/ft_sort_numbers2.c\
-			 src/ft_algo.c src/check_input.c src/free.c\
-			 src/increment.c src/increment2.c
+			 src/ft_list.c src/ft_list2.c src/increment.c src/radix.c\
+			 src/ft_sort_numbers.c src/ft_algo.c src/check_input.c src/free.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 PRINTF = ./ft_printf/ft_printf.h 

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:16:18 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/15 18:51:22 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 21:33:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,10 @@ int	free_twodim(char **str)
 	}
 	free(str);
 	return (1);
+}
+
+void	error(t_listx *list)
+{
+	ft_free_list(list);
+	exit(EXIT_FAILURE);
 }

@@ -12,9 +12,9 @@
 
 #include "../include/push_swap.h"
 
-int ft_sa(t_listx *lista)
+int	ft_sa(t_listx *lista)
 {
-	int tmp;
+	int	tmp;
 
 	if (lista->ptrbegin && lista->ptrbegin->next)
 	{
@@ -31,9 +31,9 @@ int ft_sa(t_listx *lista)
 	}
 }
 
-int ft_sb(t_listx *listb)
+int	ft_sb(t_listx *listb)
 {
-	int tmp;
+	int	tmp;
 
 	if (listb->ptrbegin && listb->ptrbegin->next)
 	{
@@ -50,12 +50,13 @@ int ft_sb(t_listx *listb)
 	}
 }
 
-int ft_ss(t_listx *lista, t_listx *listb)
+int	ft_ss(t_listx *lista, t_listx *listb)
 {
-	int tmp1;
-	int tmp2;
+	int	tmp1;
+	int	tmp2;
 
-	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin && listb->ptrbegin->next)
+	if (lista->ptrbegin && lista->ptrbegin->next && listb->ptrbegin
+		&& listb->ptrbegin->next)
 	{
 		tmp1 = lista->ptrbegin->number;
 		lista->ptrbegin->number = lista->ptrbegin->next->number;

@@ -12,9 +12,9 @@
 
 #include "../include/push_swap.h"
 
-void ft_del_front(t_listx *listx)
+void	ft_del_front(t_listx *listx)
 {
-	t_stack *el;
+	t_stack	*el;
 
 	if (!listx)
 		ft_printf("cant free NULL ptr");
@@ -25,10 +25,10 @@ void ft_del_front(t_listx *listx)
 	free(el);
 }
 
-void ft_del_back(t_listx *listx)
+void	ft_del_back(t_listx *listx)
 {
-	t_stack *current;
-	t_stack *previous;
+	t_stack	*current;
+	t_stack	*previous;
 
 	current = listx->ptrbegin;
 	previous = NULL;
@@ -41,10 +41,10 @@ void ft_del_back(t_listx *listx)
 	free(current);
 }
 
-int ft_free_list(t_listx *list)
+int	ft_free_list(t_listx *list)
 {
-	t_stack *stacka;
-	t_stack *tmp;
+	t_stack	*stacka;
+	t_stack	*tmp;
 
 	stacka = list->ptrbegin;
 	if (!list)
@@ -59,9 +59,9 @@ int ft_free_list(t_listx *list)
 	return (1);
 }
 
-t_stack *ft_get_last(t_listx *listx)
+t_stack	*ft_get_last(t_listx *listx)
 {
-	t_stack *stackx;
+	t_stack	*stackx;
 
 	stackx = listx->ptrbegin;
 	while (stackx)

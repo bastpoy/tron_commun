@@ -6,20 +6,22 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 17:47:34 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/16 10:14:50 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/17 20:55:26 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int ft_pa(t_listx *lista, t_listx *listb)
+int	ft_pa(t_listx *lista, t_listx *listb)
 {
-	int tmp;
+	int	tmp;
+	int	bin;
 
 	if (listb->ptrbegin)
 	{
 		tmp = listb->ptrbegin->number;
-		ft_insert_front(lista, tmp);
+		bin = listb->ptrbegin->bin;
+		ft_insert_front(lista, tmp, bin);
 		ft_del_front(listb);
 		ft_printf("pa\n");
 		return (1);
@@ -31,14 +33,16 @@ int ft_pa(t_listx *lista, t_listx *listb)
 	}
 }
 
-int ft_pb(t_listx *lista, t_listx *listb)
+int	ft_pb(t_listx *lista, t_listx *listb)
 {
-	int tmp;
+	int	tmp;
+	int	bin;
 
 	if (lista->ptrbegin)
 	{
 		tmp = lista->ptrbegin->number;
-		ft_insert_front(listb, tmp);
+		bin = lista->ptrbegin->bin;
+		ft_insert_front(listb, tmp, bin);
 		ft_del_front(lista);
 		ft_printf("pb\n");
 		return (1);
@@ -50,11 +54,11 @@ int ft_pb(t_listx *lista, t_listx *listb)
 	}
 }
 
-int ft_ra(t_listx *lista)
+int	ft_ra(t_listx *lista)
 {
 	if (lista->ptrbegin && lista->ptrbegin->next)
 	{
-		ft_insert_back(lista, lista->ptrbegin->number);
+		ft_insert_back(lista, lista->ptrbegin->number, lista->ptrbegin->bin);
 		ft_del_front(lista);
 		ft_printf("ra\n");
 		return (1);
@@ -66,11 +70,11 @@ int ft_ra(t_listx *lista)
 	}
 }
 
-int ft_rb(t_listx *listb)
+int	ft_rb(t_listx *listb)
 {
 	if (listb->ptrbegin && listb->ptrbegin->next)
 	{
-		ft_insert_back(listb, listb->ptrbegin->number);
+		ft_insert_back(listb, listb->ptrbegin->number, listb->ptrbegin->bin);
 		ft_del_front(listb);
 		ft_printf("rb\n");
 		return (1);
