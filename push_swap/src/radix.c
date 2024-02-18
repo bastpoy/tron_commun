@@ -6,16 +6,16 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 21:28:20 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/17 21:42:26 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/18 10:48:49 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	affect_binary(t_listx *lista, int *tab)
+void affect_binary(t_listx *lista, int *tab)
 {
-	t_stack	*stacka;
-	int		i;
+	t_stack *stacka;
+	int i;
 
 	i = 0;
 	stacka = lista->ptrbegin;
@@ -31,18 +31,17 @@ void	affect_binary(t_listx *lista, int *tab)
 	}
 }
 
-void	do_radix(t_listx *lista, t_listx *listb)
+void do_radix(t_listx *lista, t_listx *listb)
 {
-	t_stack	*stacka;
-	int		max_bits;
-	int		i;
-	int		j;
-	int		size;
+	t_stack *stacka;
+	int max_bits;
+	int i;
+	int j;
+	int size;
 
 	i = 0;
 	size = ft_size_listx(lista);
 	max_bits = sizeof(int) * 8;
-	stacka = lista->ptrbegin;
 	while (i < max_bits && !ft_check_if_sort(lista))
 	{
 		j = 0;
@@ -61,12 +60,12 @@ void	do_radix(t_listx *lista, t_listx *listb)
 	}
 }
 
-int	*selection_sort(int *tab, int n)
+int *selection_sort(int *tab, int n)
 {
-	int	i;
-	int	min_idx;
-	int	j;
-	int	temp;
+	int i;
+	int min_idx;
+	int j;
+	int temp;
 
 	i = 0;
 	while (i < n - 1)

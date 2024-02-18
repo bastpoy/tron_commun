@@ -29,8 +29,8 @@ ssize_t	ft_getprintchar(va_list parameter, const char *entry)
 		str = va_arg(parameter, char *);
 		if (!str)
 		{
-			if(ft_putstr("(null)", 1) < 0)
-				return(-1);
+			if (ft_putstr("(null)", 1) < 0)
+				return (-1);
 			return (6);
 		}
 		if (ft_strlen(str) > INT_MAX || ft_putstr(str, 1) < 0)

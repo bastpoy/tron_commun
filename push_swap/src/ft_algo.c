@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:04:47 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/17 21:34:45 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/18 10:48:22 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	ft_check_if_sort(t_listx *lista)
+int ft_check_if_sort(t_listx *lista)
 {
-	t_stack	*stacka;
+	t_stack *stacka;
 
 	stacka = lista->ptrbegin;
 	while (stacka != NULL)
@@ -26,23 +26,24 @@ int	ft_check_if_sort(t_listx *lista)
 		}
 		stacka = stacka->next;
 	}
+	ft_free_list(lista);
 	return (1);
 }
 
-void	algo_two(t_listx *lista)
+void algo_two(t_listx *lista)
 {
-	t_stack	*stacka;
+	t_stack *stacka;
 
 	stacka = lista->ptrbegin;
 	if (stacka->number > stacka->next->number)
 		ft_ra(lista);
 }
 
-void	algo_three(t_listx *lista)
+void algo_three(t_listx *lista)
 {
-	t_stack	*first;
-	int		second;
-	int		third;
+	t_stack *first;
+	int second;
+	int third;
 
 	first = lista->ptrbegin;
 	second = first->next->number;
@@ -65,10 +66,10 @@ void	algo_three(t_listx *lista)
 		ft_rra(lista);
 }
 
-void	algo_five(t_listx *lista)
+void algo_five(t_listx *lista)
 {
-	int		count;
-	t_listx	*listb;
+	int count;
+	t_listx *listb;
 
 	listb = ft_init_listx();
 	ft_pb(lista, listb);
@@ -86,12 +87,12 @@ void	algo_five(t_listx *lista)
 	ft_free_list(listb);
 }
 
-void	algo_radix(t_listx *lista)
+void algo_radix(t_listx *lista)
 {
-	t_listx	*listb;
-	t_stack	*stacka;
-	int		*tab;
-	int		i;
+	t_listx *listb;
+	t_stack *stacka;
+	int *tab;
+	int i;
 
 	i = 0;
 	stacka = lista->ptrbegin;
@@ -106,9 +107,9 @@ void	algo_radix(t_listx *lista)
 		i++;
 	}
 	i = 0;
-	tab = selectionSort(tab, ft_size_listx(lista));
+	tab = selection_sort(tab, ft_size_listx(lista));
 	affect_binary(lista, tab);
 	do_radix(lista, listb);
-	free(listb);
+	ft_free_list(listb);
 	free(tab);
 }
