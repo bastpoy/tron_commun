@@ -12,10 +12,10 @@
 
 #include "../include/push_swap.h"
 
-void affect_binary(t_listx *lista, int *tab)
+void	affect_binary(t_listx *lista, int *tab)
 {
-	t_stack *stacka;
-	int i;
+	t_stack	*stacka;
+	int		i;
 
 	i = 0;
 	stacka = lista->ptrbegin;
@@ -31,13 +31,13 @@ void affect_binary(t_listx *lista, int *tab)
 	}
 }
 
-void do_radix(t_listx *lista, t_listx *listb)
+void	do_radix(t_listx *lista, t_listx *listb)
 {
-	t_stack *stacka;
-	int max_bits;
-	int i;
-	int j;
-	int size;
+	t_stack	*stacka;
+	int		max_bits;
+	int		i;
+	int		j;
+	int		size;
 
 	i = 0;
 	size = ft_size_listx(lista);
@@ -60,12 +60,12 @@ void do_radix(t_listx *lista, t_listx *listb)
 	}
 }
 
-int *selection_sort(int *tab, int n)
+int	*selection_sort(int *tab, int n)
 {
-	int i;
-	int min_idx;
-	int j;
-	int temp;
+	int	i;
+	int	min_idx;
+	int	j;
+	int	temp;
 
 	i = 0;
 	while (i < n - 1)

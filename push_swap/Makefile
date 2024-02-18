@@ -10,7 +10,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 NAME = push_swap
 
 $(NAME) : ft_printf/libftprintf.a $(OBJSPRINTF)
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./ft_printf/libftprintf.a -fsanitize=address
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./ft_printf/libftprintf.a
 # cp ft_printf/libftprintf.a $(NAME)
 # ar rcs $(NAME) $(OBJSPRINTF)
 
