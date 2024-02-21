@@ -1,0 +1,4 @@
+UID = user id qui permet de differencier chaque utilisateur par un ID unique.
+GID = pareil pour groupe.
+
+ACCESS: permet de savoir si le programme appelant a acces au fichier en specifiant quelle mode il souhaite verifier
