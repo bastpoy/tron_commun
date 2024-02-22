@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 09:44:06 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/21 23:06:39 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/22 10:55:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ typedef struct s_pipex
 
 void free_threedim(char ***array);
 void free_twodim(char **array);
+void error(char *err);
+void error_free(char *err, t_pipex *pipex);
 
 #endif

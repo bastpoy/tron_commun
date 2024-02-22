@@ -6,16 +6,12 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/22 00:17:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/22 11:33:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Je vai fork une premiere fois dans mon main
-// Dans le processus fils je vais appeler la fonction qui va pipe
-// je pipe avant puis je fork ce pipe
-// ce qui va dupliquer mon pipe
-
 #include "pipex.h"
+
 static char *check_access(t_pipex *pipex, int indice)
 {
     char *path;
@@ -49,6 +45,7 @@ static char **get_env(char *envp[])
             while (envsplit[j])
             {
                 envsplit[j] = ft_strjoin(envsplit[j], "/");
+                printf("%s\n", envsplit[j]);
                 j++;
             }
             envsplit[j] = NULL;
@@ -73,27 +70,13 @@ static void get_args(char *argv[], t_pipex *pipex, int argc)
         j++;
     }
     pipex->args[i] = NULL;
-    i = 0;
-    // while (pipex->args[1])
-    // {
-    // j = 0;
-    // while (pipex->args[1][j])
-    // {
-    //     printf("%s\n", pipex->args[1][j]);
-    //     j++;
-    // }
-    //     i++;
-    // }
 }
 
-static int run_pipe(int argc, char *argv[], t_pipex pipex)
+static int run_pipe(t_pipex pipex)
 {
     int fd[2];
     pid_t pid;
 
-    pipex.fd[0] = open(argv[1], O_RDONLY);
-    pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    get_args(argv, &pipex, argc);
     if (pipe(fd) == -1)
     {
         close(fd[0]);
@@ -105,42 +88,48 @@ static int run_pipe(int argc, char *argv[], t_pipex pipex)
         perror("Fork error");
     if (pid == 0)
     {
-        printf("processecus fils\n");
         if (dup2(pipex.fd[0], STDIN_FILENO) == -1)
-            strerror(errno);
+            error_free("error", &pipex);
         if (dup2(fd[1], STDOUT_FILENO) == -1)
-            strerror(errno);
+            error_free("error", &pipex);
         close(fd[0]);
         pipex.path = check_access(&pipex, 1);
-        fprintf(stderr, "la %s\n", pipex.path);
-
+        if (!pipex.path)
+            error_free(pipex.path, &pipex);
+        fprintf(stderr, "path %s\n", pipex.path);
         execve(pipex.path, pipex.args[1], NULL);
-        free(pipex.path);
-        strerror(errno);
-        perror("Fail creating processus");
+        error_free("error", &pipex);
     }
     waitpid(pid, NULL, 0);
-    printf("processecus pere\n");
     if (dup2(fd[0], STDIN_FILENO) == -1)
-        printf("erreur ici\n");
+        error_free("error", &pipex);
     close(fd[1]);
     if (dup2(pipex.fd[1], STDOUT_FILENO) == -1)
-        printf("ou la");
+        error_free("error", &pipex);
     pipex.path = check_access(&pipex, 2);
     execve(pipex.path, pipex.args[2], NULL);
-    free(pipex.path);
-    perror("Fail creating processus");
+    error_free("error", &pipex);
     return (0);
 }
 
 int main(int argc, char *argv[], char *envp[])
 {
     t_pipex pipex;
-
+    int i = 0;
+    while (pipex.envp[i])
+    {
+        printf("%s\n", envp[i]);
+        i++;
+    }
+    pipex.fd[0] = open(argv[1], O_RDONLY);
+    if (pipex.fd[0] < 0)
+        error(argv[1]);
+    pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (pipex.fd[1] < 0)
+        error(argv[argc - 1]);
     pipex.envp = get_env(envp);
     get_args(argv, &pipex, argc);
-
-    run_pipe(argc, argv, pipex);
+    run_pipe(pipex);
 
     free_threedim(pipex.args);
     free_twodim(pipex.envp);
