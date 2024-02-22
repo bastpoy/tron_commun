@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "*.ejs": "html",
-    "fdf.h": "c"
+    "fdf.h": "c",
+    "fcntl.h": "c"
   }
 }

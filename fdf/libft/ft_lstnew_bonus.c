@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-t_list1 *ft_lstnew(void *content)
+t_list1	*ft_lstnew(void *content)
 {
-	t_list1 *ptr;
+	t_list1	*ptr;
 
 	ptr = malloc(sizeof(t_list1));
 	if (!ptr)

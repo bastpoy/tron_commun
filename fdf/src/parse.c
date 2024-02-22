@@ -12,19 +12,19 @@
 
 #include "../include/fdf.h"
 
-static char **read_line(char *str)
+static char	**read_line(char *str)
 {
-	char **strsplit;
+	char	**strsplit;
 
 	strsplit = ft_split(str, '\n');
 	free(str);
 	return (strsplit);
 }
 
-static char ***read_space(char **strsplit, t_input input)
+static char	***read_space(char **strsplit, t_input input)
 {
-	char ***splitspace;
-	int i;
+	char	***splitspace;
+	int		i;
 
 	i = 0;
 	splitspace = (char ***)malloc(sizeof(char **) * (input.ord + 1));
@@ -43,13 +43,13 @@ static char ***read_space(char **strsplit, t_input input)
 	return (splitspace);
 }
 
-static char ***read_file(char *entry, t_input input)
+static char	***read_file(char *entry, t_input input)
 {
-	int fd;
-	char *str;
-	char *tmp;
-	char *old_str;
-	char ***strspace;
+	int		fd;
+	char	*str;
+	char	*tmp;
+	char	*old_str;
+	char	***strspace;
 
 	str = NULL;
 	fd = open(entry, O_RDONLY);
@@ -69,11 +69,11 @@ static char ***read_file(char *entry, t_input input)
 	return (strspace);
 }
 
-static t_map ***ft_input_str_coma(char ***str, t_map ***point, t_input input,
-								  int i)
+static t_map	***ft_input_str_coma(char ***str, t_map ***point, t_input input,
+		int i)
 {
-	char **strsplit;
-	int j;
+	char	**strsplit;
+	int		j;
 
 	j = 0;
 	point[i] = (t_map **)malloc(sizeof(t_map *) * (input.abs + 1));
@@ -99,11 +99,11 @@ static t_map ***ft_input_str_coma(char ***str, t_map ***point, t_input input,
 	return (point);
 }
 
-t_map ***ft_fill_struct(t_input input, char *entry)
+t_map	***ft_fill_struct(t_input input, char *entry)
 {
-	char ***str;
-	t_map ***map;
-	int i;
+	char	***str;
+	t_map	***map;
+	int		i;
 
 	i = 0;
 	str = read_file(entry, input);

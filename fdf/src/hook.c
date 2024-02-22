@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:48:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/13 14:21:19 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/22 13:33:40 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 int	close_window(t_data *data)
 {
+	mlx_clear_window(data->mlx_ptr, data->mlx_win);
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+	mlx_destroy_display(data->mlx_ptr);
 	free(data->mov);
 	free(data->mlx_ptr);
+	free_map(data->map);
 	free(data);
 	exit(0);
-	return (0);
 }
 
 int	key_hook(int keycode, t_data *data)

@@ -12,40 +12,40 @@
 
 #include "libft.h"
 
-static int ft_trym_start(char const *s1, char const *set)
+static int	ft_trym_start(char const *s1, char const *set)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s1[i])
 	{
 		if (ft_strchr(set, s1[i]) == 0)
-			break;
+			break ;
 		i++;
 	}
 	return (i);
 }
 
-static int ft_trym_end(char const *s1, char const *set)
+static int	ft_trym_end(char const *s1, char const *set)
 {
-	size_t i;
+	size_t	i;
 
 	i = ft_strlen((char *)s1);
 	while (i > 0)
 	{
 		if (ft_strchr(set, s1[i - 1]) == 0)
-			break;
+			break ;
 		i--;
 	}
 	return (i);
 }
 
-char *ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t indice_start;
-	size_t indice_end;
-	char *str;
-	size_t i;
+	size_t	indice_start;
+	size_t	indice_end;
+	char	*str;
+	size_t	i;
 
 	i = 0;
 	indice_start = ft_trym_start(s1, set);

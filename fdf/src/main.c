@@ -12,10 +12,10 @@
 
 #include "../include/fdf.h"
 
-static size_t ft_strlen_space_backn(const char *str)
+static size_t	ft_strlen_space_backn(const char *str)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -23,7 +23,8 @@ static size_t ft_strlen_space_backn(const char *str)
 		return (0);
 	while (str[i] != '\0')
 	{
-		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\n') && str[i] != '\n')
+		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\n')
+			&& str[i] != '\n')
 		{
 			j++;
 		}
@@ -32,14 +33,14 @@ static size_t ft_strlen_space_backn(const char *str)
 	return (j);
 }
 
-static t_input ft_get_length_width(char *entry)
+static t_input	ft_get_length_width(char *entry)
 {
-	int fd;
-	char *str;
-	t_input input;
+	int		fd;
+	char	*str;
+	t_input	input;
 
 	fd = open(entry, O_RDONLY);
-	error_openfile(entry);
+    check_map(entry);
 	if (fd < 0 || !(error_openfile(entry)))
 		ft_return_error("cannot open file\n");
 	str = get_next_line(fd);
@@ -51,17 +52,16 @@ static t_input ft_get_length_width(char *entry)
 		free(str);
 		str = get_next_line(fd);
 	}
-	input.abs2 = input.abs / 2;
-	input.ord2 = input.ord / 2;
 	close(fd);
 	return (input);
 }
 
-int main(int argc, char **argv)
+
+int	main(int argc, char **argv)
 {
-	t_input input;
-	t_map ***map;
-	t_data *data;
+	t_input	input;
+	t_map	***map;
+	t_data	*data;
 
 	if (argc == 2)
 	{

@@ -12,9 +12,9 @@
 
 #include "../include/fdf.h"
 
-float *f_rot(float param1, float param2, float param3, float param4)
+float	*f_rot(float param1, float param2, float param3, float param4)
 {
-	float *elem;
+	float	*elem;
 
 	elem = malloc(4 * sizeof(float));
 	if (!elem)
@@ -26,9 +26,9 @@ float *f_rot(float param1, float param2, float param3, float param4)
 	return (elem);
 }
 
-static t_mov *init_mov(void)
+static t_mov	*init_mov(void)
 {
-	t_mov *mov;
+	t_mov	*mov;
 
 	mov = malloc(sizeof(t_mov));
 	if (!mov)
@@ -41,10 +41,10 @@ static t_mov *init_mov(void)
 	return (mov);
 }
 
-t_data *init_data(t_map ***map, t_input input)
+t_data	*init_data(t_map ***map, t_input input)
 {
-	t_data *data;
-	t_mov *mov;
+	t_data	*data;
+	t_mov	*mov;
 
 	mov = init_mov();
 	data = malloc(sizeof(t_data));
@@ -54,9 +54,29 @@ t_data *init_data(t_map ***map, t_input input)
 	data->mlx_win = mlx_new_window(data->mlx_ptr, 1920, 1080, "FDF");
 	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-								   &data->line_length, &data->endian);
+			&data->line_length, &data->endian);
 	data->mov = mov;
 	data->map = map;
 	data->input = input;
 	return (data);
+}
+
+int check_map(char *entry)
+{
+    int fd;
+    char *str;
+    int bytesread;
+
+    str = malloc(sizeof(char) * BUFFER);
+    if(!str)
+        exit(1);
+    fd = open(entry, O_RDONLY);
+    bytesread = read(fd,str,BUFFER);
+    if(bytesread == BUFFER || bytesread == 0) {
+        free(str);
+        ft_return_error("data error\n");
+    }
+
+    free(str);
+    return(0);
 }

@@ -13,7 +13,7 @@ NAME = fdf
 
 $(NAME) : libft/libft.a $(OBJSPRINTF)
 	$(MAKE) all -C ./minilibx-linux
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a ./libft/libft.a -lX11 -lXext -lm
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./minilibx-linux/libmlx.a ./libft/libft.a -lX11 -lXext -lm -fsanitize=address
 
 all : $(NAME)
 

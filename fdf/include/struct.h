@@ -25,8 +25,6 @@ typedef struct s_input
 {
 	int		abs;
 	int		ord;
-	int		abs2;
-	int		ord2;
 }			t_input;
 
 typedef struct s_point
