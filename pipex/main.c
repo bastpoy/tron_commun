@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/22 11:33:44 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/23 14:12:02 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,41 @@ static char *check_access(t_pipex *pipex, int indice)
     int i;
 
     i = 0;
+    if (ft_strncmp(pipex->args[indice][0], "/", 1) == 0)
+        return (pipex->args[indice][0]);
     while (pipex->envp[i])
     {
         path = ft_strjoin(pipex->envp[i], pipex->args[indice][0]);
         if (!access(path, X_OK))
             return (path);
+        free(path);
         i++;
     }
-    free(path);
     return (NULL);
 }
 
 static char **get_env(char *envp[])
 {
-    int i;
+    int i = -1;
     int j;
-    char **envsplit;
 
     j = 0;
-    i = 0;
-    while (envp[i])
+    char **envsplit;
+    while (envp[++i])
     {
-        if (ft_strnstr(envp[i], "PATH=", ft_strlen(envp[i])))
+        if (ft_strncmp(envp[i], "PATH=", 5) == 0)
         {
-            envsplit = ft_split(ft_strnstr(envp[i], "PATH=", ft_strlen(envp[i])) + 5, ':');
+            envsplit = ft_split(ft_strnstr(envp[i], "PATH=", ft_strlen(envp[i])+5), ':');
             while (envsplit[j])
             {
                 envsplit[j] = ft_strjoin(envsplit[j], "/");
-                printf("%s\n", envsplit[j]);
                 j++;
             }
             envsplit[j] = NULL;
             return (envsplit);
         }
-        i++;
     }
-    return (NULL);
+    return NULL;
 }
 
 static void get_args(char *argv[], t_pipex *pipex, int argc)
@@ -72,10 +71,48 @@ static void get_args(char *argv[], t_pipex *pipex, int argc)
     pipex->args[i] = NULL;
 }
 
-static int run_pipe(t_pipex pipex)
+static void second_child(t_pipex *pipex, int fd[2])
 {
+    pipex->pid2 = fork();
+    if (pipex->pid2 == -1)
+        perror("Proc error");
+    if (pipex->pid2 == 0) // child
+    {
+        if (dup2(fd[0], STDIN_FILENO) == -1)
+            error_free("error", pipex);
+        close(fd[1]);
+        if (dup2(pipex->fd[1], STDOUT_FILENO) == -1)
+            error_free("error", pipex);
+        pipex->path = check_access(pipex, 2);
+        execve(pipex->path, pipex->args[2], NULL);
+        error_free("error", pipex);
+    }
+}
+
+static void first_child(t_pipex *pipex, int fd[2])
+{
+    pipex->pid1 = fork();
+    if (pipex->pid1 == -1)
+        perror("Proc error");
+    if (pipex->pid1 == 0)
+    {
+        if (dup2(pipex->fd[0], STDIN_FILENO) == -1)
+            error_free("error", pipex);
+        if (dup2(fd[1], STDOUT_FILENO) == -1)
+            error_free("error", pipex);
+        close(fd[0]);
+        pipex->path = check_access(pipex, 1);
+//        if (!pipex->path)
+//            error_free(pipex->path, pipex);
+        execve(pipex->path, pipex->args[1], NULL);
+        error_free(pipex->path, pipex);
+    }
+}
+
+int main(int argc, char *argv[], char *envp[])
+{
+    t_pipex pipex;
     int fd[2];
-    pid_t pid;
 
     if (pipe(fd) == -1)
     {
@@ -83,55 +120,20 @@ static int run_pipe(t_pipex pipex)
         close(fd[1]);
         perror("Pipe Error");
     }
-    pid = fork();
-    if (pid == -1)
-        perror("Fork error");
-    if (pid == 0)
-    {
-        if (dup2(pipex.fd[0], STDIN_FILENO) == -1)
-            error_free("error", &pipex);
-        if (dup2(fd[1], STDOUT_FILENO) == -1)
-            error_free("error", &pipex);
-        close(fd[0]);
-        pipex.path = check_access(&pipex, 1);
-        if (!pipex.path)
-            error_free(pipex.path, &pipex);
-        fprintf(stderr, "path %s\n", pipex.path);
-        execve(pipex.path, pipex.args[1], NULL);
-        error_free("error", &pipex);
-    }
-    waitpid(pid, NULL, 0);
-    if (dup2(fd[0], STDIN_FILENO) == -1)
-        error_free("error", &pipex);
-    close(fd[1]);
-    if (dup2(pipex.fd[1], STDOUT_FILENO) == -1)
-        error_free("error", &pipex);
-    pipex.path = check_access(&pipex, 2);
-    execve(pipex.path, pipex.args[2], NULL);
-    error_free("error", &pipex);
-    return (0);
-}
-
-int main(int argc, char *argv[], char *envp[])
-{
-    t_pipex pipex;
-    int i = 0;
-    while (pipex.envp[i])
-    {
-        printf("%s\n", envp[i]);
-        i++;
-    }
     pipex.fd[0] = open(argv[1], O_RDONLY);
     if (pipex.fd[0] < 0)
         error(argv[1]);
     pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (pipex.fd[1] < 0)
         error(argv[argc - 1]);
+
     pipex.envp = get_env(envp);
     get_args(argv, &pipex, argc);
-    run_pipe(pipex);
-
-    free_threedim(pipex.args);
-    free_twodim(pipex.envp);
+    first_child(&pipex, fd);
+    second_child(&pipex, fd);
+    close_fd(fd);
+    waitpid(pipex.pid1, NULL, 0);
+    waitpid(pipex.pid2, NULL, 0);
+    free_all(pipex.args, pipex.envp);
     return (0);
 }

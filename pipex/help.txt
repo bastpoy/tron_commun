@@ -2,3 +2,8 @@ UID = user id qui permet de differencier chaque utilisateur par un ID unique.
 GID = pareil pour groupe.
 
 ACCESS: permet de savoir si le programme appelant a acces au fichier en specifiant quelle mode il souhaite verifier
+gestion:
+
+- passer de un pere a deux fils => faire deux fork
+- aller chercher le chemin dans path si le chemin de la commande n'est pas specifie
+- Si mon path laisser excecve renvoyer l'erreur

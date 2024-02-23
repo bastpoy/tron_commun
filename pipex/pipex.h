@@ -34,11 +34,16 @@ typedef struct s_pipex
     char *path;
     int argcount;
     int fd[2];
+    pid_t pid1;
+    pid_t pid2;
 } t_pipex;
 
+void free_all (char ***args, char **envp);
 void free_threedim(char ***array);
 void free_twodim(char **array);
+
 void error(char *err);
 void error_free(char *err, t_pipex *pipex);
+void close_fd(int fd[2]);
 
 #endif

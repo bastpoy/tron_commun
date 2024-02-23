@@ -6,8 +6,7 @@ CFLAGS = -Wall -Werror -Wextra -g3
 NAME = pipex
 
 $(NAME) : libft/libft.a $(OBJSPRINTF)
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./libft/libft.a -fsanitize=address
-
+	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./libft/libft.a
 all : $(NAME)
 
 libft/libft.a: FORCE
@@ -20,6 +19,7 @@ objects/%.o : %.c pipex.h libft/libft.h
 clean : 
 	$(MAKE) clean -C ./libft
 	rm -rf objects
+	rm -rf test
 
 fclean : clean
 	rm -f $(NAME)

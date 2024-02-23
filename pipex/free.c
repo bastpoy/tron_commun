@@ -12,24 +12,26 @@
 
 #include "pipex.h"
 
+void free_all (char ***args, char **envp)
+{
+    free_threedim(args);
+    free_twodim(envp);
+}
+
 void free_threedim(char ***array)
 {
     int i;
     int j;
 
-    i = 0;
+    i = -1;
     if (array)
     {
-        while (array[i])
+        while (array[++i])
         {
-            j = 0;
-            while (array[i][j])
-            {
+            j = -1;
+            while (array[i][++j])
                 free(array[i][j]);
-                j++;
-            }
             free(array[i]);
-            i++;
         }
         free(array);
     }
@@ -39,28 +41,17 @@ void free_twodim(char **array)
 {
     int i;
 
-    i = 0;
+    i = -1;
     if (array)
     {
-        while (array[i])
-        {
+        while (array[++i])
             free(array[i]);
-            i++;
-        }
         free(array);
     }
 }
 
-void error(char *err)
+void close_fd(int fd[2])
 {
-    perror(err);
-    exit(1);
-}
-
-void error_free(char *err, t_pipex *pipex)
-{
-    free_threedim(pipex->args);
-    free_twodim(pipex->envp);
-    perror(err);
-    exit(1);
+    close(fd[0]);
+    close(fd[1]);
 }
