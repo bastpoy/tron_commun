@@ -28,7 +28,10 @@ static char *check_access(t_pipex *pipex, int indice)
         free(path);
         i++;
     }
-    return (NULL);
+    pipex->errorcode = 1;
+    exit(EXIT_FAILURE);
+//    fprintf(stderr, "error code %d\n", pipex->errorcode);
+    return(NULL);
 }
 
 static char **get_env(char *envp[])
@@ -60,6 +63,7 @@ static void get_args(char *argv[], t_pipex *pipex, int argc)
     int i = 0;
     int j = 1;
     pipex->args = (char ***)malloc(sizeof(char **) * argc);
+    pipex->errorcode = 0;
     if (!pipex->args)
         perror("Malloc error");
     while (argv[j])
@@ -76,16 +80,17 @@ static void second_child(t_pipex *pipex, int fd[2])
     pipex->pid2 = fork();
     if (pipex->pid2 == -1)
         perror("Proc error");
-    if (pipex->pid2 == 0) // child
+    if (pipex->pid2 == 0)
     {
         if (dup2(fd[0], STDIN_FILENO) == -1)
-            error_free("error", pipex);
+            error_free("error", pipex, 0);
         close(fd[1]);
         if (dup2(pipex->fd[1], STDOUT_FILENO) == -1)
-            error_free("error", pipex);
+            error_free("error", pipex, 0);
         pipex->path = check_access(pipex, 2);
         execve(pipex->path, pipex->args[2], NULL);
-        error_free("error", pipex);
+        pipex->errorcode = 2;
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -97,15 +102,14 @@ static void first_child(t_pipex *pipex, int fd[2])
     if (pipex->pid1 == 0)
     {
         if (dup2(pipex->fd[0], STDIN_FILENO) == -1)
-            error_free("error", pipex);
+            error_free("error", pipex, 0);
         if (dup2(fd[1], STDOUT_FILENO) == -1)
-            error_free("error", pipex);
+            error_free("error", pipex, 0);
         close(fd[0]);
         pipex->path = check_access(pipex, 1);
-//        if (!pipex->path)
-//            error_free(pipex->path, pipex);
+        fprintf(stderr, "error code %d\n", pipex->errorcode);
         execve(pipex->path, pipex->args[1], NULL);
-        error_free(pipex->path, pipex);
+        pipex->errorcode = 2;
     }
 }
 
@@ -116,8 +120,7 @@ int main(int argc, char *argv[], char *envp[])
 
     if (pipe(fd) == -1)
     {
-        close(fd[0]);
-        close(fd[1]);
+        close_fd(fd);
         perror("Pipe Error");
     }
     pipex.fd[0] = open(argv[1], O_RDONLY);
@@ -126,14 +129,14 @@ int main(int argc, char *argv[], char *envp[])
     pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (pipex.fd[1] < 0)
         error(argv[argc - 1]);
-
     pipex.envp = get_env(envp);
     get_args(argv, &pipex, argc);
     first_child(&pipex, fd);
-    second_child(&pipex, fd);
+    if(pipex.errorcode == 0)
+        second_child(&pipex, fd);
     close_fd(fd);
     waitpid(pipex.pid1, NULL, 0);
     waitpid(pipex.pid2, NULL, 0);
-    free_all(pipex.args, pipex.envp);
+    error_code(&pipex);
     return (0);
 }

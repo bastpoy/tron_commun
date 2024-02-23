@@ -1,0 +1,135 @@
+PIPE
+
+TEST_0
+./tester.sh: line 14: /usr/bin/ct: No such file or directory
+ERROR_CODE:0
+OUTPUT:       0       0       0
+
+TEST_0_1
+./tester.sh: line 24: ct: command not found
+ERROR_CODE:0
+OUTPUT:       0       0       0
+
+TEST_1
+ERROR_CODE:0
+OUTPUT: 21
+
+TEST_2
+./tester.sh: line 44: not-existing/deepthought.txt: No such file or directory
+ERROR_CODE:0
+OUTPUT: 0
+
+TEST_3
+./tester.sh: line 53: not-existing/outfile.txt: No such file or directory
+ERROR_CODE:1
+OUTPUT: 
+
+TEST_4
+./tester.sh: line 62: ./assets/not-executable: Permission denied
+ERROR_CODE:0
+OUTPUT: 
+
+TEST_5
+./tester.sh: line 71: ./assets/not-executable: Permission denied
+ERROR_CODE:126
+OUTPUT: 
+
+TEST_6
+./tester.sh: line 80: env_var: command not found
+ERROR_CODE:0
+OUTPUT: 
+
+TEST_7
+./tester.sh: line 89: "assets/deepthought.txt": No such file or directory
+./tester.sh: line 89: "hostname": command not found
+ERROR_CODE:127
+OUTPUT: 
+
+TEST_8
+./tester.sh: line 98: notexisting: command not found
+ERROR_CODE:127
+OUTPUT: 
+
+TEST_9
+./tester.sh: line 107: notexisting: command not found
+ERROR_CODE:0
+OUTPUT: 0
+
+TEST_10
+ERROR_CODE:0
+OUTPUT: "Now?"
+"Now," said Deep Thought.
+"Doesn't matter!" said Phouchg. "We must know it! Now!"
+"Now?" inquired Deep Thought.
+"Yes! Now ..."
+
+TEST_11
+ERROR_CODE:0
+OUTPUT: assets
+"outfile.txt"
+outfile.txt
+pipe.txt
+pipex
+pipex.txt
+tester2.sh
+tester.sh
+
+TEST_12
+ERROR_CODE:0
+OUTPUT: assets
+"outfile.txt"
+outfile.txt
+pipe.txt
+pipex
+pipex.txt
+tester2.sh
+tester.sh
+
+TEST_13
+ERROR_CODE:0
+OUTPUT: assets
+"outfile.txt"
+outfile.txt
+pipe.txt
+pipex
+pipex.txt
+tester2.sh
+tester.sh
+
+TEST_14
+ERROR_CODE:0
+OUTPUT:       8       8      79
+
+TEST_15
+ERROR_CODE:0
+OUTPUT: "But you're ready to give it to us?" urged Loonquawl.
+
+TEST_16
+ERROR_CODE:0
+OUTPUT:      21     121     732
+
+TEST_17
+show some dummy error message
+ERROR_CODE:13
+OUTPUT: "And you're ready to give it to us?" urged Loonquawl.
+"I am."
+"Now?"
+"Now," said Deep Thought.
+They both licked their dry lips.
+"Though I don't think," added Deep Thought, "that you're going to like it."
+"Doesn't matter!" said Phouchg. "We must know it! Now!"
+"Now?" inquired Deep Thought.
+"Yes! Now ..."
+"Alright," said the computer and settled into silence again. The two men fidgeted. The tension was unbearable.
+"You're really not going to like it," observed Deep Thought.
+"Tell us!"
+"Alright," said Deep Thought. "The Answer to the Great Question..."
+"Yes ...!"
+"Of Life, the Universe and Everything ..." said Deep Thought.
+"Yes ...!"
+"Is ..." said Deep Thought, and paused.
+"Yes ...!"
+"Is ..."
+"Yes ...!!!...?"
+some other stuff
+

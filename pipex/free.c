@@ -34,6 +34,7 @@ void free_threedim(char ***array)
             free(array[i]);
         }
         free(array);
+        array = NULL;
     }
 }
 
@@ -47,6 +48,7 @@ void free_twodim(char **array)
         while (array[++i])
             free(array[i]);
         free(array);
+        array = NULL;
     }
 }
 

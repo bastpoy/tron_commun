@@ -1,0 +1,110 @@
+PIPEX
+
+TEST_0
+0
+ERROR_CODE:0
+OUTPUT:       0       0       0
+
+TEST_0_1
+0
+ERROR_CODE:0
+OUTPUT:       0       0       0
+
+TEST_1
+ERROR_CODE:0
+OUTPUT: 21
+
+TEST_2
+not-existing/deepthought.txt: No such file or directory
+ERROR_CODE:1
+OUTPUT: 
+
+TEST_3
+not-existing/outfile.txt: No such file or directory
+ERROR_CODE:1
+OUTPUT: 
+
+TEST_4
+Bad address
+ERROR_CODE:0
+OUTPUT: 
+
+TEST_5
+Bad address
+ERROR_CODE:0
+OUTPUT: 
+
+TEST_6
+Bad address
+ERROR_CODE:0
+OUTPUT: 
+
+TEST_7
+"assets/deepthought.txt": No such file or directory
+ERROR_CODE:1
+OUTPUT: 
+
+
+TEST_8
+Bad address
+ERROR_CODE:0
+OUTPUT: 
+
+TEST_9
+Bad address
+ERROR_CODE:0
+OUTPUT: 0
+
+TEST_10
+ERROR_CODE:0
+OUTPUT: "Now?"
+"Now," said Deep Thought.
+"Doesn't matter!" said Phouchg. "We must know it! Now!"
+"Now?" inquired Deep Thought.
+"Yes! Now ..."
+
+TEST_11
+ERROR_CODE:0
+OUTPUT: 
+TEST_12
+ERROR_CODE:0
+OUTPUT: 
+TEST_13
+ERROR_CODE:0
+OUTPUT: 
+TEST_14
+ERROR_CODE:0
+OUTPUT: "And you're ready to give it to us?" urged Loonquawl.
+"I am."
+"Now?"
+"Now," said Deep Thought.
+They both licked their dry lips.
+"Though I don't think," added Deep Thought, "that you're going to like it."
+"Doesn't matter!" said Phouchg. "We must know it! Now!"
+"Now?" inquired Deep Thought.
+"Yes! Now ..."
+"Alright," said the computer and settled into silence again. The two men fidgeted. The tension was unbearable.
+"You're really not going to like it," observed Deep Thought.
+"Tell us!"
+"Alright," said Deep Thought. "The Answer to the Great Question..."
+"Yes ...!"
+"Of Life, the Universe and Everything ..." said Deep Thought.
+"Yes ...!"
+"Is ..." said Deep Thought, and paused.
+"Yes ...!"
+"Is ..."
+"Yes ...!!!...?"
+"Forty-two," said Deep Thought, with infinite majesty and calm.
+TEST_15
+sed: -e expression #1, char 1: unknown command: `"'
+ERROR_CODE:0
+OUTPUT: 
+TEST_16
+Bad address
+ERROR_CODE:0
+OUTPUT:       0       0       0
+
+TEST_17
+Bad address
+ERROR_CODE:0
+OUTPUT: 

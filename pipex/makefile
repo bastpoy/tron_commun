@@ -1,4 +1,4 @@
-SRCSPRINTF = main.c free.c
+SRCSPRINTF = main.c free.c error.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 CFLAGS = -Wall -Werror -Wextra -g3 
@@ -23,6 +23,9 @@ clean :
 
 fclean : clean
 	rm -f $(NAME)
+
+test: test.c
+	gcc test.c
 
 re : fclean all
 
