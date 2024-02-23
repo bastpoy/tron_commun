@@ -6,12 +6,11 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:06:49 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/09 15:11:41 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/23 11:41:42 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static int	ft_countsep(char const *s, char c)
 {

@@ -6,19 +6,18 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:41:55 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/13 19:07:33 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/23 11:39:35 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define PI 3.1416
 # define WHITECOLOR 0xffffff
 # define MAXCOLOR 0x523A37
 # define MINCOLOR 0x3E5622
 # define WIDTH 1920
 # define HEIGHT 1080
-#define BUFFER 500000
+# define BUFFER 10
 
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
@@ -30,7 +29,7 @@
 # include <stdlib.h>
 
 t_data	*init_data(t_map ***map, t_input input);
-int check_map(char *entry);
+int		check_map(char *entry);
 void	ft_free_entrystr(char **str);
 void	free_ptrptrptr(char ***str);
 void	free_map(t_map ***str);
@@ -54,6 +53,7 @@ void	error_map(char *err_msg, t_map ***map);
 void	ft_return_error(char *err_msg);
 void	error_point(char *err_msg, t_map ***map, int max);
 int		error_openfile(char *entry);
+void	error_size_line(int fd, char *err_msg, char *str);
 
 void	height_increase(t_data *data);
 void	height_decrease(t_data *data);

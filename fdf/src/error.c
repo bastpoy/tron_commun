@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:37:16 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/22 13:38:04 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/23 11:39:07 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ void	error_point(char *err_msg, t_map ***map, int max)
 	free(map[max]);
 	free(map);
 	perror(err_msg);
+	exit(-1);
+}
+
+void	error_size_line(int fd, char *err_msg, char *str)
+{
+	if (str)
+	{
+		free(str);
+	}
+	close(fd);
+	write(1, err_msg, ft_strlen(err_msg));
 	exit(-1);
 }
 

@@ -61,22 +61,22 @@ t_data	*init_data(t_map ***map, t_input input)
 	return (data);
 }
 
-int check_map(char *entry)
+int	check_map(char *entry)
 {
-    int fd;
-    char *str;
-    int bytesread;
+	int		fd;
+	char	*str;
+	int		bytesread;
 
-    str = malloc(sizeof(char) * BUFFER);
-    if(!str)
-        exit(1);
-    fd = open(entry, O_RDONLY);
-    bytesread = read(fd,str,BUFFER);
-    if(bytesread == BUFFER || bytesread == 0) {
-        free(str);
-        ft_return_error("data error\n");
-    }
-
-    free(str);
-    return(0);
+	str = malloc(sizeof(char) * BUFFER);
+	if (!str)
+		exit(1);
+	fd = open(entry, O_RDONLY);
+	bytesread = read(fd, str, BUFFER);
+	if (bytesread == 0)
+	{
+		free(str);
+		ft_return_error("data error\n");
+	}
+	free(str);
+	return (0);
 }
