@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 09:44:06 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/22 10:55:10 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/23 23:24:41 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ typedef struct s_pipex
     pid_t pid2;
 } t_pipex;
 
-void free_all (char ***args, char **envp);
+void free_all(char ***args, char **envp);
 void free_threedim(char ***array);
 void free_twodim(char **array);
 
 void error(char *err);
-void error_code(t_pipex *pipex);
+void error_code(t_pipex *pipex, int errcode);
 void error_free(const char *err, t_pipex *pipex, int errorcode);
 void close_fd(int fd[2]);
 

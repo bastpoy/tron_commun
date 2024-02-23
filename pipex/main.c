@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/23 14:12:02 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/23 23:34:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ static char *check_access(t_pipex *pipex, int indice)
         free(path);
         i++;
     }
-    pipex->errorcode = 1;
-    exit(EXIT_FAILURE);
-//    fprintf(stderr, "error code %d\n", pipex->errorcode);
-    return(NULL);
+    fprintf(stderr, "%s\n\n\n", pipex->args[indice][0]);
+    return (pipex->args[2][0]);
 }
 
 static char **get_env(char *envp[])
@@ -45,7 +43,7 @@ static char **get_env(char *envp[])
     {
         if (ft_strncmp(envp[i], "PATH=", 5) == 0)
         {
-            envsplit = ft_split(ft_strnstr(envp[i], "PATH=", ft_strlen(envp[i])+5), ':');
+            envsplit = ft_split(ft_strnstr(envp[i], "PATH=", ft_strlen(envp[i]) + 5), ':');
             while (envsplit[j])
             {
                 envsplit[j] = ft_strjoin(envsplit[j], "/");
@@ -89,9 +87,8 @@ static void second_child(t_pipex *pipex, int fd[2])
             error_free("error", pipex, 0);
         pipex->path = check_access(pipex, 2);
         execve(pipex->path, pipex->args[2], NULL);
-        pipex->errorcode = 2;
-        exit(EXIT_FAILURE);
     }
+    error_code(pipex, 2);
 }
 
 static void first_child(t_pipex *pipex, int fd[2])
@@ -107,10 +104,9 @@ static void first_child(t_pipex *pipex, int fd[2])
             error_free("error", pipex, 0);
         close(fd[0]);
         pipex->path = check_access(pipex, 1);
-        fprintf(stderr, "error code %d\n", pipex->errorcode);
         execve(pipex->path, pipex->args[1], NULL);
-        pipex->errorcode = 2;
     }
+    error_code(pipex, 2);
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -132,11 +128,9 @@ int main(int argc, char *argv[], char *envp[])
     pipex.envp = get_env(envp);
     get_args(argv, &pipex, argc);
     first_child(&pipex, fd);
-    if(pipex.errorcode == 0)
-        second_child(&pipex, fd);
+    second_child(&pipex, fd);
     close_fd(fd);
     waitpid(pipex.pid1, NULL, 0);
     waitpid(pipex.pid2, NULL, 0);
-    error_code(&pipex);
     return (0);
 }
