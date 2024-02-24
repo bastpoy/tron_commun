@@ -55,8 +55,13 @@ void free_twodim(char **array)
     }
 }
 
-void close_fd(int fd[2])
+void close_fd(t_pipex *pipex)
 {
-    close(fd[0]);
-    close(fd[1]);
+    close(0);
+    close(1);
+    close(2);
+    close(pipex->fdpipe[0]);
+    close(pipex->fdpipe[1]);
+    close(pipex->fd[0]);
+    close(pipex->fd[1]);
 }

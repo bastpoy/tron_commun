@@ -35,6 +35,7 @@ typedef struct s_pipex
     int argcount;
     int errorcode;
     int fd[2];
+    int fdpipe[2];
     pid_t pid1;
     pid_t pid2;
 } t_pipex;
@@ -44,8 +45,8 @@ void free_threedim(char ***array);
 void free_twodim(char **array);
 
 void error(char *err);
-void error_code(t_pipex *pipex, int errcode);
+void error_code(t_pipex *pipex, int errcode, char *str);
 void error_free(const char *err, t_pipex *pipex, int errorcode);
-void close_fd(int fd[2]);
+void close_fd(t_pipex *pipex);
 
 #endif

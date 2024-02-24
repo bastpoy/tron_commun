@@ -27,12 +27,13 @@ void error_free(const char *err, t_pipex *pipex, int errorcode)
     exit(1);
 }
 
-void error_code(t_pipex *pipex, int errcode)
+void error_code(t_pipex *pipex, int errcode, char *str)
 {
+    if(errcode == 0)
+        perror(str);
     if (errcode == 2)
-    {
         perror(pipex->path);
-    }
+    close_fd(pipex);
     free_threedim(pipex->args);
     free_twodim(pipex->envp);
     exit(EXIT_FAILURE);
