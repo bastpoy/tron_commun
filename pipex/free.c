@@ -46,7 +46,10 @@ void free_twodim(char **array)
     if (array)
     {
         while (array[++i])
+        {
             free(array[i]);
+//            fprintf(stderr,"i vaut %d\n", i);
+        }
         free(array);
         array = NULL;
     }

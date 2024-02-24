@@ -29,14 +29,9 @@ void error_free(const char *err, t_pipex *pipex, int errorcode)
 
 void error_code(t_pipex *pipex, int errcode)
 {
-    if (errcode == 1)
-    {
-        write(1, "ct", 2);
-        write(1, ": command not found", 19);
-    }
     if (errcode == 2)
     {
-        perror("error");
+        perror(pipex->path);
     }
     free_threedim(pipex->args);
     free_twodim(pipex->envp);

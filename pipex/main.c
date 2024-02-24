@@ -28,32 +28,31 @@ static char *check_access(t_pipex *pipex, int indice)
         free(path);
         i++;
     }
-    fprintf(stderr, "%s\n\n\n", pipex->args[indice][0]);
-    return (pipex->args[2][0]);
+    return (pipex->args[indice][0]);
 }
 
-static char **get_env(char *envp[])
+static void get_env(char *envp[], t_pipex *pipex)
 {
     int i = -1;
     int j;
 
     j = 0;
-    char **envsplit;
+    char *temp;
     while (envp[++i])
     {
         if (ft_strncmp(envp[i], "PATH=", 5) == 0)
         {
-            envsplit = ft_split(ft_strnstr(envp[i], "PATH=", ft_strlen(envp[i]) + 5), ':');
-            while (envsplit[j])
+            pipex->envp = ft_split(envp[i] + 5, ':');
+            while (pipex->envp[j])
             {
-                envsplit[j] = ft_strjoin(envsplit[j], "/");
+                temp = ft_strjoin(pipex->envp[j], "/");
+                free(pipex->envp[j]);
+                pipex->envp[j] = temp;
                 j++;
             }
-            envsplit[j] = NULL;
-            return (envsplit);
+            pipex->envp[j] = NULL;
         }
     }
-    return NULL;
 }
 
 static void get_args(char *argv[], t_pipex *pipex, int argc)
@@ -87,8 +86,8 @@ static void second_child(t_pipex *pipex, int fd[2])
             error_free("error", pipex, 0);
         pipex->path = check_access(pipex, 2);
         execve(pipex->path, pipex->args[2], NULL);
+        error_code(pipex, 2);
     }
-    error_code(pipex, 2);
 }
 
 static void first_child(t_pipex *pipex, int fd[2])
@@ -105,8 +104,8 @@ static void first_child(t_pipex *pipex, int fd[2])
         close(fd[0]);
         pipex->path = check_access(pipex, 1);
         execve(pipex->path, pipex->args[1], NULL);
+        error_code(pipex, 2);
     }
-    error_code(pipex, 2);
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -125,12 +124,13 @@ int main(int argc, char *argv[], char *envp[])
     pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (pipex.fd[1] < 0)
         error(argv[argc - 1]);
-    pipex.envp = get_env(envp);
+    get_env(envp, &pipex);
     get_args(argv, &pipex, argc);
     first_child(&pipex, fd);
     second_child(&pipex, fd);
     close_fd(fd);
-    waitpid(pipex.pid1, NULL, 0);
+//    waitpid(pipex.pid1, NULL, 0);
     waitpid(pipex.pid2, NULL, 0);
+    free_all(pipex.args, pipex.envp);
     return (0);
 }
