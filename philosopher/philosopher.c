@@ -12,10 +12,23 @@
 
 #include "philosopher.h"
 
-int main(int argc, char *argv[])
+void sum(void *num)
 {
-    (void)argc;
-    (void)argv;
-
-    printf("salut");
+    int *ptr = num;
+    ptr[2] = ptr[0] + ptr[1];
+    printf("%d\n", ptr[0] + ptr[1]);
 }
+
+int main(void)
+{
+    pthread_t thread;
+    int *fd = malloc(sizeof(int) * 3);
+    fd[0] = 2;
+    fd[1] = 3;
+    fd[2] = 0;
+
+    pthread_create(&thread, NULL, (void*)sum, (void *)fd);
+    pthread_join(thread, NULL);
+    return(0);
+}
+

@@ -53,7 +53,6 @@ static int	ft_addword(char **str, const char *s, size_t *i, size_t *j)
 	str[k][l] = 0;
 	*i = 0;
 	*j = *j + 1;
-//    free(str[k]);
 	return (1);
 }
 

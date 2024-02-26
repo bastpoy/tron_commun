@@ -12,29 +12,53 @@
 
 #include "pipex.h"
 
-void error(char *err)
+void	error_free(const char *err, t_pipex *pipex)
 {
-    perror(err);
-    exit(1);
+	perror(err);
+	free_threedim(pipex->args);
+	free_twodim(pipex->envp);
+	exit(1);
 }
 
-void error_free(const char *err, t_pipex *pipex, int errorcode)
+void	error_code(t_pipex *pipex, int errcode, char *str)
 {
-    (void)errorcode;
-    perror(err);
-    free_threedim(pipex->args);
-    free_twodim(pipex->envp);
-    exit(1);
+	if (errcode == 0)
+		perror(str);
+	if (errcode == 1)
+	{
+		ft_putstr_fd(str, 1);
+		exit(EXIT_FAILURE);
+	}
+	if (errcode == 2)
+		perror(pipex->path);
+	if (errcode == 3)
+	{
+		perror(str);
+		exit(1);
+	}
+	close_fd(pipex);
+	free_threedim(pipex->args);
+	free_twodim(pipex->envp);
+	exit(EXIT_FAILURE);
 }
 
-void error_code(t_pipex *pipex, int errcode, char *str)
+char	*check_access(t_pipex *pipex, int indice)
 {
-    if(errcode == 0)
-        perror(str);
-    if (errcode == 2)
-        perror(pipex->path);
-    close_fd(pipex);
-    free_threedim(pipex->args);
-    free_twodim(pipex->envp);
-    exit(EXIT_FAILURE);
+	char	*path;
+	int		i;
+
+	i = 0;
+	if (ft_strncmp(pipex->args[indice][0], "/", 1) == 0
+		|| ft_strncmp(pipex->args[indice][0], "./", 2) == 0
+		|| ft_strncmp(pipex->args[indice][0], "../", 3) == 0)
+		return (pipex->args[indice][0]);
+	while (pipex->envp[i])
+	{
+		path = ft_strjoin(pipex->envp[i], pipex->args[indice][0]);
+		if (!access(path, X_OK))
+			return (path);
+		free(path);
+		i++;
+	}
+	return (pipex->args[indice][0]);
 }

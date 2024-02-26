@@ -12,56 +12,52 @@
 
 #include "pipex.h"
 
-void free_all (char ***args, char **envp)
+void	free_all(char ***args, char **envp)
 {
-    free_threedim(args);
-    free_twodim(envp);
+	free_threedim(args);
+	free_twodim(envp);
 }
 
-void free_threedim(char ***array)
+void	free_threedim(char ***array)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = -1;
-    if (array)
-    {
-        while (array[++i])
-        {
-            j = -1;
-            while (array[i][++j])
-                free(array[i][j]);
-            free(array[i]);
-        }
-        free(array);
-        array = NULL;
-    }
+	i = -1;
+	if (array)
+	{
+		while (array[++i])
+		{
+			j = -1;
+			while (array[i][++j])
+				free(array[i][j]);
+			free(array[i]);
+		}
+		free(array);
+		array = NULL;
+	}
 }
 
-void free_twodim(char **array)
+void	free_twodim(char **array)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    if (array)
-    {
-        while (array[++i])
-        {
-            free(array[i]);
-//            fprintf(stderr,"i vaut %d\n", i);
-        }
-        free(array);
-        array = NULL;
-    }
+	i = -1;
+	if (array)
+	{
+		while (array[++i])
+		{
+			free(array[i]);
+		}
+		free(array);
+		array = NULL;
+	}
 }
 
-void close_fd(t_pipex *pipex)
+void	close_fd(t_pipex *pipex)
 {
-    close(0);
-    close(1);
-    close(2);
-    close(pipex->fdpipe[0]);
-    close(pipex->fdpipe[1]);
-    close(pipex->fd[0]);
-    close(pipex->fd[1]);
+	close(pipex->fdpipe[0]);
+	close(pipex->fdpipe[1]);
+	close(pipex->fd[0]);
+	close(pipex->fd[1]);
 }
