@@ -6,17 +6,17 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/23 23:34:24 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/27 14:08:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	get_env(char *envp[], t_pipex *pipex)
+static void get_env(char *envp[], t_pipex *pipex)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	int i;
+	int j;
+	char *temp;
 
 	i = -1;
 	j = 0;
@@ -37,10 +37,10 @@ static void	get_env(char *envp[], t_pipex *pipex)
 	}
 }
 
-static void	get_args(char *argv[], t_pipex *pipex, int argc)
+static void get_args(char *argv[], t_pipex *pipex, int argc)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 1;
@@ -57,7 +57,7 @@ static void	get_args(char *argv[], t_pipex *pipex, int argc)
 	pipex->args[i] = NULL;
 }
 
-static void	second_child(t_pipex *pipex)
+static void second_child(t_pipex *pipex)
 {
 	pipex->pid2 = fork();
 	if (pipex->pid2 == -1)
@@ -66,56 +66,74 @@ static void	second_child(t_pipex *pipex)
 	{
 		if (dup2(pipex->fdpipe[0], STDIN_FILENO) == -1)
 			error_free("error", pipex);
-		close(pipex->fdpipe[1]);
 		if (dup2(pipex->fd[1], STDOUT_FILENO) == -1)
 			error_free("error", pipex);
-		close(pipex->fd[0]);
+		close(pipex->fdpipe[1]);
+		close(pipex->fdpipe[0]);
+		// close(pipex->fd[0]);
+		close(pipex->fd[1]);
+
 		pipex->path = check_access(pipex, 2);
 		execve(pipex->path, pipex->args[2], NULL);
 		error_code(pipex, 2, "");
 	}
 }
 
-static void	first_child(t_pipex *pipex)
+static void first_child(t_pipex *pipex)
 {
 	pipex->pid1 = fork();
 	if (pipex->pid1 == -1)
 		perror("Proc error");
 	if (pipex->pid1 == 0)
 	{
+		fprintf(stderr, "fdinfile %d, fdoutfile %d, fdin %d, fdout %d\n", pipex->fd[0], pipex->fd[1], pipex->fdpipe[0], pipex->fdpipe[1]);
 		if (dup2(pipex->fd[0], STDIN_FILENO) == -1)
-			error_free("error", pipex);
-		close(pipex->fd[1]);
+			error_free("", pipex);
 		if (dup2(pipex->fdpipe[1], STDOUT_FILENO) == -1)
-			error_free("error", pipex);
+			error_free("", pipex);
 		close(pipex->fdpipe[0]);
+		close(pipex->fdpipe[1]);
+		close(pipex->fd[0]);
+		// close(pipex->fd[0]);
 		pipex->path = check_access(pipex, 1);
 		execve(pipex->path, pipex->args[1], NULL);
 		error_code(pipex, 2, "");
 	}
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int main(int argc, char *argv[], char *envp[])
 {
-	t_pipex	pipex;
+	t_pipex pipex;
 
 	if (argc == 5)
 	{
+		get_env(envp, &pipex);
+		get_args(argv, &pipex, argc);
 		if (pipe(pipex.fdpipe) == -1)
 			error_code(&pipex, 0, "Pipe error");
 		pipex.fd[0] = open(argv[1], O_RDONLY, 0644);
 		if (pipex.fd[0] < 0)
-			error_code(&pipex, 3, "Error file");
+			error_code(&pipex, 3, argv[1]);
 		pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (pipex.fd[1] < 0)
-			error_code(&pipex, 3, "Error file");
-		get_env(envp, &pipex);
-		get_args(argv, &pipex, argc);
+			error_code(&pipex, 3, argv[argc - 1]);
 		first_child(&pipex);
+		// close(pipex.fd[0]);
+		// close(pipex.fdpipe[0]);
+		// close(pipex.fdpipe[1]);
+		// close(pipex.fd[1]);
+		// close(STDIN_FILENO);
+		// close(STDOUT_FILENO);
 		second_child(&pipex);
-		close_fd(&pipex);
+		// // close_fd(&pipex);
+		// close(pipex.fdpipe[0]);
+		// close(pipex.fdpipe[1]);
+		// close(pipex.fd[1]);
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 		waitpid(pipex.pid1, NULL, 0);
 		waitpid(pipex.pid2, NULL, 0);
+		close_fd(&pipex);
 		free_all(pipex.args, pipex.envp);
 	}
 	else
