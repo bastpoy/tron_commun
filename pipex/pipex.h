@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 09:44:06 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/27 10:09:43 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/27 18:43:45 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void free_threedim(char ***array);
 void free_twodim(char **array);
 
 int error_code(t_pipex *pipex, int errcode, char *str);
+int errocode1(t_pipex *pipex, int errcode, char *str);
 void error_free(const char *err, t_pipex *pipex);
 char *check_access(t_pipex *pipex, int indice);
 void close_fd(t_pipex *pipex);

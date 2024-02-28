@@ -7,3 +7,16 @@ gestion:
 - passer de un pere a deux fils => faire deux fork
 - aller chercher le chemin dans path si le chemin de la commande n'est pas specifie
 - Si mon path laisser excecve renvoyer l'erreur
+
+
+
+fd[0] = infile
+fd[1] = outfile
+fdpipe[0] = pipe lecture
+fdpipe[1] = pipe ecriture
+
+fd[0] -> STDIN_FILENO (envoie le contenu du fichier dans l'entrée standard)
+fdpipe[1] -> STDOUT_FILENO (envoie le contenu de la sortie standard dans le pipe en écriture)
+fdpipe[0] -> STDIN_FILENO (envoie le contenu du pipe dans l'entrée standard en lecture)
+fd[1] -> STDOUT_FILENO (envoie le contenu de la sortie standard dans le fichier en écriture)
+

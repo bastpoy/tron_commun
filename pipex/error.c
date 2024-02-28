@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:25:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/27 11:26:54 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/27 18:43:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void error_free(const char *err, t_pipex *pipex)
 {
 	(void)err;
 	// perror(err);
+	fprintf(stderr, "je suis la\n");
+	close(pipex->fdpipe[0]);
+	close(pipex->fdpipe[1]);
+	close(pipex->fd[1]);
 	free_threedim(pipex->args);
 	free_twodim(pipex->envp);
 	exit(1);
@@ -50,6 +54,18 @@ int error_code(t_pipex *pipex, int errcode, char *str)
 	free_twodim(pipex->envp);
 	exit(EXIT_FAILURE);
 	return (0);
+}
+int errocode1(t_pipex *pipex, int errcode, char *str)
+{
+	if (errcode == 1)
+	{
+		close(pipex->fdpipe[0]);
+		close(pipex->fdpipe[1]);
+		close(pipex->fd[1]);
+		free_threedim(pipex->args);
+		free_twodim(pipex->envp);
+		exit(1);
+	}
 }
 
 char *check_access(t_pipex *pipex, int indice)
