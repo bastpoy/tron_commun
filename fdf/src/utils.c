@@ -6,17 +6,17 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:18:02 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/13 14:19:38 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/28 14:23:24 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	ft_hex_to_int(char *str)
+int ft_hex_to_int(char *str)
 {
-	int	output;
-	int	i;
-	int	x;
+	int output;
+	int i;
+	int x;
 
 	i = 7;
 	output = 0;
@@ -34,14 +34,13 @@ int	ft_hex_to_int(char *str)
 	return (output);
 }
 
-void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+void my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
-	char	*dst;
+	char *dst;
 
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
 	{
-		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel
-					/ 8));
+		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }

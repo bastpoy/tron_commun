@@ -19,16 +19,29 @@ void sum(void *num)
     printf("%d\n", ptr[0] + ptr[1]);
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    pthread_t thread;
-    int *fd = malloc(sizeof(int) * 3);
-    fd[0] = 2;
-    fd[1] = 3;
-    fd[2] = 0;
+    if (argc == 5)
+    {
 
-    pthread_create(&thread, NULL, (void*)sum, (void *)fd);
-    pthread_join(thread, NULL);
-    return(0);
+    }
+    else if(argc == 6)
+    {
+
+    }
+    else
+    {
+        printf("Wrong number of arguments\n");
+    }
+    return (0);
+//    pthread_t thread;
+//    int *fd = malloc(sizeof(int) * 3);
+//    fd[0] = 2;
+//    fd[1] = 3;
+//    fd[2] = 0;
+//
+//    pthread_create(&thread, NULL, (void*)sum, (void *)fd);
+//    pthread_join(thread, NULL);
+//    return(0);
 }
 

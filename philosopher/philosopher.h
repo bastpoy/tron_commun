@@ -13,3 +13,20 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+typedef struct s_philo
+{
+    int ttd;
+    int tte;
+    int tts;
+    int ranging;
+}t_philo;
+
+typedef  struct s_thread
+{
+    pthread_mutex_t mutex;
+    int ttdin;
+    int ttein;
+    int ttsin;
+    t_philo *philo;
+} t_thread;
