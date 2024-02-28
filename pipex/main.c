@@ -64,13 +64,11 @@ static void second_child(t_pipex *pipex)
 		perror("Proc error");
 	if (pipex->pid2 == 0)
 	{
-		if (dup2(pipex->fdpipe[0], STDIN_FILENO) == -1) // envoie le contenu du pipe dans l'entrée standard en lecture
-			error_free("error", pipex);
 		if (dup2(pipex->fd[1], STDOUT_FILENO) == -1) // envoie le contenu de la sortie standard dans le fichier en écriture
-			error_free("error", pipex);
+			error_code1(pipex, 2);
+		if (dup2(pipex->fdpipe[0], STDIN_FILENO) == -1) // envoie le contenu du pipe dans l'entrée standard en lecture
+			error_code1(pipex, 3);
 		close(pipex->fdpipe[0]);
-		close(pipex->fdpipe[1]);
-		close(pipex->fd[0]);
 		close(pipex->fd[1]);
 		pipex->path = check_access(pipex, 2);
 		execve(pipex->path, pipex->args[2], NULL);
@@ -85,15 +83,12 @@ static void first_child(t_pipex *pipex)
 		perror("Proc error");
 	if (pipex->pid1 == 0)
 	{
-		fprintf(stderr, "fdinfile %d, fdoutfile %d, fdin %d, fdout %d\n", pipex->fd[0], pipex->fd[1], pipex->fdpipe[0], pipex->fdpipe[1]);
 		if (dup2(pipex->fd[0], STDIN_FILENO) == -1)
-			error_free("", pipex);
+            error_code1(pipex, 1);
 		if (dup2(pipex->fdpipe[1], STDOUT_FILENO) == -1)
-			error_free("", pipex);
-		close(pipex->fdpipe[0]);
+            error_code1(pipex, 4);
 		close(pipex->fdpipe[1]);
-		// close(pipex->fd[0]);
-		close(pipex->fd[1]);
+        close(pipex->fd[0]);
 		pipex->path = check_access(pipex, 1);
 		execve(pipex->path, pipex->args[1], NULL);
 		error_code(pipex, 2, "");
@@ -115,7 +110,7 @@ int main(int argc, char *argv[], char *envp[])
 			error_code(&pipex, 3, argv[1]);
 		pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (pipex.fd[1] < 0)
-			error_code(&pipex, 3, argv[argc - 1]);
+			error_code(&pipex, 4, argv[argc - 1]);
 		first_child(&pipex);
 		second_child(&pipex);
 		close_fd(&pipex);

@@ -12,25 +12,10 @@
 
 #include "pipex.h"
 
-void error_free(const char *err, t_pipex *pipex)
-{
-	(void)err;
-	// perror(err);
-	fprintf(stderr, "je suis la\n");
-	close(pipex->fdpipe[0]);
-	close(pipex->fdpipe[1]);
-	close(pipex->fd[1]);
-	free_threedim(pipex->args);
-	free_twodim(pipex->envp);
-	exit(1);
-}
-
 int error_code(t_pipex *pipex, int errcode, char *str)
 {
 	if (errcode == 0)
-	{
 		perror(str);
-	}
 	if (errcode == 1)
 	{
 		ft_putstr_fd(str, 1);
@@ -38,34 +23,44 @@ int error_code(t_pipex *pipex, int errcode, char *str)
 	}
 	if (errcode == 2)
 		perror(pipex->path);
-	if (errcode == 3)
+	if (errcode == 3 || errcode == 4)// cas de fd[0] pas ouvert
 	{
-		perror(str);
+        if (errcode == 3)
+            pipex->errorcode = 1;
+		if(errcode == 4)
+            pipex->errorcode = 2;
+        perror(str);
 		return (0);
-		// exit(1);
-	}
-	if (errcode == 4)
-	{
-
-		exit(1);
 	}
 	close_fd(pipex);
 	free_threedim(pipex->args);
 	free_twodim(pipex->envp);
 	exit(EXIT_FAILURE);
-	return (0);
 }
-int errocode1(t_pipex *pipex, int errcode, char *str)
+
+void error_code1(t_pipex *pipex, int errcode)
 {
-	if (errcode == 1)
-	{
+	if (errcode == 1 || errcode == 2)
+    {
+        if(errcode == 1)
+		    close(pipex->fd[1]);
+        if(errcode == 2)
+            close(pipex->fd[0]);
 		close(pipex->fdpipe[0]);
 		close(pipex->fdpipe[1]);
-		close(pipex->fd[1]);
-		free_threedim(pipex->args);
-		free_twodim(pipex->envp);
-		exit(1);
 	}
+    if(errcode == 3 || errcode == 4)
+    {
+        if(errcode == 3)
+            close(pipex->fdpipe[1]);
+        if(errcode == 4)
+            close(pipex->fdpipe[0]);
+        close(pipex->fd[1]);
+        close(pipex->fd[0]);
+    }
+    free_threedim(pipex->args);
+    free_twodim(pipex->envp);
+    exit(1);
 }
 
 char *check_access(t_pipex *pipex, int indice)

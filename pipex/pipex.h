@@ -41,8 +41,7 @@ void free_threedim(char ***array);
 void free_twodim(char **array);
 
 int error_code(t_pipex *pipex, int errcode, char *str);
-int errocode1(t_pipex *pipex, int errcode, char *str);
-void error_free(const char *err, t_pipex *pipex);
+void error_code1(t_pipex *pipex, int errcode);
 char *check_access(t_pipex *pipex, int indice);
 void close_fd(t_pipex *pipex);
 

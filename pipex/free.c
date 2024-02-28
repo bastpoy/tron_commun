@@ -56,10 +56,23 @@ void free_twodim(char **array)
 
 void close_fd(t_pipex *pipex)
 {
-	// close(STDOUT_FILENO);
-	// close(STDIN_FILENO);
-	close(pipex->fdpipe[0]);
-	close(pipex->fdpipe[1]);
-	close(pipex->fd[0]);
-	close(pipex->fd[1]);
+    if(pipex->errorcode == 0)
+    {
+        close(pipex->fdpipe[0]);
+        close(pipex->fdpipe[1]);
+        close(pipex->fd[1]);
+        close(pipex->fd[0]);
+    }
+    if(pipex->errorcode == 1)
+    {
+        close(pipex->fdpipe[0]);
+        close(pipex->fdpipe[1]);
+        close(pipex->fd[1]);
+    }
+    if(pipex->errorcode == 2)
+    {
+        close(pipex->fdpipe[0]);
+        close(pipex->fdpipe[1]);
+        close(pipex->fd[0]);
+    }
 }
