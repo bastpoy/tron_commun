@@ -12,16 +12,16 @@
 
 #include "pipex.h"
 
-void free_all(char ***args, char **envp)
+void	free_all(char ***args, char **envp)
 {
 	free_threedim(args);
 	free_twodim(envp);
 }
 
-void free_threedim(char ***array)
+void	free_threedim(char ***array)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	if (array)
@@ -38,9 +38,9 @@ void free_threedim(char ***array)
 	}
 }
 
-void free_twodim(char **array)
+void	free_twodim(char **array)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (array)
@@ -54,25 +54,25 @@ void free_twodim(char **array)
 	}
 }
 
-void close_fd(t_pipex *pipex)
+void	close_fd(t_pipex *pipex)
 {
-    if(pipex->errorcode == 0)
-    {
-        close(pipex->fdpipe[0]);
-        close(pipex->fdpipe[1]);
-        close(pipex->fd[1]);
-        close(pipex->fd[0]);
-    }
-    if(pipex->errorcode == 1)
-    {
-        close(pipex->fdpipe[0]);
-        close(pipex->fdpipe[1]);
-        close(pipex->fd[1]);
-    }
-    if(pipex->errorcode == 2)
-    {
-        close(pipex->fdpipe[0]);
-        close(pipex->fdpipe[1]);
-        close(pipex->fd[0]);
-    }
+	if (pipex->errorcode == 0)
+	{
+		close(pipex->fdpipe[0]);
+		close(pipex->fdpipe[1]);
+		close(pipex->fd[1]);
+		close(pipex->fd[0]);
+	}
+	if (pipex->errorcode == 1)
+	{
+		close(pipex->fdpipe[0]);
+		close(pipex->fdpipe[1]);
+		close(pipex->fd[1]);
+	}
+	if (pipex->errorcode == 2)
+	{
+		close(pipex->fdpipe[0]);
+		close(pipex->fdpipe[1]);
+		close(pipex->fd[0]);
+	}
 }

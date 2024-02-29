@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/pipex",
-            "args": ["input", "cat -e", "wc -l", "output"],
+            "args": ["input", "ls", "cat", "output"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

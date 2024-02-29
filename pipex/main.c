@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/27 18:41:21 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/02/29 22:46:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,18 @@ static void get_args(char *argv[], t_pipex *pipex, int argc)
 	pipex->args[i] = NULL;
 }
 
-static void second_child(t_pipex *pipex)
+static void second_child(t_pipex *pipex, char **argv, int argc)
 {
 	pipex->pid2 = fork();
 	if (pipex->pid2 == -1)
 		perror("Proc error");
 	if (pipex->pid2 == 0)
 	{
-		if (dup2(pipex->fd[1], STDOUT_FILENO) == -1) // envoie le contenu de la sortie standard dans le fichier en écriture
+		if (dup2(pipex->fd[1], STDOUT_FILENO) == -1)
 			error_code1(pipex, 2);
-		if (dup2(pipex->fdpipe[0], STDIN_FILENO) == -1) // envoie le contenu du pipe dans l'entrée standard en lecture
+		if (dup2(pipex->fdpipe[0], STDIN_FILENO) == -1)
 			error_code1(pipex, 3);
+		close(pipex->fdpipe[1]);
 		close(pipex->fdpipe[0]);
 		close(pipex->fd[1]);
 		pipex->path = check_access(pipex, 2);
@@ -84,11 +85,12 @@ static void first_child(t_pipex *pipex)
 	if (pipex->pid1 == 0)
 	{
 		if (dup2(pipex->fd[0], STDIN_FILENO) == -1)
-            error_code1(pipex, 1);
+			error_code1(pipex, 1);
 		if (dup2(pipex->fdpipe[1], STDOUT_FILENO) == -1)
-            error_code1(pipex, 4);
+			error_code1(pipex, 4);
 		close(pipex->fdpipe[1]);
-        close(pipex->fd[0]);
+		close(pipex->fdpipe[0]);
+		close(pipex->fd[0]);
 		pipex->path = check_access(pipex, 1);
 		execve(pipex->path, pipex->args[1], NULL);
 		error_code(pipex, 2, "");
@@ -108,11 +110,8 @@ int main(int argc, char *argv[], char *envp[])
 		pipex.fd[0] = open(argv[1], O_RDONLY, 0644);
 		if (pipex.fd[0] < 0)
 			error_code(&pipex, 3, argv[1]);
-		pipex.fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (pipex.fd[1] < 0)
-			error_code(&pipex, 4, argv[argc - 1]);
 		first_child(&pipex);
-		second_child(&pipex);
+		second_child(&pipex, argv, argc);
 		close_fd(&pipex);
 		waitpid(pipex.pid1, NULL, 0);
 		waitpid(pipex.pid2, NULL, 0);
@@ -122,3 +121,6 @@ int main(int argc, char *argv[], char *envp[])
 		error_code(&pipex, 1, "Bad arguments");
 	return (0);
 }
+
+// ./pipex input lss cat output => jaffiche pas dans lordre sur permission denied output
+// afficher le command not found
