@@ -1,0 +1,3 @@
+check si cest superieur a 0;
+check si il nya pas de caracteres
+check max int

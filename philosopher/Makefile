@@ -1,4 +1,4 @@
-SRCSPRINTF = philosopher.c
+SRCSPRINTF = src/philosopher.c src/utils.c src/checkargs.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 CFLAGS = -Wall -Werror -Wextra -g3
