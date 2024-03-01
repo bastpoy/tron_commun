@@ -6,16 +6,21 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:42 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/27 18:24:41 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/01 17:11:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_all(char ***args, char **envp)
+void	free_all(t_pipex *pipex)
 {
-	free_threedim(args);
-	free_twodim(envp);
+	if (pipex->errorcode[1] == 1)
+	{
+		ft_putstr_fd(pipex->args[3][0], 1);
+		ft_putstr_fd(" : Permission denied\n", 1);
+	}
+	free_threedim(pipex->args);
+	free_twodim(pipex->envp);
 }
 
 void	free_threedim(char ***array)
@@ -56,23 +61,10 @@ void	free_twodim(char **array)
 
 void	close_fd(t_pipex *pipex)
 {
-	if (pipex->errorcode == 0)
-	{
-		close(pipex->fdpipe[0]);
-		close(pipex->fdpipe[1]);
-		close(pipex->fd[1]);
+	if (pipex->errorcode[0] == 0)
 		close(pipex->fd[0]);
-	}
-	if (pipex->errorcode == 1)
-	{
-		close(pipex->fdpipe[0]);
-		close(pipex->fdpipe[1]);
+	if (pipex->errorcode[1] == 0)
 		close(pipex->fd[1]);
-	}
-	if (pipex->errorcode == 2)
-	{
-		close(pipex->fdpipe[0]);
-		close(pipex->fdpipe[1]);
-		close(pipex->fd[0]);
-	}
+	close(pipex->fdpipe[0]);
+	close(pipex->fdpipe[1]);
 }

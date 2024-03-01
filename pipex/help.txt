@@ -20,3 +20,22 @@ fdpipe[1] -> STDOUT_FILENO (envoie le contenu de la sortie standard dans le pipe
 fdpipe[0] -> STDIN_FILENO (envoie le contenu du pipe dans l'entrée standard en lecture)
 fd[1] -> STDOUT_FILENO (envoie le contenu de la sortie standard dans le fichier en écriture)
 
+differents cas:
+
+- cas de infile existe pas => je retourne infile error
+- cas infile existe pas et cmd1 existe pas => infile error
+- cas infle existe pas et outfile existe pas => infile et outfile error
+- cas cmd1 existe pas => cmd1 error
+- cas cmd2 existe pas => cmd2 error
+
+- les cas de cmd et file error en meme temps => la file error prevaut
+- Affichage de errorfile 1 avant errorfile 2
+- Affichage de cmd1 avant cmd2
+
+Si inputfile pas bon pas besoin de rentrer dans child 1
+Si inputfile bon je regarde la commande
+Si outputfile pas bon il faut execve pour renvoyer "Permission denied"
+
+
+gerer si il ya rien ou si il ya des espaces dans la commande
+gerer le tchintchong dans le cas dune commande./bin/ls
