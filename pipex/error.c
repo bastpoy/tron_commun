@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:25:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/01 19:32:41 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/02 16:22:17 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,27 @@ int print_error(int errcode, t_pipex *pipex, int path)
 {
 	if (errcode == 1)
 	{
-		free_all(pipex);
-		ft_putstr_fd(pipex->path, 2);
-		// fprintf(stderr, "%s\n", strerror(errno));
-		// perror(pipex->path);
-		ft_putstr_fd(strerror(errno), 2);
-		// perror("");
-		exit(EXIT_FAILURE);
+		if (pipex->errorcode[2] == 1)
+			perror(" ");
+		else
+			perror(pipex->path);
+	}
+	if (errcode == 3)
+	{
+		if (pipex->errorcode[3] == 1)
+			perror(" ");
+		else
+			perror(pipex->path);
 	}
 	if (errcode == 2)
 	{
 		ft_putstr_fd("command not found : ", STDOUT_FILENO);
-		ft_putstr_fd(pipex->args[path][0], STDOUT_FILENO);
+		if (pipex->args[path][0])
+			ft_putstr_fd(pipex->args[path][0], STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		free_all(pipex);
-		exit(EXIT_FAILURE);
 	}
+	free_all(pipex);
+	exit(EXIT_FAILURE);
 	return (0);
 }
 
@@ -55,13 +60,9 @@ char *check_access(t_pipex *pipex, int indice)
 	int i;
 
 	i = 0;
-	if (ft_strncmp(pipex->args[indice][0], "/", 1) == 0 || ft_strncmp(pipex->args[indice][0], ".", 1) == 0)
-	{
-		fprintf(stderr, "la %s\n", pipex->args[indice][0]);
+	if (pipex->args[indice][0] && (ft_strncmp(pipex->args[indice][0], "/", 1) == 0 || ft_strncmp(pipex->args[indice][0], ".", 1) == 0))
 		return (pipex->args[indice][0]);
-	}
-
-	while (pipex->envp[i])
+	while (pipex->envp[i] && pipex->args[indice][0])
 	{
 		path = ft_strjoin(pipex->envp[i], pipex->args[indice][0]);
 		if (!access(path, F_OK))

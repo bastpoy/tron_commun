@@ -39,3 +39,10 @@ Si outputfile pas bon il faut execve pour renvoyer "Permission denied"
 
 gerer si il ya rien ou si il ya des espaces dans la commande
 gerer le tchintchong dans le cas dune commande./bin/ls
+free les env quand le malloc de mes args echoue
+
+"" ""
+"cat -e" "cat -e"
+
+argv[0] = ["cat", "-e", NULL]
+argv[0] = ["\0", NULL]

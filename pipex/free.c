@@ -6,27 +6,28 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:42 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/01 17:11:18 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/02 16:18:22 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_all(t_pipex *pipex)
+void free_all(t_pipex *pipex)
 {
 	if (pipex->errorcode[1] == 1)
 	{
 		ft_putstr_fd(pipex->args[3][0], 1);
 		ft_putstr_fd(" : Permission denied\n", 1);
 	}
+	// free(pipex->path);
 	free_threedim(pipex->args);
 	free_twodim(pipex->envp);
 }
 
-void	free_threedim(char ***array)
+void free_threedim(char ***array)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = -1;
 	if (array)
@@ -43,9 +44,9 @@ void	free_threedim(char ***array)
 	}
 }
 
-void	free_twodim(char **array)
+void free_twodim(char **array)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	if (array)
@@ -59,7 +60,7 @@ void	free_twodim(char **array)
 	}
 }
 
-void	close_fd(t_pipex *pipex)
+void close_fd(t_pipex *pipex)
 {
 	if (pipex->errorcode[0] == 0)
 		close(pipex->fd[0]);

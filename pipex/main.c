@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/01 18:58:54 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/02 16:21:36 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,24 @@
 static void get_args(char *argv[], t_pipex *pipex, int argc)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 1;
 	pipex->args = (char ***)malloc(sizeof(char **) * argc);
-	pipex->errorcode[0] = 0;
-	pipex->errorcode[1] = 0;
 	if (!pipex->args)
 		perror("Malloc error");
-	while (argv[j])
+	pipex->errorcode[0] = 0;
+	pipex->errorcode[1] = 0;
+	pipex->errorcode[2] = 0;
+	pipex->errorcode[3] = 0;
+	while (argv[i + 1])
 	{
-		pipex->args[i] = ft_split(argv[j], ' ');
+		if (argv[i + 1][0] == '\0' && i != 0 && i != argc - 1)
+		{
+			pipex->errorcode[i + 1] = 1;
+			pipex->path = "/"; // ft_strdup("/");
+		}
+		pipex->args[i] = ft_split(argv[i + 1], ' ');
 		i++;
-		j++;
 	}
 	pipex->args[i] = NULL;
 }
@@ -66,16 +70,19 @@ static void second_child(t_pipex *pipex)
 		perror("Proc error");
 	if (pipex->pid2 == 0)
 	{
-		pipex->path = check_access(pipex, 2);
-		if (!pipex->path)
-			print_error(2, pipex, 2);
+		if (pipex->errorcode[3] == 0)
+		{
+			pipex->path = check_access(pipex, 2);
+			if (!pipex->path)
+				print_error(2, pipex, 2);
+		}
 		dup2(pipex->fd[1], STDOUT_FILENO);
 		dup2(pipex->fdpipe[0], STDIN_FILENO);
 		close(pipex->fdpipe[1]);
 		close(pipex->fdpipe[0]);
 		close(pipex->fd[1]);
 		execve(pipex->path, pipex->args[2], NULL);
-		print_error(1, pipex, 0);
+		print_error(3, pipex, 0);
 	}
 }
 
@@ -86,10 +93,12 @@ static void first_child(t_pipex *pipex)
 		perror("Proc error");
 	if (pipex->pid1 == 0)
 	{
-		pipex->path = check_access(pipex, 1);
-		fprintf(stderr, "%s\n", pipex->path);
-		if (!pipex->path)
-			print_error(2, pipex, 1);
+		if (pipex->errorcode[2] == 0)
+		{
+			pipex->path = check_access(pipex, 1);
+			if (!pipex->path)
+				print_error(2, pipex, 1);
+		}
 		dup2(pipex->fd[0], STDIN_FILENO);
 		dup2(pipex->fdpipe[1], STDOUT_FILENO);
 		close(pipex->fdpipe[1]);
