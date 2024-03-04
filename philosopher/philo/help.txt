@@ -1,0 +1,15 @@
+Parsing:
+- check si cest superieur a 0;
+- check si il n ya pas de caracteres
+- check max int
+
+Probleme:
+
+- Verifier les fork de dispos pendant que les philosophes mangent
+- Prioriser les philos avec le moins de temps a vivre parmis ceux dispos
+- Avec ces deux conditions on peut faire une combinaison de futurs philos optimises
+
+Gestion des mutex:
+
+- Mutex sur chaque fork
+-
