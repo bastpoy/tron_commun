@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/04 18:07:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/05 10:40:23 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_philo
     int tte;
     int tts;
     int ranging;
-    int leftfork;
-    int rightfork;
+    pthread_mutex_t *leftfork;
+    pthread_mutex_t *rightfork;
 } t_philo;
 
 typedef struct s_var
@@ -36,10 +36,11 @@ typedef struct s_var
     int ttein;
     int ttsin;
     int nbeat;
-    int die;
+    int *die;
     size_t tstart;
     size_t tpasses;
     pthread_mutex_t mutex;
+    pthread_mutex_t *forks;
     t_philo *philo;
 } t_var;
 

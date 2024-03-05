@@ -13,3 +13,8 @@ Gestion des mutex:
 
 - Mutex sur chaque fork
 -
+
+Gestion des fork
+
+- Un mutex sur chaque fork dans la structure t_var
+- la fork va pointer sur la fork left ou right d'un philo

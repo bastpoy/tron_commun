@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:05:53 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/04 17:58:32 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/05 10:40:07 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,24 @@ void *sum(void *mutex)
     return (NULL);
 }
 
-int init_thread(t_var *var, char **argv)
+int init_thread(char **argv)
 {
     int i;
     int j;
     t_philo *philo;
+    t_var *var;
 
     j = 0;
     i = ft_atoi(argv[1], NULL);
-    gettimeofday(&tv, &tz);
-    var->tstart = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
     printf("Seconds since 1/1/1970: %lu\n", (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
     philo = (t_philo *)malloc(sizeof(t_philo) * i);
     if (!philo)
-        return (0);
+        return (1);
+    var = (t_var *)malloc(sizeof(t_var));
+    if (!var)
+        return (1);
+    gettimeofday(&tv, &tz);
+    var->tstart = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
     var->philo = philo;
     pthread_mutex_init(&var->mutex, NULL);
     var->ttdin = ft_atoi(argv[2], NULL);
@@ -52,7 +56,7 @@ int init_thread(t_var *var, char **argv)
         printf("time %ld\n", var->tpasses - var->tstart);
         j++;
     }
-    return (1);
+    return (0);
 }
 
 void join_thread(t_var *var)
@@ -72,9 +76,11 @@ int main(int argc, char *argv[])
         return (0);
     if (argc == 5)
     {
-        init_thread(&var, argv);
+        init_thread(argv);
         printf("good\n");
+
         join_thread(&var);
+        // printf("ranging %d\n", var->philo[4].ranging);
         pthread_mutex_destroy(&var.mutex);
         return (0);
     }
