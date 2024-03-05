@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:06:30 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/02/29 14:59:22 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/05 15:23:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static long int ft_chartoint(char *str, int sign)
 {
-    long long int output;
+    long int output;
 
     output = 0;
     while (*str >= '0' && *str <= '9')
@@ -34,7 +34,7 @@ static long int ft_chartoint(char *str, int sign)
     return (output);
 }
 
-int ft_atoi(const char *str, int *error)
+long int ft_atoi(const char *str, int *error)
 {
     int sign;
     char *ptr;
@@ -76,9 +76,9 @@ static int countnum(int n)
     return (i + 1);
 }
 
-static void ft_putnbr(int nb, char *str, size_t *i)
+static void ft_putnbr(long int nb, char *str, size_t *i)
 {
-    unsigned int absolut;
+    unsigned long int absolut;
 
     if (nb < 0)
     {
@@ -96,7 +96,7 @@ static void ft_putnbr(int nb, char *str, size_t *i)
     *i += 1;
 }
 
-char *ft_itoa(int n)
+char *ft_itoa(long int n)
 {
     int count;
     char *str;

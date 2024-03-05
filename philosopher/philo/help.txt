@@ -18,3 +18,4 @@ Gestion des fork
 
 - Un mutex sur chaque fork dans la structure t_var
 - la fork va pointer sur la fork left ou right d'un philo
+- la fork 0 correspond a la fork gauche du premier philo
