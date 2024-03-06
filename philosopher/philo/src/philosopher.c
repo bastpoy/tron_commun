@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:05:53 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/05 15:40:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:53:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
         return (0);
     if (argc == 5)
     {
-        init_philo(argv, &var);
+        if (!init_philo(argv, &var))
+            return (1);
         do_routine(&var);
-        pthread_mutex_destroy(&var.mutex);
         printf("good\n");
         return (0);
     }

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/05 18:00:37 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:50:25 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,32 @@ int get_time()
 void *routine(void *philoptr)
 {
     t_philo *philo;
+    int i;
+    int time;
 
+    i = 0;
+    time = 0;
     philo = (t_philo *)philoptr;
     // avant de commencer il faut stocker son ttd
-    philo->ttd = get_time() + philo->var->ttdin;
-    get_time(philo);
-    usleep(1000000);
-    while (philo->dead = 0)
+    philo->timestart = get_time();
+    philo->timedead = philo->timestart + philo->ttd;
+    // usleep(1000000);
+    while (i < 5 && philo->var->deadflag == 0)
     {
-        // si je peux manger
-        // je lock la fork a droite
-        // je lock la fork a gauche
-        // je eat
-        // je delock
-        // si je peux pas manger je dors ou je pense
+        time += philo->tte;
+        pthread_mutex_lock(philo->rightfork);
+        pthread_mutex_lock(philo->leftfork);
+        philo->timedead = get_time() + philo->ttd;
+        printf("%ld %d is eating\n", get_time() - philo->timestart, philo->ranging);
+        usleep(philo->tte * 1000);
+        pthread_mutex_unlock(philo->rightfork);
+        pthread_mutex_unlock(philo->leftfork);
+        printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
+        i++;
     }
-    printf("ranging %d\n", philo->ranging);
-    printf("salut le thread\n");
+    printf("\n\n");
+    philo->var->deadflag = 1;
+    printf("%ld %d is dead\n", get_time() - philo->timestart, philo->ranging);
     return (NULL);
 }
 
@@ -66,13 +75,13 @@ int do_routine(t_var *var)
     i = 0;
     while (i < var->philonum)
     {
-        pthread_create(&var->philo[i].thread, NULL, routine, (void *)&var->philo[i]);
+        pthread_create(&var->philos[i].thread, NULL, routine, (void *)&var->philos[i]);
         i++;
     }
     i = 0;
     while (i < var->philonum)
     {
-        pthread_join(var->philo[i].thread, NULL);
+        pthread_join(var->philos[i].thread, NULL);
         i++;
     }
     return (0);
