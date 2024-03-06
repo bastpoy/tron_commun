@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:25:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 13:02:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 14:44:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char	*check_access(t_pipex *pipex, int indice)
 	i = 0;
 	if (!pipex->envp)
 		return (NULL);
-	if (pipex->args[indice][0] && ft_strchr(pipex->args[indice][0], '/') != 0)
+	if (pipex->args[indice][0] && (ft_strchr(pipex->args[indice][0], '/') != 0
+			|| ft_strncmp(pipex->args[indice][0], ".", 1) == 0))
 		return (pipex->args[indice][0]);
 	while (pipex->envp[i] && pipex->args[indice][0])
 	{

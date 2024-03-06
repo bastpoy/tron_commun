@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 13:38:11 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 14:45:45 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	get_args(char *argv[], t_pipex *pipex, int argc)
 	pipex->errorcode[1] = 0;
 	pipex->errorcode[2] = 0;
 	pipex->errorcode[3] = 0;
+	pipex->path = NULL;
 	while (argv[i + 1])
 	{
 		if (argv[i + 1][0] == '\0' && i != 0 && i != argc - 1)
