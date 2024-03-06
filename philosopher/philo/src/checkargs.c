@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:56:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/04 15:27:59 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/05 15:31:22 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static size_t ft_strlen(const char *str)
 
 static int check_int(char *arg, int *err, int indice)
 {
-    int number;
+    long int number;
     char *str;
 
     number = ft_atoi(arg, err);
@@ -55,6 +55,7 @@ static int check_int(char *arg, int *err, int indice)
     if (!ft_strncmp(str, arg, ft_strlen(arg)))
         return (free(str), 0);
     *err = 1;
+    printf("err %d\n", *err);
     return (free(str), 1);
 }
 
@@ -62,7 +63,7 @@ int check_args(char *argv[])
 {
     int err;
     int i;
-    int number;
+    long int number;
 
     i = 1;
     err = 0;
