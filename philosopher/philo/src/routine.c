@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 17:50:25 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 23:13:51 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void *routine(void *philoptr)
     philo->timestart = get_time();
     philo->timedead = philo->timestart + philo->ttd;
     // usleep(1000000);
-    while (i < 5 && philo->var->deadflag == 0)
+    //&& philo->var->deadflag == 0
+    while (i < 5)
     {
         time += philo->tte;
         pthread_mutex_lock(philo->rightfork);
@@ -63,7 +64,7 @@ void *routine(void *philoptr)
         i++;
     }
     printf("\n\n");
-    philo->var->deadflag = 1;
+    // philo->var->deadflag = 1;
     printf("%ld %d is dead\n", get_time() - philo->timestart, philo->ranging);
     return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 17:55:12 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 23:43:19 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,20 @@ int init_fork(t_var *var, int forknum)
     var->philonum = forknum;
     var->forks = malloc(sizeof(pthread_mutex_t) * forknum);
     if (!var->forks)
-        return (1);
+        return (0);
+    pthread_mutex_init(&var->forks[0], NULL);
+    pthread_mutex_init(&var->forks[forknum - 1], NULL);
     var->philos[i].rightfork = &var->forks[0];
     var->philos[i].leftfork = &var->forks[forknum - 1];
     i++;
     while (i < forknum)
     {
+        pthread_mutex_init(&var->forks[i], NULL);
         var->philos[i].leftfork = &var->forks[i];
         var->philos[i].rightfork = var->philos[i - 1].leftfork;
         i++;
     }
-    return (0);
+    return (1);
 }
 
 int init_philo(char **argv, t_var *var)
@@ -51,7 +54,10 @@ int init_philo(char **argv, t_var *var)
         return (0);
     var->philos = philo;
     philo->var = var;
-    init_fork(var, i);
+    philo->var->deadflag = 0;
+    printf("valeur %d\n", philo->var->deadflag);
+    if (!init_fork(var, i))
+        return (0);
     init_tvar(var);
     while (j < i)
     {
@@ -60,6 +66,7 @@ int init_philo(char **argv, t_var *var)
         philo[j].tte = ft_atoi(argv[3], NULL);
         philo[j].tts = ft_atoi(argv[4], NULL);
         philo[j].dead = 0;
+        printf("%d philo[j]\n", philo[j].var->deadflag);
         j++;
     }
     return (1);
