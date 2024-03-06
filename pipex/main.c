@@ -6,15 +6,15 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:12:50 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/02 16:21:36 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 13:38:11 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void get_args(char *argv[], t_pipex *pipex, int argc)
+static int	get_args(char *argv[], t_pipex *pipex, int argc)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	pipex->args = (char ***)malloc(sizeof(char **) * argc);
@@ -29,22 +29,26 @@ static void get_args(char *argv[], t_pipex *pipex, int argc)
 		if (argv[i + 1][0] == '\0' && i != 0 && i != argc - 1)
 		{
 			pipex->errorcode[i + 1] = 1;
-			pipex->path = "/"; // ft_strdup("/");
+			pipex->path = "/";
 		}
 		pipex->args[i] = ft_split(argv[i + 1], ' ');
+		if (!pipex->args[i])
+			return (free_all(pipex), 0);
 		i++;
 	}
 	pipex->args[i] = NULL;
+	return (1);
 }
 
-static void get_env_args(char *envp[], t_pipex *pipex, char **argv, int argc)
+static int	get_env_args(char *envp[], t_pipex *pipex, char **argv, int argc)
 {
-	int i;
-	int j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = -1;
 	j = 0;
+	pipex->envp = NULL;
 	while (envp[++i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
@@ -60,10 +64,12 @@ static void get_env_args(char *envp[], t_pipex *pipex, char **argv, int argc)
 			pipex->envp[j] = NULL;
 		}
 	}
-	get_args(argv, pipex, argc);
+	if (!get_args(argv, pipex, argc))
+		return (0);
+	return (1);
 }
 
-static void second_child(t_pipex *pipex)
+static void	second_child(t_pipex *pipex)
 {
 	pipex->pid2 = fork();
 	if (pipex->pid2 == -1)
@@ -78,15 +84,15 @@ static void second_child(t_pipex *pipex)
 		}
 		dup2(pipex->fd[1], STDOUT_FILENO);
 		dup2(pipex->fdpipe[0], STDIN_FILENO);
-		close(pipex->fdpipe[1]);
-		close(pipex->fdpipe[0]);
 		close(pipex->fd[1]);
+		close(pipex->fdpipe[0]);
+		close(pipex->fdpipe[1]);
 		execve(pipex->path, pipex->args[2], NULL);
 		print_error(3, pipex, 0);
 	}
 }
 
-static void first_child(t_pipex *pipex)
+static void	first_child(t_pipex *pipex)
 {
 	pipex->pid1 = fork();
 	if (pipex->pid1 == -1)
@@ -101,34 +107,34 @@ static void first_child(t_pipex *pipex)
 		}
 		dup2(pipex->fd[0], STDIN_FILENO);
 		dup2(pipex->fdpipe[1], STDOUT_FILENO);
+		close(pipex->fd[0]);
+		close(pipex->fd[1]);
 		close(pipex->fdpipe[1]);
 		close(pipex->fdpipe[0]);
-		close(pipex->fd[0]);
 		execve(pipex->path, pipex->args[1], NULL);
 		print_error(1, pipex, 0);
 	}
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
-	t_pipex pipex;
+	t_pipex	pipex;
 
 	if (argc == 5)
 	{
-		get_env_args(envp, &pipex, argv, argc);
+		if (!get_env_args(envp, &pipex, argv, argc))
+			return (1);
+		get_fd(&pipex, argv, argc);
 		if (pipe(pipex.fdpipe) == -1)
 			exit(EXIT_FAILURE);
-		pipex.fd[0] = open(argv[1], O_RDONLY, 0644);
-		if (pipex.fd[0] < 0)
-			error_code(&pipex, 1);
 		if (pipex.errorcode[0] == 0)
+		{
 			first_child(&pipex);
-		pipex.fd[1] = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
-		if (pipex.fd[1] < 0)
-			error_code(&pipex, 2);
+			close(pipex.fd[0]);
+		}
 		if (pipex.errorcode[1] == 0)
 			second_child(&pipex);
-		close_fd(&pipex);
+		close_fd(&pipex, 0);
 		if (pipex.errorcode[0] == 0)
 			waitpid(pipex.pid1, NULL, 0);
 		if (pipex.errorcode[1] == 0)

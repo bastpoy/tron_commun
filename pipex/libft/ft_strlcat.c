@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-size_t ft_strlcat(char *dest, char *src, size_t size)
+size_t	ft_strlcat(char *dest, char *src, size_t size)
 {
-	unsigned int i;
-	unsigned int len_src;
-	unsigned int len_dest;
+	unsigned int	i;
+	unsigned int	len_src;
+	unsigned int	len_dest;
 
 	i = 0;
 	len_dest = ft_strlen(dest);

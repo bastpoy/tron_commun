@@ -1,0 +1,14 @@
+assets
+bin
+free.c
+help.txt
+input
+libft
+main.c
+makefile
+objects
+outfile.txt
+output
+pipex
+pipex.h
+utils.c

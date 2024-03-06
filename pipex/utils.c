@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 15:25:25 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/02 16:22:17 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/06 13:02:58 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int error_code(t_pipex *pipex, int errcode)
+int	error_code(t_pipex *pipex, char **argv, int argc, int errcode)
 {
 	if (errcode == 1)
 	{
@@ -21,12 +21,15 @@ int error_code(t_pipex *pipex, int errcode)
 	}
 	if (errcode == 2)
 	{
-		pipex->errorcode[1] = 1;
+		if (argv[argc - 1][0] == '\0')
+			pipex->errorcode[1] = 2;
+		else
+			pipex->errorcode[1] = 1;
 	}
 	return (0);
 }
 
-int print_error(int errcode, t_pipex *pipex, int path)
+int	print_error(int errcode, t_pipex *pipex, int path)
 {
 	if (errcode == 1)
 	{
@@ -49,18 +52,21 @@ int print_error(int errcode, t_pipex *pipex, int path)
 			ft_putstr_fd(pipex->args[path][0], STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	}
+	close_fd(pipex, 1);
 	free_all(pipex);
-	exit(EXIT_FAILURE);
+	exit(errno);
 	return (0);
 }
 
-char *check_access(t_pipex *pipex, int indice)
+char	*check_access(t_pipex *pipex, int indice)
 {
-	char *path;
-	int i;
+	char	*path;
+	int		i;
 
 	i = 0;
-	if (pipex->args[indice][0] && (ft_strncmp(pipex->args[indice][0], "/", 1) == 0 || ft_strncmp(pipex->args[indice][0], ".", 1) == 0))
+	if (!pipex->envp)
+		return (NULL);
+	if (pipex->args[indice][0] && ft_strchr(pipex->args[indice][0], '/') != 0)
 		return (pipex->args[indice][0]);
 	while (pipex->envp[i] && pipex->args[indice][0])
 	{
@@ -71,4 +77,14 @@ char *check_access(t_pipex *pipex, int indice)
 		i++;
 	}
 	return (NULL);
+}
+
+void	get_fd(t_pipex *pipex, char **argv, int argc)
+{
+	pipex->fd[0] = open(argv[1], O_RDONLY, 0644);
+	if (pipex->fd[0] < 0)
+		error_code(pipex, argv, argc, 1);
+	pipex->fd[1] = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
+	if (pipex->fd[1] < 0)
+		error_code(pipex, argv, argc, 2);
 }

@@ -1,4 +1,4 @@
-SRCSPRINTF = main.c free.c error.c
+SRCSPRINTF = main.c free.c utils.c
 OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 CFLAGS = -Wall -Werror -Wextra -g3 
@@ -6,7 +6,7 @@ CFLAGS = -Wall -Werror -Wextra -g3
 NAME = pipex
 
 $(NAME) : libft/libft.a $(OBJSPRINTF)
-	gcc $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./libft/libft.a
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJSPRINTF) ./libft/libft.a
 all : $(NAME)
 
 libft/libft.a: FORCE
@@ -14,7 +14,7 @@ libft/libft.a: FORCE
 
 objects/%.o : %.c pipex.h libft/libft.h
 	mkdir -p $(dir $@)
-	gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean : 
 	$(MAKE) clean -C ./libft
@@ -23,9 +23,6 @@ clean :
 
 fclean : clean
 	rm -f $(NAME)
-
-test: test.c
-	gcc test.c
 
 re : fclean all
 
