@@ -6,66 +6,56 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 23:13:51 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/07 12:45:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-int get_time()
+long int get_time()
 {
-    // struct timeval tv;
-
-    // long int tnow;
-    // if (gettimeofday(&tv, NULL) == -1)
-    //     return (1);
-    // if (start == 1)
-    // {
-    //     philo->tstart = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-    // }
-    // else
-    // {
-    //     tnow = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-    //     philo->tpasses = tnow - philo->tstart;
-    // }
-    // return (0);
     struct timeval tv;
 
     if (gettimeofday(&tv, NULL) == -1)
-        return (1);
+        return (-1);
     return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
 }
 
 void *routine(void *philoptr)
 {
     t_philo *philo;
-    int i;
-    int time;
 
-    i = 0;
-    time = 0;
     philo = (t_philo *)philoptr;
-    // avant de commencer il faut stocker son ttd
     philo->timestart = get_time();
     philo->timedead = philo->timestart + philo->ttd;
-    // usleep(1000000);
-    //&& philo->var->deadflag == 0
-    while (i < 5)
+    // printf("%ld philo time dead\n", philo->timedead);
+    while (philo->var->deadflag == 0)
     {
-        time += philo->tte;
+        // printf("philo %d leftfork %p rightfork %p\n", philo->ranging, philo->leftfork, philo->rightfork);
         pthread_mutex_lock(philo->rightfork);
         pthread_mutex_lock(philo->leftfork);
-        philo->timedead = get_time() + philo->ttd;
-        printf("%ld %d is eating\n", get_time() - philo->timestart, philo->ranging);
-        usleep(philo->tte * 1000);
-        pthread_mutex_unlock(philo->rightfork);
+        if (philo->var->deadflag == 0)
+        {
+            if (get_time() >= philo->timedead)
+            {
+                pthread_mutex_lock(philo->var->lock);
+                philo->var->deadflag = 1;
+                pthread_mutex_unlock(philo->var->lock);
+                printf("%ld %d is dead\n", get_time() - philo->timestart, philo->ranging);
+            }
+            else
+            {
+                philo->timedead = get_time() + philo->ttd;
+                // printf("dead var %d\n", philo->var->deadflag);
+                printf("%ld %d is eating\n", get_time() - philo->timestart, philo->ranging);
+                usleep(philo->tte * 1000);
+                printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
+            }
+        }
         pthread_mutex_unlock(philo->leftfork);
-        printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
-        i++;
+        pthread_mutex_unlock(philo->rightfork);
     }
     printf("\n\n");
-    // philo->var->deadflag = 1;
-    printf("%ld %d is dead\n", get_time() - philo->timestart, philo->ranging);
     return (NULL);
 }
 
@@ -83,7 +73,9 @@ int do_routine(t_var *var)
     while (i < var->philonum)
     {
         pthread_join(var->philos[i].thread, NULL);
+        pthread_mutex_destroy(var->philos[i].leftfork);
         i++;
     }
+    pthread_mutex_destroy(var->lock);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 23:09:13 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/07 12:41:38 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ typedef struct s_var
     int philonum; // nombre de philos
     int nbeat;
     int deadflag; // 0 philo vivant 1 philo morts
-    long int tstart;
-    long int tpasses;
+    pthread_mutex_t *lock;
     pthread_mutex_t *forks;
     t_philo *philos;
 } t_var;
@@ -53,5 +52,5 @@ int init_fork(t_var *var, int forknum);
 void init_tvar(t_var *var);
 int init_philo(char **argv, t_var *var);
 
-int get_time();
+long int get_time();
 int do_routine(t_var *var);

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:05:53 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/06 17:53:33 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/07 10:02:16 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
         if (!init_philo(argv, &var))
             return (1);
         do_routine(&var);
-        printf("good\n");
         return (0);
     }
     else if (argc == 6)
