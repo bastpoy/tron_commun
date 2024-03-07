@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/07 12:45:03 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:06:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ void *routine(void *philoptr)
         {
             if (get_time() >= philo->timedead)
             {
-                pthread_mutex_lock(philo->var->lock);
+                pthread_mutex_lock(&philo->var->lock);
                 philo->var->deadflag = 1;
-                pthread_mutex_unlock(philo->var->lock);
+                pthread_mutex_unlock(&philo->var->lock);
                 printf("%ld %d is dead\n", get_time() - philo->timestart, philo->ranging);
             }
             else
             {
                 philo->timedead = get_time() + philo->ttd;
-                // printf("dead var %d\n", philo->var->deadflag);
                 printf("%ld %d is eating\n", get_time() - philo->timestart, philo->ranging);
                 usleep(philo->tte * 1000);
                 printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
@@ -54,6 +53,7 @@ void *routine(void *philoptr)
         }
         pthread_mutex_unlock(philo->leftfork);
         pthread_mutex_unlock(philo->rightfork);
+        // printf("releasing fork\n");
     }
     printf("\n\n");
     return (NULL);
@@ -67,6 +67,7 @@ int do_routine(t_var *var)
     while (i < var->philonum)
     {
         pthread_create(&var->philos[i].thread, NULL, routine, (void *)&var->philos[i]);
+        // usleep(1);
         i++;
     }
     i = 0;
@@ -76,6 +77,6 @@ int do_routine(t_var *var)
         pthread_mutex_destroy(var->philos[i].leftfork);
         i++;
     }
-    pthread_mutex_destroy(var->lock);
+    pthread_mutex_destroy(&var->lock);
     return (0);
 }

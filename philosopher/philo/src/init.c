@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/07 11:04:49 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/07 13:43:44 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void init_tvar(t_var *var)
 {
     var->deadflag = 0;
-    pthread_mutex_init(var->lock, NULL);
+    pthread_mutex_init(&var->lock, NULL);
 }
 
 int init_fork(t_var *var, int forknum)
