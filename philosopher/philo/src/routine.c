@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/07 16:06:29 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/08 18:11:29 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void *routine(void *philoptr)
     philo = (t_philo *)philoptr;
     philo->timestart = get_time();
     philo->timedead = philo->timestart + philo->ttd;
-    // printf("%ld philo time dead\n", philo->timedead);
+    // printf("%ld %d philo time dead\n", philo->timedead, philo->ranging);
     while (philo->var->deadflag == 0)
     {
-        // printf("philo %d leftfork %p rightfork %p\n", philo->ranging, philo->leftfork, philo->rightfork);
-        pthread_mutex_lock(philo->rightfork);
-        pthread_mutex_lock(philo->leftfork);
+        take_fork(philo);
+        // printf("philo %d leftfork %p rightfork %p\n", philo->ranging, philo->leftfork, philo->rightfork)
         if (philo->var->deadflag == 0)
         {
+            // printf("get time %ld timedead %ld\n", get_time(), philo->timedead);
             if (get_time() >= philo->timedead)
             {
                 pthread_mutex_lock(&philo->var->lock);
@@ -45,17 +45,21 @@ void *routine(void *philoptr)
             }
             else
             {
-                philo->timedead = get_time() + philo->ttd;
+                // printf("%ld %d has taken a fork\n", get_time() - philo->timestart, philo->ranging);
+                // printf("%ld %d has taken a fork\n", get_time() - philo->timestart, philo->ranging);
                 printf("%ld %d is eating\n", get_time() - philo->timestart, philo->ranging);
                 usleep(philo->tte * 1000);
-                printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
+                philo->timedead = get_time() + philo->ttd;
+                printf("%ld %d is sleeping\n", get_time() - philo->timestart, philo->ranging);
             }
         }
-        pthread_mutex_unlock(philo->leftfork);
         pthread_mutex_unlock(philo->rightfork);
-        // printf("releasing fork\n");
+        pthread_mutex_unlock(philo->leftfork);
+        usleep(philo->tts * 1000);
+        // if (philo->var->deadflag == 0)
+        printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
     }
-    printf("\n\n");
+    // printf("\n");
     return (NULL);
 }
 

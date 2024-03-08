@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/07 14:48:16 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/08 18:06:16 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct s_philo
     int tts;
     long int timedead;
     long int timestart;
-    int dead;
+    long int timethink;
+    int maxphilo;
     int ranging;
     pthread_mutex_t *leftfork;
     pthread_mutex_t *rightfork;
@@ -51,3 +52,5 @@ int init_philo(char **argv, t_var *var);
 
 long int get_time();
 int do_routine(t_var *var);
+
+void take_fork(t_philo *philo);

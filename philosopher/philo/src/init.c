@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/07 13:43:44 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/08 17:15:26 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int init_philo(char **argv, t_var *var)
     init_tvar(var);
     while (j < i)
     {
-        philo[j].ranging = j;
+        philo[j].ranging = j + 1;
         philo[j].ttd = ft_atoi(argv[2], NULL);
         philo[j].tte = ft_atoi(argv[3], NULL);
         philo[j].tts = ft_atoi(argv[4], NULL);
-        philo[j].dead = 0;
         philo[j].var = var;
+        philo[j].maxphilo = i;
         j++;
     }
     return (1);
