@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/08 18:06:16 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/09 17:49:16 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_philo
 {
     pthread_t thread;
+    pthread_t checker;
     int ttd;
     int tte;
     int tts;
@@ -30,16 +31,17 @@ typedef struct s_philo
     int ranging;
     pthread_mutex_t *leftfork;
     pthread_mutex_t *rightfork;
+    pthread_mutex_t lock;
     struct s_var *var;
 } t_philo;
 
 typedef struct s_var
 {
-    int philonum;
-    int deadflag;
-    pthread_mutex_t lock;
+    pthread_mutex_t locktdead;
     pthread_mutex_t *forks;
     t_philo *philos;
+    int philonum;
+    int deadflag;
 } t_var;
 
 int check_args(char *argv[]);
@@ -54,3 +56,4 @@ long int get_time();
 int do_routine(t_var *var);
 
 void take_fork(t_philo *philo);
+void loose_fork(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/08 17:15:26 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/09 17:42:50 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void init_tvar(t_var *var)
 {
     var->deadflag = 0;
-    pthread_mutex_init(&var->lock, NULL);
+    pthread_mutex_init(&var->locktdead, NULL);
 }
 
 int init_fork(t_var *var, int forknum)
@@ -65,6 +65,7 @@ int init_philo(char **argv, t_var *var)
         philo[j].tts = ft_atoi(argv[4], NULL);
         philo[j].var = var;
         philo[j].maxphilo = i;
+        pthread_mutex_init(&philo[j].lock, NULL);
         j++;
     }
     return (1);
