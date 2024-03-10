@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/09 17:49:16 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/10 23:48:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,4 @@ int do_routine(t_var *var);
 
 void take_fork(t_philo *philo);
 void loose_fork(t_philo *philo);
+void ft_sleep(int time);

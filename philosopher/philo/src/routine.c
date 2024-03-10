@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/09 18:30:38 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/10 23:55:51 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void *routine(void *philoptr)
     {
         // Pour le premier tour de boucle je fais sleep les impaires pour eviter une deadlock
         if (philo->ranging % 2 == 1 && i == 0)
-            usleep(200);
+            ft_sleep(2);
         // Je prends les fourchettes
         take_fork(philo);
         // je mange et je met sa jour ma variable de temps de die
@@ -68,7 +68,7 @@ void *routine(void *philoptr)
             philo->timedead = get_time() + philo->ttd;
             pthread_mutex_unlock(&philo->lock);
             pthread_mutex_unlock(&philo->var->locktdead);
-            usleep(philo->tte * 1000);
+            ft_sleep(philo->tte);
             // je repose mes fourchettes
             loose_fork(philo);
         }
@@ -81,7 +81,7 @@ void *routine(void *philoptr)
             printf("%ld %d is sleeping\n", get_time() - philo->timestart, philo->ranging);
             pthread_mutex_unlock(&philo->var->locktdead);
             // je dors le temps du sleep
-            usleep(philo->tts * 1000);
+            ft_sleep(philo->tts);
         }
         // printf("je sors jamais\n");
         // je pense mais si seulement si je suis toujours vivant
@@ -93,7 +93,7 @@ void *routine(void *philoptr)
             printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
             pthread_mutex_unlock(&philo->var->locktdead);
         }
-        i++;
+        i = 1;
     }
     pthread_join(philo->checker, NULL);
     return (NULL);

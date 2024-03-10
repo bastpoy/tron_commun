@@ -6,11 +6,23 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:09:13 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/09 18:11:09 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/10 23:52:43 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
+
+void ft_sleep(int time)
+{
+    long int sleeptime;
+
+    sleeptime = get_time() + time;
+    while (get_time() < sleeptime)
+    {
+        // printf("%d\n", time / 10);
+        usleep(time / 10);
+    }
+}
 
 void take_fork(t_philo *philo)
 {
