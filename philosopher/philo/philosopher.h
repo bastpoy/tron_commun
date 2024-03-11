@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/10 23:48:30 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:57:10 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo
     pthread_mutex_t *leftfork;
     pthread_mutex_t *rightfork;
     pthread_mutex_t lock;
+    pthread_mutex_t write;
     struct s_var *var;
 } t_philo;
 

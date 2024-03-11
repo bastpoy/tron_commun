@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/09 17:42:50 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/11 17:59:09 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ int init_fork(t_var *var, int forknum)
     if (!var->forks)
         return (0);
     pthread_mutex_init(&var->forks[0], NULL);
-    pthread_mutex_init(&var->forks[forknum - 1], NULL);
+    pthread_mutex_init(&var->philos[0].write, NULL);
+    // pthread_mutex_init(&var->forks[forknum - 1], NULL);
     var->philos[i].rightfork = &var->forks[forknum - 1];
     var->philos[i].leftfork = &var->forks[0];
     i++;
     while (i < forknum)
     {
         pthread_mutex_init(&var->forks[i], NULL);
+        pthread_mutex_init(&var->philos[i].write, NULL);
         var->philos[i].leftfork = &var->forks[i];
         var->philos[i].rightfork = var->philos[i - 1].leftfork;
         i++;
