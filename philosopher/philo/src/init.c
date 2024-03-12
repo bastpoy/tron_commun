@@ -6,19 +6,23 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/11 17:59:09 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/12 17:31:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-void init_tvar(t_var *var)
+static void init_tvar(t_var *var, char **argv)
 {
     var->deadflag = 0;
+    if (argv[5] != NULL)
+        var->mealstoeat = atoi(argv[5]);
+    else
+        var->mealstoeat = 0;
     pthread_mutex_init(&var->locktdead, NULL);
 }
 
-int init_fork(t_var *var, int forknum)
+static int init_fork(t_var *var, int forknum)
 {
     int i;
 
@@ -58,7 +62,7 @@ int init_philo(char **argv, t_var *var)
     var->philos = philo;
     if (!init_fork(var, i))
         return (0);
-    init_tvar(var);
+    init_tvar(var, argv);
     while (j < i)
     {
         philo[j].ranging = j + 1;
@@ -66,7 +70,7 @@ int init_philo(char **argv, t_var *var)
         philo[j].tte = ft_atoi(argv[3], NULL);
         philo[j].tts = ft_atoi(argv[4], NULL);
         philo[j].var = var;
-        philo[j].maxphilo = i;
+        philo[j].mealseat = 0;
         pthread_mutex_init(&philo[j].lock, NULL);
         j++;
     }

@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 16:56:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/05 15:31:22 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/12 16:47:21 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int check_int(char *arg, int *err, int indice)
     if (!ft_strncmp(str, arg, ft_strlen(arg)))
         return (free(str), 0);
     *err = 1;
-    printf("err %d\n", *err);
     return (free(str), 1);
 }
 
@@ -71,9 +70,7 @@ int check_args(char *argv[])
     {
         number = ft_atoi(argv[i], &err);
         if (number <= 0 && i != 5)
-        {
             err = 1;
-        }
         if (number < 0 && i == 5)
             err = 1;
         check_int(argv[i], &err, i);

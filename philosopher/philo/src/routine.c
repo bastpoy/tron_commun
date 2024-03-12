@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/11 18:02:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/12 18:05:08 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void *checker(void *philoptr)
     t_philo *philo;
 
     philo = (t_philo *)philoptr;
+    // je sleep le temps de
     ft_sleep(philo->ttd + 1);
-    // while (philo->var->deadflag == 0)
-    // {
     pthread_mutex_lock(&philo->lock);
-    if (get_time() >= philo->timedead && philo->var->deadflag == 0)
+    if (get_time() >= philo->timedead && philo->var->deadflag == 0 &&
+        philo->mealseat < philo->var->mealstoeat)
     {
         pthread_mutex_lock(&philo->var->locktdead);
         philo->var->deadflag = 1;
@@ -40,8 +40,6 @@ void *checker(void *philoptr)
         pthread_mutex_unlock(&philo->write);
     }
     pthread_mutex_unlock(&philo->lock);
-    // }
-    // ft_sleep(1);
     return (NULL);
 }
 
@@ -51,65 +49,23 @@ void *routine(void *philoptr)
     int i = 0;
 
     philo = (t_philo *)philoptr;
-    while (philo->var->deadflag == 0)
+    while (philo->var->deadflag == 0 && philo->mealseat < philo->var->mealstoeat)
     {
-        // Pour le premier tour de boucle je fais sleep les impaires pour eviter une deadlock
         if (philo->ranging % 2 == 1 && i == 0)
-        {
             ft_sleep(philo->tte / 10);
-        }
-        pthread_create(&philo->checker, NULL, checker, (void *)philo);
-        // Je prends les fourchettes
-        take_fork(philo);
-        // je mange et je met sa jour ma variable de temps de die
-        // pthread_mutex_lock(&philo->var->locktdead);
-        // if (philo->var->deadflag == 1)
-        //     pthread_mutex_unlock(&philo->var->locktdead);
-        // else
-        // checker(philo);
-        if (philo->var->deadflag == 0)
-        {
-            pthread_mutex_lock(&philo->write);
-            printf("%ld %d is eating\n", get_time() - philo->timestart, philo->ranging);
-            pthread_mutex_unlock(&philo->write);
-            pthread_mutex_lock(&philo->lock);
-            philo->timedead = get_time() + philo->ttd;
-            pthread_mutex_unlock(&philo->lock);
-            ft_sleep(philo->tte);
-            // je repose mes fourchettes
-            loose_fork(philo);
-        }
-        // je sleep
-        // pthread_mutex_lock(&philo->var->locktdead);
-        // if (philo->var->deadflag == 1)
-        //     pthread_mutex_unlock(&philo->var->locktdead);
-        // else
-        // pthread_create(&philo->checker, NULL, checker, (void *)philo);
-        // checker(philo);
-        if (philo->var->deadflag == 0)
-        {
-            pthread_mutex_lock(&philo->write);
-            printf("%ld %d is sleeping\n", get_time() - philo->timestart, philo->ranging);
-            pthread_mutex_unlock(&philo->write);
-            // je dors le temps du sleep
-            ft_sleep(philo->tts);
-        }
-        // je pense mais si seulement si je suis toujours vivant
-        // pthread_mutex_lock(&philo->var->locktdead);
-        // if (philo->var->deadflag == 1)
-        //     pthread_mutex_unlock(&philo->var->locktdead);
-        // else
-        // checker(philo);
-        if (philo->var->deadflag == 0)
-        {
-            pthread_mutex_lock(&philo->write);
-            printf("%ld %d is thinking\n", get_time() - philo->timestart, philo->ranging);
-            pthread_mutex_unlock(&philo->write);
-        }
-        pthread_detach(philo->checker);
         i = 1;
+        if (pthread_create(&philo->checker, NULL, checker, (void *)philo) != 0)
+            return ((void *)1);
+        take_fork(philo);
+        if (philo->var->deadflag == 0 && philo->mealseat < philo->var->mealstoeat)
+            eating(philo);
+        if (philo->var->deadflag == 0 && philo->mealseat < philo->var->mealstoeat)
+            sleeping(philo);
+        if (philo->var->deadflag == 0 && philo->mealseat < philo->var->mealstoeat)
+            thinking(philo);
+        if (pthread_detach(philo->checker) != 0)
+            return ((void *)1);
     }
-    // pthread_join(philo->checker, NULL);
     return (NULL);
 }
 
