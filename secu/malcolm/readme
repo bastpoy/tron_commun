@@ -1,0 +1,7 @@
+TCP: 
+- protocole utilise pour naviguer sur internet (HTTP/HTTPS) aussi pour le SMTP avec une gestion des paquets.
+- Mise en place de la communication avec l'envoie de paquet au prealable pour etablir la communication
+
+UDP
+- protocole sans gestion des paquets. Protocole plus rapide que le TCP et permet de charger un flux video par exemple
+- Pas dacquittement lors de l'envoie et de la reception des paquets
