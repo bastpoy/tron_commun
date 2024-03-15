@@ -1,0 +1,24 @@
+LEVEL1 :
+
+- IP interface A1 => 104.93.23.13
+- IP interface D1 => 211.191.345.42
+
+LEVEL2:
+
+- IP interface A1 => 192.168.223
+- Mask interface B1 => 255.255.255.224
+
+- IP interface C1 => 127.0.0.1
+- IP interface D1 => 127.0.0.2
+
+Level 3:
+
+A vers B
+A vers C
+B vers C
+
+
+
+cours:
+
+- le reseau ne connait pas l'adresse source mais l'adresse destination
