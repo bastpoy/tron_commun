@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/14 16:19:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:06:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ static int init_fork(t_var *var, int forknum)
 	if (!var->forks)
 		return (free(var->philos), 0);
 	pthread_mutex_init(&var->forks[0], NULL);
-	// pthread_mutex_init(&var->philos[0].write, NULL);
 	var->philos[i].rightfork = &var->forks[forknum - 1];
 	var->philos[i].leftfork = &var->forks[0];
 	i++;
 	while (i < forknum)
 	{
 		pthread_mutex_init(&var->forks[i], NULL);
-		// pthread_mutex_init(&var->philos[i].write, NULL);
+		pthread_mutex_init(&var->philos[i].meal, NULL);
 		var->philos[i].leftfork = &var->forks[i];
 		var->philos[i].rightfork = var->philos[i - 1].leftfork;
 		i++;
@@ -69,10 +68,8 @@ int init_philo(char **argv, t_var *var)
 	if (!init_fork(var, i))
 		return (free(philo), 0);
 	init_tvar(var, argv);
-	// var->timestart = get_time();
 	while (j < i)
 	{
-		// philo[j].timedead = var->timestart + philo[j].ttd;
 		philo[j].ranging = j + 1;
 		philo[j].ttd = ft_atoi(argv[2], NULL);
 		philo[j].tte = ft_atoi(argv[3], NULL);

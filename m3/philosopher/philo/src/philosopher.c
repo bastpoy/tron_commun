@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:05:53 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/14 16:19:59 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:26:22 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ void *one_philo(t_philo *philo)
 	printf("%ld %d died\n", get_time() - philo->var->timestart, philo->ranging);
 	pthread_mutex_unlock(&philo->var->write);
 	return (NULL);
+}
+void is_dead(t_var *var, int i)
+{
+	pthread_mutex_lock(&var->locktdead);
+	if (checkmeal(&var->philos[i]))
+		var->deadflag = 1;
+	pthread_mutex_unlock(&var->locktdead);
+	pthread_mutex_lock(&var->write);
+	if (checkmeal(&var->philos[i]))
+		printf("%ld %d died\n", get_time() - var->timestart, var->philos[i].ranging);
+	pthread_mutex_unlock(&var->write);
 }
 
 int main(int argc, char *argv[])

@@ -6,26 +6,33 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/14 16:54:44 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:27:17 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-static int checkmeal(t_philo *philo)
+int checkmeal(t_philo *philo)
 {
 	if (philo->var->nomeat == 1)
 		return (1);
 	else
 	{
+		pthread_mutex_lock(&philo->meal);
 		if (philo->mealseat < philo->var->mealstoeat)
+		{
+			pthread_mutex_unlock(&philo->meal);
 			return (1);
+		}
 		else
+		{
+			pthread_mutex_unlock(&philo->meal);
 			return (0);
+		}
 	}
 }
 
-static int deadflagstatus(t_philo *philo)
+int deadflagstatus(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->var->locktdead);
 	if (philo->var->deadflag == 0)
@@ -53,14 +60,10 @@ void *checker(void *varptr)
 		if (i == var->philonum)
 			i = 0;
 		pthread_mutex_lock(&var->philos[i].lock);
-		if (get_time() >= var->philos[i].timedead && var->deadflag == 0)
+		if ((get_time() >= var->philos[i].timedead && var->deadflag == 0) ||
+			!checkmeal(&var->philos[i]))
 		{
-			pthread_mutex_lock(&var->locktdead);
-			var->deadflag = 1;
-			pthread_mutex_unlock(&var->locktdead);
-			pthread_mutex_lock(&var->write);
-			printf("%ld %d died\n", get_time() - var->timestart, var->philos[i].ranging);
-			pthread_mutex_unlock(&var->write);
+			is_dead(var, i);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&var->philos[i].lock);
@@ -81,8 +84,8 @@ void *routine(void *philoptr)
 	{
 		if (philo->var->philonum == 1)
 			return (one_philo(philo));
-		if (philo->ranging % 2 == 0 && i == 0)
-			ft_sleep(philo->tte / 5);
+		if (philo->ranging % 2 == 1 && i == 0)
+			ft_sleep(philo->tte / 10);
 		i = 1;
 		take_fork(philo);
 		if (deadflagstatus(philo) && checkmeal(philo))
@@ -91,6 +94,8 @@ void *routine(void *philoptr)
 			sleeping(philo);
 		if (deadflagstatus(philo) && checkmeal(philo))
 			thinking(philo);
+		if (!deadflagstatus(philo))
+			loose_fork(philo);
 	}
 	return (NULL);
 }
@@ -105,8 +110,6 @@ int do_routine(t_var *var)
 		return (1);
 	while (i < var->philonum)
 	{
-		// var->philos[i].timestart = get_time();
-		// var->philos[i].timedead = var->timestart + var->philos->ttd;
 		if (pthread_create(&var->philos[i].thread, NULL, routine,
 						   (void *)&var->philos[i]) != 0)
 			return (1);
@@ -119,6 +122,7 @@ int do_routine(t_var *var)
 			return (1);
 		pthread_mutex_destroy(var->philos[i].leftfork);
 		pthread_mutex_destroy(&var->philos[i].lock);
+		pthread_mutex_destroy(&var->philos[i].meal);
 		i++;
 	}
 	if (pthread_join(var->checker, NULL))

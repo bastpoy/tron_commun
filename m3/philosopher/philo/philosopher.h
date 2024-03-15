@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/14 13:48:23 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:26:28 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 	pthread_mutex_t *leftfork;
 	pthread_mutex_t *rightfork;
 	pthread_mutex_t lock;
+	pthread_mutex_t meal;
 	struct s_var *var;
 } t_philo;
 
@@ -54,6 +55,8 @@ int init_philo(char **argv, t_var *var);
 long int get_time(void);
 int do_routine(t_var *var);
 void *one_philo(t_philo *philo);
+int checkmeal(t_philo *philo);
+int deadflagstatus(t_philo *philo);
 
 void take_right_fork(t_philo *philo);
 void take_fork(t_philo *philo);
@@ -63,3 +66,4 @@ void ft_sleep(int time);
 void eating(t_philo *philo);
 void sleeping(t_philo *philo);
 void thinking(t_philo *philo);
+void is_dead(t_var *var, int i);
