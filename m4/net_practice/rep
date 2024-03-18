@@ -17,6 +17,14 @@ A vers B
 A vers C
 B vers C
 
+- Meme sous masque: 255.255.255.128 car ils sont sur le meme reseau
+- apres je choisis les IP adresses arbitrairement entre 0 et 127 car ils doivent communiauer entre eux 
+
+Level 4 :
+
+- masque de /26
+- 109-110 et pour les adresses de b1 et r1
+
 
 
 cours:
