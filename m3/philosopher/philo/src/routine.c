@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 14:21:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/15 15:27:17 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/18 16:06:48 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void *checker(void *varptr)
 			!checkmeal(&var->philos[i]))
 		{
 			is_dead(var, i);
+			pthread_mutex_unlock(&var->philos[i].lock);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&var->philos[i].lock);
@@ -88,14 +89,14 @@ void *routine(void *philoptr)
 			ft_sleep(philo->tte / 10);
 		i = 1;
 		take_fork(philo);
-		if (deadflagstatus(philo) && checkmeal(philo))
-			eating(philo);
-		if (deadflagstatus(philo) && checkmeal(philo))
-			sleeping(philo);
-		if (deadflagstatus(philo) && checkmeal(philo))
-			thinking(philo);
-		if (!deadflagstatus(philo))
-			loose_fork(philo);
+		// if (deadflagstatus(philo) && checkmeal(philo))
+		eating(philo);
+		// if (deadflagstatus(philo) && checkmeal(philo))
+		sleeping(philo);
+		// if (deadflagstatus(philo) && checkmeal(philo))
+		thinking(philo);
+		// if (!deadflagstatus(philo))
+		// loose_fork(philo);
 	}
 	return (NULL);
 }
@@ -120,7 +121,7 @@ int do_routine(t_var *var)
 	{
 		if (pthread_join(var->philos[i].thread, NULL) != 0)
 			return (1);
-		pthread_mutex_destroy(var->philos[i].leftfork);
+		pthread_mutex_destroy(&var->forks[i]);
 		pthread_mutex_destroy(&var->philos[i].lock);
 		pthread_mutex_destroy(&var->philos[i].meal);
 		i++;

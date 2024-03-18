@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/15 15:06:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/18 16:48:52 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ static int init_fork(t_var *var, int forknum)
 
 	i = 0;
 	var->philonum = forknum;
-	var->forks = malloc(sizeof(pthread_mutex_t) * forknum);
+	var->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * forknum);
 	if (!var->forks)
 		return (free(var->philos), 0);
-	pthread_mutex_init(&var->forks[0], NULL);
+	pthread_mutex_init(&var->forks[i], NULL);
+	pthread_mutex_init(&var->philos[i].meal, NULL);
 	var->philos[i].rightfork = &var->forks[forknum - 1];
 	var->philos[i].leftfork = &var->forks[0];
+	printf("%d et %p\n", i, var->philos[i].rightfork);
+	printf("%d et %p\n", i, var->philos[i].leftfork);
 	i++;
 	while (i < forknum)
 	{
@@ -48,6 +51,8 @@ static int init_fork(t_var *var, int forknum)
 		pthread_mutex_init(&var->philos[i].meal, NULL);
 		var->philos[i].leftfork = &var->forks[i];
 		var->philos[i].rightfork = var->philos[i - 1].leftfork;
+		printf("%d et %p\n", i, var->philos[i].rightfork);
+		printf("%d et %p\n", i, var->philos[i].leftfork);
 		i++;
 	}
 	return (1);

@@ -9,7 +9,7 @@ OBJSPRINTF = $(patsubst %.c, objects/%.o, $(SRCSPRINTF))
 
 CFLAGS = -Wall -Werror -Wextra -g3 -pthread
 
-NAME = philosopher
+NAME = philo
 
 $(NAME) :  $(OBJSPRINTF)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJSPRINTF)
