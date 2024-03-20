@@ -6,16 +6,17 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:35:09 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/18 16:48:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/19 16:04:18 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosopher.h"
 
-static void init_tvar(t_var *var, char **argv)
+static void	init_tvar(t_var *var, char **argv)
 {
 	var->deadflag = 0;
 	pthread_mutex_init(&var->write, NULL);
+	pthread_mutex_init(&var->startmutex, NULL);
 	if (argv[5] != NULL)
 	{
 		var->mealstoeat = atoi(argv[5]);
@@ -29,9 +30,9 @@ static void init_tvar(t_var *var, char **argv)
 	pthread_mutex_init(&var->locktdead, NULL);
 }
 
-static int init_fork(t_var *var, int forknum)
+static int	init_fork(t_var *var, int forknum)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	var->philonum = forknum;
@@ -42,8 +43,6 @@ static int init_fork(t_var *var, int forknum)
 	pthread_mutex_init(&var->philos[i].meal, NULL);
 	var->philos[i].rightfork = &var->forks[forknum - 1];
 	var->philos[i].leftfork = &var->forks[0];
-	printf("%d et %p\n", i, var->philos[i].rightfork);
-	printf("%d et %p\n", i, var->philos[i].leftfork);
 	i++;
 	while (i < forknum)
 	{
@@ -51,18 +50,16 @@ static int init_fork(t_var *var, int forknum)
 		pthread_mutex_init(&var->philos[i].meal, NULL);
 		var->philos[i].leftfork = &var->forks[i];
 		var->philos[i].rightfork = var->philos[i - 1].leftfork;
-		printf("%d et %p\n", i, var->philos[i].rightfork);
-		printf("%d et %p\n", i, var->philos[i].leftfork);
 		i++;
 	}
 	return (1);
 }
 
-int init_philo(char **argv, t_var *var)
+int	init_philo(char **argv, t_var *var)
 {
-	int i;
-	int j;
-	t_philo *philo;
+	int		i;
+	int		j;
+	t_philo	*philo;
 
 	j = 0;
 	i = ft_atoi(argv[1], NULL);

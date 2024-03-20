@@ -12,21 +12,22 @@
 
 #include "../philosopher.h"
 
-void ft_sleep(int time)
+void	ft_sleep(int time)
 {
-	long int sleeptime;
+	long int	sleeptime;
 
 	sleeptime = get_time();
 	while (get_time() - sleeptime < time)
 		usleep(100);
 }
 
-void eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	if (deadflagstatus(philo) && checkmeal(philo))
 	{
 		pthread_mutex_lock(&philo->var->write);
-		printf("%ld %d is eating\n", get_time() - philo->var->timestart, philo->ranging);
+		printf("%ld %d is eating\n", get_time() - philo->var->timestart,
+			philo->ranging);
 		pthread_mutex_unlock(&philo->var->write);
 	}
 	pthread_mutex_lock(&philo->lock);
@@ -39,25 +40,25 @@ void eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->meal);
 }
 
-void sleeping(t_philo *philo)
+void	sleeping(t_philo *philo)
 {
 	if (deadflagstatus(philo) && checkmeal(philo))
 	{
 		pthread_mutex_lock(&philo->var->write);
 		printf("%ld %d is sleeping\n", get_time() - philo->var->timestart,
-			   philo->ranging);
+			philo->ranging);
 		pthread_mutex_unlock(&philo->var->write);
 	}
 	ft_sleep(philo->tts);
 }
 
-void thinking(t_philo *philo)
+void	thinking(t_philo *philo)
 {
 	if (deadflagstatus(philo) && checkmeal(philo))
 	{
 		pthread_mutex_lock(&philo->var->write);
 		printf("%ld %d is thinking\n", get_time() - philo->var->timestart,
-			   philo->ranging);
+			philo->ranging);
 		pthread_mutex_unlock(&philo->var->write);
 	}
 }

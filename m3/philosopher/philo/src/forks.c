@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:45:05 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/18 17:00:57 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/19 21:00:02 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,38 @@
 void take_right_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->rightfork);
-	pthread_mutex_lock(&philo->var->locktdead);
-	if (philo->var->deadflag == 0 && checkmeal(philo))
+	if (deadflagstatus(philo) && checkmeal(philo))
 	{
 		pthread_mutex_lock(&philo->var->write);
 		printf("%ld %d has taken a fork\n", get_time() - philo->var->timestart,
 			   philo->ranging);
 		pthread_mutex_unlock(&philo->var->write);
 	}
-	pthread_mutex_unlock(&philo->var->locktdead);
 }
 
 static void take_left_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->leftfork);
-	pthread_mutex_lock(&philo->var->locktdead);
-	if (philo->var->deadflag == 0 && checkmeal(philo))
+	if (deadflagstatus(philo) && checkmeal(philo))
 	{
 		pthread_mutex_lock(&philo->var->write);
 		printf("%ld %d has taken a fork\n", get_time() - philo->var->timestart,
 			   philo->ranging);
 		pthread_mutex_unlock(&philo->var->write);
 	}
-	pthread_mutex_unlock(&philo->var->locktdead);
 }
 
 void take_fork(t_philo *philo)
 {
-	// if (philo->ranging == philo->var->philonum)
+	// if (philo->ranging % 2 == 1)
 	// {
 	// 	take_left_fork(philo);
 	// 	take_right_fork(philo);
 	// }
 	// else
 	// {
-	// 	// if (philo->ranging == 1 || philo->ranging == 3)
-	// 	printf("%ld %d prendre la fork\n", get_time() - philo->var->timestart, philo->ranging);
 	take_right_fork(philo);
-	// printf("right %d %p\n", philo->ranging, philo->rightfork);
 	take_left_fork(philo);
-	// printf("left %d %p\n", philo->ranging, philo->leftfork);
 	// }
 }
 
@@ -62,5 +54,4 @@ void loose_fork(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->leftfork);
 	pthread_mutex_unlock(philo->rightfork);
-	// printf(" %d unlock \n", philo->ranging);
 }
