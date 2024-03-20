@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:06:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/19 16:50:09 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:25:27 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ long int			get_time(void);
 int					do_routine(t_var *var);
 void				*one_philo(t_philo *philo);
 int					checkmeal(t_philo *philo);
+int					checkallmeal(t_philo *philo);
 int					deadflagstatus(t_philo *philo);
 
 void				take_right_fork(t_philo *philo);
@@ -66,7 +67,6 @@ void				loose_fork(t_philo *philo);
 
 void				ft_sleep(int time);
 void				eating(t_philo *philo);
-void				sleeping(t_philo *philo);
 void				thinking(t_philo *philo);
 void				is_dead(t_var *var, int i);
 int					destroy_mutex(t_var *var);

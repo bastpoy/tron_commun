@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:05:53 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/19 16:52:11 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/20 13:13:02 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ long int	get_time(void)
 void	*one_philo(t_philo *philo)
 {
 	take_right_fork(philo);
+	ft_sleep(philo->ttd);
 	pthread_mutex_lock(&philo->var->write);
 	printf("%ld %d died\n", get_time() - philo->var->timestart, philo->ranging);
 	pthread_mutex_unlock(&philo->var->write);
