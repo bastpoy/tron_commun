@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 16:28:01 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/22 16:51:22 by bpoyet           ###   ########.fr       */
+/*   Created: 2024/03/22 13:35:22 by bpoyet            #+#    #+#             */
+/*   Updated: 2024/03/22 14:09:56 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,25 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    int i = 0;
+    int j = 1;
+    if (argc == 1)
+    {
+        cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << endl;
         return (1);
-
-    int number = 6;
-    string test = "re";
-
-    int &ref(number);
-
-    cin >> number;
-    cout << "la string" << endl;
-    cin.ignore();
-    getline(cin, test);
-
-    cout << "re " << number << " " << test << endl;
+    }
+    while (argv[j])
+    {
+        i = 0;
+        while (argv[j][i])
+        {
+            if ((int)argv[j][i] > 96 && (int)argv[j][i] < 123)
+                argv[j][i] = argv[j][i] - 32;
+            cout << argv[j][i];
+            i++;
+        }
+        j++;
+    }
+    cout << endl;
     return (0);
 }
