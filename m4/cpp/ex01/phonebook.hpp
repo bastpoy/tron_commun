@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:18:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/22 17:20:11 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/22 17:21:04 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class PhoneBook
 {
 
 public:
-    static int contactnumber
+    static int contactnum;
     PhoneBook(void);
     ~PhoneBook(void);
 };
