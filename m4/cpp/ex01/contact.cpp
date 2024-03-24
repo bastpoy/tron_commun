@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/22 17:16:43 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/25 00:15:55 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 Contact::Contact(void)
 {
     std::cout << "dans le constructeur" << endl;
+    if (this->indexcontact == 8)
+    {
+        this->indexcontact == 0;
+    }
     return;
 }
 

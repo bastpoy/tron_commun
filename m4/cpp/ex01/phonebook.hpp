@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:18:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/22 17:21:04 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/25 00:15:12 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ using namespace std;
 
 class PhoneBook
 {
+private:
+    Contact listcontact[8];
 
 public:
-    static int contactnum;
     PhoneBook(void);
     ~PhoneBook(void);
+    void getinfos(void);
 };
 
 class Contact
@@ -32,6 +34,7 @@ private:
     string lastname;
     string nickname;
     int phonenumber;
+    int indexcontact;
     string darkestsecret;
 
 public:
