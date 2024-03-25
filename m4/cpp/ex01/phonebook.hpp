@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:18:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/25 00:15:12 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/25 15:56:42 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,11 @@
 #define PHONEBOOK_HPP
 
 #include <iostream>
+#include <string>
+#include <cerrno>
+#include <cstdlib>
+
 using namespace std;
-
-class PhoneBook
-{
-private:
-    Contact listcontact[8];
-
-public:
-    PhoneBook(void);
-    ~PhoneBook(void);
-    void getinfos(void);
-};
 
 class Contact
 {
@@ -33,8 +26,7 @@ private:
     string name;
     string lastname;
     string nickname;
-    int phonenumber;
-    int indexcontact;
+    string phonenumber;
     string darkestsecret;
 
 public:
@@ -43,8 +35,24 @@ public:
     string getname(void);
     string getlastname(void);
     string getnickname(void);
-    int getphonenumber(void);
+    string getphonenumber(void);
     string getdarkestsecret(void);
+    void fill_new_contact(string strinfos[5]);
 };
+
+class PhoneBook
+{
+private:
+    Contact listcontact[8];
+    int indexcontact;
+
+public:
+    PhoneBook(void);
+    ~PhoneBook(void);
+    // void getinfos(void);
+    void createcontact(Contact &newContact);
+};
+
+void fill_contact(PhoneBook repertory);
 
 #endif

@@ -6,17 +6,17 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:03:26 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/12/04 14:58:10 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/25 17:29:46 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	ft_printf(const char *entry, ...)
+int ft_printf(const char *entry, ...)
 {
-	va_list	parameter;
-	ssize_t	lengthoutput;
+	va_list parameter;
+	ssize_t lengthoutput;
 
 	va_start(parameter, entry);
 	lengthoutput = 0;
@@ -37,4 +37,9 @@ int	ft_printf(const char *entry, ...)
 	}
 	va_end(parameter);
 	return (lengthoutput);
+}
+int main(void)
+{
+	int i = 0;
+	ft_printf("%d %s %p\n", 200, "remec", &i);
 }

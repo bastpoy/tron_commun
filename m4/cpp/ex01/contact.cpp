@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/25 00:15:55 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/25 15:54:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 Contact::Contact(void)
 {
     std::cout << "dans le constructeur" << endl;
-    if (this->indexcontact == 8)
-    {
-        this->indexcontact == 0;
-    }
     return;
 }
 
@@ -40,11 +36,20 @@ string Contact::getnickname(void)
 {
     return nickname;
 }
-int Contact::getphonenumber(void)
+string Contact::getphonenumber(void)
 {
     return phonenumber;
 }
 string Contact::getdarkestsecret(void)
 {
     return darkestsecret;
+}
+void Contact::fill_new_contact(string strinfos[5])
+{
+
+    name = strinfos[0];
+    lastname = strinfos[1];
+    nickname = strinfos[2];
+    phonenumber = strinfos[3];
+    darkestsecret = strinfos[4];
 }

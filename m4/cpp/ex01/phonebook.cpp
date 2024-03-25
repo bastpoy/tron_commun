@@ -6,7 +6,7 @@
 /*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:34:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/22 16:55:01 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/03/25 15:57:30 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main()
     // PhoneBook book;
     // Contact person[8];
     std::string string = "";
+    PhoneBook repertory;
 
     while (string != "EXIT")
     {
@@ -24,8 +25,7 @@ int main()
         cin >> string;
         if (string == "ADD")
         {
-            cout << "ADD";
-            return (1);
+            fill_contact(repertory);
         }
         else if (string == "SEARCH")
         {
@@ -39,7 +39,6 @@ int main()
         }
         else
             std::cout << "Wrong command" << endl;
-
         break;
     }
     return 0;

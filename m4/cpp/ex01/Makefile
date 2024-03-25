@@ -1,4 +1,4 @@
-SRCSPRINTF = phonebook.cpp phone.cpp
+SRCSPRINTF = phonebook.cpp phone.cpp fill.cpp contact.cpp
 
 OBJSPRINTF = $(patsubst %.cpp, objects/%.o, $(SRCSPRINTF))
 
