@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 09:44:06 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/08 13:20:45 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/04/24 14:57:03 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_pipex
 	char	***args;
 	char	**envp;
 	char	*path;
-	int		argcount;
+	int		argcount;	
 	int		errorcode[5];
 	int		fd[2];
 	int		fdpipe[2];
