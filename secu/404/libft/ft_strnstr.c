@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:56:23 by bpoyet            #+#    #+#             */
-/*   Updated: 2023/11/15 19:35:52 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/04/29 16:53:37 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
@@ -29,7 +30,10 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 			&& cpstr[i + j] != '\0')
 			i++;
 		if (i == ft_strlen(to_find))
+		{
+			printf("la sous chaine est a la position %ld\n", j);
 			return (cpstr + j);
+		}
 		j++;
 	}
 	return (0);
