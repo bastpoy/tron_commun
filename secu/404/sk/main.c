@@ -6,22 +6,22 @@
 char *converttobinary(char str, char *str1)
 {
    switch (str) {
-        case '0': str1 = ft_strjoin(str1, "0000"); break;
-        case '1': str1 = ft_strjoin(str1, "0001"); break;
-        case '2': str1 = ft_strjoin(str1, "0010"); break;
-        case '3': str1 = ft_strjoin(str1, "0011"); break;
-        case '4': str1 = ft_strjoin(str1, "0100"); break;
-        case '5': str1 = ft_strjoin(str1, "0101"); break;
-        case '6': str1 = ft_strjoin(str1, "0110"); break;
-        case '7': str1 = ft_strjoin(str1, "0111"); break;
-        case '8': str1 = ft_strjoin(str1, "1000"); break;
-        case '9': str1 = ft_strjoin(str1, "1001"); break;
-        case 'A': case 'a': str1 = ft_strjoin(str1, "1010"); break;
-        case 'B': case 'b': str1 = ft_strjoin(str1, "1011"); break;
-        case 'C': case 'c': str1 = ft_strjoin(str1, "1100"); break;
-        case 'D': case 'd': str1 = ft_strjoin(str1, "1101"); break;
-        case 'E': case 'e': str1 = ft_strjoin(str1, "1110"); break;
-        case 'F': case 'f': str1 = ft_strjoin(str1, "1111"); break;
+        case '0': str1 = ft_strjoin(str1, "00000000"); break;
+        case '1': str1 = ft_strjoin(str1, "00000001"); break;
+        case '2': str1 = ft_strjoin(str1, "00000010"); break;
+        case '3': str1 = ft_strjoin(str1, "00000011"); break;
+        case '4': str1 = ft_strjoin(str1, "00000100"); break;
+        case '5': str1 = ft_strjoin(str1, "00000101"); break;
+        case '6': str1 = ft_strjoin(str1, "00000110"); break;
+        case '7': str1 = ft_strjoin(str1, "00000111"); break;
+        case '8': str1 = ft_strjoin(str1, "00001000"); break;
+        case '9': str1 = ft_strjoin(str1, "00001001"); break;
+        case 'A': case 'a': str1 = ft_strjoin(str1, "00001010"); break;
+        case 'B': case 'b': str1 = ft_strjoin(str1, "00001011"); break;
+        case 'C': case 'c': str1 = ft_strjoin(str1, "00001100"); break;
+        case 'D': case 'd': str1 = ft_strjoin(str1, "00001101"); break;
+        case 'E': case 'e': str1 = ft_strjoin(str1, "00001110"); break;
+        case 'F': case 'f': str1 = ft_strjoin(str1, "00001111"); break;
         default:
             printf("Caractère hexadécimal invalide : %c\n", str);
             exit(EXIT_FAILURE);
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
     char **ten;
     char *reversestr;
 
-    char *tofind[] = {"011110111", "011111011", NULL};
+    char *tofind[] = {"1000011","1111011","1010100", "1000110", "1111101", NULL};
 
     str1 = ft_strdup("");
     int i = 0;
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
         }
         i++;
     }
-    printf("la sub %s\n", ft_substr(reversestr, 32, 84));
+    // printf("la sub %s\n", ft_substr(reversestr, 32, 84));
     // ten = resizebit(str1);
     // while(ten[i])
     // {
