@@ -33,3 +33,26 @@
 //     printf("Adresse IP convertie : %s\n", straddr);
 //     return 0;
 // }
+
+    // for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) {
+    //     if (ifa->ifa_addr == NULL) {
+    //         continue;
+    //     }
+    //     if (ifa->ifa_addr->sa_family == AF_INET) {
+    //     // Check if the address family is AF_INET (IPv4)
+    //         struct sockaddr_in *addr = (struct sockaddr_in *)ifa->ifa_addr;
+    //         struct sockaddr_in *netmask = (struct sockaddr_in *)ifa->ifa_netmask;
+
+    //         // Convert IP address and netmask to strings
+    //         char ip_str[INET_ADDRSTRLEN];
+    //         char mask_str[INET_ADDRSTRLEN];
+    //         inet_ntop(AF_INET, &addr->sin_addr, ip_str, INET_ADDRSTRLEN);
+    //         inet_ntop(AF_INET, &netmask->sin_addr, mask_str, INET_ADDRSTRLEN);
+
+    //         // Print IP address, mask address, and address family
+    //         printf("Interface: %s\n", ifa->ifa_name);
+    //         printf("  IP Address: %s\n", ip_str);
+    //         printf("  Mask Address: %s\n", mask_str);
+    //         printf("  Address Family: %d\n", ifa->ifa_addr->sa_family);
+    //     }
+    // }
