@@ -5,10 +5,11 @@ L'utilisateur rentre des commandes comme dans bash et le programme doit se compo
 
 ## PARTIE EXEC
 
-Mon role dans ce projet a ete de faire la partie execution, les signaux, les signaux de retour du programme
-et les builtin (reproduction des fonction echos, cd, unset, env, export, exit, pwd)
-
-
+Mon role dans ce projet a ete de faire la partie execution:
+- execution des commande
+- gestion des signaux (ctrl +c, ctrl + d, ctrl + \)
+- Renvoie des bons signaux de retour du programme
+- Reproduction de certaines fonctions du shell comme echo, cd, unset, env, export, exit, pwd
 
 
 -------------------CONSTRUCTION DU PROGRAMME----------------
