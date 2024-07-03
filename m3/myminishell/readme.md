@@ -1,4 +1,12 @@
-# **MINISHELL PROJECT
+# MINISHELL PROJECT
+
+Le but de ce projet est de recreer un shell en langage C.
+L'utilisateur rentre des commandes comme dans bash et le programme doit se comporter de la meme maniere.
+
+## PARTIE EXEC
+
+Mon role dans ce projet a ete de faire la partie execution, les signaux, les signaux de retour du programme
+et les builtin (reproduction des fonction echos, cd, unset, env, export, exit, pwd)
 
 
 
