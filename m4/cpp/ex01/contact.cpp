@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/25 15:54:30 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/09 17:53:46 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,38 @@
 
 Contact::Contact(void)
 {
-    std::cout << "dans le constructeur" << endl;
+    std::cout << "dans le constructeur" << std::endl;
     return;
 }
 
 Contact::~Contact(void)
 {
-    std::cout << "dans le constructeur" << endl;
+    std::cout << "dans le constructeur" << std::endl;
     return;
 }
 
-string Contact::getname(void)
+std::string Contact::getname(void)
 {
     return name;
 }
-string Contact::getlastname(void)
+std::string Contact::getlastname(void)
 {
     return lastname;
 }
-string Contact::getnickname(void)
+std::string Contact::getnickname(void)
 {
     return nickname;
 }
-string Contact::getphonenumber(void)
+std::string Contact::getphonenumber(void)
 {
     return phonenumber;
 }
-string Contact::getdarkestsecret(void)
+std::string Contact::getdarkestsecret(void)
 {
     return darkestsecret;
 }
-void Contact::fill_new_contact(string strinfos[5])
+void Contact::fill_new_contact(std::string strinfos[5])
 {
-
     name = strinfos[0];
     lastname = strinfos[1];
     nickname = strinfos[2];

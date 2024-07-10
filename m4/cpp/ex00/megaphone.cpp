@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/22 14:09:56 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/09 17:21:15 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-
-using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +18,7 @@ int main(int argc, char *argv[])
     int j = 1;
     if (argc == 1)
     {
-        cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << endl;
+        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
         return (1);
     }
     while (argv[j])
@@ -30,11 +28,11 @@ int main(int argc, char *argv[])
         {
             if ((int)argv[j][i] > 96 && (int)argv[j][i] < 123)
                 argv[j][i] = argv[j][i] - 32;
-            cout << argv[j][i];
+            std::cout << argv[j][i];
             i++;
         }
         j++;
     }
-    cout << endl;
+    std::cout << std::endl;
     return (0);
 }

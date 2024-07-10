@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:18:15 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/25 15:56:42 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/09 17:50:03 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,24 @@
 #include <string>
 #include <cerrno>
 #include <cstdlib>
-
-using namespace std;
-
 class Contact
 {
 private:
-    string name;
-    string lastname;
-    string nickname;
-    string phonenumber;
-    string darkestsecret;
+    std::string name;
+    std::string lastname;
+    std::string nickname;
+    std::string phonenumber;
+    std::string darkestsecret;
 
 public:
     Contact(void);
     ~Contact(void);
-    string getname(void);
-    string getlastname(void);
-    string getnickname(void);
-    string getphonenumber(void);
-    string getdarkestsecret(void);
-    void fill_new_contact(string strinfos[5]);
+    std::string getname(void);
+    std::string getlastname(void);
+    std::string getnickname(void);
+    std::string getphonenumber(void);
+    std::string getdarkestsecret(void);
+    void fill_new_contact(std::string strinfos[5]);
 };
 
 class PhoneBook

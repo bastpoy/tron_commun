@@ -6,23 +6,10 @@ L'utilisateur rentre des commandes comme dans bash et le programme doit se compo
 ## PARTIE EXEC
 
 Mon role dans ce projet a ete de faire la partie execution:
-- execution des commande
+- execution des commande (Pipe, commande simple, redirections in-out-append-heredoc)
 - gestion des signaux (ctrl +c, ctrl + d, ctrl + \)
 - Renvoie des bons signaux de retour du programme
 - Reproduction de certaines fonctions du shell comme echo, cd, unset, env, export, exit, pwd
-
-
--------------------CONSTRUCTION DU PROGRAMME----------------
-
-Parser => executor
-
-Parser :
-- Lexer => Prend les caracteres et crees des mots avec pour former des token
-- Command Table => creer la table de commande
-- Gerer les simple et double quote => "" ''
-
-Executor :
--  creer un process pour chaque commande ( pipe, redirections, commandes)
 
 --------------------Shell subsystems----------------------
 
@@ -30,7 +17,6 @@ Executor :
 - Variables d'environnement (locales) : variables creer dans la session actuelle du shell
     => my_var="hello" que j'appelle avec $my_var
     => recuperation des variables avec la commande set
-- gerer crtl + d || ctrl + c || ctrl + \
 
 
 --------------------Builtins-----------------------------
@@ -58,8 +44,7 @@ EXPORT
 - modifier une variable existante
 - afficher toutes les variables
 - gerer le "export=" => qui ne fait rien
-
-Le nom de la variable export ne doit pas:
+- Le nom de la variable export ne doit pas:
     - debuter par un chiffre 
     - Ne doit pas comporter de caracteres speciaux a par '_'
 

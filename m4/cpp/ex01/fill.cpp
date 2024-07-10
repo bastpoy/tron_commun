@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   fill.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:16:14 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/03/25 16:47:27 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/09 17:50:22 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 
-static string write_infos(string str)
+static std::string write_infos(std::string str)
 {
     // cin.ignore();
     while (str.empty())
     {
-        if (!getline(cin, str))
+        if (!getline(std::cin, str))
             exit(errno);
-        cout << str << endl;
+        std::cout << str << std::endl;
         if (str.empty())
-            cout << "Cannot be empty: " << endl;
+            std::cout << "Cannot be empty: " << std::endl;
     }
     return (str);
 }
@@ -34,17 +34,17 @@ void fill_contact(PhoneBook repertory)
     // string phonenumber = "";
     // string darkestsecret = "";
     Contact newContact;
-    string strinfos[5];
+    std::string strinfos[5];
 
-    cout << "First name: " << endl;
+    std::cout << "First name: " << std::endl;
     write_infos(strinfos[0]);
-    cout << "Last name: " << endl;
+    std::cout << "Last name: " << std::endl;
     write_infos(strinfos[1]);
-    cout << "Nickname: " << endl;
+    std::cout << "Nickname: " << std::endl;
     write_infos(strinfos[2]);
-    cout << "Phone number: " << endl;
+    std::cout << "Phone number: " << std::endl;
     write_infos(strinfos[3]);
-    cout << "Darkest secret: " << endl;
+    std::cout << "Darkest secret: " << std::endl;
     write_infos(strinfos[4]);
     newContact.fill_new_contact(strinfos);
     repertory.createcontact(newContact);
