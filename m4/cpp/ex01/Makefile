@@ -1,4 +1,4 @@
-SRCSPRINTF = phonebook.cpp phone.cpp fill.cpp contact.cpp
+SRCSPRINTF = phonebook.cpp contact.cpp main.cpp
 
 OBJSPRINTF = $(patsubst %.cpp, objects/%.o, $(SRCSPRINTF))
 
@@ -11,7 +11,7 @@ $(NAME) :  $(OBJSPRINTF)
 
 all : $(NAME)
 
-objects/%.o : %.cpp phonebook.hpp
+objects/%.o : %.cpp phonebook.hpp contact.hpp
 	mkdir -p $(dir $@)
 	$(CXX) $(CFLAGS) -c $< -o $@
 

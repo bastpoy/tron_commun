@@ -3,26 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/09 17:53:46 by bastpoy          ###   ########.fr       */
+/*   Updated: 2024/07/10 23:54:07 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
-
-Contact::Contact(void)
-{
-    std::cout << "dans le constructeur" << std::endl;
-    return;
-}
-
-Contact::~Contact(void)
-{
-    std::cout << "dans le constructeur" << std::endl;
-    return;
-}
+// #include "phonebook.hpp"
+#include "contact.hpp"
 
 std::string Contact::getname(void)
 {
@@ -52,3 +41,22 @@ void Contact::fill_new_contact(std::string strinfos[5])
     phonenumber = strinfos[3];
     darkestsecret = strinfos[4];
 }
+
+void fill_contact(void)
+{
+    
+}
+
+// static std::string write_infos(std::string str)
+// {
+//     // cin.ignore();
+//     while (str.empty())
+//     {
+//         if (!getline(std::cin, str))
+//             exit(errno);
+//         std::cout << str << std::endl;
+//         if (str.empty())
+//             std::cout << "Cannot be empty: " << std::endl;
+//     }
+//     return (str);
+// }
