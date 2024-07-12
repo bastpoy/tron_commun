@@ -16,11 +16,16 @@ private:
 
 public:
     std::string getname(void);
+    std::string getname1(void);
     std::string getlastname(void);
     std::string getnickname(void);
     std::string getphonenumber(void);
     std::string getdarkestsecret(void);
     void fill_new_contact(std::string strinfos[5]);
 };
+
+int is_number(std::string str);
+std::string while_number(std::string str);
+std::string truncate(std::string str);
 
 #endif
