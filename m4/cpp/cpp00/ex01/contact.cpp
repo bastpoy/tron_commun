@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/11 18:35:28 by bastpoy          ###   ########.fr       */
+/*   Updated: 2024/07/12 22:57:40 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ std::string truncate(std::string str)
     if (str.length() < 10)
     {
         while(str.length() < 10)
-            str.append(" ");
+            str.insert(0," ");
     }
     return (str);
 }

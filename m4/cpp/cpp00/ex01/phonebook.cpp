@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:34:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/11 18:37:17 by bastpoy          ###   ########.fr       */
+/*   Updated: 2024/07/12 23:01:36 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void PhoneBook::createcontact(Contact contact, int count)
 void PhoneBook::displaycontacts()
 {
     int i = 0;
-    std::cout << "INDEX|FIRST NAME|LAST NAME |NICKNAME  |PHONE NUM " << std::endl;
+    std::cout << "INDEX|FIRST NAME| LAST NAME|  NICKNAME| PHONE NUM" << std::endl;
     while(!listcontact[i].getname1().empty())
     {
-        std::cout << i + 1 << "    |" << listcontact[i].getname() 
+        std::cout << "    "<< i + 1 << "|" << listcontact[i].getname() 
             << "|" << listcontact[i].getlastname() << "|" 
             << listcontact[i].getphonenumber() << "|"
             << listcontact[i].getnickname() << std::endl;
@@ -37,8 +37,8 @@ void PhoneBook::displaycontacts()
 }
 void PhoneBook::display_one_contact(int index)
 {
-    std::cout << "INDEX|FIRST NAME|LAST NAME |NICKNAME  |PHONE NUM |SECRET" << std::endl;
-    std::cout << index << "    |" << listcontact[index - 1].getname() 
+    std::cout << "INDEX|FIRST NAME| LAST NAME|  NICKNAME| PHONE NUM|    SECRET" << std::endl;
+    std::cout << "    "<< index << "|" << listcontact[index - 1].getname() 
         << "|" << listcontact[index - 1].getlastname() << "|"
         << listcontact[index - 1].getphonenumber() << "|"
         << listcontact[index - 1].getnickname() << "|"

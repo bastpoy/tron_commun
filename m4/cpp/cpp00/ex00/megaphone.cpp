@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/10 22:59:58 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/12 22:51:00 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     if (argc == 1)
     {
         std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-        return (1);
+        return (0);
     }
     while (argv[j])
     {
