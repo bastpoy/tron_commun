@@ -6,36 +6,36 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/12 22:57:40 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/16 00:57:26 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "phonebook.hpp"
 #include "contact.hpp"
 
 std::string Contact::getname(void)
 {
-    return (truncate(this->name));
-}
-std::string Contact::getname1(void)
-{
     return (this->name);
+    // return (truncate(this->name));
 }
 std::string Contact::getlastname(void)
 {
-    return (truncate(this->lastname));
+    return(this->lastname);
+    // return (truncate(this->lastname));
 }
 std::string Contact::getnickname(void)
 {
-    return (truncate(this->nickname));
+    return (this->nickname);
+    // return (truncate(this->nickname));
 }
 std::string Contact::getphonenumber(void)
 {
-    return (truncate(this->phonenumber));
+    return (this->phonenumber);
+    // return (truncate(this->phonenumber));
 }
 std::string Contact::getdarkestsecret(void)
 {
-    return (truncate(this->darkestsecret));
+    return(this->darkestsecret);
+    // return (truncate(this->darkestsecret));
 }
 
 void Contact::fill_new_contact(std::string strinfos[5])
@@ -71,15 +71,15 @@ std::string while_number(std::string str)
 
 std::string truncate(std::string str)
 {
-    if (str.length() > 10)
-    {
-        str.resize(9);
-        str.append(".");
-    }
-    if (str.length() < 10)
-    {
-        while(str.length() < 10)
-            str.insert(0," ");
-    }
+    // if (str.length() > 10)
+    // {
+    //     str.resize(9);
+    //     str.append(".");
+    // }
+    // if (str.length() < 10)
+    // {
+    //     while(str.length() < 10)
+    //         str.insert(0," ");
+    // }
     return (str);
 }

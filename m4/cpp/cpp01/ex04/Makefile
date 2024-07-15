@@ -4,7 +4,7 @@ OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
-NAME = Zombie
+NAME = sed
 
 $(NAME) :  $(OBJSCPP)
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)

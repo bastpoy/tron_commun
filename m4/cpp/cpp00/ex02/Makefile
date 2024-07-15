@@ -7,13 +7,13 @@ CFLAGS = -Wall -Wextra -std=c++98 -g3
 NAME = phonebook
 
 $(NAME) :  $(OBJSPRINTF)
-	$(CXX) $(CFLAGS) -o $(NAME) $(OBJSPRINTF)
+	c++ $(CFLAGS) -o $(NAME) $(OBJSPRINTF)
 
 all : $(NAME)
 
 objects/%.o : %.cpp Account.hpp
 	mkdir -p $(dir $@)
-	$(CXX) $(CFLAGS) -c $< -o $@
+	c++ $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -rf objects

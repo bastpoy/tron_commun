@@ -6,7 +6,7 @@
 /*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:34:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/12 23:01:36 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/16 01:40:33 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,19 @@ void PhoneBook::createcontact(Contact contact, int count)
     listcontact[count] = contact;
 }
 
-void PhoneBook::displaycontacts()
+void PhoneBook::displaycontacts(int maxcontact)
 {
     int i = 0;
     std::cout << "INDEX|FIRST NAME| LAST NAME|  NICKNAME| PHONE NUM" << std::endl;
-    while(!listcontact[i].getname1().empty())
+    while(i < maxcontact)
     {
-        std::cout << "    "<< i + 1 << "|" << listcontact[i].getname() 
-            << "|" << listcontact[i].getlastname() << "|" 
+        // std::cout << "    "<< i + 1 << "|" << listcontact[i].getname() 
+        //     << "|" << listcontact[i].getlastname() << "|" 
+        //     << listcontact[i].getphonenumber() << "|"
+        //     << listcontact[i].getnickname() << std::endl;
+        // std::cout << std::setw(10);
+        std::cout  << i + 1 << "|" << listcontact[i].getname() 
+            << "|"  << listcontact[i].getlastname() << "|" 
             << listcontact[i].getphonenumber() << "|"
             << listcontact[i].getnickname() << std::endl;
         i++;
@@ -38,19 +43,25 @@ void PhoneBook::displaycontacts()
 void PhoneBook::display_one_contact(int index)
 {
     std::cout << "INDEX|FIRST NAME| LAST NAME|  NICKNAME| PHONE NUM|    SECRET" << std::endl;
-    std::cout << "    "<< index << "|" << listcontact[index - 1].getname() 
-        << "|" << listcontact[index - 1].getlastname() << "|"
-        << listcontact[index - 1].getphonenumber() << "|"
-        << listcontact[index - 1].getnickname() << "|"
-        << listcontact[index - 1].getdarkestsecret() << std::endl;
+    // std::cout << "    "<< index << "|" << listcontact[index - 1].getname() 
+    //     << "|" << listcontact[index - 1].getlastname() << "|"
+    //     << listcontact[index - 1].getphonenumber() << "|"
+    //     << listcontact[index - 1].getnickname() << "|"
+    //     << listcontact[index - 1].getdarkestsecret() << std::endl;
+    std::cout << std::setw(10)<< index << "|" << std::setw(10) << 
+        listcontact[index - 1].getname()  << "|" << std::setw(10)
+        << listcontact[index - 1].getlastname() << "|"
+        << std::setw(10) << listcontact[index - 1].getphonenumber() << "|"
+        << std::setw(10) << listcontact[index - 1].getnickname() << "|"
+        << std::setw(10) << listcontact[index - 1].getdarkestsecret() << std::endl;
 }
 
-std::string     PhoneBook::while_search(std::string index)
+std::string     PhoneBook::while_search(std::string index, int maxcontact)
 {
     int indexint = (int)index[0] - 48;
 
     while(index.length() > 1 || !isdigit(index[0]) || index[0] < '1' ||
-        index[0] > '8' || this->listcontact[indexint - 1].getname1().empty())
+        index[0] > '8' || indexint > maxcontact)
     {
         std::cout << "Wrong Number pick another: ";
         std::cin >> index;
@@ -60,14 +71,15 @@ std::string     PhoneBook::while_search(std::string index)
     }
     return(index);
 }
-void add_condition(int *count, Contact &contact, PhoneBook &phonebook)
+void add_condition(int *count, Contact &contact, PhoneBook &phonebook, int *maxcontact)
 {
     std::string strinfos[5];
 
     std::cout << "enter name: ";
-    std::cin >> strinfos[0];
-    if(std::cin.eof())
-        exit(1);
+    // std::cin >> strinfos[0];
+    std::getline(std::cin, strinfos[0]);
+    // if(std::cin.eof())
+    //     exit(1);
     std::cout << "enter lastname: ";
     std::cin >> strinfos[1];
     if(std::cin.eof())
@@ -90,4 +102,6 @@ void add_condition(int *count, Contact &contact, PhoneBook &phonebook)
     *count = *count + 1;
     if(*count == 8)  
         *count = 0;
+    if(*count != 0)
+        *maxcontact = *count;
 }

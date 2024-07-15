@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cerrno>
 #include <stdlib.h>
+#include <iomanip>
 
 class Contact
 {
@@ -16,7 +17,6 @@ private:
 
 public:
     std::string getname(void);
-    std::string getname1(void);
     std::string getlastname(void);
     std::string getnickname(void);
     std::string getphonenumber(void);

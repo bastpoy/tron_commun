@@ -1,4 +1,3 @@
-#include "contact.hpp"
 #include "phonebook.hpp"
 
 int main()
@@ -8,6 +7,7 @@ int main()
     PhoneBook repertory;
     Contact contact;
     int count = 0;
+    int maxcontact = 0;
 
     while (input.find("EXIT") == std::string::npos)
     {
@@ -17,17 +17,22 @@ int main()
             return (1);
         if (input == "ADD")
         {
-            add_condition(&count, contact, repertory);
+            add_condition(&count, contact, repertory, &maxcontact);
         }
         else if (input == "SEARCH")
         {
-            repertory.displaycontacts();
-            std::cout << "enter index: ";
-            std::cin >> index;
-            if(std::cin.eof())
-                return(1);
-            index = repertory.while_search(index);
-            repertory.display_one_contact((int)index[0] - 48);
+            repertory.displaycontacts(maxcontact);
+            if(maxcontact != 0)
+            {
+                std::cout << "enter index: ";
+                std::cin >> index;
+                if(std::cin.eof())
+                    return(1);
+                index = repertory.while_search(index, maxcontact);
+                repertory.display_one_contact((int)index[0] - 48);
+            }
+            else
+                std::cout << "No contact to display" << std::endl;
         }
         else if (input == "EXIT")
         {

@@ -6,13 +6,13 @@ CFLAGS = -Wall -Werror -Wextra -std=c++98
 NAME = megaphone
 
 $(NAME) :  $(OBJSPRINTF)
-	$(CXX) $(CFLAGS) -o $(NAME) $(OBJSPRINTF)
+	c++ $(CFLAGS) -o $(NAME) $(OBJSPRINTF)
 
 all : $(NAME)
 
 objects/%.o : %.cpp
 	mkdir -p $(dir $@)
-	$(CXX) $(CFLAGS) -c $< -o $@
+	c++ $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -rf objects
