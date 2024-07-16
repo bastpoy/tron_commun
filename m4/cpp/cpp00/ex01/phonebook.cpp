@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:34:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/16 01:40:33 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/16 02:48:10 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ void PhoneBook::displaycontacts(int maxcontact)
         //     << listcontact[i].getphonenumber() << "|"
         //     << listcontact[i].getnickname() << std::endl;
         // std::cout << std::setw(10);
-        std::cout  << i + 1 << "|" << listcontact[i].getname() 
-            << "|"  << listcontact[i].getlastname() << "|" 
-            << listcontact[i].getphonenumber() << "|"
-            << listcontact[i].getnickname() << std::endl;
+        std::cout << std::setw(10) << i + 1 << "|";
+        std::cout << std::setw(10) << listcontact[i].getname();
+        std::cout << "|" << std::setw(10) << listcontact[i].getlastname() << "|" ;
+        std::cout << std::setw(10) << listcontact[i].getphonenumber() << "|";
+        std::cout << std::setw(10) << listcontact[i].getnickname() << std::endl;
         i++;
     }
 }
@@ -48,7 +49,7 @@ void PhoneBook::display_one_contact(int index)
     //     << listcontact[index - 1].getphonenumber() << "|"
     //     << listcontact[index - 1].getnickname() << "|"
     //     << listcontact[index - 1].getdarkestsecret() << std::endl;
-    std::cout << std::setw(10)<< index << "|" << std::setw(10) << 
+    std::cout << std::setw(10) << index << "|" << std::setw(10) << 
         listcontact[index - 1].getname()  << "|" << std::setw(10)
         << listcontact[index - 1].getlastname() << "|"
         << std::setw(10) << listcontact[index - 1].getphonenumber() << "|"
@@ -76,25 +77,25 @@ void add_condition(int *count, Contact &contact, PhoneBook &phonebook, int *maxc
     std::string strinfos[5];
 
     std::cout << "enter name: ";
-    // std::cin >> strinfos[0];
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, strinfos[0]);
-    // if(std::cin.eof())
-    //     exit(1);
+    if(std::cin.eof())
+        exit(1);
     std::cout << "enter lastname: ";
-    std::cin >> strinfos[1];
+    std::getline(std::cin, strinfos[1]);
     if(std::cin.eof())
         exit(1);
     std::cout << "enter nickname: ";
-    std::cin >> strinfos[2];
+    std::getline(std::cin, strinfos[2]);
     if(std::cin.eof())
         exit(1);
     std::cout << "enter phonenumber: ";
-    std::cin >> strinfos[3];
+    std::getline(std::cin, strinfos[3]);
     if(std::cin.eof())
         exit(1);
     strinfos[3] = while_number(strinfos[3]);
     std::cout << "enter darkest secret: ";
-    std::cin >> strinfos[4];
+    std::getline(std::cin, strinfos[4]);
     if(std::cin.eof())
         exit(1);
     contact.fill_new_contact(strinfos);

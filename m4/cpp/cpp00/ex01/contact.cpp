@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/16 00:57:26 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/16 02:30:23 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ std::string while_number(std::string str)
     while (is_number(str) == 0)
     {
         std::cout << "phonenumber must be a number: ";
-        std::cin >> str;
+        std::getline(std::cin, str);
         if(std::cin.eof())
             exit(1);
     }

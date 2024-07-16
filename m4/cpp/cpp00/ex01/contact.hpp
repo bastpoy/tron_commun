@@ -5,6 +5,7 @@
 #include <cerrno>
 #include <stdlib.h>
 #include <iomanip>
+#include <limits>
 
 class Contact
 {

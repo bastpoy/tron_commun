@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include "contact.hpp"
 
-
 class PhoneBook
 {
 private:
