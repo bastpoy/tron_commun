@@ -18,7 +18,7 @@ void	Account::_displayTimestamp( void )
     std::cout << "[" << buffer << "] ";
 }
 
-Account::Account(int initial_deposit) : _amount(initial_deposit)
+Account::Account(int initial_deposit) : _amount(initial_deposit), _nbDeposits(0), _nbWithdrawals(0)
 {
     _totalAmount += _amount;
     this->_accountIndex = _nbAccounts;

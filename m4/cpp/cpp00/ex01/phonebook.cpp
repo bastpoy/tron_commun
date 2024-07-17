@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:34:11 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/17 03:24:34 by bpoyet           ###   ########.fr       */
+/*   Updated: 2024/07/17 19:45:20 by bastpoy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 
 PhoneBook::PhoneBook(void)
+{
+}
+
+PhoneBook::~PhoneBook(void)
 {
 }
 
@@ -26,7 +30,8 @@ std::string check_input(std::string strinfos)
     std::getline(std::cin, strinfos);
     if(std::cin.eof())
     {
-        std::cout << "je suis la plutot" << std::endl << std::flush;
+        // std::cout << "je suis la plutot" << std::endl << std::flush;
+        std::cout << std::flush;
         return "";
     }
     while(!std::cin.good() || strinfos.empty())
@@ -34,7 +39,10 @@ std::string check_input(std::string strinfos)
         std::cout << "Wrong entry enter again:" << std::endl << std::flush;
         std::getline(std::cin, strinfos);
         if(std::cin.eof())
+        {
+            std::cin.clear();
             return "";
+        }
     }
     return (strinfos);
 }
@@ -82,28 +90,31 @@ void add_condition(int *count, Contact &contact, PhoneBook &phonebook, int *maxc
     std::string strinfos[5];
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "enter name: "<< std::flush;
+    std::cout << "enter name: ";
     strinfos[0] = check_input(strinfos[0]);
-    if(strinfos[0] == "")
+    if(strinfos[0].empty() || std::cin.eof() || std::cin.eof())
+        return;
+    std::cout << "enter lastname: ";
+    strinfos[1] = check_input(strinfos[1]);
+    if(strinfos[1].empty() || std::cin.eof())
+        return;
+    std::cout << "enter nickname: ";
+    strinfos[2] = check_input(strinfos[2]);
+    if(strinfos[2].empty() || std::cin.eof())
     {
-        std::cout << "je suis ici" << std::endl;
         return;
     }
-    std::cout << "enter lastname: " << std::flush;
-    strinfos[1] = check_input(strinfos[1]);
-    if(strinfos[0] == "")
-        return;
-    std::cout << "enter nickname: " << std::flush;
-    strinfos[2] = check_input(strinfos[2]);
     std::cout << "enter phonenumber: ";
     std::getline(std::cin, strinfos[3]);
     if(std::cin.eof())
-        exit(1);
+        return;
     strinfos[3] = while_number(strinfos[3]);
+    if(strinfos[3].empty() || std::cin.eof())
+        return;
     std::cout << "enter darkest secret: ";
-    std::getline(std::cin, strinfos[4]);
-    if(std::cin.eof())
-        exit(1);
+    strinfos[4] = check_input(strinfos[4]);
+    if(strinfos[4].empty() || std::cin.eof())
+        return;
     contact.fill_new_contact(strinfos);
     phonebook.createcontact(contact, *count);
     *count = *count + 1;

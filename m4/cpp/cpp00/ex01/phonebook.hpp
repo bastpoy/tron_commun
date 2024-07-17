@@ -15,6 +15,7 @@ private:
 public:
     // void getinfos(void);
     PhoneBook(void);
+    ~PhoneBook(void);
     void createcontact(Contact contact, int count);
     void displaycontacts(int maxcontact);
     void display_one_contact(int index);

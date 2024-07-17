@@ -33,13 +33,13 @@ int main(int argc, char *argv[])
     }
     tofind = argv[2];
     tochange = argv[3];
-    // outputfile = 
+    outputfile = argv[1];
     std::ifstream input(argv[1]);
     if (!input) {
         std::cout << "Failed to open file." << std::endl;
         return 1;
     }
-    std::ofstream output(argv[1].append(".replace"));
+    std::ofstream output(outputfile.append(".replace"));
     if(input.is_open())
     {
         while(std::getline (input, line))

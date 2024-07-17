@@ -9,9 +9,9 @@ int main()
     int count = 0;
     int maxcontact = 0;
 
-    while (input.find("EXIT") == std::string::npos)
+    while (true)
     {
-        std::cout << "ADD SEARCH EXIT contact" << std::endl;
+        std::cout << "ADD SEARCH EXIT contact" << std::endl << std::flush;
         std::cin >> input;
         if(std::cin.eof())
             return (1);
@@ -37,10 +37,12 @@ int main()
         else if (input == "EXIT")
         {
             std::cout << "EXIT";
-            return (3);
+            return (0);
         }
         else
             std::cout << "Wrong command" << std::endl;
+        if(std::cin.eof())
+            return 1;
     }
     return 0;
 }
