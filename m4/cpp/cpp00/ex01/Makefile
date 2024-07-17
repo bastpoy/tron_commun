@@ -2,7 +2,7 @@ SRCSPRINTF = phonebook.cpp contact.cpp main.cpp
 
 OBJSPRINTF = $(patsubst %.cpp, objects/%.o, $(SRCSPRINTF))
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 
 NAME = phonebook
 

@@ -10,7 +10,7 @@
 class PhoneBook
 {
 private:
-    Contact listcontact[9];
+    Contact _listcontact[8];
 
 public:
     // void getinfos(void);
@@ -21,6 +21,7 @@ public:
     std::string while_search(std::string index, int maxcontact);
 };
 
+std::string check_input(std::string strinfos);
 void add_condition(int *count, Contact &contact, PhoneBook &phonebook, int *maxcontact);
 
 #endif

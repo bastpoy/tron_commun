@@ -4,7 +4,7 @@ OBJSPRINTF = $(patsubst %.cpp, objects/%.o, $(SRCSPRINTF))
 
 CFLAGS = -Wall -Wextra -std=c++98 -g3
 
-NAME = phonebook
+NAME = account
 
 $(NAME) :  $(OBJSPRINTF)
 	c++ $(CFLAGS) -o $(NAME) $(OBJSPRINTF)

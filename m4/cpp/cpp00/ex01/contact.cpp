@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bastpoy <bastpoy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bpoyet <bpoyet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 16:55:22 by bpoyet            #+#    #+#             */
-/*   Updated: 2024/07/16 02:30:23 by bastpoy          ###   ########.fr       */
+/*   Updated: 2024/07/16 23:30:38 by bpoyet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,32 @@
 
 std::string Contact::getname(void)
 {
-    return (this->name);
-    // return (truncate(this->name));
+    return (this->_name);
 }
 std::string Contact::getlastname(void)
 {
-    return(this->lastname);
-    // return (truncate(this->lastname));
+    return (this->_lastname);
 }
 std::string Contact::getnickname(void)
 {
-    return (this->nickname);
-    // return (truncate(this->nickname));
+    return (this->_nickname);
 }
 std::string Contact::getphonenumber(void)
 {
-    return (this->phonenumber);
-    // return (truncate(this->phonenumber));
+    return (this->_phonenumber);
 }
 std::string Contact::getdarkestsecret(void)
 {
-    return(this->darkestsecret);
-    // return (truncate(this->darkestsecret));
+    return (this->_darkestsecret);
 }
 
 void Contact::fill_new_contact(std::string strinfos[5])
 {
-    this->name = strinfos[0];
-    this->lastname = strinfos[1];
-    this->nickname = strinfos[2];
-    this->phonenumber = strinfos[3];
-    this->darkestsecret = strinfos[4];
+    this->_name = strinfos[0];
+    this->_lastname = strinfos[1];
+    this->_nickname = strinfos[2];
+    this->_phonenumber = strinfos[3];
+    this->_darkestsecret = strinfos[4];
 }
 
 int is_number(std::string str)
@@ -59,7 +54,7 @@ int is_number(std::string str)
 
 std::string while_number(std::string str)
 {
-    while (is_number(str) == 0)
+    while (is_number(str) == 0 || !std::cin.good() || str.empty())
     {
         std::cout << "phonenumber must be a number: ";
         std::getline(std::cin, str);
@@ -71,15 +66,10 @@ std::string while_number(std::string str)
 
 std::string truncate(std::string str)
 {
-    // if (str.length() > 10)
-    // {
-    //     str.resize(9);
-    //     str.append(".");
-    // }
-    // if (str.length() < 10)
-    // {
-    //     while(str.length() < 10)
-    //         str.insert(0," ");
-    // }
+    if (str.length() > 10)
+    {
+        str.resize(9);
+        str.append(".");
+    }
     return (str);
 }

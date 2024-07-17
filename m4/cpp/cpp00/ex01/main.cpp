@@ -21,9 +21,9 @@ int main()
         }
         else if (input == "SEARCH")
         {
-            repertory.displaycontacts(maxcontact);
             if(maxcontact != 0)
             {
+                repertory.displaycontacts(maxcontact);
                 std::cout << "enter index: ";
                 std::cin >> index;
                 if(std::cin.eof())
