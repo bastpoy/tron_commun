@@ -1,17 +1,17 @@
-SRCSCPP = main.cpp Harl.cpp
+SRCSCPP = main.cpp Zombie.cpp zombieHorde.cpp
 
 OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
+CFLAGS = -Wall -Wextra -std=c++98 -g3
 
-NAME = harl
+NAME = Zombie
 
-$(NAME) :  $(OBJSCPP) Harl.hpp
+$(NAME) :  $(OBJSCPP)
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)
 
 all : $(NAME)
 
-objects/%.o : %.cpp 
+objects/%.o : %.cpp Zombie.hpp
 	mkdir -p $(dir $@)
 	c++ $(CFLAGS) -c $< -o $@
 

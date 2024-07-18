@@ -4,7 +4,7 @@ OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
-NAME = harl
+NAME = harlfilter
 
 $(NAME) :  $(OBJSCPP) Harl.hpp
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)

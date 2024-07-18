@@ -9,12 +9,15 @@ std::string check_occurence(std::string line, const char *tofind, std::string to
     std::size_t occurence;
     const char* tochangecp = tochange.c_str();
 
-    occurence = line.find(tofind, 0);
-    while(occurence != std::string::npos)
+    if(strlen(tofind))
     {
-        line.erase(occurence, strlen(tofind));
-        line.insert(occurence, tochange);
-        occurence = line.find(tofind, occurence + strlen(tochangecp));
+        occurence = line.find(tofind, 0);
+        while(occurence != std::string::npos)
+        {
+            line.erase(occurence, strlen(tofind));
+            line.insert(occurence, tochange);
+            occurence = line.find(tofind, occurence + strlen(tochangecp));
+        }
     }
     return(line);
 }

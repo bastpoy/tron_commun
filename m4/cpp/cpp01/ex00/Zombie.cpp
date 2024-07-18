@@ -2,7 +2,7 @@
 
 Zombie::Zombie(std::string zombiename) : _name(zombiename)
 {
-
+    std::cout << "Zombie named " << _name << " is created" << std::endl;
 }
 
 Zombie::~Zombie(void)

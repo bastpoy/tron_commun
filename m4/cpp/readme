@@ -1,0 +1,11 @@
+attribut => variable membre d'une classe 
+methode => fonction membre d'une classe
+
+constructeur => methode a la creation d'une instance de classe
+destructeur => methode a la destruction d'une instance de classe
+
+instance => objet cree a partir d'une classe
+
+tableau de pointeur sur des fonctions membres de Harl:
+void (Harl::* harlptr[])(void) = 
+{&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
