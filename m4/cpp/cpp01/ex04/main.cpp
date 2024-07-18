@@ -39,13 +39,21 @@ int main(int argc, char *argv[])
         std::cout << "Failed to open file." << std::endl;
         return 1;
     }
-    std::ofstream output(outputfile.append(".replace"));
+    outputfile = outputfile + ".replace";
+    std::ofstream output(outputfile.c_str());
+    if (!output) {
+        std::cout << "Failed to create output file" << std::endl;
+        input.close();
+        return 1;
+    }
     if(input.is_open())
     {
         while(std::getline (input, line))
         {
-            std::cout << check_occurence(line, tofind, tochange);
-            std::cout << std::endl;
+            output << check_occurence(line, tofind, tochange);
+            output << std::endl;
         }
     }
+    input.close();
+    output.close();
 }
