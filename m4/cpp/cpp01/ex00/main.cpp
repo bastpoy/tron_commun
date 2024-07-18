@@ -2,21 +2,14 @@
 
 int main(void)
 {
-    std::string name;
-    std::cout << "Write the first Zombie name: ";
-    std::cin >> name;
-    if(std::cin.eof())
-        return(1);
+    std::string name = "first zombie";
+    std::string name2 = "second zombie";
 
     Zombie zombie1(name);
     zombie1.announce();
 
-    std::cout << "Write the second Zombie name: ";
-    std::cin >> name;
-    if(std::cin.eof())
-        return(1);
-
-    Zombie *zombie2 = newZombie(name);
+    Zombie *zombie2;
+    zombie2 = newZombie(name2);
     zombie2->announce();
     delete zombie2;
 
