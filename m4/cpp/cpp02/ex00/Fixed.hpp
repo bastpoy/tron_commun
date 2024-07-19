@@ -1,6 +1,8 @@
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
+#include <iostream>
+
 class Fixed
 {
     private:
@@ -9,10 +11,12 @@ class Fixed
 
     public:
         Fixed(void);
-        Fixed(Fixed const & value);
+        Fixed(Fixed const & copy);
         ~Fixed(void);
-        Fixed & operator=(Fixed const & value);
+        Fixed & operator=(Fixed const &copy);
         int get_value(void) const;
+        int getRawBits( void ) const;
+        void setRawBits( int const raw );
 };
 
 #endif

@@ -20,3 +20,8 @@ Fixed & operator=(Fixed const & value);
 const std::string &getType() const;
 
 => ceci permet de retourner le type  
+=> quand je retourne une reference sur un prototype de const
+    je suis oblige de retourner une reference constante
+    Car sinon je casse la promesse de ma methode constante
+    car je passe une reference non constatne a un autre objet 
+        qui lui pourra la modifier
