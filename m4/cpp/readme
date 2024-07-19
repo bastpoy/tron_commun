@@ -9,3 +9,14 @@ instance => objet cree a partir d'une classe
 tableau de pointeur sur des fonctions membres de Harl:
 void (Harl::* harlptr[])(void) = 
 {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+
+la surcharge d'operateur syntaxe :
+
+Fixed & operator=(Fixed const & value);
+=> pas de const en retour car je modifie la valeur de l'instance courante
+=> le retour Fixed permet de retourner l'instance courante
+=> je retourne donc une reference
+
+const std::string &getType() const;
+
+=> ceci permet de retourner le type  
