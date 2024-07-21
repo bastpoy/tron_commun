@@ -3,8 +3,8 @@
 int main( void ) 
 {
     Fixed a;
-    Fixed b( a );
     Fixed c;
+    Fixed b( a );
     
     c = b;
 
