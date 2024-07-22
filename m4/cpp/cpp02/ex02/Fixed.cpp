@@ -69,3 +69,46 @@ std::ostream& operator<<(std::ostream& out, Fixed const& s)
     out << s.toFloat() ;
     return(out);
 }
+
+
+bool Fixed::operator<(Fixed const &copy)
+{
+    return (this->get_value() < copy.get_value());
+}
+bool Fixed::operator>(Fixed const &copy)
+{
+    return (this->get_value() > copy.get_value());
+}
+bool Fixed::operator<=(Fixed const &copy)
+{
+    return (this->get_value() <= copy.get_value());
+}
+bool Fixed::operator>=(Fixed const &copy)
+{
+    return (this->get_value() >= copy.get_value());
+}
+bool Fixed::operator==(Fixed const &copy)
+{
+    return (this->get_value() == copy.get_value());
+}
+bool Fixed::operator!=(Fixed const &copy)
+{
+    return (this->get_value() != copy.get_value());
+}
+Fixed Fixed::operator+(Fixed const &copy)
+{
+    return (Fixed(this->get_value() + copy.get_value()));
+}
+Fixed Fixed::operator-(Fixed const &copy)
+{
+    return (Fixed(this->get_value() - copy.get_value()));
+}
+Fixed Fixed::operator*(Fixed const &copy)
+{
+    return (Fixed(this->get_value() * copy.get_value()));
+}
+Fixed Fixed::operator/(Fixed const &copy)
+{
+    return (Fixed(this->get_value() / copy.get_value()));
+}
+

@@ -1,0 +1,10 @@
+explicaiton sur les virgules fixes et flottantes:
+
+- nombre en virgule fixe:
+    - representer le nombre avec un nombre predetermine de chiffres avant la virgule. (nombre de bits de la partie fractionnaire)
+- nombre en virgule flottante:
+    - representer un nombre avec une virgule pouvant varier suivant le nombre
+
+Pour passer d'un nombre en virgule fixe a flottante il faut normaliser le nombre:
+    - decalage de la virgule vers la gauche en binaire pour avoir un chiffre enre 1 et 2
+    - ensuite multiplier par 2^(nombre de decalage)
