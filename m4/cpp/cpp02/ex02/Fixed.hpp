@@ -31,7 +31,8 @@ class Fixed
         Fixed operator-(Fixed const &copy);
         Fixed operator*(Fixed const &copy);
         Fixed operator/(Fixed const &copy);
-
+        Fixed& operator++(void);
+        Fixed operator++(int);
 };
 
 std::ostream& operator<<(std::ostream& out, Fixed const& s);

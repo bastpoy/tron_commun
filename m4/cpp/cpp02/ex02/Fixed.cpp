@@ -111,4 +111,8 @@ Fixed Fixed::operator/(Fixed const &copy)
 {
     return (Fixed(this->get_value() / copy.get_value()));
 }
-
+Fixed& Fixed::operator++(void)
+{
+    ++_integer;
+    return(this);
+}
