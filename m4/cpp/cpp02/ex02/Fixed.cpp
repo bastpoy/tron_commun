@@ -35,7 +35,7 @@ int Fixed::get_value(void) const
     return this->_integer;
 }
 
-Fixed & Fixed::operator=(Fixed const & copy)
+Fixed& Fixed::operator=(Fixed const & copy)
 {
     std::cout << "Copy assignement operator call" << std::endl;
     if(this != &copy)
@@ -70,28 +70,27 @@ std::ostream& operator<<(std::ostream& out, Fixed const& s)
     return(out);
 }
 
-
-bool Fixed::operator<(Fixed const &copy)
+bool Fixed::operator<(Fixed const &copy) const
 {
     return (this->get_value() < copy.get_value());
 }
-bool Fixed::operator>(Fixed const &copy)
+bool Fixed::operator>(Fixed const &copy) const
 {
     return (this->get_value() > copy.get_value());
 }
-bool Fixed::operator<=(Fixed const &copy)
+bool Fixed::operator<=(Fixed const &copy) const
 {
     return (this->get_value() <= copy.get_value());
 }
-bool Fixed::operator>=(Fixed const &copy)
+bool Fixed::operator>=(Fixed const &copy) const
 {
     return (this->get_value() >= copy.get_value());
 }
-bool Fixed::operator==(Fixed const &copy)
+bool Fixed::operator==(Fixed const &copy) const
 {
     return (this->get_value() == copy.get_value());
 }
-bool Fixed::operator!=(Fixed const &copy)
+bool Fixed::operator!=(Fixed const &copy) const
 {
     return (this->get_value() != copy.get_value());
 }
@@ -114,5 +113,38 @@ Fixed Fixed::operator/(Fixed const &copy)
 Fixed& Fixed::operator++(void)
 {
     ++_integer;
-    return(this);
+    return(*this);
+}
+Fixed Fixed::operator++(int)
+{
+    Fixed tmp = *this;
+    _integer++;
+    return(tmp);
+}
+Fixed& Fixed::operator--(void)
+{
+    --_integer;
+    return(*this);
+}
+Fixed Fixed::operator--(int)
+{
+    Fixed tmp = *this;
+    _integer--;
+    return(tmp);
+}
+Fixed Fixed::min(Fixed& num1, Fixed& num2)
+{
+    return num1.toFloat() < num2.toFloat() ?num1:num2;
+}
+Fixed Fixed::max(Fixed& num1, Fixed& num2)
+{
+    return num1.toFloat() > num2.toFloat() ?num1:num2;
+}
+const Fixed Fixed::min(const Fixed& num1, const Fixed& num2)
+{
+    return num1.toFloat() < num2.toFloat() ?num1:num2;
+}
+const Fixed Fixed::max(const Fixed& num1, const Fixed& num2)
+{
+    return num1.toFloat() > num2.toFloat() ?num1:num2;
 }
