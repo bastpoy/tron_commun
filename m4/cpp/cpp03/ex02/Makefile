@@ -1,17 +1,17 @@
-SRCSCPP = main.cpp Fixed.cpp
+SRCSCPP = ClapTrap.cpp ScavTrap.cpp main.cpp
 
 OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
-NAME = Fixed
+NAME = ClapTrap
 
 $(NAME) :  $(OBJSCPP)
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)
 
 all : $(NAME)
 
-objects/%.o : %.cpp Fixed.hpp
+objects/%.o : %.cpp ClapTrap.hpp
 	mkdir -p $(dir $@)
 	c++ $(CFLAGS) -c $< -o $@
 

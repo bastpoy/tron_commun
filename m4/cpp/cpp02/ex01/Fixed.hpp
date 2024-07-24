@@ -11,13 +11,15 @@ class Fixed
         static const int _bitnumber;
 
     public:
+        // Forme canonique
         Fixed(void);
         Fixed(Fixed const & copy);
         Fixed(const int value);
         Fixed(const float value);
         ~Fixed(void);
         Fixed & operator=(Fixed const &copy);
-        int get_value(void) const;
+
+        //methodes
         int getRawBits( void ) const;
         void setRawBits( int const raw );
         float toFloat( void ) const;

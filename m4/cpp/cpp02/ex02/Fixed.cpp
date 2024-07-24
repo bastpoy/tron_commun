@@ -92,11 +92,15 @@ bool Fixed::operator!=(Fixed const &copy) const
 //========== ARYTMETICC ===========
 Fixed Fixed::operator+(Fixed const &copy)
 {
-    return (Fixed(this->getRawBits() + copy.getRawBits()));
+    Fixed res;
+    res._integer = this->getRawBits() + copy.getRawBits();
+    return (res);
 }
 Fixed Fixed::operator-(Fixed const &copy)
 {
-    return (Fixed(this->getRawBits() - copy.getRawBits()));
+    Fixed res;
+    res._integer = this->getRawBits() - copy.getRawBits();
+    return (res);
 }
 Fixed Fixed::operator*(Fixed const &copy)
 {
@@ -130,19 +134,19 @@ Fixed Fixed::operator--(int)
 }
 
 // MAX MIN
-Fixed &Fixed::min(Fixed& num1, Fixed& num2)
+Fixed Fixed::min(Fixed& num1, Fixed& num2)
 {
-    return num1.toFloat() < num2.toFloat() ? num1 : num2;
+    return num1.getRawBits() < num2.getRawBits() ? num1 : num2;
 }
-Fixed &Fixed::max(Fixed& num1, Fixed& num2)
+Fixed Fixed::max(Fixed& num1, Fixed& num2)
 {
     return num1.getRawBits() > num2.getRawBits() ? num1 : num2;
 }
-const Fixed &Fixed::min(const Fixed& num1, const Fixed& num2)
+const Fixed Fixed::min(const Fixed& num1, const Fixed& num2)
 {
-    return num1.toFloat() < num2.toFloat() ?num1:num2;
+    return num1.getRawBits() < num2.getRawBits() ?num1:num2;
 }
-const Fixed &Fixed::max(const Fixed& num1, const Fixed& num2)
+const Fixed Fixed::max(const Fixed& num1, const Fixed& num2)
 {
-    return num1.toFloat() > num2.toFloat() ?num1:num2;
+    return num1.getRawBits() > num2.getRawBits() ?num1:num2;
 }
