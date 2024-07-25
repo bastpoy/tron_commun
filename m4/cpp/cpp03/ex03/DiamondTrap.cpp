@@ -3,10 +3,27 @@
 DiamondTrap::DiamondTrap(void)
 {
     std::cout << "Diamondtrap default constructor called" << std::endl;
-    this->_name = ClapTrap::_name + "_clap_name";
+    _name = "default";
+    ClapTrap::_name = "default_clap_name";
     this->_hitPoint = FragTrap::_hitPoint;
+    std::cout << "hit point: " << _hitPoint << std::endl;
     this->_energyPoints = ScavTrap::_energyPoints;
+    std::cout << "energypointt: " << _energyPoints << std::endl;
     this->_attackDamage = FragTrap::_attackDamage;
+    std::cout << "attackdamage: " << _attackDamage << std::endl;
+}
+
+DiamondTrap::DiamondTrap(std::string name)
+{
+    _name = name;
+    std::cout << "Diamondtrap default constructor called" << std::endl;
+    ClapTrap::_name = name + "_clap_name";
+    this->_hitPoint = FragTrap::_hitPoint;
+    std::cout << "hit point: " << _hitPoint << std::endl;
+    this->_energyPoints = ScavTrap::_energyPoints;
+    std::cout << "energypointt: " << _energyPoints << std::endl;
+    this->_attackDamage = FragTrap::_attackDamage;
+    std::cout << "attackdamage: " << _attackDamage << std::endl;
 }
 
 DiamondTrap::~DiamondTrap(void)
@@ -25,7 +42,7 @@ DiamondTrap &DiamondTrap::operator=(const DiamondTrap &copy)
     std::cout << "DiamondTrap overload egal operator" << std::endl;
     if(this != &copy)
         *this = copy;
-    return(*this);    
+    return(*this);
 }
 
 void DiamondTrap::attack(const std::string& target)

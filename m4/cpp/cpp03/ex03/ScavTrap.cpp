@@ -45,13 +45,14 @@ void ScavTrap::attack(const std::string& target)
         std::cout << this->_name << " is dead!!" << std::endl;
     else
     {
-        std::cout << "ScavTrap " << this->_name << "attack " <<
+        std::cout << "ScavTrap " << this->_name << " attack " <<
             target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
         this->_energyPoints = this->_energyPoints - 1;
+        std::cout << "energy" << _energyPoints << " " << _hitPoint << std::endl;
     }    
 }
 
 void ScavTrap::guardGate()
 {
-    std::cout << "ScavTrap; " << this->_name << " is now in Gate keeper mode" << std::endl;
+    std::cout << "ScavTrap " << this->_name << " is now in Gate keeper mode" << std::endl;
 }

@@ -1,19 +1,26 @@
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main(void)
 {
-    ClapTrap clap1("clap");
-    ScavTrap trap1;
-    ScavTrap trap2("trap2");
+    ClapTrap clap("clap");
+    ScavTrap scav;
+    FragTrap frag("frag");
+    DiamondTrap diamond("diamond");
 
-    clap1.attack("trap1");
-    trap1.takeDamage(20);
-    trap1.beRepaired(10);
+    diamond.whoAmI();
+    diamond.attack("frag");
 
-    trap1.attack("trap2");
-    trap2.takeDamage(10);
-    trap2.beRepaired(5);
+    clap.attack("trap1");
+    scav.takeDamage(20);
+    scav.beRepaired(10);
 
-    trap2.guardGate();
+    scav.attack("frag");
+    frag.takeDamage(10);
+    frag.beRepaired(5);
+
+    frag.highFivesGuys();
+    scav.guardGate();
 }
