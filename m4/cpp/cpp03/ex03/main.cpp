@@ -21,6 +21,8 @@ int main(void)
     frag.takeDamage(10);
     frag.beRepaired(5);
 
+    frag.attack("scav");
+    
     frag.highFivesGuys();
     scav.guardGate();
 }
