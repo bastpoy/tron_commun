@@ -13,17 +13,17 @@ DiamondTrap::DiamondTrap(void)
     std::cout << "attackdamage: " << _attackDamage << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name)
+DiamondTrap::DiamondTrap(std::string name): FragTrap(name), ScavTrap(name)
 {
     _name = name;
-    std::cout << "Diamondtrap default constructor called" << std::endl;
+    std::cout << "Diamondtrap name default constructor called" << std::endl;
     ClapTrap::_name = name + "_clap_name";
     this->_hitPoint = FragTrap::_hitPoint;
-    std::cout << "hit point: " << _hitPoint << std::endl;
+    std::cout << "hit point: " << this->_hitPoint << std::endl;
     this->_energyPoints = ScavTrap::_energyPoints;
-    std::cout << "energypointt: " << _energyPoints << std::endl;
+    std::cout << "energypointt: " << this->_energyPoints << std::endl;
     this->_attackDamage = FragTrap::_attackDamage;
-    std::cout << "attackdamage: " << _attackDamage << std::endl;
+    std::cout << "attackdamage: " << this->_attackDamage << std::endl;
 }
 
 DiamondTrap::~DiamondTrap(void)

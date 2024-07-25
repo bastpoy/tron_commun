@@ -6,7 +6,7 @@
 #include "ClapTrap.hpp"
 #include <iostream>
 
-class DiamondTrap: public ScavTrap, public FragTrap
+class DiamondTrap: public FragTrap, public ScavTrap
 {
     private:
         std::string _name;
