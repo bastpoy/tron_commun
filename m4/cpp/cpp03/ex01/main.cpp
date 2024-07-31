@@ -3,17 +3,19 @@
 
 int main(void)
 {
-    ClapTrap clap1("clap");
-    ScavTrap trap1;
-    ScavTrap trap2("trap2");
+    ClapTrap *trap1 = new ScavTrap("scav");
+    ClapTrap trap2;
+    ScavTrap trap3("scav2");
 
-    clap1.attack("trap1");
-    trap1.takeDamage(20);
-    trap1.beRepaired(10);
+    trap1->attack("trap2");
+    trap1->takeDamage(5);
+    trap1->beRepaired(10);
 
-    trap1.attack("trap2");
-    trap2.takeDamage(10);
-    trap2.beRepaired(5);
+    trap2.attack("trap1");
+    trap2.takeDamage(5);
+    trap2.beRepaired(10);
 
-    trap2.guardGate();
+    trap3.guardGate();
+
+    delete trap1;
 }

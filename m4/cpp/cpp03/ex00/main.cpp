@@ -3,13 +3,16 @@
 int main(void)
 {
     ClapTrap first("first");
-    ClapTrap second("second");
+    ClapTrap second(first);
 
-    for(int i = 0 ; i < 9 ; i++)
+    for(int i = 0 ; i < 5 ; i++)
     {
         first.attack("second");
-        second.takeDamage(1);
+        second.takeDamage(2);
     }
-    first.beRepaired(10);
+    for(int i = 0 ; i < 6 ; i++)
+    {
+        first.beRepaired(10);
+    }
     return(0);
 }

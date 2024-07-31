@@ -5,24 +5,31 @@
 
 int main(void)
 {
-    ClapTrap clap("clap");
-    ScavTrap scav;
-    FragTrap frag("frag");
-    DiamondTrap diamond("diamond");
+    ClapTrap *trap1 = new ScavTrap("Scav");
+    ClapTrap trap2;
+    ClapTrap *trap3 = new FragTrap("Frag");
+    ClapTrap *trap4 = new DiamondTrap("Diamond");
+    DiamondTrap trap5("Diamond2");
 
-    diamond.whoAmI();
-    diamond.attack("frag");
+    trap4->attack("frag");
+    trap4->beRepaired(10);
+    trap4->takeDamage(10);
 
-    clap.attack("trap1");
-    scav.takeDamage(20);
-    scav.beRepaired(10);
+    trap1->attack("trap2");
+    trap1->takeDamage(20);
+    trap1->beRepaired(10);
 
-    scav.attack("frag");
-    frag.takeDamage(10);
-    frag.beRepaired(5);
+    trap2.attack("trap1");
+    trap2.takeDamage(20);
+    trap2.beRepaired(10);
 
-    frag.attack("scav");
+    trap3->attack("trap2");
+    trap3->takeDamage(20);
+    trap3->beRepaired(10);    
     
-    frag.highFivesGuys();
-    scav.guardGate();
+    trap5.whoAmI();
+
+    delete trap1;
+    delete trap3;
+    delete trap4;
 }

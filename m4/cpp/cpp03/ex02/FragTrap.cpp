@@ -45,7 +45,7 @@ void FragTrap::attack(const std::string& target)
         std::cout << this->_name << " is dead!!" << std::endl;
     else
     {
-        std::cout << "FragTrap " << this->_name << "attack " <<
+        std::cout << "FragTrap " << this->_name << " attack " <<
             target << ", causing " << this->_attackDamage << " points of damage!" << std::endl;
         this->_energyPoints = this->_energyPoints - 1;
     }    

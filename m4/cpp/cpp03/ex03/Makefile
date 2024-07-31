@@ -11,7 +11,7 @@ $(NAME) :  $(OBJSCPP)
 
 all : $(NAME)
 
-objects/%.o : %.cpp ClapTrap.hpp
+objects/%.o : %.cpp ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
 	mkdir -p $(dir $@)
 	c++ $(CFLAGS) -c $< -o $@
 

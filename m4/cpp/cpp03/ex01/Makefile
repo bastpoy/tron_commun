@@ -1,4 +1,4 @@
-SRCSCPP = ClapTrap.cpp ScavTrap.cpp FragTrap.cpp main.cpp DiamondTrap.cpp
+SRCSCPP = ClapTrap.cpp ScavTrap.cpp main.cpp
 
 OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
@@ -11,7 +11,7 @@ $(NAME) :  $(OBJSCPP)
 
 all : $(NAME)
 
-objects/%.o : %.cpp ClapTrap.hpp
+objects/%.o : %.cpp ClapTrap.hpp ScavTrap.hpp
 	mkdir -p $(dir $@)
 	c++ $(CFLAGS) -c $< -o $@
 
