@@ -25,7 +25,12 @@ ClapTrap &ClapTrap::operator=(ClapTrap const &copy)
 {
     std::cout << "ClapTrap overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = copy._hitPoint;
+        this->_energyPoints = copy._energyPoints;
+        this->_attackDamage = copy._attackDamage;
+    }
     return(*this);
 }
 
@@ -68,7 +73,7 @@ void ClapTrap::beRepaired(unsigned int amount)
     {
         this->_energyPoints -= 1;
         this->_hitPoint += amount;
-        std::cout << "ClapTrap" << this->_name << " gain " <<
+        std::cout << "ClapTrap " << this->_name << " gain " <<
         amount << " point, the life is " << this->_hitPoint << std::endl;    
     }
 }

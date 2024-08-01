@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(void)
+ScavTrap::ScavTrap(void) : ClapTrap()
 {
     this->_name = "default";
     this->_hitPoint = 100;
@@ -33,7 +33,12 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &copy)
 {
     std::cout << "ScavTrap overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = copy._hitPoint;
+        this->_energyPoints = copy._energyPoints;
+        this->_attackDamage = copy._attackDamage;
+    }
     return(*this);
 }
 

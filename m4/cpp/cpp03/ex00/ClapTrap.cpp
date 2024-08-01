@@ -2,22 +2,22 @@
 
 ClapTrap::ClapTrap(void) : _name("Default"), _hitPoint(10), _energyPoints(10), _attackDamage(0)
 {
-    std::cout << "ClavTrap Default constructor called" << std::endl;
+    std::cout << "ClapTrap Default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoint(10), _energyPoints(10), _attackDamage(0)
 {
-    std::cout << "ClavTrap Name constructor called" << std::endl;
+    std::cout << "ClapTrap Name constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap(void)
 {
-    std::cout << "ClavTrap Default destructor called" << std::endl;
+    std::cout << "ClapTrap Default destructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &copy)
 {
-    std::cout << "ClavTrap Default constructor copy called" << std::endl;
+    std::cout << "ClapTrap Default constructor copy called" << std::endl;
     *this = copy;
 }
 
@@ -25,7 +25,12 @@ ClapTrap &ClapTrap::operator=(ClapTrap const &copy)
 {
     std::cout << "overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = copy._hitPoint;
+        this->_energyPoints = copy._energyPoints;
+        this->_attackDamage = copy._attackDamage;
+    }
     return(*this);
 }
 
@@ -68,7 +73,7 @@ void ClapTrap::beRepaired(unsigned int amount)
     {
         this->_energyPoints -= 1;
         this->_hitPoint += amount;
-        std::cout << "ClapTrap" << this->_name << " gain " <<
+        std::cout << "ClapTrap " << this->_name << " gain " <<
         amount << " point, the life is " << this->_hitPoint << std::endl;    
     }
 }

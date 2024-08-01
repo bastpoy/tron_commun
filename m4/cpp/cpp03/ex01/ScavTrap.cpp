@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(void)
+ScavTrap::ScavTrap(void) : ClapTrap()
 {
     this->_name = "default";
     this->_hitPoint = 100;
@@ -9,13 +9,13 @@ ScavTrap::ScavTrap(void)
     std::cout << "ScavTrap Default constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name)
+ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
     this->_name = name ;
     this->_hitPoint = 100;
     this->_energyPoints = 50;
     this->_attackDamage = 20;
-    std::cout << "ScavTrap Default constructor called" << std::endl;
+    std::cout << "ScavTrap name constructor called" << std::endl;
 }
 
 ScavTrap::~ScavTrap(void)
@@ -33,7 +33,12 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &copy)
 {
     std::cout << "ScavTrap overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = copy._hitPoint;
+        this->_energyPoints = copy._energyPoints;
+        this->_attackDamage = copy._attackDamage;
+    }
     return(*this);
 }
 

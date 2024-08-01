@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(void)
+FragTrap::FragTrap(void) : ClapTrap()
 {
     this->_name = "default";
     this->_hitPoint = 100;
@@ -33,7 +33,12 @@ FragTrap &FragTrap::operator=(const FragTrap &copy)
 {
     std::cout << "FragTrap overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = copy._hitPoint;
+        this->_energyPoints = copy._energyPoints;
+        this->_attackDamage = copy._attackDamage;
+    }
     return(*this);
 }
 

@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(void)
+FragTrap::FragTrap(void) : ClapTrap()
 {
     this->_name = "default";
     this->_hitPoint = 100;
@@ -9,13 +9,13 @@ FragTrap::FragTrap(void)
     std::cout << "FragTrap Default constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(std::string name)
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
     this->_name = name ;
     this->_hitPoint = 100;
     this->_energyPoints = 100;
     this->_attackDamage = 30;
-    std::cout << "FragTrap Default constructor called" << std::endl;
+    std::cout << "FragTrap name constructor called" << std::endl;
 }
 
 FragTrap::~FragTrap(void)
@@ -33,7 +33,12 @@ FragTrap &FragTrap::operator=(const FragTrap &copy)
 {
     std::cout << "FragTrap overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = copy._hitPoint;
+        this->_energyPoints = copy._energyPoints;
+        this->_attackDamage = copy._attackDamage;
+    }
     return(*this);
 }
 

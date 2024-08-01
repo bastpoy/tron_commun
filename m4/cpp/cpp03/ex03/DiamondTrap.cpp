@@ -1,6 +1,6 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(void)
+DiamondTrap::DiamondTrap(void) : ClapTrap(), FragTrap(), ScavTrap()
 {
     std::cout << "Diamondtrap default constructor called" << std::endl;
     _name = "default";
@@ -35,7 +35,12 @@ DiamondTrap &DiamondTrap::operator=(const DiamondTrap &copy)
 {
     std::cout << "DiamondTrap overload egal operator" << std::endl;
     if(this != &copy)
-        *this = copy;
+    {
+        this->_name = copy._name;
+        this->_hitPoint = 100;
+        this->_energyPoints = 50;
+        this->_attackDamage = 30;   
+    }
     return(*this);
 }
 

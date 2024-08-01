@@ -28,6 +28,8 @@ int main(void)
     trap3->beRepaired(10);    
     
     trap5.whoAmI();
+    trap5.attack("Frag");
+    trap3->takeDamage(10);
 
     delete trap1;
     delete trap3;
