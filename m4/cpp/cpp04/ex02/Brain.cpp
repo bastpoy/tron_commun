@@ -31,7 +31,11 @@ void Brain::setIdeas(std::string idea)
 {
     for(int i = 0; i < 100; i++)
     {
-        this->ideas[i] = idea;
+        if(this->ideas[i].empty())
+        {
+            this->ideas[i] = idea;
+            break;
+        }
     }
 }
 void Brain::printIdeas(void)

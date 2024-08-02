@@ -13,7 +13,6 @@ class Dog : public Animal
         Dog &operator=(const Dog &copy);
         void makeSound();
         void printIdeas(void);
-        void setIdeas(std::string ideas);
     private:
         Brain *lebrainjames;
 };

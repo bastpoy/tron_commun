@@ -4,8 +4,8 @@
 
 int main(void)
 {
+    std::cout << "Constructors/destructors Animals array\n" << std::endl;
     {
-        std::cout << "Constructors/destructors Animals array\n" << std::endl;
         Animal *animal[10];
 
         for(int i = 0; i < 5 ; i++)
@@ -24,9 +24,13 @@ int main(void)
     {
         std::cout << "Deep copy\n" << std::endl;
         Dog *dog1 = new Dog();
-        Dog *dog2 = new Dog(*dog1);
+        Dog *dog2 = new Dog();
+        *dog2 = *dog1;
         delete dog1;
         dog2->printIdeas();
         delete dog2;
     }
+
+    // new Animal();
+
 }

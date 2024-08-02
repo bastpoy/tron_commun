@@ -24,7 +24,8 @@ Dog &Dog::operator=(const Dog &copy)
     std::cout << "Dog overload egal operator called" << std::endl;
     if(this != &copy)
     {
-        delete this->lebrainjames;
+        if(this->lebrainjames)
+            delete this->lebrainjames;
         this->lebrainjames = new Brain(*copy.lebrainjames);
     }
     return(*this);
@@ -44,9 +45,4 @@ void Dog::makeSound()
 void Dog::printIdeas(void)
 {
     this->lebrainjames->printIdeas();
-}
-
-void Dog::setIdeas(std::string ideas)
-{
-    lebrainjames->setIdeas(ideas);
 }
