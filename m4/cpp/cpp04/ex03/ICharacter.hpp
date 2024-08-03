@@ -8,6 +8,9 @@ class AMateria;
 
 class ICharacter
 {
+    protected:
+        std::string _name;
+        AMateria *_materia[4];
     public:
         virtual ~ICharacter() {}
         virtual std::string const & getName() const = 0;
