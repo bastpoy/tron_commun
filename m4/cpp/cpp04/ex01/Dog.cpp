@@ -13,10 +13,9 @@ Dog::Dog(const Dog &copy)
 {
     this->_type = "Dog";
     this->lebrainjames = new Brain();
-    this->lebrainjames->setIdeas("I am a dog");      
+    this->lebrainjames->setIdeas("Dog Ideas");      
     std::cout << "Dog copy constructor" << std::endl;
-    if(this != &copy)
-        *this = copy;
+    *this = copy;
 }
 
 Dog &Dog::operator=(const Dog &copy)

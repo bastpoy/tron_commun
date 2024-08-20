@@ -12,6 +12,7 @@ class Cat : public Animal
         Cat(const Cat &copy);
         Cat &operator=(const Cat &copy);
         void makeSound();
+        void printIdeas(void);
     private:
         Brain *lebrainjames;
 };

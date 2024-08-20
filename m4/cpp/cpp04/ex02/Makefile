@@ -1,4 +1,4 @@
-SRCSCPP = main.cpp Dog.cpp Cat.cpp Animal.cpp Brain.cpp
+SRCSCPP = main.cpp Dog.cpp Cat.cpp Animal.cpp Brain.cpp WrongAnimal.cpp WrongCat.cpp
 
 OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
@@ -11,7 +11,7 @@ $(NAME) :  $(OBJSCPP)
 
 all : $(NAME)
 
-objects/%.o : %.cpp Animal.hpp Dog.hpp Cat.hpp Brain.hpp
+objects/%.o : %.cpp Animal.hpp Dog.hpp Cat.hpp Brain.hpp WrongAnimal.hpp WrongCat.hpp
 	mkdir -p $(dir $@)
 	c++ $(CFLAGS) -c $< -o $@
 

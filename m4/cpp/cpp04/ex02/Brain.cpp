@@ -34,12 +34,16 @@ void Brain::setIdeas(std::string idea)
         if(this->ideas[i].empty())
         {
             this->ideas[i] = idea;
-            break;
         }
     }
 }
 void Brain::printIdeas(void)
 {
-    std::cout << ideas[0] << std::endl;
-    std::cout << ideas[1] << std::endl;
+    int i = 0;
+
+    while(i < 100)
+    {
+        std::cout << "idea " << i + 1 << ": " << this->ideas[i] << std::endl;
+        i++;
+    }
 }

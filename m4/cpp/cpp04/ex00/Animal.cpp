@@ -15,7 +15,7 @@ Animal &Animal::operator=(const Animal &copy)
 {
     std::cout << "Animal overload egal operator called" << std::endl;
     if(this != &copy)
-        *this = copy;
+        this->_type = copy._type;
     return(*this);
 }
 

@@ -15,8 +15,7 @@ Dog::Dog(const Dog &copy)
     this->lebrainjames = new Brain();
     this->lebrainjames->setIdeas("I am a dog");      
     std::cout << "Dog copy constructor" << std::endl;
-    if(this != &copy)
-        *this = copy;
+    *this = copy;
 }
 
 Dog &Dog::operator=(const Dog &copy)
@@ -24,8 +23,7 @@ Dog &Dog::operator=(const Dog &copy)
     std::cout << "Dog overload egal operator called" << std::endl;
     if(this != &copy)
     {
-        if(this->lebrainjames)
-            delete this->lebrainjames;
+        delete this->lebrainjames;
         this->lebrainjames = new Brain(*copy.lebrainjames);
     }
     return(*this);

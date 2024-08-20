@@ -43,6 +43,7 @@ Character &Character::operator=(const Character &copy)
         }
         this->_name = copy._name;
     }
+    std::cout << "Assignement overload Character operator call" << std::endl;
     return *this;
 }
 

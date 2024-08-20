@@ -1,6 +1,6 @@
 #include "Ice.hpp"
 
-Ice::Ice(void): AMateria()
+Ice::Ice(void)
 {
     this->_type = "ice";
     std::cout << "default Ice constructor call" << std::endl;

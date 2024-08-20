@@ -27,6 +27,8 @@ Brain &Brain::operator=(const Brain &copy)
     return(*this);
 }
 
+//MEMBER FUNCTION
+
 void Brain::setIdeas(std::string idea)
 {
     for(int i = 0; i < 100; i++)
@@ -36,6 +38,11 @@ void Brain::setIdeas(std::string idea)
 }
 void Brain::printIdeas(void)
 {
-    std::cout << ideas[0] << std::endl;
-    std::cout << ideas[1] << std::endl;
+    int i = 0;
+
+    while(i < 100)
+    {
+        std::cout << "idea " << i + 1 << ": " << this->ideas[i] << std::endl;
+        i++;
+    }
 }

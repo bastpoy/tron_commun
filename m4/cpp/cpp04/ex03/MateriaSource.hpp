@@ -6,11 +6,16 @@
 
 class AMateria;
 
-class IMateriaSource
+class MateriaSource : public IMateriaSource
 {
     public:
-        ~IMateriaSource() {}
-        void learnMateria(AMateria*);
+        MateriaSource();
+        MateriaSource(const MateriaSource &copy);
+        MateriaSource &operator=(const MateriaSource &copy);
+        ~MateriaSource();
+
+        //MEMBER FUNCTION
+        void learnMateria(AMateria *materia);
         AMateria* createMateria(std::string const & type);
 };
 

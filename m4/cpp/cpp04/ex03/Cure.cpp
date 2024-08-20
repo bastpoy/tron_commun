@@ -2,7 +2,7 @@
 
 Cure::Cure(void): AMateria()
 {
-    this->_type = "Cure";
+    this->_type = "cure";
     std::cout << "default Cure constructor call" << std::endl;
 }
 

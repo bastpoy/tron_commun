@@ -17,7 +17,7 @@ Cat &Cat::operator=(const Cat &copy)
 {
     std::cout << "Cat overload egal operator called" << std::endl;
     if(this != &copy)
-        *this = copy;
+        this->_type = copy._type;
     return(*this);
 }
 

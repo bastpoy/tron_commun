@@ -15,9 +15,7 @@ WrongAnimal &WrongAnimal::operator=(const WrongAnimal &copy)
 {
     std::cout << "WrongAnimal overload egal operator called" << std::endl;
     if(this != &copy)
-    {
         this->_type = copy._type;
-    }
     return(*this);
 }
 
