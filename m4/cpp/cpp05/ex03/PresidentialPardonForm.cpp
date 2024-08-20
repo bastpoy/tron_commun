@@ -9,7 +9,7 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target): AForm("Presi
 PresidentialPardonForm::~PresidentialPardonForm()
 {}
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy)
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy): AForm(copy)
 {
     *this = copy;
 }

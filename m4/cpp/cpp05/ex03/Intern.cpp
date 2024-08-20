@@ -8,6 +8,17 @@ Intern::~Intern()
 {
 }
 
+Intern::Intern(const Intern &copy)
+{
+    *this = copy;
+}
+
+Intern &Intern::operator=(const Intern &copy)
+{
+    (void)copy;
+    return (*this);
+}
+
 AForm *Intern::shruberryForm(const std::string &targetForm)
 {
     return new ShrubberyCreationForm(targetForm);

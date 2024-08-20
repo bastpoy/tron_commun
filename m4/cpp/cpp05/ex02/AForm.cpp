@@ -1,12 +1,12 @@
 #include "AForm.hpp"
 
-Form::Form() : _name("Default"), _isSigned(false), _gradesign(50), _gradeexec(50)
+AForm::AForm() : _name("Default"), _isSigned(false), _gradesign(50), _gradeexec(50)
 {}
 
-Form::~Form()
+AForm::~AForm()
 {}
 
-Form::Form(const std::string name, const int gradesign, const int gradeexec) : _name(name), _isSigned(false), _gradesign(gradesign), _gradeexec(gradeexec)
+AForm::AForm(const std::string name, const int gradesign, const int gradeexec) : _name(name), _isSigned(false), _gradesign(gradesign), _gradeexec(gradeexec)
 {
     if(gradesign < 1 || gradeexec < 1)
         throw GradeTooHighException();
@@ -14,12 +14,12 @@ Form::Form(const std::string name, const int gradesign, const int gradeexec) : _
         throw GradeTooLowException();
 }
 
-Form::Form(const Form &copy) : _name(copy._name), _gradesign(copy._gradesign), _gradeexec(copy._gradeexec)
+AForm::AForm(const AForm &copy) : _name(copy._name), _gradesign(copy._gradesign), _gradeexec(copy._gradeexec)
 {
     *this = copy;
 }
 
-Form &Form::operator=(const Form &copy)
+AForm &AForm::operator=(const AForm &copy)
 {
     if(this != &copy)
     {
@@ -30,17 +30,17 @@ Form &Form::operator=(const Form &copy)
 
 // MEMBER FUNCTION
 
-bool Form::get_signed() const
+bool AForm::get_signed() const
 {
     return this->_isSigned;
 }
 
-const std::string Form::get_name() const
+const std::string AForm::get_name() const
 {
     return this->_name;
 }
 
-void Form::beSigned(Bureaucrat &bureaucrat)
+void AForm::beSigned(Bureaucrat &bureaucrat)
 {
     if(this->_gradesign == true)
         return;
@@ -50,40 +50,40 @@ void Form::beSigned(Bureaucrat &bureaucrat)
         throw GradeTooLowException();
 }
 
-int Form::get_gradesign() const
+int AForm::get_gradesign() const
 {
     return this->_gradesign;
 }
-int Form::get_gradeexec() const
+int AForm::get_gradeexec() const
 {
     return this->_gradeexec;
 }
 
 //EXCEPTION
 
-const char* Form::GradeTooLowException::what() const throw()
+const char* AForm::GradeTooLowException::what() const throw()
 {
     return("grade too low");
 }
 
-const char* Form::GradeTooHighException::what() const throw()
+const char* AForm::GradeTooHighException::what() const throw()
 {
     return("grade too high");
 }
 
-const char* Form::FormAlreadySign::what() const throw()
+const char* AForm::FormAlreadySign::what() const throw()
 {
     return("Form already sign");
 }
 
-const char* Form::ErrorOpeningFile::what() const throw()
+const char* AForm::ErrorOpeningFile::what() const throw()
 {
     return("Error opening file");
 }
 
 // OVERLOAD << OPERATOR
 
-std::ostream& operator<<(std::ostream& os, const Form& f)
+std::ostream& operator<<(std::ostream& os, const AForm& f)
 {
     os << f.get_name() << ", Form gradeSign " << f.get_gradesign()
     << ", Form gradeexec " << f.get_gradeexec()

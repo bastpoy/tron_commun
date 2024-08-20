@@ -11,12 +11,12 @@ ShrubberyCreationForm::ShrubberyCreationForm(): AForm("Shrubbery", 145, 137), _t
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &copy) : AForm(copy)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy) : AForm(copy)
 {
     *this = copy;
 }
 
-ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &copy)
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &copy)
 {
     if(this != &copy)
         this->_target = copy.get_target();

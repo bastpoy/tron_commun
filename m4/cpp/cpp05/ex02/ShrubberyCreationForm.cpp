@@ -1,22 +1,21 @@
 #include "ShrubberyCreationForm.hpp"
-#include <iostream>
 #include <fstream>
 #include <string>
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): Form("Shrubbery", 145, 137), _target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(): AForm("Shrubbery", 145, 137), _target("default")
 {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(): Form("Shrubbery", 145, 137), _target("default")
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("Shrubbery", 145, 137), _target(target)
 {}
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &copy) : Form(copy)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy): AForm(copy)
 {
     *this = copy;
 }
 
-ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &copy)
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &copy)
 {
     if(this != &copy)
         this->_target = copy.get_target();
@@ -30,7 +29,7 @@ std::string ShrubberyCreationForm::get_target() const
     return this->_target;
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat &executor) const
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
     if(this->get_signed() == true)
         throw FormAlreadySign();

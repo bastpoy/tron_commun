@@ -3,7 +3,7 @@
 
 #include "AForm.hpp"
 
-class RobotomyRequestForm : public Form 
+class RobotomyRequestForm : public AForm 
 {
     public:
         RobotomyRequestForm();
@@ -13,7 +13,7 @@ class RobotomyRequestForm : public Form
         RobotomyRequestForm &operator=(const RobotomyRequestForm &copy);
 
         std::string get_target() const;
-        void execute(Bureaucrat const &executor);
+        void execute(Bureaucrat const &executor) const;
 
     private:
         std::string _target;

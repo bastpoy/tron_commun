@@ -16,7 +16,7 @@ Bureaucrat::Bureaucrat(const std::string name, int grade): _name(name)
 Bureaucrat::~Bureaucrat()
 {}
 
-Bureaucrat::Bureaucrat(const Bureaucrat& copy): _name(copy._name)
+Bureaucrat::Bureaucrat(const Bureaucrat& copy)
 {
     *this = copy;
 }
@@ -40,34 +40,6 @@ std::string const Bureaucrat::getName() const
 int Bureaucrat::getGrade() const
 {
     return this->_grade;
-}
-
-void Bureaucrat::signForm(AForm &form)
-{
-    try
-    {
-        form.beSigned(*this);
-        if(form.get_signed())
-            std::cout << this->getName() << " signed " << form.get_name() << std::endl;
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << this->getName() << " couldn't sign " << form.get_name() << " because " << e.what() <<  std::endl;
-    }
-}
-
-void Bureaucrat::executeForm(AForm const &form)
-{
-    try
-    {
-        form.execute(*this);
-        if(form.get_signed())
-            std::cout << this->_name << " executed " << form.get_name() << std::endl;
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << e.what() << '\n';
-    }
 }
 
 void Bureaucrat::decrement()

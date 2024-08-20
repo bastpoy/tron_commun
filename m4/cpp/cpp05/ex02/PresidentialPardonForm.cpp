@@ -1,15 +1,15 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(): Form("Presidential", 25, 5), _target("Default")
+PresidentialPardonForm::PresidentialPardonForm(): AForm("Presidential", 25, 5), _target("Default")
 {}
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target): Form("Presidential", 25, 5), _target(target)
+PresidentialPardonForm::PresidentialPardonForm(std::string target): AForm("Presidential", 25, 5), _target(target)
 {}
 
 PresidentialPardonForm::~PresidentialPardonForm()
 {}
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy)
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy): AForm(copy)
 {
     *this = copy;
 }
@@ -28,7 +28,7 @@ std::string PresidentialPardonForm::get_target() const
     return this->_target;
 }
 
-void PresidentialPardonForm::execute(Bureaucrat const &executor)
+void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
     if(this->get_signed() == true)
         throw FormAlreadySign();

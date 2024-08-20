@@ -11,9 +11,16 @@ int main(void)
         Intern intern;
         // AForm f = ShrubberyCreationForm("Russia");
         // AForm *g = new ShrubberyCreationForm("Russia");
-        ShrubberyCreationForm c("Russia");
-        AForm *d = intern.makeForm("Shrubbery", "cleshrubmagl");
-        c.execute(a);
+        ShrubberyCreationForm *d = (ShrubberyCreationForm*)intern.makeForm("Shrubbery", "cleshrubmagl");
+        RobotomyRequestForm *e = (RobotomyRequestForm*)intern.makeForm("Robotomy", "clerobotmagl");
+        AForm *g = intern.makeForm("Robotomy", "clerobotmagl");
+        // RobotomyRequestForm *f = (RobotomyRequestForm*)intern.makeForm("fakeRobotomy", "clerobotmagl");
+
+        d->execute(a);
+        e->execute(a);
+
+        // e->execute(b);
+        // f->execute(a);
         // Bureaucrat c("c", 151);
         // Bureaucrat d("d", 0);
 
@@ -21,6 +28,7 @@ int main(void)
         std::cout << a;
         std::cout << b;
         std::cout << *d;
+        std::cout << *g;
         // b.signForm(f);
         // a.signForm(f);
         // b.decrement();

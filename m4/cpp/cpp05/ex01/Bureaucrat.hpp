@@ -2,9 +2,9 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
-#include "AForm.hpp"
+#include "Form.hpp"
 
-class AForm;
+class Form;
 
 class Bureaucrat
 {
@@ -16,8 +16,7 @@ class Bureaucrat
         Bureaucrat &operator=(const Bureaucrat& copy);
         std::string const getName() const;
         int getGrade() const;
-        void signForm(AForm &form);
-        void executeForm(AForm const &form);
+        void signForm(Form &form);
         void decrement();
         void increment();
         

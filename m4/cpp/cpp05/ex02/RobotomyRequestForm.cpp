@@ -2,14 +2,14 @@
 
 static int robotomytenta = 0;
 
-RobotomyRequestForm::RobotomyRequestForm() : Form("Robotomy", 72, 45), _target("default")
+RobotomyRequestForm::RobotomyRequestForm() : AForm("Robotomy", 72, 45), _target("default")
 {}
-RobotomyRequestForm::RobotomyRequestForm(std::string target): Form("Robotomy", 72, 45), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("Robotomy", 72, 45), _target(target)
 {}
 
 RobotomyRequestForm::~RobotomyRequestForm(){}
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &copy)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &copy): AForm(copy)
 {
     *this = copy;
 }
@@ -28,7 +28,7 @@ std::string RobotomyRequestForm::get_target() const
     return this->_target;
 }
 
-void RobotomyRequestForm::execute(Bureaucrat const &executor)
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
     if(executor.getGrade() > this->get_gradeexec())
         throw GradeTooLowException();
