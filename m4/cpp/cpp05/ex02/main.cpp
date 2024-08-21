@@ -11,9 +11,9 @@ int main(void)
         Bureaucrat b("b", 150);
         // AForm f = ShrubberyCreationForm("Russia");
         // AForm *g = new ShrubberyCreationForm("Russia");
-        ShrubberyCreationForm c("Russia");
-        PresidentialPardonForm d("coree");
-        RobotomyRequestForm e("Chine");
+        ShrubberyCreationForm c("Shrub");
+        PresidentialPardonForm d("Presi");
+        RobotomyRequestForm e("Rebot");
 
         c.execute(a);
         d.execute(a);
@@ -27,6 +27,7 @@ int main(void)
         // std::cout << f;
         std::cout << a;
         std::cout << b;
+        std::cout << e;
         // b.signForm(f);
         // a.signForm(f);
         // b.decrement();
