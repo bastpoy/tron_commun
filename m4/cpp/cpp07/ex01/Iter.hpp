@@ -2,19 +2,20 @@
 #define ITER_HPP
 
 #include <iostream>
+#include <iomanip>
 
 template <typename arrType>
-void *el(arrType value)
+void f(arrType value)
 {
     std::cout << "l'indice est " << value << std::endl;
 }
 
 template <typename arrType> 
-void iter(arrType *array, std::size_t length, arrType function)
+void iter(arrType *array, std::size_t length, void (*f)(arrType))
 {
     for(std::size_t i = 0; i < length; i++)
     {
-        function(array[i]);
+        f(array[i]);
     }
 }
 
