@@ -53,6 +53,11 @@
     "iomanip": "cpp",
     "sstream": "cpp",
     "cinttypes": "cpp",
-    "*.tpp": "cpp"
+    "*.tpp": "cpp",
+    "chrono": "cpp",
+    "ratio": "cpp",
+    "stop_token": "cpp",
+    "thread": "cpp",
+    "semaphore": "cpp"
   }
 }

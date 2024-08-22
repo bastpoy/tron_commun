@@ -32,8 +32,7 @@ Array<T>  &Array<T>::operator=(const Array<T> &copy)
     if(this != &copy)
     {
         this->_length = copy.getLength();
-        if(this->_array)
-            delete []this->_array;
+        delete []this->_array;
         this->_array = new T[copy.getLength()]();
         for(unsigned int i = 0; i < this->_length; i++)
         {

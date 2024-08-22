@@ -37,6 +37,7 @@ bool isChar(std::string input)
 
 bool isInt(std::string input)
 {
+    double number = strtod(input.c_str(), NULL);
     if(input[0] != '-' && input[0] != '+' && !isdigit(input[0]))
         return false;
     for(size_t i = 0; i < input.length(); i++)
@@ -44,6 +45,8 @@ bool isInt(std::string input)
         if(!isdigit(input[i]) && i != 0)
             return (false);
     }
+    if(number > static_cast<double>(INT_MAX) || number < static_cast<double>(INT_MIN))
+        return(false);
     return (true);
 }
 
@@ -51,6 +54,7 @@ bool isFloat(std::string input)
 {
     int comma = 0;
     int f = 0;
+    double number = strtod(input.c_str(), NULL);
     if(input[0] != '-' && input[0] != '+' && !isdigit(input[0]))
         return (false);
     for(size_t i = 0; i < input.length(); i++)
@@ -63,14 +67,18 @@ bool isFloat(std::string input)
         }
         if(input[i] == 'f' && i != input.length() - 1)
             return (false);
-        if(!isdigit(input[i]) && input[i] != 'f' && input[i] != '.')
+        if((input[i] == '-' || input[i] == '-') && i != 0)
+            return (false);
+        if(!isdigit(input[i]) && input[i] != 'f' && input[i] != '.' && i != 0)
             return (false);
         if(!isdigit(input[i]) && input[i] == 'f')
             f++;
         if(f > 1)
             return(false);
     }
-    if(input.length() - comma - f > 7)
+    if(number > static_cast<double>(FLT_MAX) ||
+        number < static_cast<double>(-FLT_MAX) || 
+        (number > 0 && number < FLT_MIN))
         return false;
     return (true);
 }
@@ -88,11 +96,11 @@ bool isDouble(std::string input)
             if(comma > 1)
                 return (false);
         }
-        if(!isdigit(input[i]) && input[i] != '.')
+        if((input[i] == '-' || input[i] == '-') && i != 0)
+            return (false);
+        if(!isdigit(input[i]) && input[i] != '.' && i != 0)
             return (false);
     }
-    if(input.length() - comma > 16)
-        return false;
     return (true);
 }
 
@@ -111,6 +119,7 @@ void doInt(std::string input)
 {
     double number = strtod(input.c_str(), NULL);
 
+    std::cout << number << std::endl;
     if(input.find('.') == std::string::npos && number > 32 && number < 127)
         std::cout << "char: '" << static_cast<char>(number) << "'" << std::endl;
     else
@@ -119,22 +128,11 @@ void doInt(std::string input)
         std::cout << "int: overflow" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(number) << std::endl;
-    if(number > static_cast<double>(FLT_MAX) || number < static_cast<double>(FLT_MIN))
-        std::cout << "float: overflow" << std::endl;
-    else
-    {
-        std::cout << "float: " << static_cast<float>(number);
-        if(input.find('.') != std::string::npos)
-            std::cout << "f";
-        std::cout << std::endl;
-    }
-    if(number == HUGE_VAL || number == -HUGE_VAL)
-        std::cout << "double: overflow" << std::endl;
-    else
-        std::cout << "double: " << static_cast<double>(number) << std::endl;
+    std::cout << "float: " << static_cast<float>(number) << std::endl;
+    std::cout << "double: " << static_cast<double>(number) << std::endl;
 }
 
-void doFloat(std::string input, bool &isDiff)
+void doFloat(std::string input)
 {
     double number = strtod(input.c_str(), NULL);
     
@@ -146,19 +144,11 @@ void doFloat(std::string input, bool &isDiff)
         std::cout << "int: overflow" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(number) << std::endl;        
-    if((number > static_cast<double>(FLT_MAX) || number < static_cast<double>(FLT_MIN)) && !isDiff)
-        std::cout << "float: overflow" << std::endl;
-    else
-    {
-        std::cout << "float: " << static_cast<float>(number);
-        if(input.find('.') != std::string::npos || isDiff)
-            std::cout << "f";
-        std::cout << std::endl;
-    }
+    std::cout << "float: " << static_cast<float>(number) << std::endl;
     std::cout << "double: " << static_cast<double>(number) << std::endl;        
 }
 
-void doDouble(std::string input, bool &isDiff)
+void doDouble(std::string input)
 {
     double number = strtod(input.c_str(), NULL);
 
@@ -170,19 +160,8 @@ void doDouble(std::string input, bool &isDiff)
         std::cout << "int: overflow" << std::endl;
     else
         std::cout << "int: " << static_cast<int>(number) << std::endl;
-    if((number > static_cast<double>(FLT_MAX) || number < static_cast<double>(FLT_MIN)) && isDiff)
-        std::cout << "float: overflow" << std::endl;
-    else
-    {
-        std::cout << "float: " << static_cast<float>(number);
-        if(input.find('.') != std::string::npos || isDiff)
-            std::cout << "f";
-        std::cout << std::endl;
-    }
-    if((number == HUGE_VAL || number == -HUGE_VAL) && !isDiff)
-        std::cout << "double: overflow" << std::endl;
-    else
-        std::cout << "double: " << static_cast<double>(number) << std::endl;
+    std::cout << "float: " << static_cast<float>(number) << std::endl;
+    std::cout << "double: " << static_cast<double>(number) << std::endl;
 }
 
 bool isDiffFloat(std::string input, bool &isdiff)
@@ -214,9 +193,9 @@ void ScalarConverter::convert(std::string input)
     else if(isInt(input))
         doInt(input);
     else if(isFloat(input) || isDiffFloat(input, isDiff))
-        doFloat(input, isDiff);
+        doFloat(input);
     else if(isDouble(input) || isDiffDouble(input, isDiff))
-        doDouble(input, isDiff);
+        doDouble(input);
     else
         std::cout << "Impossible convertion of input number" << std::endl;
 }

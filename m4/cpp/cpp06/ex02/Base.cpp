@@ -22,10 +22,15 @@ Base &Base::operator=(const Base &copy)
 
 //FUNCTIONS
 
+unsigned int getSeed() {
+    return static_cast<unsigned int>(std::time(0)) ^ 
+           (static_cast<unsigned int>(clock()) << 16);
+}
+
 Base *generate(void)
 {
-    std::srand(static_cast<unsigned int>(std::time(0)));
-    int randomNumber = (rand() % 3) + 1;   
+    std::srand(getSeed());
+    int randomNumber = (std::rand() % 3) + 1;
 
     if(randomNumber == 1)
         return new A();
@@ -37,11 +42,11 @@ Base *generate(void)
 
 void identify(Base *p)
 {
-    if(dynamic_cast<A*>(p) != 0)
+    if(dynamic_cast<A*>(p) != NULL)
         std::cout << "le type de p est A" << std::endl;
-    else if(dynamic_cast<B*>(p) != 0)
+    else if(dynamic_cast<B*>(p) != NULL)
         std::cout << "le type de p est B" << std::endl;
-    else if(dynamic_cast<C*>(p) != 0)
+    else if(dynamic_cast<C*>(p) != NULL)
         std::cout << "le type de p est C" << std::endl;
     else
         std::cout << "unknow type" << std::endl;
@@ -56,7 +61,6 @@ void identify(Base& p)
         std::cout << "le type de p est A" << std::endl;
     }
     catch(std::exception & e){}
-    
     try
     {
         test = dynamic_cast<B&>(p);
@@ -68,8 +72,5 @@ void identify(Base& p)
         test = dynamic_cast<C&>(p);
         std::cout << "le type de p est C" << std::endl;
     }
-    catch(std::exception & e)
-    {
-        std::cout << "unknow type" << std::endl;
-    }
+    catch(std::exception & e){}
 }
