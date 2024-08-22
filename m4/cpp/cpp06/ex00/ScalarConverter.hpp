@@ -10,6 +10,9 @@ class ScalarConverter
 
     private:
         ScalarConverter();
+        ~ScalarConverter();
+        ScalarConverter(const ScalarConverter &copy);
+        ScalarConverter &operator=(const ScalarConverter &copy);
 };
     
 #endif

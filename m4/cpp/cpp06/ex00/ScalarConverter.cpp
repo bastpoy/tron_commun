@@ -5,6 +5,25 @@
 #include <cstdlib>
 #include <cmath>
 
+ScalarConverter::ScalarConverter()
+{}
+
+ScalarConverter::~ScalarConverter()
+{}
+
+ScalarConverter::ScalarConverter(const ScalarConverter &copy)
+{
+    *this = copy;
+}
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &copy)
+{
+    (void)copy;
+    return (*this);
+}
+
+//FUNCTIONS
+
 bool isChar(std::string input)
 {
     if(!isdigit(input[0]) && input.length() == 1)
@@ -112,7 +131,7 @@ void doInt(std::string input)
     if(number == HUGE_VAL || number == -HUGE_VAL)
         std::cout << "double: overflow" << std::endl;
     else
-        std::cout << "double: " << number << std::endl;
+        std::cout << "double: " << static_cast<double>(number) << std::endl;
 }
 
 void doFloat(std::string input, bool &isDiff)
@@ -163,7 +182,7 @@ void doDouble(std::string input, bool &isDiff)
     if((number == HUGE_VAL || number == -HUGE_VAL) && !isDiff)
         std::cout << "double: overflow" << std::endl;
     else
-        std::cout << "double: " << number << std::endl;
+        std::cout << "double: " << static_cast<double>(number) << std::endl;
 }
 
 bool isDiffFloat(std::string input, bool &isdiff)

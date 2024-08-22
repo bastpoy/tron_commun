@@ -12,12 +12,13 @@ int main(void)
         // AForm f = ShrubberyCreationForm("Russia");
         // AForm *g = new ShrubberyCreationForm("Russia");
         ShrubberyCreationForm *d = (ShrubberyCreationForm*)intern.makeForm("Shrubbery", "cleshrubmagl");
-        RobotomyRequestForm *e = (RobotomyRequestForm*)intern.makeForm("Robotomy", "clerobotmagl");
+        AForm *e = intern.makeForm("Robotomy", "clerobotmagl");
         AForm *g = intern.makeForm("Robotomy", "clerobotmagl");
         // RobotomyRequestForm *f = (RobotomyRequestForm*)intern.makeForm("fakeRobotomy", "clerobotmagl");
 
         d->execute(a);
         e->execute(a);
+        g->execute(a);
 
         // e->execute(b);
         // f->execute(a);

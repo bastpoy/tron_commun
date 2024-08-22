@@ -43,6 +43,7 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
     else
     {
         std::cout << "**Drilling noises**  " << 
-        this->_target << " robotomy failed" << std::endl;    
+        this->_target << " robotomy failed" << std::endl;
+        robotomytenta++;
     }
 }
