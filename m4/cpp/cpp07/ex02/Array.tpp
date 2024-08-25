@@ -77,6 +77,12 @@ void Array<T>::printArray() const
     }
     std::cout << std::endl;
 }
+
+template<typename T>
+unsigned int Array<T>::size(void) const
+{
+    return (this->_length);
+}
 //EXCEPTIONS
 
 template<typename T>

@@ -15,6 +15,7 @@ int main(void)
         doublearray.printElement(4);
         intarray = b;
         intarray.printArray();
+        std::cout << "la taille est " << intarray.size() << std::endl;
     }
     catch(const std::exception& e)
     {
