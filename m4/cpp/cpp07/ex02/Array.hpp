@@ -12,6 +12,8 @@ class Array
         ~Array();
         Array(const Array<T> &Copy);
         Array<T> &operator=(const Array<T> &copy);
+        T &operator[](unsigned int index);
+        T &operator[](unsigned int index) const;
         unsigned int size(void) const;
         unsigned int getLength(void) const;
         T getArrayVal(unsigned int el) const;
@@ -26,8 +28,6 @@ class Array
     private:
         T *_array;
         unsigned int _length;
-
-
 };
 
 #include "Array.tpp"

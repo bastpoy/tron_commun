@@ -10,8 +10,8 @@ void f(arrType value)
     std::cout << "l'indice est " << value << std::endl;
 }
 
-template <typename arrType> 
-void iter(arrType *array, std::size_t length, void (*f)(arrType))
+template <typename arrType>
+void iter(arrType *array, std::size_t length, void (*f)(arrType&))
 {
     for(std::size_t i = 0; i < length; i++)
     {

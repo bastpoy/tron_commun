@@ -1,25 +1,78 @@
 #include "Array.hpp"
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
+#include <iostream>
+#define MAX_VAL 750
 
-int main(void)
+// int main(void)
+// {
+//     try
+//     {
+//         Array<int> intarray = Array<int>();
+//         Array<float> floatarray = Array<float>();
+//         Array<double> doublearray(5);
+//         // Array<int> a(5);
+//         Array<int> b(6);
+
+//         // intarray.printElement(5);
+//         // floatarray.printElement(2);
+//         doublearray.printElement(4);
+//         intarray = b;
+//         intarray.printArray();
+//         std::cout << "la taille est " << intarray.size() << std::endl;
+//     }
+//     catch(const std::exception& e)
+//     {
+//         std::cerr << e.what() << '\n';
+//     }
+// }
+int main(int, char**)
 {
+    Array<int> numbers(MAX_VAL);
+    int* mirror = new int[MAX_VAL];
+    srand(time(NULL));
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        const int value = rand();
+        numbers[i] = value;
+        mirror[i] = value;
+    }
+    //SCOPE
+    {
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
+    }
+
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        if (mirror[i] != numbers[i])
+        {
+            std::cerr << "didn't save the same value!!" << std::endl;
+            return 1;
+        }
+    }
     try
     {
-        Array<int> intarray = Array<int>();
-        Array<float> floatarray = Array<float>();
-        Array<double> doublearray(5);
-        // Array<int> a(5);
-        Array<int> b(6);
-
-        // intarray.printElement(5);
-        // floatarray.printElement(2);
-        doublearray.printElement(4);
-        intarray = b;
-        intarray.printArray();
-        std::cout << "la taille est " << intarray.size() << std::endl;
+        numbers[-2] = 0;
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
+    try
+    {
+        numbers[MAX_VAL] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        numbers[i] = rand();
+    }
+    delete [] mirror;//
+    return 0;
 }
-    

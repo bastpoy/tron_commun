@@ -22,7 +22,7 @@ Array<T>::~Array()
 }
 
 template<typename T>
-Array<T>::Array(const Array<T> &copy)
+Array<T>::Array(const Array<T> &copy):_array(new T[copy.getLength()]()),  _length(copy._length)
 {
     *this = copy;
 }
@@ -32,7 +32,7 @@ Array<T>  &Array<T>::operator=(const Array<T> &copy)
     if(this != &copy)
     {
         this->_length = copy.getLength();
-        delete []this->_array;
+        delete[] this->_array;
         this->_array = new T[copy.getLength()]();
         for(unsigned int i = 0; i < this->_length; i++)
         {
@@ -89,6 +89,24 @@ template<typename T>
 const char* Array<T>::WrongArrayElement::what() const throw()
 {
     return("Out of range array element");
+}
+
+// overload []
+
+template <typename T>
+T &Array<T>::operator[](unsigned int index)
+{
+    if(index < _length)
+        return(this->_array[index]);
+    throw WrongArrayElement();
+}
+
+template <typename T>
+T &Array<T>::operator[](unsigned int index) const
+{
+    if(index < _length)
+        return(this->_array[index]);
+    throw WrongArrayElement();
 }
 
 #endif
