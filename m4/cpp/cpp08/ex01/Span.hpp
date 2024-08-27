@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <algorithm>
+#include <limits>
 
 class Span
 {
@@ -15,14 +17,14 @@ class Span
         Span &operator=(const Span &copy);
 
         void addNumber(int number);
-        // unsigned int shortestSpan() const;
-        unsigned int longestSpan() const;
+        void addMultipleNumbers(std::vector<int>::const_iterator bgn, std::vector<int>::const_iterator end);
+        int shortestSpan() const;
+        int longestSpan() const;
         void printSpan() const;
 
     private:
         std::vector<int> _array;
         unsigned int _N;
-        unsigned int _index;
 
     class WrongArrayElement : public std::exception{
         public:

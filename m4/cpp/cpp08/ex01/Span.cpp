@@ -1,12 +1,12 @@
 #include "Span.hpp"
 
-Span::Span(): _N(0), _index(0)
+Span::Span(): _N(0)
 {
     this->_array = std::vector<int>(0);
 }
 Span::~Span()
 {}
-Span::Span(unsigned int N): _N(N), _index(0)
+Span::Span(unsigned int N): _N(N)
 {
     this->_array = std::vector<int>(0,N);
 }
@@ -28,27 +28,36 @@ Span &Span::operator=(const Span &copy)
 
 void Span::addNumber(int number)
 {
-    if(this->_index >= this->_N)
+    if(this->_array.size() > this->_N)
         throw WrongArrayElement();
     this->_array.push_back(number);
-    this->_index++;
 }
 
-unsigned int Span::longestSpan() const
+int Span::longestSpan() const
 {
-    // std::vector<int>::const_iterator it;
-    unsigned int gap = 0;
-    if(this->_N == 0)
+    if(this->_N <= 1)
         throw notEnoughtElement();
-    std::cout << "min " << std::min(*(this->_array.begin()), *(this->_array.end())) << std::endl; 
-    gap = std::max(this->_array.begin(), this->_array.end()) - std::min(this->_array.begin(), this->_array.end()); 
-    return (gap);
+    int max = *std::max_element(this->_array.begin(), this->_array.end());
+    int min = *std::min_element(this->_array.begin(), this->_array.end());
+    return (max - min);
 }
 
-// unsigned int Span::longestSpan() const
-// {
+int Span::shortestSpan() const
+{
+    std::vector<int> copy = this->_array;
+    unsigned int minspan = std::numeric_limits<unsigned int>::max();
+    std::sort(copy.begin(), copy.end());
 
-// }
+    if(this->_N <= 1)
+        throw notEnoughtElement();
+    for(std::vector<int>::const_iterator it = copy.begin(); it != copy.end() - 1 ; it++)
+    {
+        unsigned int span = *(it + 1) - *it;
+        if(span < minspan)
+            minspan = span;
+    }
+    return (minspan);
+}
 
 void Span::printSpan() const
 {
@@ -57,6 +66,13 @@ void Span::printSpan() const
     {
         std::cout << *it << std::endl;
     }
+}
+
+void Span::addMultipleNumbers(std::vector<int>::const_iterator bgn, std::vector<int>::const_iterator end)
+{
+    this->_array.insert(this->_array.end(), bgn, end);
+    if(_array.size() > _N)
+        throw notEnoughtElement();
 }
 
 //Exceptions
@@ -68,5 +84,5 @@ const char* Span::WrongArrayElement::what() const throw()
 
 const char* Span::notEnoughtElement::what() const throw()
 {
-    return("Not enought element in the array");
+    return("Not enought element inside the array");
 }
