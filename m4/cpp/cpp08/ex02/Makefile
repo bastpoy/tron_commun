@@ -1,12 +1,12 @@
-SRCSCPP = main.cpp MutantStack.cpp
+SRCSCPP = main.cpp 
 
 OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -std=c++98
 
 NAME = span
 
-$(NAME) :  $(OBJSCPP)
+$(NAME) :  $(OBJSCPP) MutantStack.hpp
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)
 
 all : $(NAME)
