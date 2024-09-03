@@ -9,7 +9,7 @@ int main()
 
         sp.addNumber(6);
         sp.addNumber(12);
-        sp.addNumber(17);
+        sp.addNumber(-20);
         // sp.addNumber(9);
         // sp.addNumber(11);
 
@@ -24,19 +24,21 @@ int main()
     {
         std::cerr << e.what() << '\n';
     }
-    // try
-    // {
-    //     std::vector<int> re(10000);
-    //     std::srand(time(NULL));
-    //     std::generate(re.begin(), re.end(), std::rand);
+    try
+    {
+        std::vector<int> re(10000);
+        std::srand(time(NULL));
+        std::generate(re.begin(), re.end(), std::rand);
 
-    //     Span la(10000);
-    //     la.addMultipleNumbers(re.begin(), re.end());
-    //     la.printSpan();
-    // }
-    // catch(const std::exception& e)
-    // {
-    //     std::cerr << e.what() << '\n';
-    // }
+        Span la(10000);
+        la.addMultipleNumbers(re.begin(), re.end());
+        std::cout << la.longestSpan() << std::endl;
+        std::cout << la.shortestSpan() << std::endl;
+        // la.printSpan();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     return 0;
 }

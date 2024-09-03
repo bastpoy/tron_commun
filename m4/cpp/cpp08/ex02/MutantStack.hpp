@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <stack>
+#include <vector>
+#include <list>
 
 template <typename T>
 class MutantStack: public std::stack<T>
@@ -18,17 +20,6 @@ class MutantStack: public std::stack<T>
 
         iterator begin();
         iterator end();
-
-        //MEMBER FUNCTIONS
-        std::stack<T> &get_stack(void) const;
-
-        // STACKS FUNCTIONS
-        const T &top(void) const;
-        bool empty(void) const;
-        void push(const T &value);
-        void push_range();
-        void pop(void);
-        size_t size(void) const;
 };
 
 #include "MutantStack.tpp"

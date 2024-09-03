@@ -4,14 +4,14 @@ OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
-NAME = template
+NAME = easyfind
 
 $(NAME) :  $(OBJSCPP)
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)
 
 all : $(NAME)
 
-objects/%.o : %.cpp
+objects/%.o : %.cpp easyfind.hpp easyfind.tpp
 	mkdir -p $(dir $@)
 	c++ $(CFLAGS) -c $< -o $@
 

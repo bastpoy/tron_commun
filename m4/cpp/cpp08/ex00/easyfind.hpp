@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <algorithm>
 
 template<typename container>
 void  easyfind(const container &ctn, int occurence);
