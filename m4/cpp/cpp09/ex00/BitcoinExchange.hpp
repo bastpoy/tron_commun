@@ -6,6 +6,10 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
+
+#include<bits/stdc++.h> 
 
 class BitcoinExchange
 {
@@ -14,11 +18,14 @@ class BitcoinExchange
         ~BitcoinExchange();
 
         void check_date(std::ifstream &fd);
-
+        float check_value(std::string line);
+        void fillDate(void);
+        void dateInData(std::string date, float value);
 
     private:
-        std::map<std::string, float> keypair;
+        std::map<std::string, float> _keypair;
 };
+
 
 class InputFile : public std::exception
 {
@@ -38,6 +45,16 @@ class CantOpeningFile : public std::exception
         virtual const char* what() const throw();
 };
 
-bool isSpecifiedChar(char c);
+class FirstLineError : public std::exception
+{
+    public:
+        virtual const char *what() const throw();
+};
+
+class WrongValue : public std::exception
+{
+    public:
+        virtual const char *what() const throw();
+};
 
 #endif

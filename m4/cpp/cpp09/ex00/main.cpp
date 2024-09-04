@@ -11,11 +11,12 @@ int main(int argc, char **argv)
         }
         else
         {
-            BitcoinExchange value;
             std::ifstream inputFile(argv[1]);
+            BitcoinExchange value;
             
             if(inputFile.is_open())
             {
+                value.fillDate();
                 value.check_date(inputFile);
             }
             else
