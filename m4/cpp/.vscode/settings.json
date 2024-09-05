@@ -82,6 +82,14 @@
     "typeindex": "cpp",
     "valarray": "cpp",
     "charconv": "cpp",
-    "stacktrace": "cpp"
+    "stacktrace": "cpp",
+    "barrier": "cpp",
+    "coroutine": "cpp",
+    "expected": "cpp",
+    "latch": "cpp",
+    "source_location": "cpp",
+    "spanstream": "cpp",
+    "syncstream": "cpp",
+    "variant": "cpp"
   }
 }

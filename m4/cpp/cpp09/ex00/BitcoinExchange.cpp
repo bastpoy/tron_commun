@@ -26,34 +26,53 @@ bool isValidDate(std::string &line)
     {
         dayofmonth[1] = 29;
     }
+    if(day > 0 && day <= dayofmonth[month - 1])
+        return (1);
+    else
+    {
+        std::cout << "Not a valid date: " << line << std::endl;
+        return (0);
+    }
     return day > 0 && day <= dayofmonth[month - 1];
 }
 
 bool positionCharacter(std::string &line)
 {
+    if(line.length() != 11 )
+    {
+        std::cout << "Not a valid date: " << line << std::endl;
+        return (false);        
+    }
     if(line[4] == '-' && line[7] == '-' && line[10] == ' ')
     {
         for(size_t i = 0; i < line.length(); i++)
         {
             if(!isdigit(line[i]) && i != 4 && i != 7 && i != 10)
             {
+                std::cout << "Caracter inside date " << line << std::endl;
                 return (false);
             }
         }
     }
     else
+    {
+        std::cout << "Not a valid date: " << line << std::endl;
         return (false);
+    }
     return (true);
 }
 
-float BitcoinExchange::check_value(std::string line)
+bool BitcoinExchange::check_value(std::string line, float &value)
 {
     size_t length;
     int comma = 0;
 
     length = line.length();
     if(length < 14 || line[12] != ' ')
-        throw WrongValue();
+    {
+        std::cout << "Error: bad date configuration: " << line << std::endl;
+        return (0);
+    }
     line = line.substr(13, line.length() - 12);
     for(size_t i = 0; i < line.length(); i++)
     {
@@ -61,17 +80,25 @@ float BitcoinExchange::check_value(std::string line)
         {
             comma++;
             if(comma > 1)
-                throw WrongValue();
+            {
+                std::cout << "Two much . inside the value: " << line << std::endl;
+                return (0);
+            }
         }
         else if(!isdigit(line[i]) && line[i])
         {
-            throw WrongValue();
+            std::cout << "Error: bad date configuration: " << line << std::endl;
+            return (0);
         }
     }
     double number = strtod(line.c_str(), NULL);
     if(number > 1000)
-        throw WrongValue();
-    return static_cast<float>(number);
+    {
+        std::cout << "Error two large number." << std::endl;
+        return (0);
+    }
+    value =  static_cast<float>(number);
+    return(1);
 }
 
 void BitcoinExchange::check_date(std::ifstream &fd)
@@ -79,11 +106,15 @@ void BitcoinExchange::check_date(std::ifstream &fd)
     std::string line;
     size_t pos;
     size_t i = 0;
+    float value;
 
     while(getline(fd, line))
     {
         if(i == 0 && line != "date | value")
-            throw FirstLineError();
+        {
+            std::cout << "First line not equal to: date | value" << std::endl;
+            return;
+        }
         if(i == 0)
         {
             i++;
@@ -91,14 +122,16 @@ void BitcoinExchange::check_date(std::ifstream &fd)
         }
         pos = line.find("|");
         if(pos != 11)
-            throw WrongDateFormat();
-        float value = check_value(line);
+        {
+            std::cout << "Error: bad line configuration: " << line << std::endl;
+            continue;
+        }
+        if(!check_value(line, value))
+            continue;
         line = line.substr(0, pos);
-        if(line.length() != 11 || !positionCharacter(line) || !isValidDate(line))
-            throw WrongDateFormat();
-        // _keypair.insert(std::make_pair(line.substr(0, 10), value));
+        if(!positionCharacter(line) || !isValidDate(line))
+            continue;
         dateInData(line.substr(0, 10), value);
-        // std::cout << line << "-" << std::endl;
         i++;
     }
     // for (std::multimap<std::string, float>::iterator it = _keypair.begin(); it != _keypair.end(); ++it) {
@@ -132,40 +165,47 @@ void printLine(std::multimap<std::string, float>::iterator itData, std::string d
     std::cout << date <<  " => " << value << " = " << itData->second * value << std::endl;
 }
 
+time_t parseDate(const std::string &date) {
+    struct tm tm = {};  // Initialise tous les champs à 0
+    // Parse la date en format "YYYY-MM-DD"
+    if (strptime(date.c_str(), "%Y-%m-%d", &tm) == NULL) {
+        std::cerr << "Erreur lors de l'analyse de la date : " << date << std::endl;
+        return -1; // Retourne une valeur d'erreur si l'analyse échoue
+    }
+    return mktime(&tm); 
+}
+
 void BitcoinExchange::dateInData(std::string date, float value)
 {
     std::multimap<std::string, float>::iterator iterator;
     iterator = _keypair.lower_bound(date);
     if(iterator == _keypair.begin())
-    {
-        std::cout << std::endl << "inside prev" << std::endl;
         printLine(iterator, date, value);
-    }
     else if(iterator == _keypair.end())
     {
         --iterator;
-        std::cout << std::endl << "inside end" << std::endl;
         printLine(iterator, date, value);
     }
     else if(iterator->first == date)
-    {
-        std::cout << std::endl << "inside equal" << std::endl;
         printLine(iterator, date, value);
-    }
     else
     {
         std::multimap<std::string, float>::iterator prevIterator = iterator;
         --prevIterator;
-        if(iterator->first.compare(date) < date.compare(prevIterator->first))
-        {
-            std::cout << std::endl << "current " << iterator->first << std::endl;
+        
+        time_t givenDate = parseDate(date);
+        time_t nextDate = parseDate(iterator->first);
+        time_t prevDate = parseDate(prevIterator->first);
+
+
+        // Calculate absolute differences
+        double diffNext = difftime(nextDate, givenDate);
+        double diffPrev = difftime(prevDate, givenDate);
+
+        if(std::abs(diffNext) < std::abs(diffPrev))
             printLine(iterator, date, value);
-        }
         else
-        {
-            std::cout << std::endl << "current " << prevIterator->first << std::endl;
             printLine(prevIterator, date, value);
-        }
     }
 }
 

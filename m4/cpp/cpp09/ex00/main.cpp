@@ -2,32 +2,32 @@
 
 int main(int argc, char **argv)
 {
-    try
+
+    if(argc < 2)
     {
-        if(argc != 2)
+        std::cout << "Error: could not open file." << std::endl;
+        return (1);
+    }
+    else if(argc > 2)
+    {
+        std::cout << "Too much arguments" << std::endl;
+        return (1);
+    }
+    else
+    {
+        std::ifstream inputFile(argv[1]);
+        BitcoinExchange value;
+        
+        if(inputFile.is_open())
         {
-            std::cout << "No input file or too much arguments" << std::endl;
-            throw CantOpeningFile();
+            value.fillDate();
+            value.check_date(inputFile);
         }
         else
         {
-            std::ifstream inputFile(argv[1]);
-            BitcoinExchange value;
-            
-            if(inputFile.is_open())
-            {
-                value.fillDate();
-                value.check_date(inputFile);
-            }
-            else
-            {
-                throw CantOpeningFile();
-            }
+            std::cout << "Can't open file" << std::endl;
+            return (1);
         }
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
     }
     return (0);
 }

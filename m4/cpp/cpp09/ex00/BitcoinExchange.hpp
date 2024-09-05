@@ -18,7 +18,7 @@ class BitcoinExchange
         ~BitcoinExchange();
 
         void check_date(std::ifstream &fd);
-        float check_value(std::string line);
+        bool check_value(std::string line, float &number);
         void fillDate(void);
         void dateInData(std::string date, float value);
 
