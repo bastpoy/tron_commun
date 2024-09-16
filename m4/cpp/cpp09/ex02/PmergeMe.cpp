@@ -131,8 +131,8 @@ void merge_insert(std::vector<int> &array, int min, int max)
 
     while(highmiddle <= max)
     {
-        i = 0;
-        if(i == 1)
+        i = 1;
+        if(i == 0)
         {
             std::cout << "value: " << array[highmiddle]<< " indice high: " << highmiddle << " indice low: " << lowmiddle << std::endl; 
             printArray(array);
@@ -158,6 +158,8 @@ void merge_insert(std::vector<int> &array, int min, int max)
         {
             lowmiddle = (highmiddle + lowmiddle) / 2;
         }
+        // std::cout << array[highmiddle] << std::endl;
+        // printArray(array);
     }    
 }
 
