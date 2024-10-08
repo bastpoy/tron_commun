@@ -4,7 +4,7 @@ OBJSCPP = $(patsubst %.cpp, objects/%.o, $(SRCSCPP))
 
 CFLAGS = -Wall -Wextra -Werror -g3 -std=c++98
 
-NAME = RPN
+NAME = PmergeMe
 
 $(NAME) :  $(OBJSCPP)
 	c++ $(CFLAGS) -o $(NAME) $(OBJSCPP)

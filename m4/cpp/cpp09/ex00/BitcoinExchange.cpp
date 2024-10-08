@@ -134,9 +134,6 @@ void BitcoinExchange::check_date(std::ifstream &fd)
         dateInData(line.substr(0, 10), value);
         i++;
     }
-    // for (std::multimap<std::string, float>::iterator it = _keypair.begin(); it != _keypair.end(); ++it) {
-    //     std::cout << "Key: " << it->first << ", Value: " << it->second << std::endl;
-    // }
 }
 
 void BitcoinExchange::fillDate(void)

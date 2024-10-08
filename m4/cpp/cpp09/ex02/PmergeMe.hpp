@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <ctime>
+#include <limits.h>
 
 template <typename Container>
 class PmergeMe
@@ -60,7 +61,16 @@ bool PmergeMe<Container>::addNumbers(char *argv[])
     {
         char *endptr = NULL;
         long num = strtol(argv[i] , &endptr, 0);
-
+        if(num < 0)
+        {
+            std::cout << "Error: " << num << " is negative" << std::endl;
+            return (false);
+        }
+        if(num > INT_MAX)
+        {
+            std::cout << "Error: " << num << " is not an integer" << std::endl;
+            return (false);
+        }
         if(*endptr != '\0')
         {
             i++;
@@ -154,25 +164,18 @@ void PmergeMe<Container>::merge_insert(Container &array, int min, int max)
             extrem = 0;
             highmiddle++;
             lowmiddle = (highmiddle - 1 + min) / 2;
-            // printArray(array);
         }
         else if(array[highmiddle] < array[lowmiddle])
         {
-            // std::cout << "dans inferieur" << std::endl;
-            // std::cout << "value: " << array[highmiddle]<< " indice high: " << highmiddle << " indice low: " << lowmiddle << " value: " << array[lowmiddle] << " et min " << min << " et max " << max << std::endl; 
-            // printArray(array);
             lowmiddle = (lowmiddle + extrem) / 2;
-            if(lowmiddle < min )
+            if(lowmiddle < min)
                 lowmiddle = min;
         }
         else if(array[highmiddle] > array[lowmiddle + 1])
         {
-            // std::cout << "dans superieur" << std::endl;
-            // std::cout << "value: " << array[highmiddle]<< " indice high: " << highmiddle << " indice low: " << lowmiddle << " value: " << array[lowmiddle] << " et min " << min << std::endl; 
             extrem = lowmiddle;
             lowmiddle = (highmiddle + lowmiddle) / 2;
         }
-        // std::cout << array[highmiddle] << std::endl;
     }    
 }
 template <typename Container>
@@ -183,8 +186,6 @@ void PmergeMe<Container>::algorithm(Container &array, int min, int max)
         int middle = (max + min) / 2; // trouver le milieu de chaque intervalle
         algorithm(array, min, middle); // le cote min de la division par deux
         algorithm(array, middle + 1, max); // le cote max de la division par deux;
-        // std::cout << "le min " << min << " et le max " << max << std::endl;
-        // printArray(array);
         merge_insert(array, min, max);
     }
     else

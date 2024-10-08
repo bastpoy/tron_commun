@@ -42,7 +42,7 @@ bool RPN::do_maths(int copy, std::string input, size_t index)
     double result = 0;
     if(input[index] == '+')
     {
-        result = this->numbers.top()+ copy;
+        result = this->numbers.top() + copy;
     }
     else if(input[index] == '-')
     {
@@ -71,7 +71,6 @@ void RPN::algorithm(std::string input)
         number = input[i] - '0';
         if((number >= 0 && number <= 9) && i % 2 == 0 && input.length() - 1)
         {
-            // std::cout << "le nombre push: " << static_cast<double>(number) << std::endl;
             this->numbers.push(static_cast<double>(number));
         }
         else if (input[i] == ' ' && i % 2 == 1 && i != input.length() - 1)

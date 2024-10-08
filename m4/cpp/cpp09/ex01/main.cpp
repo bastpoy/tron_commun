@@ -16,11 +16,7 @@ int main(int argc, char **argv)
     {
         std::string input = argv[1];
         RPN stack;
-
-        // std::reverse(input.begin(), input.end());
-        // std::cout << input << std::endl;
         stack.algorithm(input);
-        // stack.printRPN();
     }
 }
 

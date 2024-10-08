@@ -25,7 +25,10 @@ int main(int argc, char *argv[])
         array1 = gamberge1.getContainer();
 
         std::clock_t start = std::clock();
+        std::cout << "before: ";
+        gamberge.printArray(array);
         gamberge.algorithm(array, 0, array.size() - 1);
+        std::cout << "after: ";
         gamberge.printArray(array);
         std::clock_t end = std::clock();
         double elapsed = double(end - start);
@@ -33,7 +36,6 @@ int main(int argc, char *argv[])
         
         start = std::clock();
         gamberge1.algorithm(array1, 0, array.size() - 1);
-        gamberge1.printArray(array1);
         end = std::clock();
         elapsed = double(end - start);
         std::cout << "Time to process a range of " << array1.size() << " elements with std::deque: " << elapsed << " us" << std::endl;
